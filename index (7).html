@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mes projets — état au 15 novembre 2026 (base)</title>
+<meta name="description" content="L'état de cinq projets, à la date du 15 novembre 2026 : ce qui est fait, ce qui reste, et la prochaine étape de chacun.">
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root{--bg:#fbf9f5;--card:#fff;--ink:#191c22;--dim:#6b7280;--line:#e6e0d4;
+--ok:#2f855a;--enc:#b8860b;--cad:#7a6f8f;--acc:#3b6ea5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+font:16.5px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.envel{max-width:760px;margin:0 auto;padding:44px 20px 100px}
+h1{font-size:clamp(28px,5.4vw,38px);margin:0 0 6px;letter-spacing:-.028em}
+.date{color:var(--dim);font-size:14.5px;margin:0 0 6px}
+.principe{color:var(--dim);font-size:15px;margin:0 0 26px;max-width:56ch}
+
+.resume{display:flex;gap:26px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);
+border-radius:14px;padding:18px 20px;margin:0 0 26px}
+.resume div{min-width:96px}
+.resume b{display:block;font-size:26px;line-height:1.15;letter-spacing:-.02em}
+.resume span{font-size:12.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.07em}
+
+.lienaide{color:var(--acc);text-decoration:none;border-bottom:1px solid #c5d8ee}
+.lienaide:hover{border-bottom-color:var(--acc)}
+.aide{margin:0 0 6px}
+.aide details{border-bottom:1px solid #f0ece2;padding:0}
+.aide details:last-child{border-bottom:0}
+.aide summary{cursor:pointer;padding:11px 0 11px 20px;font-size:14.9px;font-weight:600;
+color:#2c333c;position:relative;list-style:none;user-select:none}
+.aide summary::-webkit-details-marker{display:none}
+.aide summary::before{content:"+";position:absolute;left:2px;top:9px;color:var(--acc);
+font-weight:700;font-size:16px;line-height:1.2}
+.aide details[open] summary::before{content:"−"}
+.aide summary:hover{color:var(--acc)}
+.aide details p{margin:0 0 11px 20px;font-size:14.4px;color:#4a5058;line-height:1.62;max-width:64ch}
+.chantier{background:#fdf6e3;border:1px solid #e8d5a0;border-left:4px solid #c9a227;
+border-radius:11px;padding:15px 18px;margin:0 0 22px}
+.chantier b{display:inline-block;font-size:11px;text-transform:uppercase;letter-spacing:.11em;
+color:#8a6400;margin-bottom:6px}
+.chantier p{margin:0;font-size:14.6px;color:#4a3f1e;line-height:1.6}
+.chantier p.v{margin-top:7px;font-size:12.6px;color:#8a7a4a}
+#q{width:100%;background:var(--card);border:1px solid var(--line);border-radius:10px;
+padding:12px 15px;font-size:15.5px;color:var(--ink);margin:10px 0 4px;font-family:inherit}
+#q:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px rgba(59,110,165,.11)}
+#res .r{border-bottom:1px solid #f2eee4;padding:11px 0;font-size:14.2px;line-height:1.55}
+#res .r:last-child{border-bottom:0}
+#res .rs{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);font-weight:700;margin-bottom:2px}
+#res mark{background:#ffe9a8;color:#000;padding:0 2px;border-radius:2px}
+#res .vide{padding:12px 0;color:var(--dim);font-size:14px}
+#veille .v{padding:11px 0;border-bottom:1px solid #f2eee4;font-size:14.2px}
+#veille .v:last-child{border-bottom:0}
+#veille .vt{font-weight:600;font-size:14.8px;margin-bottom:2px}
+#veille .vs{font-size:13.6px;color:#5a6068;line-height:1.55}
+#veille .badge{display:inline-block;font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;
+padding:2px 8px;border-radius:99px;font-weight:700;margin-left:7px;vertical-align:1px}
+#veille .badge.ok{background:#eefaf3;color:#22694a;border:1px solid #b8ddc8}
+#veille .badge.rien{background:#fdf0ee;color:#9a3b28;border:1px solid #f0cfc6}
+ol.cond{margin:10px 0 0;padding-left:22px;font-size:14.8px}
+ol.cond li{margin-bottom:9px;line-height:1.6;color:#3a4048}
+ol.cond b{color:var(--ink)}
+h2.sect{font-size:12px;text-transform:uppercase;letter-spacing:.11em;color:var(--dim);
+margin:34px 0 12px;border-bottom:1px solid var(--line);padding-bottom:7px;font-weight:600}
+.b{display:grid;grid-template-columns:1fr 92px 46px;gap:11px;align-items:center;padding:5px 0;font-size:14px}
+.bn{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#333}
+.bb{height:7px;background:#eee8db;border-radius:99px;overflow:hidden}
+.bb i{display:block;height:100%;border-radius:99px}
+.bp{text-align:right;color:var(--dim);font-variant-numeric:tabular-nums;font-size:13px}
+i.fini{background:var(--ok)} i.encours{background:var(--enc)} i.cadre{background:var(--cad)}
+
+.p{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--cad);
+border-radius:13px;padding:20px 22px;margin:0 0 15px}
+.p.fini{border-left-color:var(--ok)}
+.p.encours{border-left-color:var(--enc)}
+.p header{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+.p h2{font-size:20px;margin:0;letter-spacing:-.015em}
+.tag{font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;padding:3px 10px;
+border-radius:99px;border:1px solid;font-weight:700;white-space:nowrap}
+.tag.fini{color:#22694a;border-color:#b8ddc8;background:#eefaf3}
+.tag.encours{color:#8a6400;border-color:#e8d5a0;background:#fdf6e3}
+.tag.cadre{color:#5f5575;border-color:#d5cfe3;background:#f4f1f9}
+.idee{margin:0 0 14px;font-size:15px;color:#414651}
+
+.jauge{height:9px;background:#f0ece3;border-radius:99px;overflow:hidden;margin:0 0 6px}
+.jauge i{display:block;height:100%;border-radius:99px;transition:width .3s}
+.compte{margin:0 0 15px;font-size:13px;color:var(--dim);font-variant-numeric:tabular-nums}
+.compte b{color:var(--ink)}
+
+.lab{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;
+color:var(--dim);font-weight:700;margin-bottom:4px}
+.fin{background:#f1f8f4;border:1px solid #d3e8db;border-radius:9px;padding:11px 14px;margin:0 0 9px}
+.fin .lab{color:#2f6b4d} .fin p{margin:0;font-weight:600;color:#14442c;font-size:15px;line-height:1.5}
+.prox{background:#eff4fa;border:1px solid #cfe0f2;border-radius:9px;padding:11px 14px;margin:0 0 12px}
+.prox .lab{color:#2c5d91} .prox p{margin:0;font-weight:600;color:#173f68;font-size:15px}
+.prox p.rien{font-weight:500;color:#2f6b4d}
+
+details{margin-top:4px}
+summary{cursor:pointer;font-size:13.5px;color:var(--acc);padding:5px 0;user-select:none}
+summary:hover{text-decoration:underline}
+ul.etapes{list-style:none;margin:8px 0 0;padding:0;font-size:14.2px}
+ul.etapes li{display:flex;gap:9px;padding:5px 0;border-bottom:1px solid #f4f1ea;align-items:flex-start}
+ul.etapes li:last-child{border-bottom:0}
+ul.etapes .c{flex:0 0 14px;height:14px;margin-top:4px;border-radius:4px;border:1.5px solid #d5cfc1;background:#fff}
+ul.etapes li.oui .c{background:var(--ok);border-color:var(--ok);position:relative}
+ul.etapes li.oui .c::after{content:"";position:absolute;left:3.5px;top:1px;width:4px;height:7px;
+border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg)}
+ul.etapes li.oui{color:#6b6f76}
+ul.etapes li.non{color:var(--ink)}
+
+footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);
+font-size:13px;color:var(--dim);line-height:1.7}
+footer b{color:#414651}
+@media (max-width:640px){
+ .envel{padding:28px 15px 70px}
+ .p{padding:16px 16px}
+ .resume{gap:18px;padding:15px 16px}
+ .b{grid-template-columns:1fr 66px 40px;gap:8px;font-size:13px}
+}
+</style>
+</head>
+<body>
+<div class="envel">
+
+  <h1>Mes projets</h1>
+  <p class="date">État au <b>15 novembre 2026</b> · mis à jour à la main, jamais automatiquement
+  · <a class="lienaide" href="#aide">Aide — comment lire cette page</a></p>
+  <p class="chapo">Cette page remplace la précédente. Les deux notes arrêtées qui s'y trouvaient
+  ont été retirées : <b>ce qui ne se poursuit pas n'a pas à rester à l'affiche.</b>
+  Ce qui reste, c'est l'état réel des cinq projets, la veille, et un condensé.</p>
+  <p class="principe">Cinq projets. Pour chacun : où il en est, <b>ce qui le terminera</b>,
+  et <b>la seule chose à faire ensuite</b>. Une étape est faite ou elle ne l'est pas — c'est ce qui rend les barres honnêtes.</p>
+
+  <div class="chantier">
+    <b>En construction</b>
+    <p>Ce site n'est jamais fini, et il ne prétend pas l'être. Il montre l'état réel des projets,
+    il garde la trace des recherches — <b>y compris celles qui n'ont rien donné</b> — et il se
+    régénère à la main, projet après projet.</p>
+    <p class="v">Version du 15 novembre 2026 · prochaine version : quand un projet bouge.</p>
+  </div>
+
+  <div class="resume">
+    <div><b>5</b><span>projets</span></div>
+    <div><b>1</b><span>terminés</span></div>
+    <div><b>19/31</b><span>étapes faites</span></div>
+    <div><b>61 %</b><span>d'avancement</span></div>
+  </div>
+
+  <h2 class="sect" id="aide">Aide — comment lire cette page</h2>
+  <div class="aide">
+    <details>
+      <summary>Qu'est-ce que cette page ?</summary>
+      <p>L'état de cinq projets personnels, à une date donnée. Ce n'est pas un blog, ce n'est pas
+      un portfolio : c'est un tableau d'avancement, rendu public pour qu'il soit consultable
+      sans qu'on ait à demander.</p>
+    </details>
+    <details>
+      <summary>Que veut dire « il sera fini quand » ?</summary>
+      <p>C'est la phrase qui définit la fin d'un projet. Sans elle, un projet ne peut pas se
+      terminer — il peut seulement s'arrêter un jour. Chaque phrase est écrite pour être
+      <b>vérifiable</b> : on doit pouvoir dire « oui » ou « non », pas « à peu près ».</p>
+    </details>
+    <details>
+      <summary>Que veut dire « la prochaine étape » ?</summary>
+      <p>Une seule chose, la première qui n'est pas faite. Pas une liste de souhaits :
+      l'action qui débloque le reste. Quand elle est faite, la suivante prend sa place.</p>
+    </details>
+    <details>
+      <summary>Comment les pourcentages sont-ils calculés ?</summary>
+      <p>Simplement : le nombre d'étapes cochées divisé par le nombre d'étapes. Une étape est
+      faite ou elle ne l'est pas — il n'y a pas de « à moitié ».</p>
+      <p><b>Et c'est aussi la limite du calcul :</b> toutes les étapes ne se valent pas.
+      Un projet à 90 % peut être plus loin du but qu'un projet à 40 %.</p>
+    </details>
+    <details>
+      <summary>Pourquoi « en construction » ?</summary>
+      <p>Parce que c'est vrai. Les projets bougent, les chiffres changent, et une page qui
+      prétendrait être définitive mentirait dès la semaine suivante. Cette page a des
+      <b>versions</b>, pas une fin.</p>
+    </details>
+    <details>
+      <summary>Que veulent dire les badges de la veille ?</summary>
+      <p><b>Retenu</b> : la recherche a donné quelque chose qui a servi. <b>Sans résultat</b> :
+      elle n'a rien donné — et c'est gardé exprès. Une impasse notée est une impasse qu'on ne
+      refait pas deux fois.</p>
+    </details>
+    <details>
+      <summary>Comment chercher dans la page ?</summary>
+      <p>Le champ « Chercher vite », en bas. Trois lettres suffisent. La recherche se fait
+      <b>dans la page elle-même</b> : aucun réseau, aucun serveur, aucune donnée envoyée.</p>
+    </details>
+    <details>
+      <summary>Qui met à jour, et pourquoi pas automatiquement ?</summary>
+      <p>Le propriétaire, à la main, à partir d'un fichier unique. Pas d'automatisation, et
+      c'est un choix : <b>une page qui se met à jour toute seule finit toujours par affirmer
+      des choses que personne n'a vérifiées.</b></p>
+    </details>
+    <details>
+      <summary>Y a-t-il une version plus détaillée ?</summary>
+      <p>Oui, mais elle est privée : elle contient les notes de travail, les décisions en cours
+      et les détails qui n'ont pas à être publics. <b>Cette page-ci est la version nettoyée</b> —
+      l'état des projets, sans la vie privée qui va avec.</p>
+    </details>
+  </div>
+
+  <h2 class="sect">D'un coup d'œil</h2>
+  <div class="b"><span class="bn">Notes de recherche</span><span class="bb"><i class="fini" style="width:100%"></i></span><span class="bp">100 %</span></div><div class="b"><span class="bn">Une application de poche</span><span class="bb"><i class="encours" style="width:67%"></i></span><span class="bp">67 %</span></div><div class="b"><span class="bn">Les sites</span><span class="bb"><i class="encours" style="width:67%"></i></span><span class="bp">67 %</span></div><div class="b"><span class="bn">Maquette — une porte qui fait joli</span><span class="bb"><i class="encours" style="width:50%"></i></span><span class="bp">50 %</span></div><div class="b"><span class="bn">Vélo électrique DIY</span><span class="bb"><i class="cadre" style="width:44%"></i></span><span class="bp">44 %</span></div>
+
+  <h2 class="sect">La veille — 13 recherches, dont celles qui n ont rien donné</h2>
+  <div id="veille">
+    <p class="vide">Chargement…</p>
+  </div>
+
+  <h2 class="sect">Projet par projet</h2>
+  
+    <article class="p fini">
+      <header>
+        <h2>Notes de recherche</h2>
+        <span class="tag fini">Terminé</span>
+      </header>
+
+      <p class="idee">Une seule note de fond — cinq cas datés, sept questions laissées ouvertes — nourrie par une veille automatique des travaux universitaires, et révisable.</p>
+
+      <div class="jauge" role="img" aria-label="3 étapes sur 3">
+        <i class="fini" style="width:100%"></i>
+      </div>
+      <p class="compte"><b>3</b> / 3 étapes · <b>100 %</b></p>
+
+      <div class="fin"><span class="lab">Il sera fini quand</span><p>La note couvre les cinq cas, chaque affirmation porte sa source datée vérifiable, et les sept questions qui restent ouvertes sont dites ouvertes. — Relue à froid le 15 novembre : c&#x27;est fait.</p></div>
+      <div class="prox"><span class="lab">La prochaine étape</span><p>Choisir : publier la note, ou la garder privée</p></div>
+
+      <details>
+        <summary>Les 3 étapes</summary>
+        <ul class="etapes"><li class="oui"><span class="c"></span>La note unique écrite — les trois notes fondues en une</li><li class="oui"><span class="c"></span>La version à lire (HTML) et la version texte pour le mail</li><li class="oui"><span class="c"></span>Relue à froid : les six sources revérifiées une par une</li></ul>
+      </details>
+    </article>
+    <article class="p encours">
+      <header>
+        <h2>Une application de poche</h2>
+        <span class="tag encours">En cours</span>
+      </header>
+
+      <p class="idee">Une application Android qui contient tout un recueil — les voix, les noms, l&#x27;ordre de la visite — et qui ne demande ni réseau ni compte.</p>
+
+      <div class="jauge" role="img" aria-label="4 étapes sur 6">
+        <i class="encours" style="width:67%"></i>
+      </div>
+      <p class="compte"><b>4</b> / 6 étapes · <b>67 %</b></p>
+
+      <div class="fin"><span class="lab">Il sera fini quand</span><p>L&#x27;application est installée sur un téléphone réel, elle s&#x27;ouvre sur son contenu, et le paquet existe à deux endroits.</p></div>
+      <div class="prox"><span class="lab">La prochaine étape</span><p>Installée sur un téléphone réel</p></div>
+
+      <details>
+        <summary>Les 6 étapes</summary>
+        <ul class="etapes"><li class="oui"><span class="c"></span>Les enregistrements faits</li><li class="oui"><span class="c"></span>Le fichier unique assemblé</li><li class="oui"><span class="c"></span>L&#x27;application construite, signée et vérifiée</li><li class="oui"><span class="c"></span>Le paquet déposé et sauvegardé en privé</li><li class="non"><span class="c"></span>Installée sur un téléphone réel</li><li class="non"><span class="c"></span>Une deuxième copie du paquet, ailleurs</li></ul>
+      </details>
+    </article>
+    <article class="p encours">
+      <header>
+        <h2>Les sites</h2>
+        <span class="tag encours">En cours</span>
+      </header>
+
+      <p class="idee">Un site toujours en construction — jamais « fini ». Il montre où en sont les projets, il garde la trace des recherches menées — y compris celles qui n&#x27;ont rien donné — et il laisse chercher vite.</p>
+
+      <div class="jauge" role="img" aria-label="6 étapes sur 9">
+        <i class="encours" style="width:67%"></i>
+      </div>
+      <p class="compte"><b>6</b> / 9 étapes · <b>67 %</b></p>
+
+      <div class="fin"><span class="lab">Il sera fini quand</span><p>Le site ne montre plus aucune note supprimée, il n&#x27;est pas indexable, il dit « en construction », et il porte la veille, la recherche et le condensé. — Un site en construction n&#x27;a pas de fin : il a des versions.</p></div>
+      <div class="prox"><span class="lab">La prochaine étape</span><p>Publier le fichier — il contient déjà la veille, la recherche et le condensé</p></div>
+
+      <details>
+        <summary>Les 9 étapes</summary>
+        <ul class="etapes"><li class="non"><span class="c"></span>Retirer les deux notes mortes du site</li><li class="oui"><span class="c"></span>Refermer le site aux moteurs — robots.txt, noindex</li><li class="oui"><span class="c"></span>La page des projets, prête : 5 projets, un fichier</li><li class="oui"><span class="c"></span>Y ajouter la veille — y compris les recherches sans résultat</li><li class="oui"><span class="c"></span>Y ajouter la recherche accélérée</li><li class="oui"><span class="c"></span>Y ajouter le condensé — huit lignes, claires et concises</li><li class="non"><span class="c"></span>Publier (tableau_de_bord/upload/main)</li><li class="non"><span class="c"></span>Vérifier les deux autres adresses</li><li class="oui"><span class="c"></span>Le poste de travail — une page, un double-clic</li></ul>
+      </details>
+    </article>
+    <article class="p encours">
+      <header>
+        <h2>Maquette — une porte qui fait joli</h2>
+        <span class="tag encours">En cours</span>
+      </header>
+
+      <p class="idee">Une porte couverte d&#x27;absorbants pyramidaux, à l&#x27;échelle, pour faire joli. Elle n&#x27;a rien à démontrer : elle montre.</p>
+
+      <div class="jauge" role="img" aria-label="2 étapes sur 4">
+        <i class="encours" style="width:50%"></i>
+      </div>
+      <p class="compte"><b>2</b> / 4 étapes · <b>50 %</b></p>
+
+      <div class="fin"><span class="lab">Il sera fini quand</span><p>La maquette tient debout, on voit qu&#x27;elle est couverte d&#x27;absorbants, et une phrase d&#x27;une ligne dit ce qu&#x27;elle montre.</p></div>
+      <div class="prox"><span class="lab">La prochaine étape</span><p>Regarder l&#x27;épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ?</p></div>
+
+      <details>
+        <summary>Les 4 étapes</summary>
+        <ul class="etapes"><li class="oui"><span class="c"></span>La photo de référence</li><li class="oui"><span class="c"></span>Une première épreuve montée</li><li class="non"><span class="c"></span>Le rendu vérifié — ça tient, ça se voit, ça se photographie</li><li class="non"><span class="c"></span>La phrase d&#x27;une ligne qui dit ce qu&#x27;elle montre</li></ul>
+      </details>
+    </article>
+    <article class="p cadre">
+      <header>
+        <h2>Vélo électrique DIY</h2>
+        <span class="tag cadre">Commencé</span>
+      </header>
+
+      <p class="idee">Motoriser un vélo blanc avec une roue de hoverboard en friction. La batterie et le chargeur seraient offerts — il reste la manette à acheter, puis à configurer sur une alimentation de laboratoire.</p>
+
+      <div class="jauge" role="img" aria-label="4 étapes sur 9">
+        <i class="cadre" style="width:44%"></i>
+      </div>
+      <p class="compte"><b>4</b> / 9 étapes · <b>44 %</b></p>
+
+      <div class="fin"><span class="lab">Il sera fini quand</span><p>Le vélo parcourt 10 km sur route sèche, sans surchauffe du contrôleur, et le pneu arrière ne montre pas de méplat — et il freine.</p></div>
+      <div class="prox"><span class="lab">La prochaine étape</span><p>Acheter la manette — poignée à effet Hall, 3 fils, sortie 5 V</p></div>
+
+      <details>
+        <summary>Les 9 étapes</summary>
+        <ul class="etapes"><li class="oui"><span class="c"></span>Choix du vélo et du principe (friction arrière)</li><li class="oui"><span class="c"></span>Liste d&#x27;achats chiffrée — deux options</li><li class="oui"><span class="c"></span>Règles de câblage ZS-X11H — dont les trois pièges</li><li class="oui"><span class="c"></span>Programme Arduino écrit et relu</li><li class="non"><span class="c"></span>Batterie et chargeur : offerts — à récupérer et vérifier</li><li class="non"><span class="c"></span>Manette (poignée à effet Hall, 3 fils) achetée</li><li class="non"><span class="c"></span>Manette testée sur l&#x27;alimentation du labo, essai à vide</li><li class="non"><span class="c"></span>Galet profilé et support mécanique</li><li class="non"><span class="c"></span>Essai sur route sèche, 10 km</li></ul>
+      </details>
+    </article>
+
+  <h2 class="sect">Le condensé — huit lignes</h2>
+  <ol class="cond"><li><b>Trois notes sont devenues une.</b> 24 854 caractères au lieu de 59 195 — la fusion n'a rien perdu, sauf ce qui était faux.</li><li><b>Six travaux de 2024-2026 tiennent.</b> Revérifiés ce jour : trois identifiants interrogés en direct, trois ouvrages confirmés par leur éditeur.</li><li><b>Une erreur trouvée et corrigée.</b> Une page d'écart sur un ouvrage — le genre d'erreur qui ne se voit qu'en interrogeant la référence, pas en relisant le texte.</li><li><b>Sept questions restent ouvertes.</b> Ce n'est pas un manque : c'est une décision de méthode, écrite noir sur blanc dans la note.</li><li><b>Une application Android est construite et signée.</b> Un mégaoctet, aucune permission, aucune connexion. Elle s'installe et fonctionne en avion.</li><li><b>Une maquette a été montée une première fois.</b> Elle tient — il reste à la peaufiner.</li><li><b>Le vélo attend une manette.</b> La batterie serait offerte ; tout le reste est écrit et prêt.</li><li><b>Ce site-ci a une seule source.</b> Le même fichier que le bureau de projets — ils ne peuvent pas se contredire.</li></ol>
+
+  <h2 class="sect">Chercher vite</h2>
+  <input id="q" type="search" placeholder="galet · NRC · manette · veille · abaisseur…" autocomplete="off" aria-label="Chercher dans la page">
+  <div id="res"><p class="vide">Trois lettres suffisent. La recherche se fait dans cette page — aucun réseau, aucun serveur.</p></div>
+
+  <footer>
+    <p><b>Ce que cette page dit, et ce qu'elle ne dit pas.</b>
+    Elle compte des étapes cochées, elle ne mesure pas leur difficulté.
+    Une étape faite est une étape faite — mais toutes ne se valent pas,
+    et un projet à 90 % peut être plus loin du but qu'un projet à 40 %.</p>
+    <p><b>Elle est mise à jour à la main — aucun compte ni connexion n'est nécessaire.</b>
+    Un fichier, régénéré depuis le registre des projets, puis téléversé. Pour la lire,
+    il faut seulement une adresse. <b>Ce n'est pas la même chose qu'un tableau de bord :</b>
+    le tableau de bord, c'est le bureau que je garde à part — celui où l'on coche,
+    où l'on cherche dans les notes et où l'on enregistre. <b>Celui-ci ne fait que montrer.</b>
+    Une page qui se met à jour toute seule finit toujours par affirmer des choses
+    que personne n'a vérifiées.</p>
+    <p><b>Ce qu'elle ne peut pas garantir — vérifié le 15 novembre 2026.</b>
+    La page n'a <b>aucun</b> script de mesure : pas de Google Analytics, pas de pixel,
+    pas de cookie, rien qui parte vers un tiers. <b>Mais l'hébergeur, lui, garde une trace.</b>
+    GitHub Pages enregistre l'adresse IP de chaque visiteur dans ses journaux, « à des fins de
+    sécurité », et <b>le propriétaire du site n'y a pas accès</b> : ces journaux restent chez GitHub.
+    Donc : personne ne peut savoir qui est venu depuis cette page, mais GitHub le peut —
+    et personne ne peut l'en empêcher, sauf à héberger ailleurs.</p>
+    <p>Page régénérée le <b>15 novembre 2026</b> · un seul fichier · aucune police, aucune image, aucun script extérieur.</p>
+  </footer>
+
+<script>
+// ─────── la veille : ce qui a été cherché, y compris ce qui n a rien donné ───────
+const VEILLE = [{"t": "La manette : effet Hall ou potentiomètre ?", "s": "Prix relevés : 14,99 € à 17,75 € pour une poignée 3 fils. Le piège : certaines poignées à 3 fils sont des potentiomètres — contact frottant, dérive dans le temps. La fiche doit dire « effet Hall » ou « sans contact ».", "abouti": true}, {"t": "Les travaux savants sur le sujet de la note", "s": "7 requêtes OpenAlex · 57 408 travaux recensés · 93 liens de presse vus · 6 travaux retenus. Rapport de tri : un pour dix mille. Chercher « le sujet » ramène une araignée colombienne, parce que son descripteur s'appelle Perafán.", "abouti": true}, {"t": "Un chiffre de « 30 % de croyants » cité en secondaire", "s": "Une étude parue dans une revue est citée en source secondaire. Auteurs et date introuvables, texte non lisible. Le chiffre est mentionné dans la note, pas retenu. La question du nombre reste indécidable.", "abouti": false}, {"t": "L'effectif d'une communauté discrète au XXᵉ siècle", "s": "Aucun recensement fiable n'existe, et c'est cohérent : une communauté discrète ne se compte pas. Recherche arrêtée après trois sources qui se recopient.", "abouti": false}, {"t": "L'occultation : 873 ou 874 ?", "s": "Les sources divergent sur le comput, et le calendrier lunaire rend la conversion approximative. Aucune ne tranche de façon vérifiable. La note laisse les deux dates.", "abouti": false}, {"t": "Le lien entre une attente messianique et la violence", "s": "Recherche menée, puis écartée : les auteurs de une revue (2026) nient explicitement tout lien causal direct. La thèse est donc fausse, pas seulement invérifiable.", "abouti": false}, {"t": "Les quatre références de la note, une par une", "s": "Trois DOI interrogés en direct (Crossref) : les trois répondent, titres et revues exacts. Deux ISBN confirmés (Open Library, éditeur) : Glinter 2024, Studemund-Halévy 2022. Une erreur trouvée : une page d'écart, corrigée.", "abouti": true}, {"t": "La presse sur le sujet", "s": "Times of Israel : accès refusé (403). Aucun article de presse n'apportait de fait que les six travaux ne portent déjà. Écartée.", "abouti": false}, {"t": "Les pages de type encyclopédie collaborative", "s": "Écartées volontairement : dates inventées, sources non traçables. Le test est simple — si la page ne dit pas d'où elle tient son fait, le fait n'existe pas.", "abouti": false}, {"t": "La veille automatique — bulletins du 7 et du 8 novembre", "s": "331 articles analysés, 12 retenus, fenêtre de 7 jours. Rien qui concerne les projets en cours : c'est un flux généraliste, pas une veille ciblée.", "abouti": true}, {"t": "Les gains d'un vélo à friction", "s": "Rendement 60-80 % contre 85-92 % pour un moyeu. Pneu usé en 500-1 500 km contre 2 000-5 000. Perte de 20 à 40 % d'autonomie. Convergent sur plusieurs sources techniques indépendantes.", "abouti": true}, {"t": "L'absorption réelle des mousses pyramidales — sans importance", "s": "Recherche faite, puis mise hors du projet : la maquette est un objet d'aspect, pas un dispositif. NRC 0,70 à 1,00 selon l'épaisseur ; 0,18 à 0,24 à 125 Hz. Gardé pour mémoire, pas pour décider.", "abouti": false}, {"t": "Une application Android pour un fichier hors ligne", "s": "Trois outils officiels suffisent : aapt2, d8, apksigner. Aucun magasin, aucun compte développeur, aucun frais. L'application a été construit et signé v1+v2+v3.", "abouti": true}];
+(function(){
+  const z = document.getElementById('veille');
+  if(!VEILLE.length){ z.innerHTML = '<p class="vide">Rien de consigné pour cette version.</p>'; return; }
+  z.innerHTML = VEILLE.map(function(v){
+    const b = v.abouti ? '<span class="badge ok">retenu</span>' : '<span class="badge rien">sans résultat</span>';
+    return '<div class="v"><div class="vt">' + v.t + b + '</div><div class="vs">' + v.s + '</div></div>';
+  }).join('');
+})();
+
+// ─────── chercher vite : dans la page, sans réseau ───────
+const CORPUS = [{"t": "Notes de recherche", "s": "Une seule note de fond — cinq cas datés, sept questions laissées ouvertes — nourrie par une veille automatique des travaux universitaires, et révisable. La note couvre les cinq cas, chaque affirmation porte sa source datée vérifiable, et les sept questions qui restent ouvertes sont dites ouvertes. — Relue à froid le 15 novembre : c'est fait. Choisir : publier la note, ou la garder privée La note unique écrite — les trois notes fondues en une La version à lire (HTML) et la version texte pour le mail Relue à froid : les six sources revérifiées une par une"}, {"t": "Une application de poche", "s": "Une application Android qui contient tout un recueil — les voix, les noms, l'ordre de la visite — et qui ne demande ni réseau ni compte. L'application est installée sur un téléphone réel, elle s'ouvre sur son contenu, et le paquet existe à deux endroits. Installée sur un téléphone réel Les enregistrements faits Le fichier unique assemblé L'application construite, signée et vérifiée Le paquet déposé et sauvegardé en privé Installée sur un téléphone réel Une deuxième copie du paquet, ailleurs"}, {"t": "Les sites", "s": "Un site toujours en construction — jamais « fini ». Il montre où en sont les projets, il garde la trace des recherches menées — y compris celles qui n'ont rien donné — et il laisse chercher vite. Le site ne montre plus aucune note supprimée, il n'est pas indexable, il dit « en construction », et il porte la veille, la recherche et le condensé. — Un site en construction n'a pas de fin : il a des versions. Publier le fichier — il contient déjà la veille, la recherche et le condensé Retirer les deux notes mortes du site Refermer le site aux moteurs — robots.txt, noindex La page des projets, prête : 5 projets, un fichier Y ajouter la veille — y compris les recherches sans résultat Y ajouter la recherche accélérée Y ajouter le condensé — huit lignes, claires et concises Publier (tableau_de_bord/upload/main) Vérifier les deux autres adresses Le poste de travail — une page, un double-clic"}, {"t": "Maquette — une porte qui fait joli", "s": "Une porte couverte d'absorbants pyramidaux, à l'échelle, pour faire joli. Elle n'a rien à démontrer : elle montre. La maquette tient debout, on voit qu'elle est couverte d'absorbants, et une phrase d'une ligne dit ce qu'elle montre. Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ? La photo de référence Une première épreuve montée Le rendu vérifié — ça tient, ça se voit, ça se photographie La phrase d'une ligne qui dit ce qu'elle montre"}, {"t": "Vélo électrique DIY", "s": "Motoriser un vélo blanc avec une roue de hoverboard en friction. La batterie et le chargeur seraient offerts — il reste la manette à acheter, puis à configurer sur une alimentation de laboratoire. Le vélo parcourt 10 km sur route sèche, sans surchauffe du contrôleur, et le pneu arrière ne montre pas de méplat — et il freine. Acheter la manette — poignée à effet Hall, 3 fils, sortie 5 V Choix du vélo et du principe (friction arrière) Liste d'achats chiffrée — deux options Règles de câblage ZS-X11H — dont les trois pièges Programme Arduino écrit et relu Batterie et chargeur : offerts — à récupérer et vérifier Manette (poignée à effet Hall, 3 fils) achetée Manette testée sur l'alimentation du labo, essai à vide Galet profilé et support mécanique Essai sur route sèche, 10 km"}, {"t": "Veille — La manette : effet Hall ou potentiomètre ?", "s": "Prix relevés : 14,99 € à 17,75 € pour une poignée 3 fils. Le piège : certaines poignées à 3 fils sont des potentiomètres — contact frottant, dérive dans le temps. La fiche doit dire « effet Hall » ou « sans contact »."}, {"t": "Veille — Les travaux savants sur le sujet de la note", "s": "7 requêtes OpenAlex · 57 408 travaux recensés · 93 liens de presse vus · 6 travaux retenus. Rapport de tri : un pour dix mille. Chercher « le sujet » ramène une araignée colombienne, parce que son descripteur s'appelle Perafán."}, {"t": "Veille — Un chiffre de « 30 % de croyants » cité en secondaire", "s": "Une étude parue dans une revue est citée en source secondaire. Auteurs et date introuvables, texte non lisible. Le chiffre est mentionné dans la note, pas retenu. La question du nombre reste indécidable."}, {"t": "Veille — L'effectif d'une communauté discrète au XXᵉ siècle", "s": "Aucun recensement fiable n'existe, et c'est cohérent : une communauté discrète ne se compte pas. Recherche arrêtée après trois sources qui se recopient."}, {"t": "Veille — L'occultation : 873 ou 874 ?", "s": "Les sources divergent sur le comput, et le calendrier lunaire rend la conversion approximative. Aucune ne tranche de façon vérifiable. La note laisse les deux dates."}, {"t": "Veille — Le lien entre une attente messianique et la violence", "s": "Recherche menée, puis écartée : les auteurs de une revue (2026) nient explicitement tout lien causal direct. La thèse est donc fausse, pas seulement invérifiable."}, {"t": "Veille — Les quatre références de la note, une par une", "s": "Trois DOI interrogés en direct (Crossref) : les trois répondent, titres et revues exacts. Deux ISBN confirmés (Open Library, éditeur) : Glinter 2024, Studemund-Halévy 2022. Une erreur trouvée : une page d'écart, corrigée."}, {"t": "Veille — La presse sur le sujet", "s": "Times of Israel : accès refusé (403). Aucun article de presse n'apportait de fait que les six travaux ne portent déjà. Écartée."}, {"t": "Veille — Les pages de type encyclopédie collaborative", "s": "Écartées volontairement : dates inventées, sources non traçables. Le test est simple — si la page ne dit pas d'où elle tient son fait, le fait n'existe pas."}, {"t": "Veille — La veille automatique — bulletins du 7 et du 8 novembre", "s": "331 articles analysés, 12 retenus, fenêtre de 7 jours. Rien qui concerne les projets en cours : c'est un flux généraliste, pas une veille ciblée."}, {"t": "Veille — Les gains d'un vélo à friction", "s": "Rendement 60-80 % contre 85-92 % pour un moyeu. Pneu usé en 500-1 500 km contre 2 000-5 000. Perte de 20 à 40 % d'autonomie. Convergent sur plusieurs sources techniques indépendantes."}, {"t": "Veille — L'absorption réelle des mousses pyramidales — sans importance", "s": "Recherche faite, puis mise hors du projet : la maquette est un objet d'aspect, pas un dispositif. NRC 0,70 à 1,00 selon l'épaisseur ; 0,18 à 0,24 à 125 Hz. Gardé pour mémoire, pas pour décider."}, {"t": "Veille — Une application Android pour un fichier hors ligne", "s": "Trois outils officiels suffisent : aapt2, d8, apksigner. Aucun magasin, aucun compte développeur, aucun frais. L'application a été construit et signé v1+v2+v3."}, {"t": "Condensé", "s": "Trois notes sont devenues une. 24 854 caractères au lieu de 59 195 — la fusion n'a rien perdu, sauf ce qui était faux."}, {"t": "Condensé", "s": "Six travaux de 2024-2026 tiennent. Revérifiés ce jour : trois identifiants interrogés en direct, trois ouvrages confirmés par leur éditeur."}, {"t": "Condensé", "s": "Une erreur trouvée et corrigée. Une page d'écart sur un ouvrage — le genre d'erreur qui ne se voit qu'en interrogeant la référence, pas en relisant le texte."}, {"t": "Condensé", "s": "Sept questions restent ouvertes. Ce n'est pas un manque : c'est une décision de méthode, écrite noir sur blanc dans la note."}, {"t": "Condensé", "s": "Une application Android est construite et signée. Un mégaoctet, aucune permission, aucune connexion. Elle s'installe et fonctionne en avion."}, {"t": "Condensé", "s": "Une maquette a été montée une première fois. Elle tient — il reste à la peaufiner."}, {"t": "Condensé", "s": "Le vélo attend une manette. La batterie serait offerte ; tout le reste est écrit et prêt."}, {"t": "Condensé", "s": "Ce site-ci a une seule source. Le même fichier que le bureau de projets — ils ne peuvent pas se contredire."}];
+const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+const CORPN = CORPUS.map(c => ({t: c.t, s: c.s, n: norm(c.s)}));
+const qz = document.getElementById('q'), rz = document.getElementById('res');
+function cherche(){
+  const b = qz.value.trim();
+  if(b.length < 3){ rz.innerHTML = '<p class="vide">Trois lettres suffisent.</p>'; return; }
+  const a = norm(b);
+  let tous = [];
+  CORPN.forEach(d => {
+    let pos = 0, n = 0;
+    while((pos = d.n.indexOf(a, pos)) !== -1 && n < 3){
+      tous.push({t: d.t, txt: d.s.slice(Math.max(0, pos-95), Math.min(d.s.length, pos + a.length + 130))});
+      pos += a.length; n++;
+    }
+  });
+  if(!tous.length){ rz.innerHTML = '<p class="vide">Rien dans cette page pour « ' + b.replace(/</g,'&lt;') + ' ».</p>'; return; }
+  rz.innerHTML = '<p class="vide">' + tous.length + ' passage(s).</p>' + tous.map(r => {
+    let t = r.txt.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    const j = norm(r.txt).indexOf(a);
+    if(j >= 0) t = t.slice(0,j) + '<mark>' + t.slice(j, j + a.length) + '</mark>' + t.slice(j + a.length);
+    return '<div class="r"><div class="rs">' + r.t + '</div>…' + t + '…</div>';
+  }).join('');
+}
+qz.addEventListener('input', cherche);
+qz.addEventListener('keydown', e => { if(e.key === 'Enter') cherche(); });
+</script>
+</div>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5aecc919fe0c752',t:'MTc5NDc1MTQwMw=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5aecc919fe0c752',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
