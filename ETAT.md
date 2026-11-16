@@ -7,7 +7,7 @@
 
 - **Projets suivis** : 6
 - **Terminés** : 2 (`Notes de recherche`, `Les sites`)
-- **Étapes faites** : 22 / 37 (**59 %**)
+- **Étapes faites** : 23 / 37 (**62 %**)
 - **Veille** : 13 recherches consignées (6 retenues · 7 sans résultat)
 
 ## À faire maintenant (prochaine étape par projet ouvert)
@@ -15,7 +15,7 @@
 1. **Une application de poche** (4/6 · 67 %) — Installer l'application sur un téléphone réel.
 2. **Maquette — une porte qui fait joli** (2/4 · 50 %) — Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ?
 3. **Vélo électrique DIY** (4/9 · 44 %) — Acheter la manette — poignée à effet Hall, 3 fils, sortie 5 V.
-4. **Découverte de logiciels IA** (0/6 · 0 %) — Inventaire de la machine (CPU/GPU, RAM, disque) — ce qu'elle peut faire tourner.
+4. **Découverte de logiciels IA** (1/6 · 17 %) — Choisir un outil à tester (Ollama ou LM Studio).
 
 ## Points ouverts (projets terminés)
 
@@ -65,8 +65,9 @@
 - [ ] Galet profilé et support mécanique
 - [ ] Essai sur route sèche, 10 km
 
-### 6. Découverte de logiciels IA — 0 / 6 (0 %) · À démarrer
-- [ ] Inventaire de la machine (CPU/GPU, RAM, disque) — ce qu'elle peut faire tourner
+### 6. Découverte de logiciels IA — 1 / 6 (17 %) · Commencé
+- [x] Inventaire de la machine (CPU/GPU, RAM, disque) — ce qu'elle peut faire tourner
+  - Diagnostic : Intel Atom x5-Z8350 @ 1,44 GHz (4 cœurs) · 3,9 Go RAM · Intel HD Graphics (intégré, pas de GPU dédié) · 6,7 Go libres sur C: · Windows 10 Professionnel : modèles ≤ 1,5 milliard de paramètres en 4 bits, sur CPU — local réaliste en curiosité ; l'assistant en ligne (Arena, Claude, ChatGPT) rester le vrai outil quotidien.
 - [ ] Choisir un outil à tester (Ollama ou LM Studio)
 - [ ] Installer et lancer un premier modèle
 - [ ] Le tester sur 2-3 tâches réelles du quotidien
@@ -79,6 +80,7 @@ Point ouvert : lequel des assistants en ligne tester en premier — Claude, Chat
 
 ## Journal récent
 
+- **16 novembre 2026 (assistant)** : ajout d'`ASSISTANT.md` (consignes pour les sessions Arena) et d'un bloc « Premier message » copiable dans le site. IA — étape 1 cochée (inventaire).
 - **16 novembre 2026 (nouveau projet)** : ajout de « Découverte de logiciels IA » — 0/6, à démarrer (IA locale + assistants en ligne).
 - **16 novembre 2026** : mise en place du tableau de bord interactif (`index.html`), synchronisation à 22/31 étapes (71 %), suppression des anciens doublons et du script Cloudflare parasite.
 - **16 novembre 2026 (mise à jour)** : les données passent dans `projets.json` (chargé au démarrage, secours hors ligne) ; bouton « Corriger » (écran à gros pavés : projets, étapes, veille) ; bouton « Enregistrer sur GitHub » publiant `projets.json` sur `main` via l'API GitHub, avec clé fine-grained stockée uniquement dans le navigateur (Brave).
