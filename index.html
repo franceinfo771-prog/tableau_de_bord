@@ -910,6 +910,26 @@ footer b{color:var(--ink-2)}
   min-height:40px;
 }
 .btn-corriger:hover{background:var(--accent);color:#fff}
+.btn-arena{
+  font:inherit;
+  font-size:14px;
+  font-weight:800;
+  padding:9px 16px;
+  border-radius:10px;
+  border:1.5px solid #7c3aed;
+  background:#ede9fe;
+  color:#6d28d9;
+  cursor:pointer;
+  min-height:40px;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  text-decoration:none;
+}
+.btn-arena:hover{background:#7c3aed;color:#fff}
+.arena-hint{margin:-6px 0 14px;font-size:12px;color:var(--dim)}
+.arena-hint a{color:#6d28d9;text-decoration:none;font-weight:700}
+.arena-hint a:hover{text-decoration:underline}
 .btn-github{
   font:inherit;
   font-size:14px;
@@ -1105,7 +1125,7 @@ footer b{color:var(--ink-2)}
   .focus-go{justify-self:start}
 }
 @media print{
-  .topbar,.toolbar,.add-step,.del-btn,.savebar,.modal-bg,.toast,#section-cherche,.search-box,.gh-bar,.corriger-overlay{display:none!important}
+  .topbar,.toolbar,.add-step,.del-btn,.savebar,.modal-bg,.toast,#section-cherche,.search-box,.gh-bar,.corriger-overlay,.arena-hint{display:none!important}
   body{background:#fff;color:#000}
   .envel{max-width:none;padding:0}
   .p,.kpi,.focus-card,.overview,.veille-box,.aide,.cond-card{box-shadow:none;break-inside:avoid}
@@ -1132,6 +1152,7 @@ footer b{color:var(--ink-2)}
     <div class="top-actions">
       <button class="btn-top" type="button" id="btn-top-add-proj" title="Créer un nouveau projet">+ Projet</button>
       <button class="btn-corriger" type="button" id="btn-corriger" title="Corriger projets, étapes et veille">✎ Corriger</button>
+      <a class="btn-arena" href="https://arena.ai/agent" target="_blank" rel="noopener noreferrer" title="Ouvrir Arena — votre assistant pour faire évoluer ce site (décrivez votre demande, ex. : « coche l'étape 1 du projet IA »)">✦ Mon assistant Arena</a>
       <button class="btn-github" type="button" id="btn-github-top" title="Publier projets.json sur GitHub (branche main)"><span class="pending-dot none" id="gh-dot-top" aria-hidden="true"></span><span id="gh-label-top">Enregistrer sur GitHub</span></button>
       <button class="btn-top" type="button" id="btn-print" title="Imprimer ou enregistrer en PDF">Imprimer</button>
       <button class="btn-top primary" type="button" id="btn-data">Sauvegarder</button>
@@ -1144,6 +1165,7 @@ footer b{color:var(--ink-2)}
   <h1>Tableau de bord</h1>
   <p class="date">État au <b>16 novembre 2026</b> · mis à jour à la main · fonctionne en ligne et hors ligne, sans compte ni suivi</p>
   <p class="chapo">Cinq projets suivis au même endroit. Pour chacun : où il en est, <b>ce qui le terminera</b>, et <b>la seule chose à faire ensuite</b>. Vous pouvez cocher une étape directement : les barres, les pourcentages et la prochaine action se mettent à jour aussitôt.</p>
+  <p class="arena-hint">Vous voulez modifier ou faire évoluer ce site ? <a href="https://arena.ai/agent" target="_blank" rel="noopener noreferrer">Ouvrez ✦ Mon assistant Arena</a> et décrivez simplement votre demande — il s'en occupe et publie ici. (Ex. « coche l'étape 1 du projet IA ».)</p>
 
   <div class="gh-bar" aria-label="Enregistrement sur GitHub">
     <button class="btn-github big" type="button" id="btn-github-big"><span class="pending-dot none" id="gh-dot-big" aria-hidden="true"></span><span id="gh-label-big">⬆ Enregistrer sur GitHub</span></button>
