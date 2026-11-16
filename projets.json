@@ -180,7 +180,7 @@
       "etapes": [
         {
           "t": "Inventaire de la machine (CPU/GPU, RAM, disque) — ce qu'elle peut faire tourner",
-          "ok": false,
+          "ok": true,
           "custom": true
         },
         {

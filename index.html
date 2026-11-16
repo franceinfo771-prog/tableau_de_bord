@@ -930,6 +930,25 @@ footer b{color:var(--ink-2)}
 .arena-hint{margin:-6px 0 14px;font-size:12px;color:var(--dim)}
 .arena-hint a{color:#6d28d9;text-decoration:none;font-weight:700}
 .arena-hint a:hover{text-decoration:underline}
+.arena-box{
+  background:#f5f3ff;border:1.5px solid #ddd6fe;border-left:4px solid #7c3aed;
+  border-radius:12px;padding:10px 14px;margin:-4px 0 16px;font-size:12.5px;color:#5b21b6;
+  display:flex;gap:12px;align-items:center;flex-wrap:wrap;
+}
+.arena-box b{color:#4c1d95}
+.arena-prompt{
+  flex:1 1 320px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;
+  background:#fff;border:1px solid #ddd6fe;border-radius:8px;padding:7px 10px;color:#3b0764;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.arena-copy{
+  font:inherit;font-size:12.5px;font-weight:800;cursor:pointer;
+  padding:8px 14px;border-radius:9px;border:1.5px solid #7c3aed;background:#7c3aed;color:#fff;flex:0 0 auto;
+}
+.arena-copy:hover{filter:brightness(1.08)}
+.arena-copy.copied{background:#16a34a;border-color:#15803d}
+.arena-link{color:#6d28d9;text-decoration:none;font-weight:800}
+.arena-link:hover{text-decoration:underline}
 .btn-github{
   font:inherit;
   font-size:14px;
@@ -1125,7 +1144,7 @@ footer b{color:var(--ink-2)}
   .focus-go{justify-self:start}
 }
 @media print{
-  .topbar,.toolbar,.add-step,.del-btn,.savebar,.modal-bg,.toast,#section-cherche,.search-box,.gh-bar,.corriger-overlay,.arena-hint{display:none!important}
+  .topbar,.toolbar,.add-step,.del-btn,.savebar,.modal-bg,.toast,#section-cherche,.search-box,.gh-bar,.corriger-overlay,.arena-box{display:none!important}
   body{background:#fff;color:#000}
   .envel{max-width:none;padding:0}
   .p,.kpi,.focus-card,.overview,.veille-box,.aide,.cond-card{box-shadow:none;break-inside:avoid}
@@ -1164,8 +1183,12 @@ footer b{color:var(--ink-2)}
 
   <h1>Tableau de bord</h1>
   <p class="date">État au <b>16 novembre 2026</b> · mis à jour à la main · fonctionne en ligne et hors ligne, sans compte ni suivi</p>
-  <p class="chapo">Cinq projets suivis au même endroit. Pour chacun : où il en est, <b>ce qui le terminera</b>, et <b>la seule chose à faire ensuite</b>. Vous pouvez cocher une étape directement : les barres, les pourcentages et la prochaine action se mettent à jour aussitôt.</p>
-  <p class="arena-hint">Vous voulez modifier ou faire évoluer ce site ? <a href="https://arena.ai/agent" target="_blank" rel="noopener noreferrer">Ouvrez ✦ Mon assistant Arena</a> et décrivez simplement votre demande — il s'en occupe et publie ici. (Ex. « coche l'étape 1 du projet IA ».)</p>
+  <p class="chapo">Six projets suivis au même endroit. Pour chacun : où il en est, <b>ce qui le terminera</b>, et <b>la seule chose à faire ensuite</b>. Vous pouvez cocher une étape directement : les barres, les pourcentages et la prochaine action se mettent à jour aussitôt.</p>
+  <div class="arena-box" aria-label="Comment faire évoluer ce site">
+    <span><b>✦ Vous voulez modifier ce site ?</b> Ouvrez <a class="arena-link" href="https://arena.ai/agent" target="_blank" rel="noopener noreferrer">✦ Mon assistant Arena</a> et collez-y votre <b>premier message</b> :</span>
+    <code class="arena-prompt" id="arena-prompt">Lis le dépôt franceinfo771-prog/tableau_de_bord (branche main) : ASSISTANT.md, puis ETAT.md et projets.json. C'est mon tableau de bord de projets. Ensuite, attends mes demandes — et pour chaque changement, branche + PR, jamais direct sur main.</code>
+    <button class="arena-copy" type="button" id="arena-copy">📋 Copier</button>
+  </div>
 
   <div class="gh-bar" aria-label="Enregistrement sur GitHub">
     <button class="btn-github big" type="button" id="btn-github-big"><span class="pending-dot none" id="gh-dot-big" aria-hidden="true"></span><span id="gh-label-big">⬆ Enregistrer sur GitHub</span></button>
@@ -1514,7 +1537,7 @@ footer b{color:var(--ink-2)}
         ouvert: 'Ouvert : lequel des assistants en ligne tester en premier — Claude, ChatGPT ou Gemini ?',
         custom: true,
         etapes: [
-          { t: 'Inventaire de la machine (CPU/GPU, RAM, disque) — ce qu\'elle peut faire tourner', ok: false, custom: true },
+          { t: 'Inventaire de la machine (CPU/GPU, RAM, disque) — ce qu\'elle peut faire tourner', ok: true, custom: true },
           { t: 'Choisir un outil à tester (Ollama ou LM Studio)', ok: false, custom: true },
           { t: 'Installer et lancer un premier modèle', ok: false, custom: true },
           { t: 'Le tester sur 2-3 tâches réelles du quotidien', ok: false, custom: true },
@@ -2713,6 +2736,32 @@ footer b{color:var(--ink-2)}
     document.getElementById('btn-gh-setup').addEventListener('click', () => { ghMsgClear(); renderGhSetup(); openModal('modal-github'); });
     document.getElementById('gh-forget').addEventListener('click', () => { setToken(''); renderGhSetup(); ghMsg('info', 'Clé effacée de Brave.'); });
   }
+
+  // Copier le premier message à coller dans Arena
+  (function setupArenaCopy(){
+    const btn = document.getElementById('arena-copy');
+    const src = document.getElementById('arena-prompt');
+    if(!btn || !src) return;
+    const fallback = (txt) => {
+      const ta = document.createElement('textarea');
+      ta.value = txt;
+      ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); } catch(e) {}
+      ta.remove();
+    };
+    btn.addEventListener('click', () => {
+      const txt = src.textContent.trim();
+      const done = () => {
+        btn.textContent = '✓ Copié !';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = '📋 Copier'; btn.classList.remove('copied'); }, 2200);
+        showToast('Premier message copié — collez-le dans Arena');
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, () => { fallback(txt); done(); });
+      else { fallback(txt); done(); }
+    });
+  })();
 
   setupCorriger();
   setupGitHub();
