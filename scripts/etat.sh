@@ -20,14 +20,21 @@ import json, sys
 
 branch, short_sha, full_sha, msg, cdate, files, dirty, gen = sys.argv[1:9]
 
-SUMMARY = {
-    "projects_total": 5,
-    "projects_done": 2,
-    "steps_done": 22,
-    "steps_total": 31,
-    "progress_percent": 71,
-    "veille_count": 13,
+_PROJ = json.load(open('projets.json', encoding='utf-8'))
+_steps = [e for p in _PROJ['projets'] for e in p['etapes']]
+_done = sum(1 for e in _steps if e.get('ok'))
+_total = len(_steps)
+_proj_done = sum(1 for p in _PROJ['projets'] if p['etapes'] and all(e.get('ok') for e in p['etapes']))
+summary = {
+    "projects_total": len(_PROJ['projets']),
+    "projects_done": _proj_done,
+    "steps_done": _done,
+    "steps_total": _total,
+    "progress_percent": round(_done / _total * 100) if _total else 0,
+    "veille_count": len(_PROJ['veille']),
 }
+SUMMARY = summary
+
 
 data = {
     "project": "tableau_de_bord",

@@ -8,7 +8,7 @@ Tableau de bord autonome de suivi de cinq projets, de la veille et du condensé.
 
 ## État au 16 novembre 2026
 
-**5 projets · 2 terminés · 22 / 31 étapes faites (71 %) · 13 recherches de veille.**
+**6 projets · 2 terminés · 22 / 37 étapes faites (59 %) · 13 recherches de veille.**
 
 | Projet | Avancement | Statut | Prochaine action / Point ouvert |
 |---|---:|---|---|
@@ -17,6 +17,7 @@ Tableau de bord autonome de suivi de cinq projets, de la veille et du condensé.
 | Une application de poche | 4 / 6 (67 %) | 🟡 En cours | Installer l'application sur un téléphone réel |
 | Maquette — une porte qui fait joli | 2 / 4 (50 %) | 🟡 En cours | Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ? |
 | Vélo électrique DIY | 4 / 9 (44 %) | 🟣 Commencé | Acheter la manette — poignée à effet Hall, 3 fils, sortie 5 V |
+| Découverte de logiciels IA | 0 / 6 (0 %) | ⚪ À démarrer | Inventaire de la machine (CPU/GPU, RAM, disque) — ce qu'elle peut faire tourner |
 
 ## Données : `projets.json`
 
