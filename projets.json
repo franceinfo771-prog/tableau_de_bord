@@ -1,0 +1,275 @@
+{
+  "version": "2026-11-16",
+  "projets": [
+    {
+      "id": "notes",
+      "nom": "Notes de recherche",
+      "idee": "Une seule note de fond — cinq cas datés, sept questions laissées ouvertes — nourrie par une veille automatique des travaux universitaires, et révisable.",
+      "fin": "La note couvre les cinq cas, chaque affirmation porte sa source datée vérifiable, et les sept questions qui restent ouvertes sont dites ouvertes. — Relue à froid le 15 novembre : c'est fait.",
+      "ouvert": "Décidé le 15 novembre : garder la note privée pour l'instant (publiable plus tard si souhaité).",
+      "etapes": [
+        {
+          "t": "La note unique écrite — les trois notes fondues en une",
+          "ok": true
+        },
+        {
+          "t": "La version à lire (HTML) et la version texte pour le mail",
+          "ok": true
+        },
+        {
+          "t": "Relue à froid : les six sources revérifiées une par une",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "id": "sites",
+      "nom": "Les sites",
+      "idee": "Un site toujours en construction — jamais « fini ». Il montre où en sont les projets, il garde la trace des recherches menées — y compris celles qui n'ont rien donné — et il laisse chercher vite.",
+      "fin": "Le site ne montre plus aucune note supprimée, il n'est pas indexable, il dit « en construction », et il porte la veille, la recherche et le condensé. — Un site en construction n'a pas de fin : il a des versions.",
+      "ouvert": "Terminé le 15 novembre 2026 (9/9). Question ouverte : rafraîchir la veille des deux bulletins, ou la laisser datée d'octobre.",
+      "etapes": [
+        {
+          "t": "Retirer les deux notes mortes du site",
+          "ok": true
+        },
+        {
+          "t": "Refermer le site aux moteurs — robots.txt, noindex",
+          "ok": true
+        },
+        {
+          "t": "La page des projets, prête : 5 projets, un fichier",
+          "ok": true
+        },
+        {
+          "t": "Y ajouter la veille — y compris les recherches sans résultat",
+          "ok": true
+        },
+        {
+          "t": "Y ajouter la recherche accélérée",
+          "ok": true
+        },
+        {
+          "t": "Y ajouter le condensé — huit lignes, claires et concises",
+          "ok": true
+        },
+        {
+          "t": "Publier (tableau_de_bord/upload/main)",
+          "ok": true
+        },
+        {
+          "t": "Vérifier les deux autres adresses",
+          "ok": true
+        },
+        {
+          "t": "Le poste de travail — une page, un double-clic",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "id": "poche",
+      "nom": "Une application de poche",
+      "idee": "Une application Android qui contient tout un recueil — les voix, les noms, l'ordre de la visite — et qui ne demande ni réseau ni compte.",
+      "fin": "L'application est installée sur un téléphone réel, elle s'ouvre sur son contenu, et le paquet existe à deux endroits.",
+      "ouvert": "",
+      "etapes": [
+        {
+          "t": "Les enregistrements faits",
+          "ok": true
+        },
+        {
+          "t": "Le fichier unique assemblé",
+          "ok": true
+        },
+        {
+          "t": "L'application construite, signée et vérifiée",
+          "ok": true
+        },
+        {
+          "t": "Le paquet déposé et sauvegardé en privé",
+          "ok": true
+        },
+        {
+          "t": "Installer l'application sur un téléphone réel",
+          "ok": false
+        },
+        {
+          "t": "Une deuxième copie du paquet, ailleurs",
+          "ok": false
+        }
+      ]
+    },
+    {
+      "id": "maquette",
+      "nom": "Maquette — une porte qui fait joli",
+      "idee": "Une porte couverte d'absorbants pyramidaux, à l'échelle, pour faire joli. Elle n'a rien à démontrer : elle montre.",
+      "fin": "La maquette tient debout, on voit qu'elle est couverte d'absorbants, et une phrase d'une ligne dit ce qu'elle montre.",
+      "ouvert": "",
+      "etapes": [
+        {
+          "t": "La photo de référence",
+          "ok": true
+        },
+        {
+          "t": "Une première épreuve montée",
+          "ok": true
+        },
+        {
+          "t": "Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ?",
+          "ok": false
+        },
+        {
+          "t": "La phrase d'une ligne qui dit ce qu'elle montre",
+          "ok": false
+        }
+      ]
+    },
+    {
+      "id": "velo",
+      "nom": "Vélo électrique DIY",
+      "idee": "Motoriser un vélo blanc avec une roue de hoverboard en friction. La batterie et le chargeur seraient offerts — il reste la manette à acheter, puis à configurer sur une alimentation de laboratoire.",
+      "fin": "Le vélo parcourt 10 km sur route sèche, sans surchauffe du contrôleur, et le pneu arrière ne montre pas de méplat — et il freine.",
+      "ouvert": "Décidé le 15 novembre : galet récupéré de la roue — vérifier le pneu après chaque essai et rouler au sec.",
+      "etapes": [
+        {
+          "t": "Choix du vélo et du principe (friction arrière)",
+          "ok": true
+        },
+        {
+          "t": "Liste d'achats chiffrée — deux options",
+          "ok": true
+        },
+        {
+          "t": "Règles de câblage ZS-X11H — dont les trois pièges",
+          "ok": true
+        },
+        {
+          "t": "Programme Arduino écrit et relu",
+          "ok": true
+        },
+        {
+          "t": "Acheter la manette — poignée à effet Hall, 3 fils, sortie 5 V",
+          "ok": false
+        },
+        {
+          "t": "Batterie et chargeur : offerts — à récupérer et vérifier",
+          "ok": false
+        },
+        {
+          "t": "Manette testée sur l'alimentation du labo, essai à vide",
+          "ok": false
+        },
+        {
+          "t": "Galet profilé et support mécanique",
+          "ok": false
+        },
+        {
+          "t": "Essai sur route sèche, 10 km",
+          "ok": false
+        }
+      ]
+    }
+  ],
+  "veille": [
+    {
+      "t": "La manette : effet Hall ou potentiomètre ?",
+      "s": "Prix relevés : 14,99 € à 17,75 € pour une poignée 3 fils. Le piège : certaines poignées à 3 fils sont des potentiomètres — contact frottant, dérive dans le temps. La fiche doit dire « effet Hall » ou « sans contact ».",
+      "abouti": true
+    },
+    {
+      "t": "Les travaux savants sur le sujet de la note",
+      "s": "7 requêtes OpenAlex · 57 408 travaux recensés · 93 liens de presse vus · 6 travaux retenus. Rapport de tri : un pour dix mille. Chercher « le sujet » ramène une araignée colombienne, parce que son descripteur s'appelle Perafán.",
+      "abouti": true
+    },
+    {
+      "t": "Un chiffre de « 30 % de croyants » cité en secondaire",
+      "s": "Une étude parue dans une revue est citée en source secondaire. Auteurs et date introuvables, texte non lisible. Le chiffre est mentionné dans la note, pas retenu. La question du nombre reste indécidable.",
+      "abouti": false
+    },
+    {
+      "t": "L'effectif d'une communauté discrète au XXᵉ siècle",
+      "s": "Aucun recensement fiable n'existe, et c'est cohérent : une communauté discrète ne se compte pas. Recherche arrêtée après trois sources qui se recopient.",
+      "abouti": false
+    },
+    {
+      "t": "L'occultation : 873 ou 874 ?",
+      "s": "Les sources divergent sur le comput, et le calendrier lunaire rend la conversion approximative. Aucune ne tranche de façon vérifiable. La note laisse les deux dates.",
+      "abouti": false
+    },
+    {
+      "t": "Le lien entre une attente messianique et la violence",
+      "s": "Recherche menée, puis écartée : les auteurs d'une revue (2026) nient explicitement tout lien causal direct. La thèse est donc fausse, pas seulement invérifiable.",
+      "abouti": false
+    },
+    {
+      "t": "Les quatre références de la note, une par une",
+      "s": "Trois DOI interrogés en direct (Crossref) : les trois répondent, titres et revues exacts. Deux ISBN confirmés (Open Library, éditeur) : Glinter 2024, Studemund-Halévy 2022. Une erreur trouvée : une page d'écart, corrigée.",
+      "abouti": true
+    },
+    {
+      "t": "La presse sur le sujet",
+      "s": "Times of Israel : accès refusé (403). Aucun article de presse n'apportait de fait que les six travaux ne portent déjà. Écartée.",
+      "abouti": false
+    },
+    {
+      "t": "Les pages de type encyclopédie collaborative",
+      "s": "Écartées volontairement : dates inventées, sources non traçables. Le test est simple — si la page ne dit pas d'où elle tient son fait, le fait n'existe pas.",
+      "abouti": false
+    },
+    {
+      "t": "La veille automatique — bulletins du 7 et du 8 novembre",
+      "s": "331 articles analysés, 12 retenus, fenêtre de 7 jours. Rien qui concerne les projets en cours : c'est un flux généraliste, pas une veille ciblée.",
+      "abouti": true
+    },
+    {
+      "t": "Les gains d'un vélo à friction",
+      "s": "Rendement 60-80 % contre 85-92 % pour un moyeu. Pneu usé en 500-1 500 km contre 2 000-5 000. Perte de 20 à 40 % d'autonomie. Convergent sur plusieurs sources techniques indépendantes.",
+      "abouti": true
+    },
+    {
+      "t": "L'absorption réelle des mousses pyramidales — sans importance",
+      "s": "Recherche faite, puis mise hors du projet : la maquette est un objet d'aspect, pas un dispositif. NRC 0,70 à 1,00 selon l'épaisseur ; 0,18 à 0,24 à 125 Hz. Gardé pour mémoire, pas pour décider.",
+      "abouti": false
+    },
+    {
+      "t": "Une application Android pour un fichier hors ligne",
+      "s": "Trois outils officiels suffisent : aapt2, d8, apksigner. Aucun magasin, aucun compte développeur, aucun frais. L'application a été construite et signée v1+v2+v3.",
+      "abouti": true
+    }
+  ],
+  "condense": [
+    [
+      "Trois notes sont devenues une.",
+      "24 854 caractères au lieu de 59 195 — la fusion n'a rien perdu, sauf ce qui était faux."
+    ],
+    [
+      "Six travaux de 2024-2026 tiennent.",
+      "Revérifiés : trois identifiants interrogés en direct, trois ouvrages confirmés par leur éditeur."
+    ],
+    [
+      "Une erreur trouvée et corrigée.",
+      "Une page d'écart sur un ouvrage — le genre d'erreur qui ne se voit qu'en interrogeant la référence, pas en relisant le texte."
+    ],
+    [
+      "Sept questions restent ouvertes.",
+      "Ce n'est pas un manque : c'est une décision de méthode, écrite noir sur blanc dans la note."
+    ],
+    [
+      "Une application Android est construite et signée.",
+      "Un mégaoctet, aucune permission, aucune connexion. Elle s'installe et fonctionne en avion."
+    ],
+    [
+      "Une maquette a été montée une première fois.",
+      "Elle tient — il reste à la vérifier et à la peaufiner."
+    ],
+    [
+      "Le vélo attend une manette.",
+      "La batterie serait offerte ; tout le reste est écrit et prêt."
+    ],
+    [
+      "Le tableau de bord et les sites sont en ligne.",
+      "Un seul fichier autonome, sans suivi, utilisable en ligne comme hors ligne."
+    ]
+  ]
+}
