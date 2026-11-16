@@ -896,10 +896,206 @@ footer b{color:var(--ink-2)}
 }
 .toast.on{opacity:1;transform:none}
 
+/* Bouton Corriger + GitHub */
+.btn-corriger{
+  font:inherit;
+  font-size:14px;
+  font-weight:800;
+  padding:9px 16px;
+  border-radius:10px;
+  border:1.5px solid var(--accent);
+  background:var(--accent-bg);
+  color:var(--accent);
+  cursor:pointer;
+  min-height:40px;
+}
+.btn-corriger:hover{background:var(--accent);color:#fff}
+.btn-github{
+  font:inherit;
+  font-size:14px;
+  font-weight:800;
+  padding:9px 16px;
+  border-radius:10px;
+  border:1.5px solid #166534;
+  background:#16a34a;
+  color:#fff;
+  cursor:pointer;
+  min-height:40px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.btn-github:hover{filter:brightness(1.07)}
+.btn-github:disabled{opacity:.6;cursor:wait}
+.btn-github.big{
+  font-size:17px;
+  padding:14px 22px;
+  min-height:56px;
+  border-radius:14px;
+  width:100%;
+  justify-content:center;
+}
+.pending-dot{
+  width:10px;height:10px;border-radius:50%;background:#fbbf24;flex:0 0 auto;
+  box-shadow:0 0 0 3px rgba(251,191,36,.25);
+}
+.pending-dot.ok{background:#86efac;box-shadow:0 0 0 3px rgba(134,239,172,.25)}
+.pending-dot.none{background:#d1d5db;box-shadow:none}
+.gh-bar{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:14px 16px;
+  margin:0 0 18px;
+  box-shadow:var(--shadow);
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.gh-status{
+  display:flex;align-items:center;gap:9px;
+  font-size:13.5px;color:var(--ink-2);flex-wrap:wrap;
+}
+.gh-status b{color:var(--ink)}
+.gh-status .gh-hint{font-size:12.5px;color:var(--dim)}
+.gh-status .gh-last{font-size:12px;color:var(--dim)}
+.gh-setup-link{
+  background:none;border:0;color:var(--accent);font:inherit;font-size:12.5px;font-weight:700;
+  cursor:pointer;padding:2px 4px;text-decoration:underline;
+}
+
+/* Écran Corriger — gros pavés */
+.corriger-overlay{
+  position:fixed;inset:0;z-index:70;
+  background:rgba(25,28,34,.55);
+  backdrop-filter:blur(3px);
+  display:none;
+  align-items:flex-start;justify-content:center;
+  padding:16px;
+  overflow:auto;
+}
+.corriger-overlay.on{display:flex}
+.corriger-panel{
+  background:var(--bg);
+  border:1px solid var(--line);
+  border-radius:18px;
+  max-width:760px;width:100%;
+  padding:20px 20px 26px;
+  box-shadow:0 24px 60px rgba(0,0,0,.28);
+  margin:12px 0 40px;
+}
+.corriger-head{
+  display:flex;justify-content:space-between;align-items:flex-start;gap:12px;
+  margin-bottom:6px;
+}
+.corriger-head h3{margin:0;font-size:24px;letter-spacing:-.02em;color:var(--ink)}
+.corriger-head p{margin:4px 0 0;font-size:13.5px;color:var(--dim)}
+.btn-close-big{
+  font:inherit;font-size:15px;font-weight:800;
+  width:44px;height:44px;border-radius:12px;
+  border:1px solid var(--line);background:var(--surface);color:var(--ink);
+  cursor:pointer;flex:0 0 auto;
+}
+.btn-close-big:hover{border-color:var(--accent);color:var(--accent)}
+.tile-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;
+}
+.tile{
+  font:inherit;text-align:left;cursor:pointer;
+  background:var(--surface);border:1.5px solid var(--line);
+  border-radius:16px;padding:18px 18px 16px;min-height:104px;
+  display:flex;flex-direction:column;gap:6px;
+  transition:border-color .15s,transform .1s,box-shadow .15s;
+}
+.tile:hover{border-color:var(--accent);box-shadow:0 6px 20px rgba(15,118,110,.12);transform:translateY(-1px)}
+.tile .tile-ico{font-size:26px;line-height:1}
+.tile .tile-t{font-size:17px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+.tile .tile-s{font-size:13px;color:var(--dim);line-height:1.5}
+.tile-list{display:grid;gap:10px;margin-top:14px}
+.tile-row{
+  font:inherit;text-align:left;cursor:pointer;width:100%;
+  background:var(--surface);border:1.5px solid var(--line);
+  border-radius:14px;padding:15px 16px;min-height:64px;
+  display:flex;align-items:center;gap:12px;
+  transition:border-color .15s,background .15s;
+}
+.tile-row:hover{border-color:var(--accent);background:#fff}
+.tile-row .tr-main{flex:1 1 auto;min-width:0}
+.tile-row .tr-t{font-size:16px;font-weight:750;color:var(--ink);display:block}
+.tile-row .tr-s{font-size:12.8px;color:var(--dim);display:block;margin-top:2px}
+.tile-row .tr-arrow{font-size:20px;color:var(--accent);font-weight:800;flex:0 0 auto}
+.btn-back{
+  font:inherit;font-size:13.5px;font-weight:700;cursor:pointer;
+  background:none;border:0;color:var(--accent);padding:6px 2px;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.corriger-form{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:14px;padding:16px 18px;margin-top:12px;
+}
+.corriger-form label.fld{
+  display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:.09em;
+  color:var(--dim);font-weight:700;margin:14px 0 5px;
+}
+.corriger-form label.fld:first-of-type{margin-top:0}
+.corriger-form input[type="text"],.corriger-form textarea,.corriger-form select{
+  width:100%;font:inherit;font-size:15px;padding:11px 13px;
+  border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);
+}
+.corriger-form textarea{min-height:84px;resize:vertical}
+.corriger-form input:focus,.corriger-form textarea:focus,.corriger-form select:focus{outline:none;border-color:var(--accent);background:#fff}
+.step-edit-row{
+  display:flex;gap:8px;align-items:center;
+  padding:10px 0;border-bottom:1px solid var(--line-soft);
+}
+.step-edit-row:last-of-type{border-bottom:0}
+.step-edit-row input[type="text"]{
+  flex:1 1 auto;font:inherit;font-size:14.5px;padding:9px 11px;
+  border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--ink);min-width:0;
+}
+.step-edit-row input[type="checkbox"]{width:22px;height:22px;flex:0 0 auto;accent-color:var(--ok-bar);cursor:pointer}
+.mini-btn{
+  font:inherit;font-size:13px;font-weight:700;cursor:pointer;
+  padding:8px 10px;border-radius:9px;border:1px solid var(--line);
+  background:var(--surface);color:var(--ink-2);flex:0 0 auto;min-width:38px;min-height:38px;
+}
+.mini-btn:hover{border-color:var(--accent);color:var(--accent)}
+.mini-btn.danger:hover{border-color:var(--rien);color:var(--rien);background:var(--rien-bg)}
+.btn-danger{
+  font:inherit;font-size:14px;font-weight:700;cursor:pointer;
+  padding:11px 16px;border-radius:10px;border:1.5px solid var(--rien-bd);
+  background:var(--rien-bg);color:var(--rien);
+}
+.btn-danger:hover{background:var(--rien);color:#fff;border-color:var(--rien)}
+.btn-save-big{
+  font:inherit;font-size:15px;font-weight:800;cursor:pointer;
+  padding:12px 20px;border-radius:11px;border:1.5px solid var(--accent);
+  background:var(--accent);color:#fff;min-height:48px;
+}
+.btn-save-big:hover{filter:brightness(1.07)}
+.corriger-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center}
+.corriger-actions .spacer{flex:1 1 auto}
+.gh-steps{margin:10px 0 0;padding-left:20px;font-size:14px;color:var(--ink-2);line-height:1.65}
+.gh-steps li{margin-bottom:6px}
+.gh-steps code{background:var(--surface-alt);padding:1px 6px;border-radius:6px;font-size:12.5px}
+.gh-msg{font-size:13.5px;padding:10px 13px;border-radius:10px;margin-top:12px;display:none;line-height:1.55}
+.gh-msg.on{display:block}
+.gh-msg.err{background:var(--rien-bg);border:1px solid var(--rien-bd);color:#7c2d12}
+.gh-msg.ok{background:var(--ok-bg);border:1px solid var(--ok-bd);color:#14532d}
+.gh-msg.info{background:var(--blue-bg);border:1px solid var(--blue-bd);color:#173f68}
+.token-row{display:flex;gap:8px;margin-top:6px}
+.token-row input{flex:1 1 auto;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px}
+.token-row button{flex:0 0 auto}
+
+.c-subtitle{font-size:18px;font-weight:800;letter-spacing:-.01em;color:var(--ink);margin:18px 2px 4px}
+.c-count{color:var(--dim);font-weight:650;font-size:15px}
 @media (max-width:740px){
   .resume{grid-template-columns:repeat(2,minmax(0,1fr))}
   .resume .kpi:last-child{grid-column:1/-1}
   .b{grid-template-columns:1fr 78px 46px 42px;gap:8px;font-size:13.4px}
+  .tile-grid{grid-template-columns:1fr}
+  .gh-bar{padding:12px}
+  .token-row{flex-direction:column}
 }
 @media (max-width:560px){
   .topbar-in{padding:9px 14px}
@@ -909,7 +1105,7 @@ footer b{color:var(--ink-2)}
   .focus-go{justify-self:start}
 }
 @media print{
-  .topbar,.toolbar,.add-step,.del-btn,.savebar,.modal-bg,.toast,#section-cherche,.search-box{display:none!important}
+  .topbar,.toolbar,.add-step,.del-btn,.savebar,.modal-bg,.toast,#section-cherche,.search-box,.gh-bar,.corriger-overlay{display:none!important}
   body{background:#fff;color:#000}
   .envel{max-width:none;padding:0}
   .p,.kpi,.focus-card,.overview,.veille-box,.aide,.cond-card{box-shadow:none;break-inside:avoid}
@@ -935,6 +1131,8 @@ footer b{color:var(--ink-2)}
     </div>
     <div class="top-actions">
       <button class="btn-top" type="button" id="btn-top-add-proj" title="Créer un nouveau projet">+ Projet</button>
+      <button class="btn-corriger" type="button" id="btn-corriger" title="Corriger projets, étapes et veille">✎ Corriger</button>
+      <button class="btn-github" type="button" id="btn-github-top" title="Publier projets.json sur GitHub (branche main)"><span class="pending-dot none" id="gh-dot-top" aria-hidden="true"></span><span id="gh-label-top">Enregistrer sur GitHub</span></button>
       <button class="btn-top" type="button" id="btn-print" title="Imprimer ou enregistrer en PDF">Imprimer</button>
       <button class="btn-top primary" type="button" id="btn-data">Sauvegarder</button>
     </div>
@@ -946,6 +1144,16 @@ footer b{color:var(--ink-2)}
   <h1>Tableau de bord</h1>
   <p class="date">État au <b>16 novembre 2026</b> · mis à jour à la main · fonctionne en ligne et hors ligne, sans compte ni suivi</p>
   <p class="chapo">Cinq projets suivis au même endroit. Pour chacun : où il en est, <b>ce qui le terminera</b>, et <b>la seule chose à faire ensuite</b>. Vous pouvez cocher une étape directement : les barres, les pourcentages et la prochaine action se mettent à jour aussitôt.</p>
+
+  <div class="gh-bar" aria-label="Enregistrement sur GitHub">
+    <button class="btn-github big" type="button" id="btn-github-big"><span class="pending-dot none" id="gh-dot-big" aria-hidden="true"></span><span id="gh-label-big">⬆ Enregistrer sur GitHub</span></button>
+    <div class="gh-status">
+      <span id="gh-pending-text"><b>Aucune modification en attente.</b></span>
+      <span class="gh-hint" id="gh-hint-text">Les données viennent de <code>projets.json</code> (chargé au démarrage, avec secours hors ligne).</span>
+      <span class="gh-last" id="gh-last-text"></span>
+      <button class="gh-setup-link" type="button" id="btn-gh-setup">Réglage de la clé GitHub →</button>
+    </div>
+  </div>
 
   <div class="resume" id="kpi-grid" aria-label="Chiffres clés"></div>
 
@@ -1053,7 +1261,7 @@ footer b{color:var(--ink-2)}
   <footer>
     <p><b>Ce que cette page dit, et ce qu'elle ne dit pas.</b> Elle compte des étapes cochées, elle ne mesure pas leur difficulté. Une étape faite est une étape faite — mais toutes ne se valent pas.</p>
     <p><b>Confidentialité — vérifié le 16 novembre 2026.</b> Cette page n'a <b>aucun</b> script de mesure, pas de Google Analytics, pas de pixel, pas de cookie tiers, aucune police distante et aucune image externe. <b>Mais l'hébergeur, lui, garde une trace technique :</b> GitHub Pages enregistre l'adresse IP des visites dans ses journaux serveur (« à des fins de sécurité »), auxquels le propriétaire du site n'a pas accès. En ouvrant ce fichier localement depuis votre ordinateur, aucun serveur n'est contacté.</p>
-    <p>Tableau de bord mis à jour le <b>16 novembre 2026</b> · un seul fichier · zéro dépendance extérieure.</p>
+    <p>Tableau de bord mis à jour le <b>16 novembre 2026</b> · page + <code>projets.json</code> · zéro dépendance extérieure.</p>
   </footer>
 </div>
 
@@ -1152,6 +1360,34 @@ footer b{color:var(--ink-2)}
   </div>
 </div>
 
+<!-- Écran Corriger — gros pavés cliquables -->
+<div class="corriger-overlay" id="corriger-overlay" role="dialog" aria-modal="true" aria-labelledby="corriger-title">
+  <div class="corriger-panel">
+    <div class="corriger-head">
+      <div>
+        <h3 id="corriger-title">✎ Corriger</h3>
+        <p>Choisissez une grande case, puis corrigez. Tout est enregistré sur cet appareil ; cliquez ensuite sur <b>Enregistrer sur GitHub</b> pour publier.</p>
+      </div>
+      <button class="btn-close-big" type="button" id="corriger-close" aria-label="Fermer Corriger">✕</button>
+    </div>
+    <div id="corriger-body"></div>
+  </div>
+</div>
+
+<!-- Modale Réglage GitHub — clé fine-grained stockée uniquement dans Brave -->
+<div class="modal-bg" id="modal-github" role="dialog" aria-modal="true" aria-labelledby="mg-title">
+  <div class="modal" style="max-width:620px">
+    <h3 id="mg-title">Enregistrer sur GitHub — réglage guidé</h3>
+    <p class="m-sub">La clé reste <b>uniquement dans Brave sur votre PC</b> (stockage local du navigateur). Elle n'est <b>jamais</b> écrite dans le dépôt, dans <code>projets.json</code> ni envoyée ailleurs que vers <code>api.github.com</code>.</p>
+    <div id="gh-setup-zone"></div>
+    <div class="gh-msg" id="gh-msg" role="status" aria-live="polite"></div>
+    <div class="m-actions">
+      <button class="btn-top" type="button" id="gh-forget">Effacer la clé de Brave</button>
+      <button class="btn-top" type="button" data-close="modal-github">Fermer</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -1159,7 +1395,16 @@ footer b{color:var(--ink-2)}
   'use strict';
 
   const STORAGE_KEY = 'tdb_projets_v20261116';
+  const GH_OWNER = 'franceinfo771-prog';
+  const GH_REPO = 'tableau_de_bord';
+  const GH_BRANCH = 'main';
+  const GH_FILE = 'projets.json';
+  const TOKEN_KEY = 'tdb_github_token';
+  const LAST_PUSH_KEY = 'tdb_github_last_push';
 
+  // Secours hors ligne : copie intégrée des données (utilisée si projets.json
+  // ne peut pas être chargé, ex. fichier ouvert en local sans serveur).
+  // La source normale est projets.json, chargé au démarrage.
   const DEFAULT_DATA = {
     version: '2026-11-16',
     projets: [
@@ -1275,17 +1520,28 @@ footer b{color:var(--ink-2)}
     return String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
   }
 
+  // BASE_DATA = dernière version connue de projets.json (référence pour
+  // l'indicateur « modifications en attente »). Initialement = secours intégré,
+  // puis remplacée par le contenu de projets.json dès qu'il est chargé.
+  let BASE_DATA = clone(DEFAULT_DATA);
+  let DATA_SOURCE = 'hors-ligne (secours intégré)';
+  let ghBusy = false;
+
+  function normalizeData(d){
+    if(!d || !Array.isArray(d.projets) || !Array.isArray(d.veille)) return null;
+    if(!Array.isArray(d.condense)) d.condense = clone(DEFAULT_DATA.condense);
+    if(typeof d.version !== 'string') d.version = '2026-11-16';
+    return d;
+  }
+
   function loadState(){
     try{
       const raw = localStorage.getItem(STORAGE_KEY);
-      if(!raw) return clone(DEFAULT_DATA);
-      const parsed = JSON.parse(raw);
-      if(parsed && Array.isArray(parsed.projets) && Array.isArray(parsed.veille)){
-        if(!Array.isArray(parsed.condense)) parsed.condense = clone(DEFAULT_DATA.condense);
-        return parsed;
-      }
+      if(!raw) return clone(BASE_DATA);
+      const parsed = normalizeData(JSON.parse(raw));
+      if(parsed) return parsed;
     }catch(e){}
-    return clone(DEFAULT_DATA);
+    return clone(BASE_DATA);
   }
 
   let state = loadState();
@@ -1294,7 +1550,23 @@ footer b{color:var(--ink-2)}
   let openCards = new Set();
 
   function isDirty(){
-    return JSON.stringify(state) !== JSON.stringify(DEFAULT_DATA);
+    return JSON.stringify(state) !== JSON.stringify(BASE_DATA);
+  }
+
+  function pendingSummary(){
+    // Compte approximatif des différences pour l'indicateur.
+    let n = 0;
+    const baseIds = new Set(BASE_DATA.projets.map(p => p.id));
+    const stateIds = new Set(state.projets.map(p => p.id));
+    state.projets.forEach(p => {
+      const b = BASE_DATA.projets.find(x => x.id === p.id);
+      if(!b){ n++; return; }
+      if(JSON.stringify(b) !== JSON.stringify(p)) n++;
+    });
+    BASE_DATA.projets.forEach(p => { if(!stateIds.has(p.id)) n++; });
+    if(JSON.stringify(BASE_DATA.veille) !== JSON.stringify(state.veille)) n += Math.abs(state.veille.length - BASE_DATA.veille.length) || 1;
+    if(JSON.stringify(BASE_DATA.condense) !== JSON.stringify(state.condense)) n++;
+    return n;
   }
 
   function saveState(){
@@ -1303,6 +1575,101 @@ footer b{color:var(--ink-2)}
       else localStorage.removeItem(STORAGE_KEY);
     }catch(e){}
     document.getElementById('savebar').classList.toggle('on', isDirty());
+    updatePendingUI();
+  }
+
+  function updatePendingUI(){
+    const dirty = isDirty();
+    const n = dirty ? pendingSummary() : 0;
+    const hasToken = !!getToken();
+    const dots = [document.getElementById('gh-dot-top'), document.getElementById('gh-dot-big')].filter(Boolean);
+    dots.forEach(d => {
+      d.className = 'pending-dot' + (dirty ? '' : ' ok');
+      if(!dirty) d.classList.add('ok');
+    });
+    const pt = document.getElementById('gh-pending-text');
+    const ht = document.getElementById('gh-hint-text');
+    const lt = document.getElementById('gh-last-text');
+    if(pt){
+      pt.innerHTML = dirty
+        ? '<b>● ' + n + ' modification(s) en attente</b> — non encore publiées sur GitHub.'
+        : '<b>Aucune modification en attente.</b>';
+    }
+    if(ht){
+      ht.textContent = hasToken
+        ? 'Clé GitHub présente dans Brave — prête à publier sur ' + GH_BRANCH + '.'
+        : 'Clé GitHub non réglée — cliquez sur « Réglage de la clé GitHub » (2 minutes, une seule fois).';
+    }
+    if(lt){
+      let last = '';
+      try{ last = localStorage.getItem(LAST_PUSH_KEY) || ''; }catch(e){}
+      lt.textContent = last ? ('Dernière publication : ' + last) : '';
+    }
+    const lblTop = document.getElementById('gh-label-top');
+    if(lblTop) lblTop.textContent = dirty ? 'Enregistrer sur GitHub (' + n + ')' : 'Enregistrer sur GitHub';
+    const lblBig = document.getElementById('gh-label-big');
+    if(lblBig) lblBig.textContent = dirty ? '⬆ Enregistrer sur GitHub — ' + n + ' en attente' : '⬆ Enregistrer sur GitHub';
+    const btns = [document.getElementById('btn-github-top'), document.getElementById('btn-github-big')].filter(Boolean);
+    btns.forEach(b => { b.disabled = ghBusy; });
+  }
+
+  function getToken(){
+    try{ return (localStorage.getItem(TOKEN_KEY) || '').trim(); }catch(e){ return ''; }
+  }
+  function setToken(t){
+    try{
+      if(t) localStorage.setItem(TOKEN_KEY, t.trim());
+      else localStorage.removeItem(TOKEN_KEY);
+    }catch(e){}
+    updatePendingUI();
+    renderGhSetup();
+  }
+
+  function b64encode(str){
+    const bytes = new TextEncoder().encode(str);
+    let bin = '';
+    bytes.forEach(b => { bin += String.fromCharCode(b); });
+    return btoa(bin);
+  }
+  function b64decode(b64){
+    const bin = atob(b64.replace(/\s/g, ''));
+    const bytes = new Uint8Array(bin.length);
+    for(let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return new TextDecoder().decode(bytes);
+  }
+
+  function ghMsg(kind, text){
+    const el = document.getElementById('gh-msg');
+    if(!el) return;
+    el.className = 'gh-msg on ' + kind;
+    el.textContent = text;
+  }
+  function ghMsgClear(){
+    const el = document.getElementById('gh-msg');
+    if(el){ el.className = 'gh-msg'; el.textContent = ''; }
+  }
+
+  // Charge projets.json au démarrage (avec secours hors ligne).
+  async function loadFromServer(){
+    try{
+      const res = await fetch(GH_FILE + '?v=' + Date.now(), { cache: 'no-store' });
+      if(!res.ok) throw new Error('HTTP ' + res.status);
+      const data = normalizeData(await res.json());
+      if(!data) throw new Error('Format non reconnu');
+      const hadLocalEdits = isDirty();
+      BASE_DATA = data;
+      DATA_SOURCE = 'projets.json';
+      if(!hadLocalEdits){
+        // Pas de brouillon local : on adopte la version publiée.
+        state = clone(BASE_DATA);
+        try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
+      }
+      renderAll();
+    }catch(e){
+      // Secours hors ligne : on garde BASE_DATA = DEFAULT_DATA (déjà en place).
+      DATA_SOURCE = 'hors-ligne (secours intégré)';
+      updatePendingUI();
+    }
   }
 
   let toastTimer = null;
@@ -1738,12 +2105,12 @@ footer b{color:var(--ink-2)}
   }
 
   function resetState(){
-    if(!confirm('Revenir à l\'état de référence du 16 novembre 2026 ? Les coches locales non exportées seront effacées.')) return;
-    state = clone(DEFAULT_DATA);
+    if(!confirm('Revenir à la version publiée dans projets.json ? Les modifications locales non publiées seront effacées.')) return;
+    state = clone(BASE_DATA);
     openCards.clear();
     closeModal('modal-data');
     renderAll();
-    showToast('État réinitialisé');
+    showToast('État réinitialisé (projets.json)');
   }
 
   document.getElementById('m-export').addEventListener('click', exportJSON);
@@ -1764,7 +2131,7 @@ footer b{color:var(--ink-2)}
         if(!imported || !Array.isArray(imported.projets) || !Array.isArray(imported.veille)){
           throw new Error('Format non reconnu');
         }
-        if(!Array.isArray(imported.condense)) imported.condense = clone(DEFAULT_DATA.condense);
+        if(!Array.isArray(imported.condense)) imported.condense = clone(BASE_DATA.condense);
         state = imported;
         closeModal('modal-data');
         renderAll();
@@ -1806,7 +2173,514 @@ footer b{color:var(--ink-2)}
     }
   });
 
+  // ============================================================
+  //  GitHub — publication de projets.json sur main (API GitHub)
+  //  La clé fine-grained vit uniquement dans Brave (localStorage).
+  // ============================================================
+  async function ghApi(method, path, body){
+    const res = await fetch('https://api.github.com' + path, {
+      method: method,
+      cache: 'no-store',
+      headers: {
+        'Accept': 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+        'Authorization': 'Bearer ' + getToken(),
+        'Content-Type': 'application/json'
+      },
+      body: body ? JSON.stringify(body) : undefined
+    });
+    let data = null;
+    try { data = await res.json(); } catch(e) { data = null; }
+    return { status: res.status, ok: res.ok, data: data };
+  }
+
+  async function testStoredToken(){
+    const t = getToken();
+    if(!t){ ghMsg('err', 'Aucune clé enregistrée.'); return; }
+    ghMsg('info', 'Test de la clé…');
+    try{
+      const r = await ghApi('GET', '/repos/' + GH_OWNER + '/' + GH_REPO);
+      if(r.status === 200) ghMsg('ok', 'Clé valide ✓ — accès au dépôt confirmé.');
+      else if(r.status === 401) ghMsg('err', 'Clé refusée (401) — regénérez-en une.');
+      else if(r.status === 403) ghMsg('err', 'Clé acceptée mais accès refusé (403) — vérifiez « Contents : Read and write ».');
+      else if(r.status === 404) ghMsg('err', 'Dépôt introuvable pour cette clé (404) — cochez bien « ' + GH_REPO + ' » dans « Only select repositories ».');
+      else ghMsg('err', 'Réponse inattendue de GitHub (HTTP ' + r.status + ').');
+    }catch(e){
+      ghMsg('err', 'Impossible de joindre api.github.com — vérifiez votre connexion Internet.');
+    }
+  }
+
+  async function publishToGitHub(){
+    const token = getToken();
+    if(!token){
+      renderGhSetup();
+      ghMsgClear();
+      openModal('modal-github');
+      ghMsg('info', 'Collez d’abord votre clé fine-grained ci-dessous — elle ne sera stockée que dans Brave sur ce PC.');
+      return;
+    }
+    if(ghBusy) return;
+    ghBusy = true;
+    updatePendingUI();
+    showToast('Publication sur GitHub…');
+    try{
+      const path = '/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/' + GH_FILE;
+      const current = await ghApi('GET', path + '?ref=' + encodeURIComponent(GH_BRANCH));
+      let sha;
+      if(current.status === 200 && current.data && current.data.sha) sha = current.data.sha;
+      else if(current.status === 404) { /* première publication : le fichier sera créé */ }
+      else if(current.status === 401) throw new Error('Clé refusée par GitHub (401) — vérifiez-la dans le réglage.');
+      else if(current.status === 403) throw new Error('Accès refusé (403) — la clé n’a peut-être pas la permission « Contents : Read and write ».');
+      else throw new Error('Impossible de lire projets.json sur GitHub (HTTP ' + current.status + ').' + (current.data && current.data.message ? ' — ' + current.data.message : ''));
+
+      const content = b64encode(JSON.stringify(state, null, 2) + '\n');
+      const body = {
+        message: 'projets.json — mise à jour depuis le tableau de bord',
+        content: content,
+        branch: GH_BRANCH
+      };
+      if(sha) body.sha = sha;
+
+      const put = await ghApi('PUT', path, body);
+      if(put.status === 200 || put.status === 201){
+        BASE_DATA = clone(state);
+        try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
+        let stamp = '';
+        try{
+          stamp = new Date().toLocaleString('fr-FR', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
+          localStorage.setItem(LAST_PUSH_KEY, stamp);
+        }catch(e){}
+        ghBusy = false;
+        renderAll();
+        updatePendingUI();
+        showToast('projets.json publié sur ' + GH_BRANCH + ' ✓');
+        if(document.getElementById('modal-github').classList.contains('on')){
+          ghMsg('ok', 'Publié sur ' + GH_BRANCH + ' ✓' + (put.data && put.data.commit && put.data.commit.sha ? ' (commit ' + put.data.commit.sha.slice(0, 7) + ')' : '') + ' — le site sera à jour dans un instant.');
+        }
+        return;
+      }
+      if(put.status === 409) throw new Error('Conflit (409) : projets.json a changé sur GitHub entre-temps. Rechargez la page pour récupérer la dernière version publiée, puis refaites vos modifications.');
+      if(put.status === 401) throw new Error('Clé refusée (401) — vérifiez-la dans le réglage.');
+      if(put.status === 403) throw new Error('Écriture refusée (403) — il manque la permission « Contents : Read and write » pour ' + GH_REPO + '.');
+      if(put.status === 404) throw new Error('Dépôt ou fichier introuvable (404) pour cette clé.');
+      if(put.status === 422) throw new Error('GitHub refuse le fichier (422)' + (put.data && put.data.message ? ' — ' + put.data.message : '') + '.');
+      throw new Error('Publication impossible (HTTP ' + put.status + ').' + (put.data && put.data.message ? ' — ' + put.data.message : ''));
+    }catch(err){
+      renderGhSetup();
+      openModal('modal-github');
+      if(err instanceof TypeError) ghMsg('err', 'Impossible de joindre api.github.com — vérifiez votre connexion Internet.');
+      else ghMsg('err', err.message || String(err));
+      showToast('Publication échouée');
+    }finally{
+      ghBusy = false;
+      updatePendingUI();
+    }
+  }
+
+  function renderGhSetup(){
+    const zone = document.getElementById('gh-setup-zone');
+    if(!zone) return;
+    const t = getToken();
+    const intro = t
+      ? '<p class="m-sub" style="margin:2px 0 10px">✓ Une clé est enregistrée dans Brave sur ce PC.</p>' +
+        '<div class="token-row"><input type="password" id="gh-token-input" readonly value="' + esc(t) + '" autocomplete="off" spellcheck="false" aria-label="Clé enregistrée"><button class="btn-top" type="button" id="gh-token-test">Tester la clé</button></div>' +
+        '<p class="m-sub" style="margin:12px 0 4px">Remplacer la clé (collez une nouvelle clé) :</p>' +
+        '<div class="token-row"><input type="password" id="gh-token-new" placeholder="github_pat_…" autocomplete="off" spellcheck="false" aria-label="Nouvelle clé"><button class="btn-save-big" type="button" id="gh-token-save">Enregistrer la clé</button></div>' +
+        '<p class="m-sub" style="margin-top:12px">Pour la révoquer : « Effacer la clé de Brave » ci-dessous, puis supprimez-la sur github.com → Settings → Developer settings.</p>'
+      : '<ol class="gh-steps">' +
+        '<li>Ouvrez <b>github.com</b> → votre photo de profil (en haut à droite) → <b>Settings</b> → <b>Developer settings</b> → <b>Personal access tokens</b> → <b>Fine-grained tokens</b> → <b>Generate new token</b>.</li>' +
+        '<li><b>Token name</b> : <code>tableau-de-bord</code> · <b>Expiration</b> : 90 jours (au-delà, regénérez-en une).</li>' +
+        '<li><b>Repository access</b> → <b>Only select repositories</b> → cochez <code>' + GH_OWNER + '/' + GH_REPO + '</code> uniquement.</li>' +
+        '<li><b>Permissions</b> → <b>Repository permissions</b> → <b>Contents</b> → <b>Read and write</b>. Rien d’autre n’est nécessaire.</li>' +
+        '<li>Cliquez <b>Generate token</b>, copiez la clé (<code>github_pat_…</code>) — elle n’est affichée qu’une fois.</li>' +
+        '<li>Collez-la ci-dessous puis <b>Enregistrer la clé</b>. Elle restera uniquement dans Brave, sur ce PC.</li>' +
+        '</ol>' +
+        '<div class="token-row"><input type="password" id="gh-token-new" placeholder="github_pat_…" autocomplete="off" spellcheck="false" aria-label="Clé fine-grained GitHub"><button class="btn-save-big" type="button" id="gh-token-save">Enregistrer la clé</button></div>';
+    zone.innerHTML = intro;
+    const saveBtn = document.getElementById('gh-token-save');
+    if(saveBtn) saveBtn.addEventListener('click', () => {
+      const inp = document.getElementById('gh-token-new');
+      const val = ((inp && inp.value) || '').trim();
+      if(!val){ ghMsg('err', 'Collez d’abord la clé github_pat_…'); return; }
+      if(!/^github_pat_|^ghp_/.test(val)){ ghMsg('info', 'Format inhabituel — enregistrée quand même. Vérifiez avec « Tester la clé ».'); setToken(val); return; }
+      setToken(val);
+      ghMsg('ok', 'Clé enregistrée dans Brave ✓ — cliquez sur « Tester la clé » pour vérifier, puis fermez.');
+    });
+    const testBtn = document.getElementById('gh-token-test');
+    if(testBtn) testBtn.addEventListener('click', testStoredToken);
+  }
+
+  // ============================================================
+  //  Écran CORRIGER — gros pavés cliquables
+  // ============================================================
+  let corrigerView = { screen: 'menu', mode: 'project', pid: null, idx: -1 };
+
+  function openCorriger(){
+    corrigerView = { screen: 'menu', mode: 'project', pid: null, idx: -1 };
+    renderCorriger();
+    document.getElementById('corriger-overlay').classList.add('on');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeCorriger(){
+    document.getElementById('corriger-overlay').classList.remove('on');
+    document.body.style.overflow = '';
+  }
+  function persistLocal(){ renderAll(); } // saveState() est appelé par renderAll
+
+  function pendingBtnHTML(){
+    const dirty = isDirty();
+    return '<button class="btn-github big" type="button" data-gh-save>' +
+      '<span class="pending-dot' + (dirty ? '' : ' ok') + '"></span>' +
+      (dirty ? '⬆ Enregistrer sur GitHub — publier les modifications' : '⬆ Enregistrer sur GitHub — tout est publié') +
+      '</button>';
+  }
+  function footNote(){
+    return '<p class="gh-hint" style="margin:12px 2px 0">Modifications appliquées immédiatement sur cet appareil. Pour les publier sur le site : <b>Enregistrer sur GitHub</b>.</p>';
+  }
+  function projectStatsShort(p){
+    const st = projectStats(p);
+    return st.done + '/' + st.total + ' étapes faites (' + st.pct + ' %) — ' + st.label;
+  }
+
+  function renderCorriger(){
+    const b = document.getElementById('corriger-body');
+    if(!b) return;
+    let html = '';
+    switch(corrigerView.screen){
+      case 'menu': html = viewMenu(); break;
+      case 'projects': html = viewProjectList(); break;
+      case 'edit-project': html = viewEditProject(); break;
+      case 'edit-steps': html = viewEditSteps(); break;
+      case 'add-project': html = viewAddProject(); break;
+      case 'veille': html = viewVeilleList(); break;
+      case 'edit-veille': html = viewEditVeille(); break;
+      case 'add-veille': html = viewAddVeille(); break;
+      default: html = viewMenu();
+    }
+    b.innerHTML = html;
+    wireCorrigerBody();
+  }
+
+  function viewMenu(){
+    const nProj = state.projets.length, nVeille = state.veille.length;
+    return '<div class="tile-grid">' +
+      '<button class="tile" type="button" data-nav="projects:project"><span class="tile-ico">✎</span><span class="tile-t">Corriger un projet</span><span class="tile-s">Titre, idée, critère de fin, point ouvert — ou supprimer le projet.</span></button>' +
+      '<button class="tile" type="button" data-nav="projects:steps"><span class="tile-ico">☑</span><span class="tile-t">Corriger les étapes d’un projet</span><span class="tile-s">Renommer, cocher, monter / descendre, ajouter, supprimer.</span></button>' +
+      '<button class="tile" type="button" data-nav="add-project"><span class="tile-ico">＋</span><span class="tile-t">Ajouter un nouveau projet</span><span class="tile-s">Nom, idée, critère de fin et la liste des étapes, une par ligne.</span></button>' +
+      '<button class="tile" type="button" data-nav="veille"><span class="tile-ico">◎</span><span class="tile-t">Corriger une fiche de veille</span><span class="tile-s">Les ' + nVeille + ' fiches : titre, synthèse, « retenu » ou « sans résultat ».</span></button>' +
+      '<button class="tile" type="button" data-nav="add-veille"><span class="tile-ico">＋</span><span class="tile-t">Ajouter une fiche de veille</span><span class="tile-s">Consigner une recherche — même si elle n’a rien donné.</span></button>' +
+      '<button class="tile" type="button" data-nav="projects:project" style="visibility:hidden" aria-hidden="true" tabindex="-1"><span class="tile-ico">·</span><span class="tile-t">·</span><span class="tile-s">·</span></button>' +
+      '</div>' +
+      '<div style="margin-top:16px">' + pendingBtnHTML() + '</div>' +
+      '<p class="gh-hint" style="margin:10px 2px 0">' + nProj + ' projets · ' + nVeille + ' fiches de veille · les données vivent dans <code>projets.json</code>.</p>';
+  }
+
+  function viewProjectList(){
+    const isSteps = corrigerView.mode === 'steps';
+    const back = '<button class="btn-back" type="button" data-back="menu">← Menu Corriger</button>';
+    const title = isSteps ? 'Quel projet : corriger ses étapes ?' : 'Quel projet : le corriger ?';
+    const rows = state.projets.map(p =>
+      '<button class="tile-row" type="button" data-pick-pid="' + esc(p.id) + '">' +
+        '<span class="tr-main"><span class="tr-t">' + esc(p.nom) + '</span>' +
+        '<span class="tr-s">' + esc(projectStatsShort(p)) + '</span></span>' +
+        '<span class="tr-arrow">›</span>' +
+      '</button>').join('');
+    return back + '<h4 class="c-subtitle">' + title + '</h4><div class="tile-list">' + rows + '</div>' + footNote();
+  }
+
+  function currentProject(){
+    return state.projets.find(p => p.id === corrigerView.pid) || null;
+  }
+
+  function viewEditProject(){
+    const p = currentProject();
+    if(!p) return viewProjectList();
+    const back = '<button class="btn-back" type="button" data-back="projects">← Projets</button>';
+    return back +
+      '<div class="corriger-form">' +
+        '<label class="fld" for="cp-nom">Titre du projet</label>' +
+        '<input type="text" id="cp-nom" value="' + esc(p.nom) + '" autocomplete="off">' +
+        '<label class="fld" for="cp-idee">L’idée, en une phrase</label>' +
+        '<textarea id="cp-idee">' + esc(p.idee || '') + '</textarea>' +
+        '<label class="fld" for="cp-fin">Critère de fin</label>' +
+        '<textarea id="cp-fin">' + esc(p.fin || '') + '</textarea>' +
+        '<label class="fld" for="cp-ouvert">Point ouvert (vide si rien)</label>' +
+        '<textarea id="cp-ouvert">' + esc(p.ouvert || '') + '</textarea>' +
+      '</div>' +
+      '<div class="corriger-actions">' +
+        '<button class="btn-save-big" type="button" data-goto-steps="' + esc(p.id) + '">☑ Corriger les étapes →</button>' +
+        '<span class="spacer"></span>' +
+        '<button class="btn-danger" type="button" id="cp-delete">Supprimer ce projet…</button>' +
+      '</div>' + footNote();
+  }
+
+  function viewEditSteps(){
+    const p = currentProject();
+    if(!p) return viewProjectList();
+    const n = p.etapes.length;
+    const rows = p.etapes.map((st, i) =>
+      '<div class="step-edit-row" data-step-row="' + i + '">' +
+        '<input type="checkbox" data-step-ok="' + i + '"' + (st.ok ? ' checked' : '') + ' aria-label="Étape faite">' +
+        '<input type="text" data-step-t="' + i + '" value="' + esc(st.t) + '" aria-label="Texte de l’étape ' + (i + 1) + '">' +
+        '<button class="mini-btn" type="button" data-step-up="' + i + '"' + (i === 0 ? ' disabled' : '') + ' title="Monter" aria-label="Monter">↑</button>' +
+        '<button class="mini-btn" type="button" data-step-down="' + i + '"' + (i === n - 1 ? ' disabled' : '') + ' title="Descendre" aria-label="Descendre">↓</button>' +
+        '<button class="mini-btn danger" type="button" data-step-del="' + i + '" title="Supprimer cette étape" aria-label="Supprimer cette étape">✕</button>' +
+      '</div>').join('');
+    return '<button class="btn-back" type="button" data-back="projects">← Projets</button>' +
+      '<h4 class="c-subtitle">Étapes — ' + esc(p.nom) + ' <span class="c-count">(' + p.etapes.filter(s => s.ok).length + '/' + n + ')</span></h4>' +
+      '<div class="corriger-form">' + (rows || '<p class="gh-hint">Aucune étape pour l’instant.</p>') +
+        '<div class="token-row" style="margin-top:14px"><input type="text" id="cs-new" placeholder="Nouvelle étape…" autocomplete="off"><button class="btn-save-big" type="button" id="cs-add">Ajouter</button></div>' +
+      '</div>' +
+      '<div class="corriger-actions"><span class="spacer"></span><button class="btn-save-big" type="button" data-back="menu">✓ Terminé</button></div>' +
+      footNote();
+  }
+
+  function viewAddProject(){
+    return '<button class="btn-back" type="button" data-back="menu">← Menu Corriger</button>' +
+      '<h4 class="c-subtitle">Ajouter un nouveau projet</h4>' +
+      '<form id="form-cor-proj" class="corriger-form">' +
+        '<label class="fld" for="np-nom">Titre du projet *</label>' +
+        '<input type="text" id="np-nom" required autocomplete="off" placeholder="Ex. : Repeindre la cuisine">' +
+        '<label class="fld" for="np-idee">L’idée, en une phrase</label>' +
+        '<textarea id="np-idee" placeholder="Pourquoi ce projet, en une ligne."></textarea>' +
+        '<label class="fld" for="np-fin">Critère de fin</label>' +
+        '<textarea id="np-fin" placeholder="Ce qui dira, sans discussion, que c’est fini."></textarea>' +
+        '<label class="fld" for="np-etapes">Étapes — une par ligne *</label>' +
+        '<textarea id="np-etapes" required placeholder="Première étape&#10;Deuxième étape&#10;Troisième étape"></textarea>' +
+        '<label class="fld" for="np-ouvert">Point ouvert (facultatif)</label>' +
+        '<input type="text" id="np-ouvert" autocomplete="off" placeholder="La question à trancher, s’il y en a une.">' +
+        '<div class="corriger-actions"><span class="spacer"></span><button class="btn-save-big" type="submit">＋ Créer le projet</button></div>' +
+      '</form>' + footNote();
+  }
+
+  function viewVeilleList(){
+    const rows = state.veille.map((v, i) => {
+      const badge = v.abouti ? '<span class="badge ok">retenu</span>' : '<span class="badge rien">sans résultat</span>';
+      const excerpt = v.s.length > 110 ? v.s.slice(0, 110) + '…' : v.s;
+      return '<button class="tile-row" type="button" data-pick-veille="' + i + '">' +
+        '<span class="tr-main"><span class="tr-t">' + esc(v.t) + ' ' + badge + '</span>' +
+        '<span class="tr-s">' + esc(excerpt) + '</span></span>' +
+        '<span class="tr-arrow">›</span>' +
+      '</button>';
+    }).join('');
+    return '<button class="btn-back" type="button" data-back="menu">← Menu Corriger</button>' +
+      '<h4 class="c-subtitle">Quelle fiche de veille corriger ?</h4>' +
+      '<div class="tile-list">' + rows + '</div>' + footNote();
+  }
+
+  function viewEditVeille(){
+    const v = state.veille[corrigerView.idx];
+    if(!v) return viewVeilleList();
+    return '<button class="btn-back" type="button" data-back="veille">← Fiches de veille</button>' +
+      '<div class="corriger-form">' +
+        '<label class="fld" for="ev-t">Titre de la recherche</label>' +
+        '<input type="text" id="ev-t" value="' + esc(v.t) + '" autocomplete="off">' +
+        '<label class="fld" for="ev-s">Synthèse — ce qui a été trouvé (ou pas)</label>' +
+        '<textarea id="ev-s" style="min-height:120px">' + esc(v.s) + '</textarea>' +
+        '<label class="fld" for="ev-statut">Statut</label>' +
+        '<select id="ev-statut"><option value="1"' + (v.abouti ? ' selected' : '') + '>Retenu</option><option value="0"' + (!v.abouti ? ' selected' : '') + '>Sans résultat</option></select>' +
+      '</div>' +
+      '<div class="corriger-actions"><span class="spacer"></span><button class="btn-danger" type="button" id="ev-delete">Supprimer cette fiche…</button></div>' +
+      footNote();
+  }
+
+  function viewAddVeille(){
+    return '<button class="btn-back" type="button" data-back="menu">← Menu Corriger</button>' +
+      '<h4 class="c-subtitle">Ajouter une fiche de veille</h4>' +
+      '<form id="form-cor-veille" class="corriger-form">' +
+        '<label class="fld" for="av-t">Titre de la recherche *</label>' +
+        '<input type="text" id="av-t" required autocomplete="off" placeholder="Ex. : Le rendement d’un galet en friction">' +
+        '<label class="fld" for="av-s">Synthèse — ce qui a été trouvé (ou pas) *</label>' +
+        '<textarea id="av-s" required style="min-height:120px" placeholder="Sources interrogées, réponse obtenue, décision prise."></textarea>' +
+        '<label class="fld" for="av-statut">Statut</label>' +
+        '<select id="av-statut"><option value="1">Retenu</option><option value="0" selected>Sans résultat</option></select>' +
+        '<div class="corriger-actions"><span class="spacer"></span><button class="btn-save-big" type="submit">＋ Ajouter la fiche</button></div>' +
+      '</form>' + footNote();
+  }
+
+  function wireCorrigerBody(){
+    const b = document.getElementById('corriger-body');
+    if(!b) return;
+
+    b.querySelectorAll('[data-nav]').forEach(el => el.addEventListener('click', () => {
+      const v = el.getAttribute('data-nav');
+      if(v === 'menu') corrigerView = { screen: 'menu', mode: 'project', pid: null, idx: -1 };
+      else if(v.indexOf('projects:') === 0) corrigerView = { screen: 'projects', mode: v.split(':')[1], pid: null, idx: -1 };
+      else if(v === 'add-project') corrigerView = { screen: 'add-project' };
+      else if(v === 'veille') corrigerView = { screen: 'veille' };
+      else if(v === 'add-veille') corrigerView = { screen: 'add-veille' };
+      renderCorriger();
+    }));
+
+    b.querySelectorAll('[data-back]').forEach(el => el.addEventListener('click', () => {
+      const v = el.getAttribute('data-back');
+      if(v === 'menu') corrigerView = { screen: 'menu', mode: 'project', pid: null, idx: -1 };
+      else if(v === 'projects') corrigerView = { screen: 'projects', mode: corrigerView.mode || 'project', pid: null, idx: -1 };
+      else if(v === 'veille') corrigerView = { screen: 'veille' };
+      renderCorriger();
+    }));
+
+    b.querySelectorAll('[data-gh-save]').forEach(el => el.addEventListener('click', publishToGitHub));
+
+    b.querySelectorAll('[data-pick-pid]').forEach(el => el.addEventListener('click', () => {
+      const pid = el.getAttribute('data-pick-pid');
+      corrigerView = { screen: corrigerView.mode === 'steps' ? 'edit-steps' : 'edit-project', mode: corrigerView.mode, pid: pid, idx: -1 };
+      renderCorriger();
+    }));
+
+    b.querySelectorAll('[data-pick-veille]').forEach(el => el.addEventListener('click', () => {
+      corrigerView = { screen: 'edit-veille', pid: null, idx: Number(el.getAttribute('data-pick-veille')) };
+      renderCorriger();
+    }));
+
+    b.querySelectorAll('[data-goto-steps]').forEach(el => el.addEventListener('click', () => {
+      corrigerView = { screen: 'edit-steps', mode: 'steps', pid: el.getAttribute('data-goto-steps'), idx: -1 };
+      renderCorriger();
+    }));
+
+    // Champs du projet : application immédiate (sans reconstruire l'écran)
+    const p = corrigerView.screen === 'edit-project' ? currentProject() : null;
+    if(p){
+      const bind = (id, key) => {
+        const el = document.getElementById(id);
+        if(el) el.addEventListener('input', () => { p[key] = el.value; persistLocal(); });
+      };
+      bind('cp-nom', 'nom'); bind('cp-idee', 'idee'); bind('cp-fin', 'fin'); bind('cp-ouvert', 'ouvert');
+      const delBtn = document.getElementById('cp-delete');
+      if(delBtn) delBtn.addEventListener('click', () => {
+        if(!confirm('Supprimer définitivement le projet « ' + p.nom + ' » et ses ' + p.etapes.length + ' étapes ?')) return;
+        state.projets = state.projets.filter(x => x.id !== p.id);
+        openCards.delete(p.id);
+        renderAll();
+        showToast('Projet supprimé');
+        corrigerView = { screen: 'projects', mode: corrigerView.mode || 'project', pid: null, idx: -1 };
+        renderCorriger();
+      });
+    }
+
+    // Étapes : coches et textes immédiats ; l'ordre reconstruit la liste
+    if(corrigerView.screen === 'edit-steps'){
+      const ps = currentProject();
+      if(ps){
+        b.querySelectorAll('[data-step-ok]').forEach(el => el.addEventListener('change', () => {
+          const i = Number(el.getAttribute('data-step-ok'));
+          if(ps.etapes[i]){ ps.etapes[i].ok = el.checked; persistLocal(); }
+        }));
+        b.querySelectorAll('[data-step-t]').forEach(el => el.addEventListener('input', () => {
+          const i = Number(el.getAttribute('data-step-t'));
+          if(ps.etapes[i]){ ps.etapes[i].t = el.value; persistLocal(); }
+        }));
+        const move = (i, delta) => {
+          const j = i + delta;
+          if(j < 0 || j >= ps.etapes.length) return;
+          const tmp = ps.etapes[i]; ps.etapes[i] = ps.etapes[j]; ps.etapes[j] = tmp;
+          renderAll(); renderCorriger();
+        };
+        b.querySelectorAll('[data-step-up]').forEach(el => el.addEventListener('click', () => move(Number(el.getAttribute('data-step-up')), -1)));
+        b.querySelectorAll('[data-step-down]').forEach(el => el.addEventListener('click', () => move(Number(el.getAttribute('data-step-down')), 1)));
+        b.querySelectorAll('[data-step-del]').forEach(el => el.addEventListener('click', () => {
+          const i = Number(el.getAttribute('data-step-del'));
+          if(!ps.etapes[i]) return;
+          if(!confirm('Supprimer cette étape :\n« ' + ps.etapes[i].t + ' » ?')) return;
+          ps.etapes.splice(i, 1);
+          renderAll(); renderCorriger();
+        }));
+        const addBtn = document.getElementById('cs-add');
+        const newInput = document.getElementById('cs-new');
+        const addStep = () => {
+          const val = (newInput.value || '').trim();
+          if(!val) return;
+          ps.etapes.push({ t: val, ok: false, custom: true });
+          renderAll(); renderCorriger();
+          showToast('Étape ajoutée');
+        };
+        if(addBtn) addBtn.addEventListener('click', addStep);
+        if(newInput) newInput.addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); addStep(); } });
+      }
+    }
+
+    // Formulaire « nouveau projet »
+    const formProj = document.getElementById('form-cor-proj');
+    if(formProj) formProj.addEventListener('submit', e => {
+      e.preventDefault();
+      const nom = document.getElementById('np-nom').value.trim();
+      const idee = document.getElementById('np-idee').value.trim();
+      const fin = document.getElementById('np-fin').value.trim();
+      const ouvert = document.getElementById('np-ouvert').value.trim();
+      const etapes = document.getElementById('np-etapes').value.split('\n').map(s => s.trim()).filter(Boolean).map(t => ({ t: t, ok: false, custom: true }));
+      if(!nom || !etapes.length) return;
+      const id = 'p-' + Date.now().toString(36);
+      state.projets.push({ id: id, nom: nom, idee: idee, fin: fin, ouvert: ouvert, etapes: etapes, custom: true });
+      openCards.add(id);
+      renderAll();
+      showToast('Projet « ' + nom + ' » ajouté');
+      corrigerView = { screen: 'menu', mode: 'project', pid: null, idx: -1 };
+      renderCorriger();
+    });
+
+    // Formulaire « nouvelle fiche de veille »
+    const formVeille = document.getElementById('form-cor-veille');
+    if(formVeille) formVeille.addEventListener('submit', e => {
+      e.preventDefault();
+      const t = document.getElementById('av-t').value.trim();
+      const s = document.getElementById('av-s').value.trim();
+      const abouti = document.getElementById('av-statut').value === '1';
+      if(!t || !s) return;
+      state.veille.unshift({ t: t, s: s, abouti: abouti, custom: true });
+      renderAll();
+      showToast('Fiche de veille ajoutée');
+      corrigerView = { screen: 'menu', mode: 'project', pid: null, idx: -1 };
+      renderCorriger();
+    });
+
+    // Champs d’une fiche de veille : application immédiate
+    if(corrigerView.screen === 'edit-veille'){
+      const v = state.veille[corrigerView.idx];
+      if(v){
+        const tEl = document.getElementById('ev-t');
+        const sEl = document.getElementById('ev-s');
+        const stEl = document.getElementById('ev-statut');
+        if(tEl) tEl.addEventListener('input', () => { v.t = tEl.value; persistLocal(); });
+        if(sEl) sEl.addEventListener('input', () => { v.s = sEl.value; persistLocal(); });
+        if(stEl) stEl.addEventListener('change', () => { v.abouti = stEl.value === '1'; persistLocal(); });
+        const delV = document.getElementById('ev-delete');
+        if(delV) delV.addEventListener('click', () => {
+          if(!confirm('Supprimer la fiche de veille « ' + v.t + ' » ?')) return;
+          state.veille.splice(corrigerView.idx, 1);
+          renderAll();
+          showToast('Fiche supprimée');
+          corrigerView = { screen: 'veille' };
+          renderCorriger();
+        });
+      }
+    }
+  }
+
+  function setupCorriger(){
+    document.getElementById('btn-corriger').addEventListener('click', openCorriger);
+    document.getElementById('corriger-close').addEventListener('click', closeCorriger);
+    const overlay = document.getElementById('corriger-overlay');
+    overlay.addEventListener('click', e => { if(e.target === overlay) closeCorriger(); });
+    document.addEventListener('keydown', e => {
+      if(e.key !== 'Escape' || !overlay.classList.contains('on')) return;
+      if(document.querySelector('.modal-bg.on')) return; // une modale est au-dessus : la laisser gérer Échap
+      e.stopPropagation();
+      closeCorriger();
+    }, true);
+  }
+
+  function setupGitHub(){
+    document.getElementById('btn-github-top').addEventListener('click', publishToGitHub);
+    document.getElementById('btn-github-big').addEventListener('click', publishToGitHub);
+    document.getElementById('btn-gh-setup').addEventListener('click', () => { ghMsgClear(); renderGhSetup(); openModal('modal-github'); });
+    document.getElementById('gh-forget').addEventListener('click', () => { setToken(''); renderGhSetup(); ghMsg('info', 'Clé effacée de Brave.'); });
+  }
+
+  setupCorriger();
+  setupGitHub();
   renderAll();
+  loadFromServer();
+  updatePendingUI();
 })();
 </script>
 </body>
