@@ -3,392 +3,1811 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mes projets — état au 15 novembre 2026 (base)</title>
-<meta name="description" content="L'état de cinq projets, à la date du 15 novembre 2026 : ce qui est fait, ce qui reste, et la prochaine étape de chacun.">
-<meta name="robots" content="noindex, nofollow">
+<title>Tableau de bord — Mes projets (16 novembre 2026)</title>
+<meta name="description" content="Tableau de bord de cinq projets, à la date du 16 novembre 2026 : ce qui est fait, ce qui reste, la prochaine étape de chacun, la veille et le condensé.">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
 <style>
-:root{--bg:#fbf9f5;--card:#fff;--ink:#191c22;--dim:#6b7280;--line:#e6e0d4;
---ok:#2f855a;--enc:#b8860b;--cad:#7a6f8f;--acc:#3b6ea5}
+:root{
+  --bg:#f9f7f2;
+  --surface:#ffffff;
+  --surface-alt:#f3efe6;
+  --ink:#191c22;
+  --ink-2:#414852;
+  --dim:#666f7a;
+  --line:#e5dfd2;
+  --line-soft:#f0ebe0;
+  --accent:#0f766e;
+  --accent-bg:#eaf7f4;
+  --accent-bd:#bce3db;
+  --blue:#2c5d91;
+  --blue-bg:#eff5fb;
+  --blue-bd:#cddff2;
+  --ok:#247a52;
+  --ok-bar:#2f8f62;
+  --ok-bg:#edf8f2;
+  --ok-bd:#bde0cd;
+  --enc:#8a6100;
+  --enc-bar:#c58f12;
+  --enc-bg:#fdf6e3;
+  --enc-bd:#ead59e;
+  --cad:#5b5173;
+  --cad-bar:#7e7297;
+  --cad-bg:#f4f1f9;
+  --cad-bd:#d6cfe4;
+  --warn-bg:#fdf6e3;
+  --warn-bd:#e8d49c;
+  --warn-ink:#4f421d;
+  --rien:#9a3b28;
+  --rien-bg:#fdf0ee;
+  --rien-bd:#f0cfc6;
+  --radius:14px;
+  --shadow:0 1px 3px rgba(25,28,34,.04);
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);
-font:16.5px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-.envel{max-width:760px;margin:0 auto;padding:44px 20px 100px}
-h1{font-size:clamp(28px,5.4vw,38px);margin:0 0 6px;letter-spacing:-.028em}
-.date{color:var(--dim);font-size:14.5px;margin:0 0 6px}
-.principe{color:var(--dim);font-size:15px;margin:0 0 26px;max-width:56ch}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font:16px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent)}
 
-.resume{display:flex;gap:26px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);
-border-radius:14px;padding:18px 20px;margin:0 0 26px}
-.resume div{min-width:96px}
-.resume b{display:block;font-size:26px;line-height:1.15;letter-spacing:-.02em}
-.resume span{font-size:12.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.07em}
+/* Navigation collante */
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:40;
+  background:rgba(249,247,242,.92);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-in{
+  max-width:840px;
+  margin:0 auto;
+  padding:10px 20px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.brand{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-weight:800;
+  font-size:15px;
+  letter-spacing:-.015em;
+  color:var(--ink);
+  text-decoration:none;
+  margin-right:4px;
+}
+.brand-dot{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 0 3px rgba(15,118,110,.15);
+}
+.navlinks{
+  display:flex;
+  gap:4px;
+  flex-wrap:wrap;
+  flex:1 1 auto;
+}
+.navlinks a{
+  font-size:13.2px;
+  font-weight:500;
+  color:var(--ink-2);
+  text-decoration:none;
+  padding:5px 9px;
+  border-radius:8px;
+  transition:background .15s,color .15s;
+}
+.navlinks a:hover{
+  background:var(--surface-alt);
+  color:var(--accent);
+}
+.top-actions{
+  display:flex;
+  gap:6px;
+  align-items:center;
+}
+.btn-top{
+  font:inherit;
+  font-size:12.5px;
+  font-weight:600;
+  padding:6px 11px;
+  border-radius:8px;
+  border:1px solid var(--line);
+  background:var(--surface);
+  color:var(--ink-2);
+  cursor:pointer;
+  transition:border-color .15s,color .15s,background .15s;
+}
+.btn-top:hover{border-color:var(--accent);color:var(--accent)}
+.btn-top.primary{
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#fff;
+}
+.btn-top.primary:hover{filter:brightness(1.07);color:#fff}
 
-.lienaide{color:var(--acc);text-decoration:none;border-bottom:1px solid #c5d8ee}
-.lienaide:hover{border-bottom-color:var(--acc)}
-.aide{margin:0 0 6px}
-.aide details{border-bottom:1px solid #f0ece2;padding:0}
-.aide details:last-child{border-bottom:0}
-.aide summary{cursor:pointer;padding:11px 0 11px 20px;font-size:14.9px;font-weight:600;
-color:#2c333c;position:relative;list-style:none;user-select:none}
-.aide summary::-webkit-details-marker{display:none}
-.aide summary::before{content:"+";position:absolute;left:2px;top:9px;color:var(--acc);
-font-weight:700;font-size:16px;line-height:1.2}
-.aide details[open] summary::before{content:"−"}
-.aide summary:hover{color:var(--acc)}
-.aide details p{margin:0 0 11px 20px;font-size:14.4px;color:#4a5058;line-height:1.62;max-width:64ch}
-.chantier{background:#fdf6e3;border:1px solid #e8d5a0;border-left:4px solid #c9a227;
-border-radius:11px;padding:15px 18px;margin:0 0 22px}
-.chantier b{display:inline-block;font-size:11px;text-transform:uppercase;letter-spacing:.11em;
-color:#8a6400;margin-bottom:6px}
-.chantier p{margin:0;font-size:14.6px;color:#4a3f1e;line-height:1.6}
-.chantier p.v{margin-top:7px;font-size:12.6px;color:#8a7a4a}
-#q{width:100%;background:var(--card);border:1px solid var(--line);border-radius:10px;
-padding:12px 15px;font-size:15.5px;color:var(--ink);margin:10px 0 4px;font-family:inherit}
-#q:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px rgba(59,110,165,.11)}
-#res .r{border-bottom:1px solid #f2eee4;padding:11px 0;font-size:14.2px;line-height:1.55}
-#res .r:last-child{border-bottom:0}
-#res .rs{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);font-weight:700;margin-bottom:2px}
-#res mark{background:#ffe9a8;color:#000;padding:0 2px;border-radius:2px}
-#res .vide{padding:12px 0;color:var(--dim);font-size:14px}
-#veille .v{padding:11px 0;border-bottom:1px solid #f2eee4;font-size:14.2px}
-#veille .v:last-child{border-bottom:0}
-#veille .vt{font-weight:600;font-size:14.8px;margin-bottom:2px}
-#veille .vs{font-size:13.6px;color:#5a6068;line-height:1.55}
-#veille .badge{display:inline-block;font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;
-padding:2px 8px;border-radius:99px;font-weight:700;margin-left:7px;vertical-align:1px}
-#veille .badge.ok{background:#eefaf3;color:#22694a;border:1px solid #b8ddc8}
-#veille .badge.rien{background:#fdf0ee;color:#9a3b28;border:1px solid #f0cfc6}
-ol.cond{margin:10px 0 0;padding-left:22px;font-size:14.8px}
-ol.cond li{margin-bottom:9px;line-height:1.6;color:#3a4048}
-ol.cond b{color:var(--ink)}
-h2.sect{font-size:12px;text-transform:uppercase;letter-spacing:.11em;color:var(--dim);
-margin:34px 0 12px;border-bottom:1px solid var(--line);padding-bottom:7px;font-weight:600}
-.b{display:grid;grid-template-columns:1fr 92px 46px;gap:11px;align-items:center;padding:5px 0;font-size:14px}
-.bn{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#333}
-.bb{height:7px;background:#eee8db;border-radius:99px;overflow:hidden}
-.bb i{display:block;height:100%;border-radius:99px}
-.bp{text-align:right;color:var(--dim);font-variant-numeric:tabular-nums;font-size:13px}
-i.fini{background:var(--ok)} i.encours{background:var(--enc)} i.cadre{background:var(--cad)}
+/* Conteneur principal */
+.envel{
+  max-width:840px;
+  margin:0 auto;
+  padding:34px 20px 110px;
+}
+h1{
+  font-size:clamp(29px,5.2vw,40px);
+  margin:0 0 6px;
+  letter-spacing:-.03em;
+  line-height:1.12;
+}
+.date{
+  color:var(--dim);
+  font-size:14.2px;
+  margin:0 0 12px;
+}
+.date b{color:var(--ink-2)}
+.chapo{
+  color:var(--ink-2);
+  font-size:15.5px;
+  margin:0 0 22px;
+  max-width:64ch;
+}
+.chapo b{color:var(--ink)}
 
-.p{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--cad);
-border-radius:13px;padding:20px 22px;margin:0 0 15px}
-.p.fini{border-left-color:var(--ok)}
-.p.encours{border-left-color:var(--enc)}
-.p header{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:8px}
-.p h2{font-size:20px;margin:0;letter-spacing:-.015em}
-.tag{font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;padding:3px 10px;
-border-radius:99px;border:1px solid;font-weight:700;white-space:nowrap}
-.tag.fini{color:#22694a;border-color:#b8ddc8;background:#eefaf3}
-.tag.encours{color:#8a6400;border-color:#e8d5a0;background:#fdf6e3}
-.tag.cadre{color:#5f5575;border-color:#d5cfe3;background:#f4f1f9}
-.idee{margin:0 0 14px;font-size:15px;color:#414651}
+/* Bandeau KPI */
+.resume{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:11px;
+  margin:0 0 18px;
+}
+.kpi{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:15px 16px;
+  box-shadow:var(--shadow);
+}
+.kpi b{
+  display:block;
+  font-size:26px;
+  line-height:1.15;
+  letter-spacing:-.025em;
+  font-variant-numeric:tabular-nums;
+  color:var(--ink);
+}
+.kpi.kpi-accent b{color:var(--accent)}
+.kpi span{
+  display:block;
+  margin-top:4px;
+  font-size:11.5px;
+  color:var(--dim);
+  text-transform:uppercase;
+  letter-spacing:.075em;
+  font-weight:600;
+}
+.kpi .sub{
+  margin-top:4px;
+  font-size:11.5px;
+  color:var(--dim);
+  text-transform:none;
+  letter-spacing:0;
+  font-weight:400;
+}
+.mini-bar{
+  height:5px;
+  background:var(--surface-alt);
+  border-radius:99px;
+  overflow:hidden;
+  margin-top:8px;
+}
+.mini-bar i{
+  display:block;
+  height:100%;
+  background:var(--accent);
+  border-radius:99px;
+  transition:width .3s ease;
+}
 
-.jauge{height:9px;background:#f0ece3;border-radius:99px;overflow:hidden;margin:0 0 6px}
-.jauge i{display:block;height:100%;border-radius:99px;transition:width .3s}
-.compte{margin:0 0 15px;font-size:13px;color:var(--dim);font-variant-numeric:tabular-nums}
+/* Encart En construction */
+.chantier{
+  background:var(--warn-bg);
+  border:1px solid var(--warn-bd);
+  border-left:4px solid #c9a227;
+  border-radius:11px;
+  padding:14px 18px;
+  margin:0 0 28px;
+}
+.chantier b.eyebrow{
+  display:inline-block;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.11em;
+  color:var(--enc);
+  margin-bottom:5px;
+}
+.chantier p{margin:0;font-size:14.4px;color:var(--warn-ink);line-height:1.58}
+.chantier p.v{margin-top:6px;font-size:12.6px;color:#826e37}
+
+/* Titres de section */
+h2.sect{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:var(--dim);
+  margin:38px 0 14px;
+  border-bottom:1px solid var(--line);
+  padding-bottom:8px;
+  font-weight:700;
+  scroll-margin-top:68px;
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:10px;
+  flex-wrap:wrap;
+}
+h2.sect small{
+  font-size:11.5px;
+  text-transform:none;
+  letter-spacing:0;
+  font-weight:500;
+  color:var(--dim);
+}
+
+/* Bloc Prochaines actions (Focus) */
+.focus-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:6px 18px;
+  box-shadow:var(--shadow);
+}
+.focus-row{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:6px 14px;
+  align-items:center;
+  padding:13px 0;
+  border-bottom:1px solid var(--line-soft);
+}
+.focus-row:last-child{border-bottom:0}
+.focus-proj{
+  font-size:13px;
+  font-weight:700;
+  color:var(--dim);
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.focus-pct{
+  font-variant-numeric:tabular-nums;
+  font-size:11.5px;
+  padding:1px 7px;
+  border-radius:99px;
+  background:var(--surface-alt);
+  color:var(--ink-2);
+  font-weight:600;
+}
+.focus-act{
+  font-size:15.2px;
+  font-weight:650;
+  color:var(--ink);
+  margin-top:2px;
+}
+.focus-act::before{content:"→ ";color:var(--accent);font-weight:800}
+.focus-go{
+  font-size:12.5px;
+  font-weight:600;
+  color:var(--accent);
+  text-decoration:none;
+  padding:6px 11px;
+  border:1px solid var(--accent-bd);
+  background:var(--accent-bg);
+  border-radius:8px;
+  white-space:nowrap;
+  transition:background .15s,color .15s;
+}
+.focus-go:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.focus-open{
+  margin-top:10px;
+  padding:11px 15px;
+  border-radius:10px;
+  background:var(--surface-alt);
+  font-size:13.4px;
+  color:var(--ink-2);
+  line-height:1.55;
+}
+.focus-open b{color:var(--ink)}
+
+/* Barres D'un coup d'oeil */
+.overview{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:8px 18px;
+  box-shadow:var(--shadow);
+}
+.b{
+  display:grid;
+  grid-template-columns:1fr 120px 58px 48px;
+  gap:12px;
+  align-items:center;
+  padding:9px 4px;
+  font-size:14.2px;
+  border-bottom:1px solid var(--line-soft);
+  text-decoration:none;
+  color:inherit;
+  border-radius:8px;
+  transition:background .12s;
+}
+.b:last-child{border-bottom:0}
+.b:hover{background:var(--surface-alt)}
+.bn{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink);font-weight:600}
+.bb{height:8px;background:#ece6d9;border-radius:99px;overflow:hidden}
+.bb i{display:block;height:100%;border-radius:99px;transition:width .3s ease}
+.bc{text-align:right;color:var(--dim);font-variant-numeric:tabular-nums;font-size:12.5px}
+.bp{text-align:right;color:var(--ink-2);font-variant-numeric:tabular-nums;font-size:13px;font-weight:700}
+i.fini{background:var(--ok-bar)}
+i.encours{background:var(--enc-bar)}
+i.cadre{background:var(--cad-bar)}
+
+/* Barre de filtres et outils */
+.toolbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:0 0 14px;
+}
+.pills{display:flex;gap:6px;flex-wrap:wrap}
+.pill{
+  font:inherit;
+  font-size:12.8px;
+  font-weight:600;
+  padding:6px 12px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:var(--surface);
+  color:var(--ink-2);
+  cursor:pointer;
+  transition:all .15s;
+}
+.pill:hover{border-color:var(--accent);color:var(--accent)}
+.pill.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.tool-right{display:flex;gap:6px;flex-wrap:wrap}
+.btn-sm{
+  font:inherit;
+  font-size:12.5px;
+  font-weight:600;
+  padding:6px 11px;
+  border-radius:8px;
+  border:1px solid var(--line);
+  background:var(--surface);
+  color:var(--ink-2);
+  cursor:pointer;
+}
+.btn-sm:hover{border-color:var(--accent);color:var(--accent)}
+
+/* Cartes projet */
+.p{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-left:4px solid var(--cad-bar);
+  border-radius:var(--radius);
+  padding:20px 22px;
+  margin:0 0 14px;
+  box-shadow:var(--shadow);
+  scroll-margin-top:72px;
+  transition:border-color .2s;
+}
+.p.fini{border-left-color:var(--ok-bar)}
+.p.encours{border-left-color:var(--enc-bar)}
+.p header{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:8px;
+}
+.p h3{
+  font-size:20px;
+  margin:0;
+  letter-spacing:-.018em;
+  color:var(--ink);
+}
+.p-head-right{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.tag{
+  font-size:10.5px;
+  text-transform:uppercase;
+  letter-spacing:.09em;
+  padding:3px 10px;
+  border-radius:99px;
+  border:1px solid;
+  font-weight:700;
+  white-space:nowrap;
+}
+.tag.fini{color:var(--ok);border-color:var(--ok-bd);background:var(--ok-bg)}
+.tag.encours{color:var(--enc);border-color:var(--enc-bd);background:var(--enc-bg)}
+.tag.cadre{color:var(--cad);border-color:var(--cad-bd);background:var(--cad-bg)}
+.idee{margin:0 0 14px;font-size:14.8px;color:var(--ink-2)}
+
+.jauge{
+  height:9px;
+  background:#efeae0;
+  border-radius:99px;
+  overflow:hidden;
+  margin:0 0 6px;
+}
+.jauge i{display:block;height:100%;border-radius:99px;transition:width .3s ease}
+.compte{
+  margin:0 0 14px;
+  font-size:13px;
+  color:var(--dim);
+  font-variant-numeric:tabular-nums;
+}
 .compte b{color:var(--ink)}
 
-.lab{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;
-color:var(--dim);font-weight:700;margin-bottom:4px}
-.fin{background:#f1f8f4;border:1px solid #d3e8db;border-radius:9px;padding:11px 14px;margin:0 0 9px}
-.fin .lab{color:#2f6b4d} .fin p{margin:0;font-weight:600;color:#14442c;font-size:15px;line-height:1.5}
-.prox{background:#eff4fa;border:1px solid #cfe0f2;border-radius:9px;padding:11px 14px;margin:0 0 12px}
-.prox .lab{color:#2c5d91} .prox p{margin:0;font-weight:600;color:#173f68;font-size:15px}
-.prox p.rien{font-weight:500;color:#2f6b4d}
+.lab{
+  display:block;
+  font-size:10.5px;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  color:var(--dim);
+  font-weight:700;
+  margin-bottom:4px;
+}
+.fin{
+  background:var(--ok-bg);
+  border:1px solid var(--ok-bd);
+  border-radius:10px;
+  padding:11px 14px;
+  margin:0 0 9px;
+}
+.fin .lab{color:var(--ok)}
+.fin p{margin:0;font-weight:600;color:#14442c;font-size:14.7px;line-height:1.52}
+.prox{
+  background:var(--blue-bg);
+  border:1px solid var(--blue-bd);
+  border-radius:10px;
+  padding:11px 14px;
+  margin:0 0 12px;
+}
+.prox .lab{color:var(--blue)}
+.prox p{margin:0;font-weight:600;color:#173f68;font-size:14.7px;line-height:1.5}
+.prox.done{background:var(--ok-bg);border-color:var(--ok-bd)}
+.prox.done .lab{color:var(--ok)}
+.prox.done p{color:#174b32}
+.decision-note{
+  margin:0 0 12px;
+  padding:9px 13px;
+  border-left:3px solid var(--line);
+  background:var(--surface-alt);
+  border-radius:0 8px 8px 0;
+  font-size:13.4px;
+  color:var(--ink-2);
+}
+.decision-note b{color:var(--ink)}
 
-details{margin-top:4px}
-summary{cursor:pointer;font-size:13.5px;color:var(--acc);padding:5px 0;user-select:none}
-summary:hover{text-decoration:underline}
-ul.etapes{list-style:none;margin:8px 0 0;padding:0;font-size:14.2px}
-ul.etapes li{display:flex;gap:9px;padding:5px 0;border-bottom:1px solid #f4f1ea;align-items:flex-start}
+/* Étapes interactives */
+.p details{margin-top:4px}
+.p summary{
+  cursor:pointer;
+  font-size:13.8px;
+  font-weight:600;
+  color:var(--accent);
+  padding:6px 0;
+  user-select:none;
+  list-style:none;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+}
+.p summary::-webkit-details-marker{display:none}
+.p summary::before{content:"▸";font-size:13px;transition:transform .15s}
+.p details[open] summary::before{transform:rotate(90deg)}
+.p summary:hover{text-decoration:underline}
+
+ul.etapes{list-style:none;margin:8px 0 0;padding:0;font-size:14.3px}
+ul.etapes li{
+  display:flex;
+  gap:10px;
+  padding:7px 4px;
+  border-bottom:1px solid var(--line-soft);
+  align-items:flex-start;
+}
 ul.etapes li:last-child{border-bottom:0}
-ul.etapes .c{flex:0 0 14px;height:14px;margin-top:4px;border-radius:4px;border:1.5px solid #d5cfc1;background:#fff}
-ul.etapes li.oui .c{background:var(--ok);border-color:var(--ok);position:relative}
-ul.etapes li.oui .c::after{content:"";position:absolute;left:3.5px;top:1px;width:4px;height:7px;
-border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg)}
-ul.etapes li.oui{color:#6b6f76}
-ul.etapes li.non{color:var(--ink)}
+ul.etapes label{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  cursor:pointer;
+  flex:1 1 auto;
+}
+ul.etapes input[type="checkbox"]{
+  appearance:none;
+  -webkit-appearance:none;
+  flex:0 0 18px;
+  width:18px;
+  height:18px;
+  margin-top:2px;
+  border-radius:5px;
+  border:1.5px solid #cbc3b2;
+  background:#fff;
+  cursor:pointer;
+  position:relative;
+  transition:background .14s,border-color .14s;
+}
+ul.etapes input[type="checkbox"]:hover{border-color:var(--accent)}
+ul.etapes input[type="checkbox"]:checked{
+  background:var(--ok-bar);
+  border-color:var(--ok-bar);
+}
+ul.etapes input[type="checkbox"]:checked::after{
+  content:"";
+  position:absolute;
+  left:5px;
+  top:1.5px;
+  width:4.5px;
+  height:9px;
+  border:solid #fff;
+  border-width:0 2px 2px 0;
+  transform:rotate(42deg);
+}
+ul.etapes li.oui .et-txt{color:var(--dim);text-decoration:line-through;text-decoration-color:#c4bdb0}
+ul.etapes li.non .et-txt{color:var(--ink)}
+.del-btn{
+  background:none;
+  border:0;
+  color:var(--dim);
+  cursor:pointer;
+  font-size:15px;
+  line-height:1;
+  padding:2px 6px;
+  border-radius:6px;
+  opacity:.65;
+}
+.del-btn:hover{background:var(--rien-bg);color:var(--rien);opacity:1}
 
-footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);
-font-size:13px;color:var(--dim);line-height:1.7}
-footer b{color:#414651}
-@media (max-width:640px){
- .envel{padding:28px 15px 70px}
- .p{padding:16px 16px}
- .resume{gap:18px;padding:15px 16px}
- .b{grid-template-columns:1fr 66px 40px;gap:8px;font-size:13px}
+.add-step{
+  display:flex;
+  gap:8px;
+  margin-top:11px;
+  padding-top:10px;
+  border-top:1px dashed var(--line);
+}
+.add-step input{
+  flex:1 1 auto;
+  font:inherit;
+  font-size:13.8px;
+  padding:8px 11px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:var(--bg);
+  color:var(--ink);
+}
+.add-step input:focus{outline:none;border-color:var(--accent);background:#fff}
+.add-step button{
+  font:inherit;
+  font-size:13px;
+  font-weight:600;
+  padding:8px 13px;
+  border-radius:8px;
+  border:1px solid var(--accent-bd);
+  background:var(--accent-bg);
+  color:var(--accent);
+  cursor:pointer;
+  white-space:nowrap;
+}
+.add-step button:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* Veille */
+.veille-box{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:4px 18px;
+  box-shadow:var(--shadow);
+}
+#veille .v{
+  padding:12px 0;
+  border-bottom:1px solid var(--line-soft);
+  font-size:14.2px;
+}
+#veille .v:last-child{border-bottom:0}
+#veille .vt{font-weight:650;font-size:14.8px;margin-bottom:3px;color:var(--ink)}
+#veille .vs{font-size:13.7px;color:var(--ink-2);line-height:1.56}
+#veille .badge{
+  display:inline-block;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  padding:2px 8px;
+  border-radius:99px;
+  font-weight:700;
+  margin-left:8px;
+  vertical-align:1px;
+}
+#veille .badge.ok{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-bd)}
+#veille .badge.rien{background:var(--rien-bg);color:var(--rien);border:1px solid var(--rien-bd)}
+
+/* Condensé */
+.cond-card{
+  background:#115e59;
+  color:#e6f7f4;
+  border-radius:var(--radius);
+  padding:22px 24px;
+  box-shadow:var(--shadow);
+}
+ol.cond{margin:0;padding-left:22px;font-size:14.8px}
+ol.cond li{margin-bottom:9px;line-height:1.6}
+ol.cond li:last-child{margin-bottom:0}
+ol.cond b{color:#fff;font-weight:750}
+
+/* Journal récent */
+.journal{display:grid;gap:10px}
+.j-item{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-left:3.5px solid var(--ok-bar);
+  border-radius:0 11px 11px 0;
+  padding:13px 16px;
+  font-size:14.2px;
+  color:var(--ink-2);
+}
+.j-item b{color:var(--ink)}
+.j-item .j-date{
+  display:inline-block;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.09em;
+  font-weight:700;
+  color:var(--ok);
+  margin-bottom:3px;
+}
+
+/* Recherche rapide */
+.search-box{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:16px 18px;
+  box-shadow:var(--shadow);
+}
+#q{
+  width:100%;
+  background:var(--bg);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:12px 15px;
+  font-size:15.2px;
+  color:var(--ink);
+  font-family:inherit;
+}
+#q:focus{
+  outline:none;
+  border-color:var(--accent);
+  background:#fff;
+  box-shadow:0 0 0 3px rgba(15,118,110,.12);
+}
+#res .r{
+  border-bottom:1px solid var(--line-soft);
+  padding:11px 4px;
+  font-size:14.2px;
+  line-height:1.55;
+  display:block;
+  text-decoration:none;
+  color:var(--ink-2);
+  border-radius:8px;
+}
+#res .r:hover{background:var(--surface-alt)}
+#res .r:last-child{border-bottom:0}
+#res .rs{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--accent);
+  font-weight:700;
+  margin-bottom:2px;
+}
+#res mark{background:#ffe9a8;color:#000;padding:0 2px;border-radius:2px}
+.vide{padding:12px 0 2px;color:var(--dim);font-size:13.8px;margin:0}
+
+/* Aide */
+.aide{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:4px 18px;
+  box-shadow:var(--shadow);
+}
+.aide details{border-bottom:1px solid var(--line-soft);padding:0}
+.aide details:last-child{border-bottom:0}
+.aide summary{
+  cursor:pointer;
+  padding:12px 0 12px 22px;
+  font-size:14.8px;
+  font-weight:600;
+  color:var(--ink);
+  position:relative;
+  list-style:none;
+  user-select:none;
+}
+.aide summary::-webkit-details-marker{display:none}
+.aide summary::before{
+  content:"+";
+  position:absolute;
+  left:2px;
+  top:10px;
+  color:var(--accent);
+  font-weight:700;
+  font-size:17px;
+  line-height:1.2;
+}
+.aide details[open] summary::before{content:"−"}
+.aide summary:hover{color:var(--accent)}
+.aide details p{margin:0 0 12px 22px;font-size:14.3px;color:var(--ink-2);line-height:1.62;max-width:65ch}
+
+/* Pied de page */
+footer{
+  margin-top:44px;
+  padding-top:18px;
+  border-top:1px solid var(--line);
+  font-size:13px;
+  color:var(--dim);
+  line-height:1.7;
+}
+footer b{color:var(--ink-2)}
+
+/* Barre flottante si modifications locales */
+.savebar{
+  position:fixed;
+  left:50%;
+  bottom:16px;
+  transform:translateX(-50%);
+  z-index:50;
+  background:#191c22;
+  color:#f3f4f6;
+  border-radius:12px;
+  padding:10px 14px;
+  display:none;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  box-shadow:0 12px 30px rgba(0,0,0,.22);
+  max-width:calc(100vw - 24px);
+  font-size:13px;
+}
+.savebar.on{display:flex}
+.savebar .dot-save{width:8px;height:8px;border-radius:50%;background:#34d399;flex:0 0 auto}
+.savebar button{
+  font:inherit;
+  font-size:12.5px;
+  font-weight:600;
+  padding:6px 11px;
+  border-radius:7px;
+  border:1px solid rgba(255,255,255,.2);
+  background:transparent;
+  color:#fff;
+  cursor:pointer;
+}
+.savebar button.prim{background:#14b8a6;border-color:#14b8a6;color:#052e2b}
+.savebar button:hover{filter:brightness(1.1)}
+
+/* Modales */
+.modal-bg{
+  position:fixed;
+  inset:0;
+  z-index:80;
+  background:rgba(25,28,34,.52);
+  backdrop-filter:blur(3px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.modal-bg.on{display:flex}
+.modal{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:16px;
+  max-width:520px;
+  width:100%;
+  padding:22px 24px;
+  box-shadow:0 24px 60px rgba(0,0,0,.25);
+  max-height:90vh;
+  overflow:auto;
+}
+.modal h3{margin:0 0 6px;font-size:19px;letter-spacing:-.015em;color:var(--ink)}
+.modal .m-sub{margin:0 0 16px;font-size:13.8px;color:var(--dim)}
+.modal label.fld{
+  display:block;
+  font-size:11.5px;
+  text-transform:uppercase;
+  letter-spacing:.09em;
+  color:var(--dim);
+  font-weight:700;
+  margin:12px 0 5px;
+}
+.modal input[type="text"],
+.modal textarea,
+.modal select{
+  width:100%;
+  font:inherit;
+  font-size:14.2px;
+  padding:9px 12px;
+  border:1px solid var(--line);
+  border-radius:9px;
+  background:var(--bg);
+  color:var(--ink);
+}
+.modal textarea{min-height:76px;resize:vertical}
+.modal input:focus,.modal textarea:focus,.modal select:focus{outline:none;border-color:var(--accent);background:#fff}
+.m-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  margin-top:18px;
+  flex-wrap:wrap;
+}
+.m-grid{display:grid;gap:10px}
+.m-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:12px 14px;
+  border:1px solid var(--line);
+  border-radius:11px;
+  background:var(--bg);
+}
+.m-row strong{display:block;font-size:14.2px;color:var(--ink)}
+.m-row span{display:block;font-size:12.6px;color:var(--dim)}
+.toast{
+  position:fixed;
+  right:18px;
+  bottom:74px;
+  z-index:90;
+  background:#115e59;
+  color:#fff;
+  padding:10px 15px;
+  border-radius:10px;
+  font-size:13.5px;
+  font-weight:600;
+  box-shadow:0 8px 24px rgba(0,0,0,.2);
+  opacity:0;
+  transform:translateY(8px);
+  pointer-events:none;
+  transition:opacity .2s,transform .2s;
+}
+.toast.on{opacity:1;transform:none}
+
+@media (max-width:740px){
+  .resume{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .resume .kpi:last-child{grid-column:1/-1}
+  .b{grid-template-columns:1fr 78px 46px 42px;gap:8px;font-size:13.4px}
+}
+@media (max-width:560px){
+  .topbar-in{padding:9px 14px}
+  .envel{padding:24px 14px 96px}
+  .p{padding:16px}
+  .focus-row{grid-template-columns:1fr}
+  .focus-go{justify-self:start}
+}
+@media print{
+  .topbar,.toolbar,.add-step,.del-btn,.savebar,.modal-bg,.toast,#section-cherche,.search-box{display:none!important}
+  body{background:#fff;color:#000}
+  .envel{max-width:none;padding:0}
+  .p,.kpi,.focus-card,.overview,.veille-box,.aide,.cond-card{box-shadow:none;break-inside:avoid}
+  .cond-card{background:#f3f7f6;color:#111;border:1px solid #bbb}
+  .cond-card b{color:#000}
+  details{display:block}
 }
 </style>
 </head>
 <body>
-<div class="envel">
 
-  <h1>Mes projets</h1>
-  <p class="date">État au <b>15 novembre 2026</b> · mis à jour à la main, jamais automatiquement
-  · <a class="lienaide" href="#aide">Aide — comment lire cette page</a></p>
-  <p class="chapo">Cette page remplace la précédente. Les deux notes arrêtées qui s'y trouvaient
-  ont été retirées : <b>ce qui ne se poursuit pas n'a pas à rester à l'affiche.</b>
-  Ce qui reste, c'est l'état réel des cinq projets, la veille, et un condensé.</p>
-  <p class="principe">Cinq projets. Pour chacun : où il en est, <b>ce qui le terminera</b>,
-  et <b>la seule chose à faire ensuite</b>. Une étape est faite ou elle ne l'est pas — c'est ce qui rend les barres honnêtes.</p>
+<nav class="topbar" aria-label="Navigation principale">
+  <div class="topbar-in">
+    <a class="brand" href="#haut"><span class="brand-dot" aria-hidden="true"></span>Tableau de bord</a>
+    <div class="navlinks">
+      <a href="#focus">À faire</a>
+      <a href="#apercu">Vue d'ensemble</a>
+      <a href="#projets">Projets</a>
+      <a href="#section-veille">Veille</a>
+      <a href="#condense">Condensé</a>
+      <a href="#section-cherche">Chercher</a>
+      <a href="#aide">Aide</a>
+    </div>
+    <div class="top-actions">
+      <button class="btn-top" type="button" id="btn-top-add-proj" title="Créer un nouveau projet">+ Projet</button>
+      <button class="btn-top" type="button" id="btn-print" title="Imprimer ou enregistrer en PDF">Imprimer</button>
+      <button class="btn-top primary" type="button" id="btn-data">Sauvegarder</button>
+    </div>
+  </div>
+</nav>
+
+<div class="envel" id="haut">
+
+  <h1>Tableau de bord</h1>
+  <p class="date">État au <b>16 novembre 2026</b> · mis à jour à la main · fonctionne en ligne et hors ligne, sans compte ni suivi</p>
+  <p class="chapo">Cinq projets suivis au même endroit. Pour chacun : où il en est, <b>ce qui le terminera</b>, et <b>la seule chose à faire ensuite</b>. Vous pouvez cocher une étape directement : les barres, les pourcentages et la prochaine action se mettent à jour aussitôt.</p>
+
+  <div class="resume" id="kpi-grid" aria-label="Chiffres clés"></div>
 
   <div class="chantier">
-    <b>En construction</b>
-    <p>Ce site n'est jamais fini, et il ne prétend pas l'être. Il montre l'état réel des projets,
-    il garde la trace des recherches — <b>y compris celles qui n'ont rien donné</b> — et il se
-    régénère à la main, projet après projet.</p>
-    <p class="v">Version du 15 novembre 2026 · prochaine version : quand un projet bouge.</p>
+    <b class="eyebrow">En construction</b>
+    <p>Ce tableau de bord n'est jamais figé. Il montre l'état réel des projets, garde la trace des recherches — <b>y compris celles qui n'ont rien donné</b> — et reste un seul fichier autonome que vous gardez chez vous.</p>
+    <p class="v">Version du 16 novembre 2026 · synchronisée avec la fiche de reprise du 15 novembre à 16 h (projet « Les sites » passé à 9/9).</p>
   </div>
 
-  <div class="resume">
-    <div><b>5</b><span>projets</span></div>
-    <div><b>1</b><span>terminés</span></div>
-    <div><b>19/31</b><span>étapes faites</span></div>
-    <div><b>61 %</b><span>d'avancement</span></div>
+  <h2 class="sect" id="focus">À faire maintenant <small>une seule prochaine action par projet ouvert</small></h2>
+  <div id="focus-zone"></div>
+
+  <h2 class="sect" id="apercu">D'un coup d'œil <small>cliquez un projet pour y aller</small></h2>
+  <div class="overview" id="overview-bars"></div>
+
+  <h2 class="sect" id="projets">Projet par projet <small>cochez les étapes pour suivre l'avancement</small></h2>
+  <div class="toolbar">
+    <div class="pills" role="tablist" aria-label="Filtrer les projets">
+      <button class="pill active" type="button" data-filter="all">Tous <span id="cnt-all"></span></button>
+      <button class="pill" type="button" data-filter="open">À poursuivre <span id="cnt-open"></span></button>
+      <button class="pill" type="button" data-filter="done">Terminés <span id="cnt-done"></span></button>
+    </div>
+    <div class="tool-right">
+      <button class="btn-sm" type="button" id="btn-toggle-all">Tout déplier</button>
+      <button class="btn-sm" type="button" id="btn-add-proj">+ Nouveau projet</button>
+    </div>
+  </div>
+  <div id="projects-list"></div>
+
+  <h2 class="sect" id="section-veille">La veille — <span id="veille-count">13</span> recherches, dont celles qui n'ont rien donné</h2>
+  <div class="toolbar">
+    <div class="pills" role="tablist" aria-label="Filtrer la veille">
+      <button class="pill active" type="button" data-vfilter="all">Toutes <span id="vcnt-all"></span></button>
+      <button class="pill" type="button" data-vfilter="ok">Retenues <span id="vcnt-ok"></span></button>
+      <button class="pill" type="button" data-vfilter="rien">Sans résultat <span id="vcnt-rien"></span></button>
+    </div>
+    <div class="tool-right">
+      <button class="btn-sm" type="button" id="btn-add-veille">+ Ajouter une recherche</button>
+    </div>
+  </div>
+  <div class="veille-box">
+    <div id="veille"></div>
   </div>
 
-  <h2 class="sect" id="aide">Aide — comment lire cette page</h2>
+  <h2 class="sect" id="condense">Le condensé — huit lignes</h2>
+  <div class="cond-card">
+    <ol class="cond" id="condense-list"></ol>
+  </div>
+
+  <h2 class="sect" id="journal">Dernières avancées</h2>
+  <div class="journal">
+    <div class="j-item">
+      <span class="j-date">16 novembre 2026</span><br>
+      <b>Tableau de bord mis en place et synchronisé.</b> L'avancement passe à <b>22 / 31 étapes (71 %)</b> avec 2 projets terminés, les cases sont désormais cochables en direct avec sauvegarde locale et export JSON, et les anciens doublons ont été retirés du dépôt.
+    </div>
+    <div class="j-item">
+      <span class="j-date">15 novembre 2026 · 16 h 00</span><br>
+      <b>Projet « Les sites » terminé (9 / 9 étapes).</b> Les deux autres adresses en ligne ont été vérifiées et répondent avec leur contenu complet ; le poste de travail a été reconstruit sur des liens réels vérifiés un par un.
+    </div>
+    <div class="j-item">
+      <span class="j-date">15 novembre 2026 · 15 h 45</span><br>
+      <b>Page publique en ligne.</b> L'ancienne page « Veille » et les deux notes arrêtées ont été remplacées sur <code>tableau_de_bord</code>.
+    </div>
+  </div>
+
+  <h2 class="sect" id="section-cherche">Chercher vite <small>dans toute la page, sans réseau</small></h2>
+  <div class="search-box">
+    <input id="q" type="search" placeholder="galet · NRC · manette · veille · Android · OpenAlex…" autocomplete="off" aria-label="Chercher dans le tableau de bord">
+    <div id="res"><p class="vide">Deux ou trois lettres suffisent. La recherche se fait uniquement dans cette page — aucune donnée n'est envoyée.</p></div>
+  </div>
+
+  <h2 class="sect" id="aide">Aide — comment lire et utiliser cette page</h2>
   <div class="aide">
     <details>
-      <summary>Qu'est-ce que cette page ?</summary>
-      <p>L'état de cinq projets personnels, à une date donnée. Ce n'est pas un blog, ce n'est pas
-      un portfolio : c'est un tableau d'avancement, rendu public pour qu'il soit consultable
-      sans qu'on ait à demander.</p>
+      <summary>Qu'est-ce que ce tableau de bord ?</summary>
+      <p>C'est l'état réel de vos projets, à une date donnée, réuni dans une seule page légère. Il sert à savoir immédiatement où l'on en est et quelle est la prochaine action concrète, sans dépendre d'un abonnement ni d'un service externe.</p>
+    </details>
+    <details>
+      <summary>Mes cases cochées sont-elles enregistrées ?</summary>
+      <p>Oui : dès que vous cochez une étape ou ajoutez un élément, l'état est mémorisé <b>dans votre navigateur sur cet appareil</b> (aucun serveur ne reçoit vos données). Pour le transférer vers un autre appareil ou garder une archive, cliquez sur <b>Sauvegarder → Exporter mon état (.json)</b>.</p>
     </details>
     <details>
       <summary>Que veut dire « il sera fini quand » ?</summary>
-      <p>C'est la phrase qui définit la fin d'un projet. Sans elle, un projet ne peut pas se
-      terminer — il peut seulement s'arrêter un jour. Chaque phrase est écrite pour être
-      <b>vérifiable</b> : on doit pouvoir dire « oui » ou « non », pas « à peu près ».</p>
+      <p>C'est la phrase qui définit la fin d'un projet. Sans elle, un projet ne peut pas se terminer — il peut seulement s'arrêter un jour. Chaque phrase est écrite pour être <b>vérifiable</b> : on doit pouvoir répondre « oui » ou « non », pas « à peu près ».</p>
     </details>
     <details>
       <summary>Que veut dire « la prochaine étape » ?</summary>
-      <p>Une seule chose, la première qui n'est pas faite. Pas une liste de souhaits :
-      l'action qui débloque le reste. Quand elle est faite, la suivante prend sa place.</p>
+      <p>Une seule chose : la première étape qui n'est pas encore cochée. Pas une liste de souhaits, mais l'action qui débloque la suite. Dès que vous la cochez, la suivante prend automatiquement sa place.</p>
     </details>
     <details>
       <summary>Comment les pourcentages sont-ils calculés ?</summary>
-      <p>Simplement : le nombre d'étapes cochées divisé par le nombre d'étapes. Une étape est
-      faite ou elle ne l'est pas — il n'y a pas de « à moitié ».</p>
-      <p><b>Et c'est aussi la limite du calcul :</b> toutes les étapes ne se valent pas.
-      Un projet à 90 % peut être plus loin du but qu'un projet à 40 %.</p>
-    </details>
-    <details>
-      <summary>Pourquoi « en construction » ?</summary>
-      <p>Parce que c'est vrai. Les projets bougent, les chiffres changent, et une page qui
-      prétendrait être définitive mentirait dès la semaine suivante. Cette page a des
-      <b>versions</b>, pas une fin.</p>
+      <p>Simplement : le nombre d'étapes cochées divisé par le nombre total d'étapes. Une étape est faite ou ne l'est pas — il n'y a pas de « à moitié ».</p>
+      <p><b>C'est aussi la limite du calcul :</b> toutes les étapes ne se valent pas. Un projet à 90 % peut rester plus loin du but qu'un projet à 40 %.</p>
     </details>
     <details>
       <summary>Que veulent dire les badges de la veille ?</summary>
-      <p><b>Retenu</b> : la recherche a donné quelque chose qui a servi. <b>Sans résultat</b> :
-      elle n'a rien donné — et c'est gardé exprès. Une impasse notée est une impasse qu'on ne
-      refait pas deux fois.</p>
-    </details>
-    <details>
-      <summary>Comment chercher dans la page ?</summary>
-      <p>Le champ « Chercher vite », en bas. Trois lettres suffisent. La recherche se fait
-      <b>dans la page elle-même</b> : aucun réseau, aucun serveur, aucune donnée envoyée.</p>
-    </details>
-    <details>
-      <summary>Qui met à jour, et pourquoi pas automatiquement ?</summary>
-      <p>Le propriétaire, à la main, à partir d'un fichier unique. Pas d'automatisation, et
-      c'est un choix : <b>une page qui se met à jour toute seule finit toujours par affirmer
-      des choses que personne n'a vérifiées.</b></p>
+      <p><b>Retenu</b> : la recherche a apporté un élément utile. <b>Sans résultat</b> : elle n'a rien donné — et c'est gardé exprès. Une impasse notée est une impasse qu'on ne refait pas deux fois.</p>
     </details>
     <details>
       <summary>Y a-t-il une version plus détaillée ?</summary>
-      <p>Oui, mais elle est privée : elle contient les notes de travail, les décisions en cours
-      et les détails qui n'ont pas à être publics. <b>Cette page-ci est la version nettoyée</b> —
-      l'état des projets, sans la vie privée qui va avec.</p>
+      <p>Oui, elle reste privée sur votre Google Drive : elle contient les dossiers de travail, les notes complètes et les fichiers qui n'ont pas à être publics. <b>Cette page-ci est la version nettoyée</b> — l'état des projets, sans la vie privée qui va avec.</p>
     </details>
   </div>
 
-  <h2 class="sect">D'un coup d'œil</h2>
-  <div class="b"><span class="bn">Notes de recherche</span><span class="bb"><i class="fini" style="width:100%"></i></span><span class="bp">100 %</span></div><div class="b"><span class="bn">Une application de poche</span><span class="bb"><i class="encours" style="width:67%"></i></span><span class="bp">67 %</span></div><div class="b"><span class="bn">Les sites</span><span class="bb"><i class="encours" style="width:67%"></i></span><span class="bp">67 %</span></div><div class="b"><span class="bn">Maquette — une porte qui fait joli</span><span class="bb"><i class="encours" style="width:50%"></i></span><span class="bp">50 %</span></div><div class="b"><span class="bn">Vélo électrique DIY</span><span class="bb"><i class="cadre" style="width:44%"></i></span><span class="bp">44 %</span></div>
-
-  <h2 class="sect">La veille — 13 recherches, dont celles qui n ont rien donné</h2>
-  <div id="veille">
-    <p class="vide">Chargement…</p>
-  </div>
-
-  <h2 class="sect">Projet par projet</h2>
-  
-    <article class="p fini">
-      <header>
-        <h2>Notes de recherche</h2>
-        <span class="tag fini">Terminé</span>
-      </header>
-
-      <p class="idee">Une seule note de fond — cinq cas datés, sept questions laissées ouvertes — nourrie par une veille automatique des travaux universitaires, et révisable.</p>
-
-      <div class="jauge" role="img" aria-label="3 étapes sur 3">
-        <i class="fini" style="width:100%"></i>
-      </div>
-      <p class="compte"><b>3</b> / 3 étapes · <b>100 %</b></p>
-
-      <div class="fin"><span class="lab">Il sera fini quand</span><p>La note couvre les cinq cas, chaque affirmation porte sa source datée vérifiable, et les sept questions qui restent ouvertes sont dites ouvertes. — Relue à froid le 15 novembre : c&#x27;est fait.</p></div>
-      <div class="prox"><span class="lab">La prochaine étape</span><p>Choisir : publier la note, ou la garder privée</p></div>
-
-      <details>
-        <summary>Les 3 étapes</summary>
-        <ul class="etapes"><li class="oui"><span class="c"></span>La note unique écrite — les trois notes fondues en une</li><li class="oui"><span class="c"></span>La version à lire (HTML) et la version texte pour le mail</li><li class="oui"><span class="c"></span>Relue à froid : les six sources revérifiées une par une</li></ul>
-      </details>
-    </article>
-    <article class="p encours">
-      <header>
-        <h2>Une application de poche</h2>
-        <span class="tag encours">En cours</span>
-      </header>
-
-      <p class="idee">Une application Android qui contient tout un recueil — les voix, les noms, l&#x27;ordre de la visite — et qui ne demande ni réseau ni compte.</p>
-
-      <div class="jauge" role="img" aria-label="4 étapes sur 6">
-        <i class="encours" style="width:67%"></i>
-      </div>
-      <p class="compte"><b>4</b> / 6 étapes · <b>67 %</b></p>
-
-      <div class="fin"><span class="lab">Il sera fini quand</span><p>L&#x27;application est installée sur un téléphone réel, elle s&#x27;ouvre sur son contenu, et le paquet existe à deux endroits.</p></div>
-      <div class="prox"><span class="lab">La prochaine étape</span><p>Installée sur un téléphone réel</p></div>
-
-      <details>
-        <summary>Les 6 étapes</summary>
-        <ul class="etapes"><li class="oui"><span class="c"></span>Les enregistrements faits</li><li class="oui"><span class="c"></span>Le fichier unique assemblé</li><li class="oui"><span class="c"></span>L&#x27;application construite, signée et vérifiée</li><li class="oui"><span class="c"></span>Le paquet déposé et sauvegardé en privé</li><li class="non"><span class="c"></span>Installée sur un téléphone réel</li><li class="non"><span class="c"></span>Une deuxième copie du paquet, ailleurs</li></ul>
-      </details>
-    </article>
-    <article class="p encours">
-      <header>
-        <h2>Les sites</h2>
-        <span class="tag encours">En cours</span>
-      </header>
-
-      <p class="idee">Un site toujours en construction — jamais « fini ». Il montre où en sont les projets, il garde la trace des recherches menées — y compris celles qui n&#x27;ont rien donné — et il laisse chercher vite.</p>
-
-      <div class="jauge" role="img" aria-label="6 étapes sur 9">
-        <i class="encours" style="width:67%"></i>
-      </div>
-      <p class="compte"><b>6</b> / 9 étapes · <b>67 %</b></p>
-
-      <div class="fin"><span class="lab">Il sera fini quand</span><p>Le site ne montre plus aucune note supprimée, il n&#x27;est pas indexable, il dit « en construction », et il porte la veille, la recherche et le condensé. — Un site en construction n&#x27;a pas de fin : il a des versions.</p></div>
-      <div class="prox"><span class="lab">La prochaine étape</span><p>Publier le fichier — il contient déjà la veille, la recherche et le condensé</p></div>
-
-      <details>
-        <summary>Les 9 étapes</summary>
-        <ul class="etapes"><li class="non"><span class="c"></span>Retirer les deux notes mortes du site</li><li class="oui"><span class="c"></span>Refermer le site aux moteurs — robots.txt, noindex</li><li class="oui"><span class="c"></span>La page des projets, prête : 5 projets, un fichier</li><li class="oui"><span class="c"></span>Y ajouter la veille — y compris les recherches sans résultat</li><li class="oui"><span class="c"></span>Y ajouter la recherche accélérée</li><li class="oui"><span class="c"></span>Y ajouter le condensé — huit lignes, claires et concises</li><li class="non"><span class="c"></span>Publier (tableau_de_bord/upload/main)</li><li class="non"><span class="c"></span>Vérifier les deux autres adresses</li><li class="oui"><span class="c"></span>Le poste de travail — une page, un double-clic</li></ul>
-      </details>
-    </article>
-    <article class="p encours">
-      <header>
-        <h2>Maquette — une porte qui fait joli</h2>
-        <span class="tag encours">En cours</span>
-      </header>
-
-      <p class="idee">Une porte couverte d&#x27;absorbants pyramidaux, à l&#x27;échelle, pour faire joli. Elle n&#x27;a rien à démontrer : elle montre.</p>
-
-      <div class="jauge" role="img" aria-label="2 étapes sur 4">
-        <i class="encours" style="width:50%"></i>
-      </div>
-      <p class="compte"><b>2</b> / 4 étapes · <b>50 %</b></p>
-
-      <div class="fin"><span class="lab">Il sera fini quand</span><p>La maquette tient debout, on voit qu&#x27;elle est couverte d&#x27;absorbants, et une phrase d&#x27;une ligne dit ce qu&#x27;elle montre.</p></div>
-      <div class="prox"><span class="lab">La prochaine étape</span><p>Regarder l&#x27;épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ?</p></div>
-
-      <details>
-        <summary>Les 4 étapes</summary>
-        <ul class="etapes"><li class="oui"><span class="c"></span>La photo de référence</li><li class="oui"><span class="c"></span>Une première épreuve montée</li><li class="non"><span class="c"></span>Le rendu vérifié — ça tient, ça se voit, ça se photographie</li><li class="non"><span class="c"></span>La phrase d&#x27;une ligne qui dit ce qu&#x27;elle montre</li></ul>
-      </details>
-    </article>
-    <article class="p cadre">
-      <header>
-        <h2>Vélo électrique DIY</h2>
-        <span class="tag cadre">Commencé</span>
-      </header>
-
-      <p class="idee">Motoriser un vélo blanc avec une roue de hoverboard en friction. La batterie et le chargeur seraient offerts — il reste la manette à acheter, puis à configurer sur une alimentation de laboratoire.</p>
-
-      <div class="jauge" role="img" aria-label="4 étapes sur 9">
-        <i class="cadre" style="width:44%"></i>
-      </div>
-      <p class="compte"><b>4</b> / 9 étapes · <b>44 %</b></p>
-
-      <div class="fin"><span class="lab">Il sera fini quand</span><p>Le vélo parcourt 10 km sur route sèche, sans surchauffe du contrôleur, et le pneu arrière ne montre pas de méplat — et il freine.</p></div>
-      <div class="prox"><span class="lab">La prochaine étape</span><p>Acheter la manette — poignée à effet Hall, 3 fils, sortie 5 V</p></div>
-
-      <details>
-        <summary>Les 9 étapes</summary>
-        <ul class="etapes"><li class="oui"><span class="c"></span>Choix du vélo et du principe (friction arrière)</li><li class="oui"><span class="c"></span>Liste d&#x27;achats chiffrée — deux options</li><li class="oui"><span class="c"></span>Règles de câblage ZS-X11H — dont les trois pièges</li><li class="oui"><span class="c"></span>Programme Arduino écrit et relu</li><li class="non"><span class="c"></span>Batterie et chargeur : offerts — à récupérer et vérifier</li><li class="non"><span class="c"></span>Manette (poignée à effet Hall, 3 fils) achetée</li><li class="non"><span class="c"></span>Manette testée sur l&#x27;alimentation du labo, essai à vide</li><li class="non"><span class="c"></span>Galet profilé et support mécanique</li><li class="non"><span class="c"></span>Essai sur route sèche, 10 km</li></ul>
-      </details>
-    </article>
-
-  <h2 class="sect">Le condensé — huit lignes</h2>
-  <ol class="cond"><li><b>Trois notes sont devenues une.</b> 24 854 caractères au lieu de 59 195 — la fusion n'a rien perdu, sauf ce qui était faux.</li><li><b>Six travaux de 2024-2026 tiennent.</b> Revérifiés ce jour : trois identifiants interrogés en direct, trois ouvrages confirmés par leur éditeur.</li><li><b>Une erreur trouvée et corrigée.</b> Une page d'écart sur un ouvrage — le genre d'erreur qui ne se voit qu'en interrogeant la référence, pas en relisant le texte.</li><li><b>Sept questions restent ouvertes.</b> Ce n'est pas un manque : c'est une décision de méthode, écrite noir sur blanc dans la note.</li><li><b>Une application Android est construite et signée.</b> Un mégaoctet, aucune permission, aucune connexion. Elle s'installe et fonctionne en avion.</li><li><b>Une maquette a été montée une première fois.</b> Elle tient — il reste à la peaufiner.</li><li><b>Le vélo attend une manette.</b> La batterie serait offerte ; tout le reste est écrit et prêt.</li><li><b>Ce site-ci a une seule source.</b> Le même fichier que le bureau de projets — ils ne peuvent pas se contredire.</li></ol>
-
-  <h2 class="sect">Chercher vite</h2>
-  <input id="q" type="search" placeholder="galet · NRC · manette · veille · abaisseur…" autocomplete="off" aria-label="Chercher dans la page">
-  <div id="res"><p class="vide">Trois lettres suffisent. La recherche se fait dans cette page — aucun réseau, aucun serveur.</p></div>
-
   <footer>
-    <p><b>Ce que cette page dit, et ce qu'elle ne dit pas.</b>
-    Elle compte des étapes cochées, elle ne mesure pas leur difficulté.
-    Une étape faite est une étape faite — mais toutes ne se valent pas,
-    et un projet à 90 % peut être plus loin du but qu'un projet à 40 %.</p>
-    <p><b>Elle est mise à jour à la main — aucun compte ni connexion n'est nécessaire.</b>
-    Un fichier, régénéré depuis le registre des projets, puis téléversé. Pour la lire,
-    il faut seulement une adresse. <b>Ce n'est pas la même chose qu'un tableau de bord :</b>
-    le tableau de bord, c'est le bureau que je garde à part — celui où l'on coche,
-    où l'on cherche dans les notes et où l'on enregistre. <b>Celui-ci ne fait que montrer.</b>
-    Une page qui se met à jour toute seule finit toujours par affirmer des choses
-    que personne n'a vérifiées.</p>
-    <p><b>Ce qu'elle ne peut pas garantir — vérifié le 15 novembre 2026.</b>
-    La page n'a <b>aucun</b> script de mesure : pas de Google Analytics, pas de pixel,
-    pas de cookie, rien qui parte vers un tiers. <b>Mais l'hébergeur, lui, garde une trace.</b>
-    GitHub Pages enregistre l'adresse IP de chaque visiteur dans ses journaux, « à des fins de
-    sécurité », et <b>le propriétaire du site n'y a pas accès</b> : ces journaux restent chez GitHub.
-    Donc : personne ne peut savoir qui est venu depuis cette page, mais GitHub le peut —
-    et personne ne peut l'en empêcher, sauf à héberger ailleurs.</p>
-    <p>Page régénérée le <b>15 novembre 2026</b> · un seul fichier · aucune police, aucune image, aucun script extérieur.</p>
+    <p><b>Ce que cette page dit, et ce qu'elle ne dit pas.</b> Elle compte des étapes cochées, elle ne mesure pas leur difficulté. Une étape faite est une étape faite — mais toutes ne se valent pas.</p>
+    <p><b>Confidentialité — vérifié le 16 novembre 2026.</b> Cette page n'a <b>aucun</b> script de mesure, pas de Google Analytics, pas de pixel, pas de cookie tiers, aucune police distante et aucune image externe. <b>Mais l'hébergeur, lui, garde une trace technique :</b> GitHub Pages enregistre l'adresse IP des visites dans ses journaux serveur (« à des fins de sécurité »), auxquels le propriétaire du site n'a pas accès. En ouvrant ce fichier localement depuis votre ordinateur, aucun serveur n'est contacté.</p>
+    <p>Tableau de bord mis à jour le <b>16 novembre 2026</b> · un seul fichier · zéro dépendance extérieure.</p>
   </footer>
+</div>
+
+<!-- Barre flottante des modifications locales -->
+<div class="savebar" id="savebar" role="status" aria-live="polite">
+  <span class="dot-save" aria-hidden="true"></span>
+  <span>Modifications locales enregistrées sur cet appareil</span>
+  <button type="button" class="prim" id="sb-export">Exporter (.json)</button>
+  <button type="button" id="sb-reset">Réinitialiser</button>
+</div>
+
+<!-- Modale Sauvegarde & Outils -->
+<div class="modal-bg" id="modal-data" role="dialog" aria-modal="true" aria-labelledby="md-title">
+  <div class="modal">
+    <h3 id="md-title">Sauvegarde et outils</h3>
+    <p class="m-sub">Tout reste sur votre appareil. Exportez un fichier JSON pour garder une copie ou transférer votre avancement vers un autre navigateur.</p>
+    <div class="m-grid">
+      <div class="m-row">
+        <div>
+          <strong>Exporter l'état actuel (.json)</strong>
+          <span>Télécharge une sauvegarde complète des projets, cases cochées et veille.</span>
+        </div>
+        <button class="btn-top primary" type="button" id="m-export">Exporter</button>
+      </div>
+      <div class="m-row">
+        <div>
+          <strong>Importer une sauvegarde (.json)</strong>
+          <span>Restaure un fichier précédemment exporté depuis ce tableau de bord.</span>
+        </div>
+        <button class="btn-top" type="button" id="m-import-btn">Importer</button>
+        <input type="file" id="m-import-file" accept=".json,application/json" style="display:none">
+      </div>
+      <div class="m-row">
+        <div>
+          <strong>Copier le résumé en texte</strong>
+          <span>Copie l'avancement et les prochaines étapes pour un mail ou une note.</span>
+        </div>
+        <button class="btn-top" type="button" id="m-copy">Copier</button>
+      </div>
+      <div class="m-row">
+        <div>
+          <strong>Revenir à l'état du 16 novembre</strong>
+          <span>Annule les coches ou ajouts locaux sur cet appareil.</span>
+        </div>
+        <button class="btn-top" type="button" id="m-reset">Réinitialiser</button>
+      </div>
+    </div>
+    <div class="m-actions">
+      <button class="btn-top" type="button" data-close="modal-data">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modale Nouveau Projet -->
+<div class="modal-bg" id="modal-proj" role="dialog" aria-modal="true" aria-labelledby="mp-title">
+  <div class="modal">
+    <h3 id="mp-title">Ajouter un projet</h3>
+    <p class="m-sub">Définissez un critère de fin vérifiable et les premières étapes concrètes.</p>
+    <form id="form-proj">
+      <label class="fld" for="fp-nom">Nom du projet</label>
+      <input type="text" id="fp-nom" required placeholder="Ex. : Installer et tester l'accès à distance">
+      <label class="fld" for="fp-idee">L'idée (en une ou deux phrases)</label>
+      <textarea id="fp-idee" required placeholder="Ce que ce projet fait, simplement."></textarea>
+      <label class="fld" for="fp-fin">Il sera fini quand…</label>
+      <input type="text" id="fp-fin" required placeholder="Critère vérifiable par oui ou non.">
+      <label class="fld" for="fp-etapes">Les étapes (une par ligne)</label>
+      <textarea id="fp-etapes" required placeholder="Première étape&#10;Deuxième étape&#10;Troisième étape"></textarea>
+      <div class="m-actions">
+        <button class="btn-top" type="button" data-close="modal-proj">Annuler</button>
+        <button class="btn-top primary" type="submit">Ajouter le projet</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modale Nouvelle Veille -->
+<div class="modal-bg" id="modal-veille" role="dialog" aria-modal="true" aria-labelledby="mv-title">
+  <div class="modal">
+    <h3 id="mv-title">Ajouter une recherche à la veille</h3>
+    <p class="m-sub">Notez aussi les recherches qui n'ont rien donné : une impasse notée évite de la refaire.</p>
+    <form id="form-veille">
+      <label class="fld" for="fv-titre">Sujet cherché</label>
+      <input type="text" id="fv-titre" required placeholder="Ex. : Comparatif poignée effet Hall">
+      <label class="fld" for="fv-statut">Résultat</label>
+      <select id="fv-statut">
+        <option value="ok">Retenu (utile pour un projet)</option>
+        <option value="rien">Sans résultat (impasse / écarté)</option>
+      </select>
+      <label class="fld" for="fv-synth">Synthèse</label>
+      <textarea id="fv-synth" required placeholder="Ce qui a été trouvé, ou pourquoi c'est écarté."></textarea>
+      <div class="m-actions">
+        <button class="btn-top" type="button" data-close="modal-veille">Annuler</button>
+        <button class="btn-top primary" type="submit">Ajouter</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
-// ─────── la veille : ce qui a été cherché, y compris ce qui n a rien donné ───────
-const VEILLE = [{"t": "La manette : effet Hall ou potentiomètre ?", "s": "Prix relevés : 14,99 € à 17,75 € pour une poignée 3 fils. Le piège : certaines poignées à 3 fils sont des potentiomètres — contact frottant, dérive dans le temps. La fiche doit dire « effet Hall » ou « sans contact ».", "abouti": true}, {"t": "Les travaux savants sur le sujet de la note", "s": "7 requêtes OpenAlex · 57 408 travaux recensés · 93 liens de presse vus · 6 travaux retenus. Rapport de tri : un pour dix mille. Chercher « le sujet » ramène une araignée colombienne, parce que son descripteur s'appelle Perafán.", "abouti": true}, {"t": "Un chiffre de « 30 % de croyants » cité en secondaire", "s": "Une étude parue dans une revue est citée en source secondaire. Auteurs et date introuvables, texte non lisible. Le chiffre est mentionné dans la note, pas retenu. La question du nombre reste indécidable.", "abouti": false}, {"t": "L'effectif d'une communauté discrète au XXᵉ siècle", "s": "Aucun recensement fiable n'existe, et c'est cohérent : une communauté discrète ne se compte pas. Recherche arrêtée après trois sources qui se recopient.", "abouti": false}, {"t": "L'occultation : 873 ou 874 ?", "s": "Les sources divergent sur le comput, et le calendrier lunaire rend la conversion approximative. Aucune ne tranche de façon vérifiable. La note laisse les deux dates.", "abouti": false}, {"t": "Le lien entre une attente messianique et la violence", "s": "Recherche menée, puis écartée : les auteurs de une revue (2026) nient explicitement tout lien causal direct. La thèse est donc fausse, pas seulement invérifiable.", "abouti": false}, {"t": "Les quatre références de la note, une par une", "s": "Trois DOI interrogés en direct (Crossref) : les trois répondent, titres et revues exacts. Deux ISBN confirmés (Open Library, éditeur) : Glinter 2024, Studemund-Halévy 2022. Une erreur trouvée : une page d'écart, corrigée.", "abouti": true}, {"t": "La presse sur le sujet", "s": "Times of Israel : accès refusé (403). Aucun article de presse n'apportait de fait que les six travaux ne portent déjà. Écartée.", "abouti": false}, {"t": "Les pages de type encyclopédie collaborative", "s": "Écartées volontairement : dates inventées, sources non traçables. Le test est simple — si la page ne dit pas d'où elle tient son fait, le fait n'existe pas.", "abouti": false}, {"t": "La veille automatique — bulletins du 7 et du 8 novembre", "s": "331 articles analysés, 12 retenus, fenêtre de 7 jours. Rien qui concerne les projets en cours : c'est un flux généraliste, pas une veille ciblée.", "abouti": true}, {"t": "Les gains d'un vélo à friction", "s": "Rendement 60-80 % contre 85-92 % pour un moyeu. Pneu usé en 500-1 500 km contre 2 000-5 000. Perte de 20 à 40 % d'autonomie. Convergent sur plusieurs sources techniques indépendantes.", "abouti": true}, {"t": "L'absorption réelle des mousses pyramidales — sans importance", "s": "Recherche faite, puis mise hors du projet : la maquette est un objet d'aspect, pas un dispositif. NRC 0,70 à 1,00 selon l'épaisseur ; 0,18 à 0,24 à 125 Hz. Gardé pour mémoire, pas pour décider.", "abouti": false}, {"t": "Une application Android pour un fichier hors ligne", "s": "Trois outils officiels suffisent : aapt2, d8, apksigner. Aucun magasin, aucun compte développeur, aucun frais. L'application a été construit et signé v1+v2+v3.", "abouti": true}];
 (function(){
-  const z = document.getElementById('veille');
-  if(!VEILLE.length){ z.innerHTML = '<p class="vide">Rien de consigné pour cette version.</p>'; return; }
-  z.innerHTML = VEILLE.map(function(v){
-    const b = v.abouti ? '<span class="badge ok">retenu</span>' : '<span class="badge rien">sans résultat</span>';
-    return '<div class="v"><div class="vt">' + v.t + b + '</div><div class="vs">' + v.s + '</div></div>';
-  }).join('');
-})();
+  'use strict';
 
-// ─────── chercher vite : dans la page, sans réseau ───────
-const CORPUS = [{"t": "Notes de recherche", "s": "Une seule note de fond — cinq cas datés, sept questions laissées ouvertes — nourrie par une veille automatique des travaux universitaires, et révisable. La note couvre les cinq cas, chaque affirmation porte sa source datée vérifiable, et les sept questions qui restent ouvertes sont dites ouvertes. — Relue à froid le 15 novembre : c'est fait. Choisir : publier la note, ou la garder privée La note unique écrite — les trois notes fondues en une La version à lire (HTML) et la version texte pour le mail Relue à froid : les six sources revérifiées une par une"}, {"t": "Une application de poche", "s": "Une application Android qui contient tout un recueil — les voix, les noms, l'ordre de la visite — et qui ne demande ni réseau ni compte. L'application est installée sur un téléphone réel, elle s'ouvre sur son contenu, et le paquet existe à deux endroits. Installée sur un téléphone réel Les enregistrements faits Le fichier unique assemblé L'application construite, signée et vérifiée Le paquet déposé et sauvegardé en privé Installée sur un téléphone réel Une deuxième copie du paquet, ailleurs"}, {"t": "Les sites", "s": "Un site toujours en construction — jamais « fini ». Il montre où en sont les projets, il garde la trace des recherches menées — y compris celles qui n'ont rien donné — et il laisse chercher vite. Le site ne montre plus aucune note supprimée, il n'est pas indexable, il dit « en construction », et il porte la veille, la recherche et le condensé. — Un site en construction n'a pas de fin : il a des versions. Publier le fichier — il contient déjà la veille, la recherche et le condensé Retirer les deux notes mortes du site Refermer le site aux moteurs — robots.txt, noindex La page des projets, prête : 5 projets, un fichier Y ajouter la veille — y compris les recherches sans résultat Y ajouter la recherche accélérée Y ajouter le condensé — huit lignes, claires et concises Publier (tableau_de_bord/upload/main) Vérifier les deux autres adresses Le poste de travail — une page, un double-clic"}, {"t": "Maquette — une porte qui fait joli", "s": "Une porte couverte d'absorbants pyramidaux, à l'échelle, pour faire joli. Elle n'a rien à démontrer : elle montre. La maquette tient debout, on voit qu'elle est couverte d'absorbants, et une phrase d'une ligne dit ce qu'elle montre. Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ? La photo de référence Une première épreuve montée Le rendu vérifié — ça tient, ça se voit, ça se photographie La phrase d'une ligne qui dit ce qu'elle montre"}, {"t": "Vélo électrique DIY", "s": "Motoriser un vélo blanc avec une roue de hoverboard en friction. La batterie et le chargeur seraient offerts — il reste la manette à acheter, puis à configurer sur une alimentation de laboratoire. Le vélo parcourt 10 km sur route sèche, sans surchauffe du contrôleur, et le pneu arrière ne montre pas de méplat — et il freine. Acheter la manette — poignée à effet Hall, 3 fils, sortie 5 V Choix du vélo et du principe (friction arrière) Liste d'achats chiffrée — deux options Règles de câblage ZS-X11H — dont les trois pièges Programme Arduino écrit et relu Batterie et chargeur : offerts — à récupérer et vérifier Manette (poignée à effet Hall, 3 fils) achetée Manette testée sur l'alimentation du labo, essai à vide Galet profilé et support mécanique Essai sur route sèche, 10 km"}, {"t": "Veille — La manette : effet Hall ou potentiomètre ?", "s": "Prix relevés : 14,99 € à 17,75 € pour une poignée 3 fils. Le piège : certaines poignées à 3 fils sont des potentiomètres — contact frottant, dérive dans le temps. La fiche doit dire « effet Hall » ou « sans contact »."}, {"t": "Veille — Les travaux savants sur le sujet de la note", "s": "7 requêtes OpenAlex · 57 408 travaux recensés · 93 liens de presse vus · 6 travaux retenus. Rapport de tri : un pour dix mille. Chercher « le sujet » ramène une araignée colombienne, parce que son descripteur s'appelle Perafán."}, {"t": "Veille — Un chiffre de « 30 % de croyants » cité en secondaire", "s": "Une étude parue dans une revue est citée en source secondaire. Auteurs et date introuvables, texte non lisible. Le chiffre est mentionné dans la note, pas retenu. La question du nombre reste indécidable."}, {"t": "Veille — L'effectif d'une communauté discrète au XXᵉ siècle", "s": "Aucun recensement fiable n'existe, et c'est cohérent : une communauté discrète ne se compte pas. Recherche arrêtée après trois sources qui se recopient."}, {"t": "Veille — L'occultation : 873 ou 874 ?", "s": "Les sources divergent sur le comput, et le calendrier lunaire rend la conversion approximative. Aucune ne tranche de façon vérifiable. La note laisse les deux dates."}, {"t": "Veille — Le lien entre une attente messianique et la violence", "s": "Recherche menée, puis écartée : les auteurs de une revue (2026) nient explicitement tout lien causal direct. La thèse est donc fausse, pas seulement invérifiable."}, {"t": "Veille — Les quatre références de la note, une par une", "s": "Trois DOI interrogés en direct (Crossref) : les trois répondent, titres et revues exacts. Deux ISBN confirmés (Open Library, éditeur) : Glinter 2024, Studemund-Halévy 2022. Une erreur trouvée : une page d'écart, corrigée."}, {"t": "Veille — La presse sur le sujet", "s": "Times of Israel : accès refusé (403). Aucun article de presse n'apportait de fait que les six travaux ne portent déjà. Écartée."}, {"t": "Veille — Les pages de type encyclopédie collaborative", "s": "Écartées volontairement : dates inventées, sources non traçables. Le test est simple — si la page ne dit pas d'où elle tient son fait, le fait n'existe pas."}, {"t": "Veille — La veille automatique — bulletins du 7 et du 8 novembre", "s": "331 articles analysés, 12 retenus, fenêtre de 7 jours. Rien qui concerne les projets en cours : c'est un flux généraliste, pas une veille ciblée."}, {"t": "Veille — Les gains d'un vélo à friction", "s": "Rendement 60-80 % contre 85-92 % pour un moyeu. Pneu usé en 500-1 500 km contre 2 000-5 000. Perte de 20 à 40 % d'autonomie. Convergent sur plusieurs sources techniques indépendantes."}, {"t": "Veille — L'absorption réelle des mousses pyramidales — sans importance", "s": "Recherche faite, puis mise hors du projet : la maquette est un objet d'aspect, pas un dispositif. NRC 0,70 à 1,00 selon l'épaisseur ; 0,18 à 0,24 à 125 Hz. Gardé pour mémoire, pas pour décider."}, {"t": "Veille — Une application Android pour un fichier hors ligne", "s": "Trois outils officiels suffisent : aapt2, d8, apksigner. Aucun magasin, aucun compte développeur, aucun frais. L'application a été construit et signé v1+v2+v3."}, {"t": "Condensé", "s": "Trois notes sont devenues une. 24 854 caractères au lieu de 59 195 — la fusion n'a rien perdu, sauf ce qui était faux."}, {"t": "Condensé", "s": "Six travaux de 2024-2026 tiennent. Revérifiés ce jour : trois identifiants interrogés en direct, trois ouvrages confirmés par leur éditeur."}, {"t": "Condensé", "s": "Une erreur trouvée et corrigée. Une page d'écart sur un ouvrage — le genre d'erreur qui ne se voit qu'en interrogeant la référence, pas en relisant le texte."}, {"t": "Condensé", "s": "Sept questions restent ouvertes. Ce n'est pas un manque : c'est une décision de méthode, écrite noir sur blanc dans la note."}, {"t": "Condensé", "s": "Une application Android est construite et signée. Un mégaoctet, aucune permission, aucune connexion. Elle s'installe et fonctionne en avion."}, {"t": "Condensé", "s": "Une maquette a été montée une première fois. Elle tient — il reste à la peaufiner."}, {"t": "Condensé", "s": "Le vélo attend une manette. La batterie serait offerte ; tout le reste est écrit et prêt."}, {"t": "Condensé", "s": "Ce site-ci a une seule source. Le même fichier que le bureau de projets — ils ne peuvent pas se contredire."}];
-const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
-const CORPN = CORPUS.map(c => ({t: c.t, s: c.s, n: norm(c.s)}));
-const qz = document.getElementById('q'), rz = document.getElementById('res');
-function cherche(){
-  const b = qz.value.trim();
-  if(b.length < 3){ rz.innerHTML = '<p class="vide">Trois lettres suffisent.</p>'; return; }
-  const a = norm(b);
-  let tous = [];
-  CORPN.forEach(d => {
-    let pos = 0, n = 0;
-    while((pos = d.n.indexOf(a, pos)) !== -1 && n < 3){
-      tous.push({t: d.t, txt: d.s.slice(Math.max(0, pos-95), Math.min(d.s.length, pos + a.length + 130))});
-      pos += a.length; n++;
+  const STORAGE_KEY = 'tdb_projets_v20261116';
+
+  const DEFAULT_DATA = {
+    version: '2026-11-16',
+    projets: [
+      {
+        id: 'notes',
+        nom: 'Notes de recherche',
+        idee: 'Une seule note de fond — cinq cas datés, sept questions laissées ouvertes — nourrie par une veille automatique des travaux universitaires, et révisable.',
+        fin: 'La note couvre les cinq cas, chaque affirmation porte sa source datée vérifiable, et les sept questions qui restent ouvertes sont dites ouvertes. — Relue à froid le 15 novembre : c\'est fait.',
+        ouvert: 'Décidé le 15 novembre : garder la note privée pour l\'instant (publiable plus tard si souhaité).',
+        etapes: [
+          { t: 'La note unique écrite — les trois notes fondues en une', ok: true },
+          { t: 'La version à lire (HTML) et la version texte pour le mail', ok: true },
+          { t: 'Relue à froid : les six sources revérifiées une par une', ok: true }
+        ]
+      },
+      {
+        id: 'sites',
+        nom: 'Les sites',
+        idee: 'Un site toujours en construction — jamais « fini ». Il montre où en sont les projets, il garde la trace des recherches menées — y compris celles qui n\'ont rien donné — et il laisse chercher vite.',
+        fin: 'Le site ne montre plus aucune note supprimée, il n\'est pas indexable, il dit « en construction », et il porte la veille, la recherche et le condensé. — Un site en construction n\'a pas de fin : il a des versions.',
+        ouvert: 'Terminé le 15 novembre 2026 (9/9). Question ouverte : rafraîchir la veille des deux bulletins, ou la laisser datée d\'octobre.',
+        etapes: [
+          { t: 'Retirer les deux notes mortes du site', ok: true },
+          { t: 'Refermer le site aux moteurs — robots.txt, noindex', ok: true },
+          { t: 'La page des projets, prête : 5 projets, un fichier', ok: true },
+          { t: 'Y ajouter la veille — y compris les recherches sans résultat', ok: true },
+          { t: 'Y ajouter la recherche accélérée', ok: true },
+          { t: 'Y ajouter le condensé — huit lignes, claires et concises', ok: true },
+          { t: 'Publier (tableau_de_bord/upload/main)', ok: true },
+          { t: 'Vérifier les deux autres adresses', ok: true },
+          { t: 'Le poste de travail — une page, un double-clic', ok: true }
+        ]
+      },
+      {
+        id: 'poche',
+        nom: 'Une application de poche',
+        idee: 'Une application Android qui contient tout un recueil — les voix, les noms, l\'ordre de la visite — et qui ne demande ni réseau ni compte.',
+        fin: 'L\'application est installée sur un téléphone réel, elle s\'ouvre sur son contenu, et le paquet existe à deux endroits.',
+        ouvert: '',
+        etapes: [
+          { t: 'Les enregistrements faits', ok: true },
+          { t: 'Le fichier unique assemblé', ok: true },
+          { t: 'L\'application construite, signée et vérifiée', ok: true },
+          { t: 'Le paquet déposé et sauvegardé en privé', ok: true },
+          { t: 'Installer l\'application sur un téléphone réel', ok: false },
+          { t: 'Une deuxième copie du paquet, ailleurs', ok: false }
+        ]
+      },
+      {
+        id: 'maquette',
+        nom: 'Maquette — une porte qui fait joli',
+        idee: 'Une porte couverte d\'absorbants pyramidaux, à l\'échelle, pour faire joli. Elle n\'a rien à démontrer : elle montre.',
+        fin: 'La maquette tient debout, on voit qu\'elle est couverte d\'absorbants, et une phrase d\'une ligne dit ce qu\'elle montre.',
+        ouvert: '',
+        etapes: [
+          { t: 'La photo de référence', ok: true },
+          { t: 'Une première épreuve montée', ok: true },
+          { t: 'Regarder l\'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ?', ok: false },
+          { t: 'La phrase d\'une ligne qui dit ce qu\'elle montre', ok: false }
+        ]
+      },
+      {
+        id: 'velo',
+        nom: 'Vélo électrique DIY',
+        idee: 'Motoriser un vélo blanc avec une roue de hoverboard en friction. La batterie et le chargeur seraient offerts — il reste la manette à acheter, puis à configurer sur une alimentation de laboratoire.',
+        fin: 'Le vélo parcourt 10 km sur route sèche, sans surchauffe du contrôleur, et le pneu arrière ne montre pas de méplat — et il freine.',
+        ouvert: 'Décidé le 15 novembre : galet récupéré de la roue — vérifier le pneu après chaque essai et rouler au sec.',
+        etapes: [
+          { t: 'Choix du vélo et du principe (friction arrière)', ok: true },
+          { t: 'Liste d\'achats chiffrée — deux options', ok: true },
+          { t: 'Règles de câblage ZS-X11H — dont les trois pièges', ok: true },
+          { t: 'Programme Arduino écrit et relu', ok: true },
+          { t: 'Acheter la manette — poignée à effet Hall, 3 fils, sortie 5 V', ok: false },
+          { t: 'Batterie et chargeur : offerts — à récupérer et vérifier', ok: false },
+          { t: 'Manette testée sur l\'alimentation du labo, essai à vide', ok: false },
+          { t: 'Galet profilé et support mécanique', ok: false },
+          { t: 'Essai sur route sèche, 10 km', ok: false }
+        ]
+      }
+    ],
+    veille: [
+      { t: 'La manette : effet Hall ou potentiomètre ?', s: 'Prix relevés : 14,99 € à 17,75 € pour une poignée 3 fils. Le piège : certaines poignées à 3 fils sont des potentiomètres — contact frottant, dérive dans le temps. La fiche doit dire « effet Hall » ou « sans contact ».', abouti: true },
+      { t: 'Les travaux savants sur le sujet de la note', s: '7 requêtes OpenAlex · 57 408 travaux recensés · 93 liens de presse vus · 6 travaux retenus. Rapport de tri : un pour dix mille. Chercher « le sujet » ramène une araignée colombienne, parce que son descripteur s\'appelle Perafán.', abouti: true },
+      { t: 'Un chiffre de « 30 % de croyants » cité en secondaire', s: 'Une étude parue dans une revue est citée en source secondaire. Auteurs et date introuvables, texte non lisible. Le chiffre est mentionné dans la note, pas retenu. La question du nombre reste indécidable.', abouti: false },
+      { t: 'L\'effectif d\'une communauté discrète au XXᵉ siècle', s: 'Aucun recensement fiable n\'existe, et c\'est cohérent : une communauté discrète ne se compte pas. Recherche arrêtée après trois sources qui se recopient.', abouti: false },
+      { t: 'L\'occultation : 873 ou 874 ?', s: 'Les sources divergent sur le comput, et le calendrier lunaire rend la conversion approximative. Aucune ne tranche de façon vérifiable. La note laisse les deux dates.', abouti: false },
+      { t: 'Le lien entre une attente messianique et la violence', s: 'Recherche menée, puis écartée : les auteurs d\'une revue (2026) nient explicitement tout lien causal direct. La thèse est donc fausse, pas seulement invérifiable.', abouti: false },
+      { t: 'Les quatre références de la note, une par une', s: 'Trois DOI interrogés en direct (Crossref) : les trois répondent, titres et revues exacts. Deux ISBN confirmés (Open Library, éditeur) : Glinter 2024, Studemund-Halévy 2022. Une erreur trouvée : une page d\'écart, corrigée.', abouti: true },
+      { t: 'La presse sur le sujet', s: 'Times of Israel : accès refusé (403). Aucun article de presse n\'apportait de fait que les six travaux ne portent déjà. Écartée.', abouti: false },
+      { t: 'Les pages de type encyclopédie collaborative', s: 'Écartées volontairement : dates inventées, sources non traçables. Le test est simple — si la page ne dit pas d\'où elle tient son fait, le fait n\'existe pas.', abouti: false },
+      { t: 'La veille automatique — bulletins du 7 et du 8 novembre', s: '331 articles analysés, 12 retenus, fenêtre de 7 jours. Rien qui concerne les projets en cours : c\'est un flux généraliste, pas une veille ciblée.', abouti: true },
+      { t: 'Les gains d\'un vélo à friction', s: 'Rendement 60-80 % contre 85-92 % pour un moyeu. Pneu usé en 500-1 500 km contre 2 000-5 000. Perte de 20 à 40 % d\'autonomie. Convergent sur plusieurs sources techniques indépendantes.', abouti: true },
+      { t: 'L\'absorption réelle des mousses pyramidales — sans importance', s: 'Recherche faite, puis mise hors du projet : la maquette est un objet d\'aspect, pas un dispositif. NRC 0,70 à 1,00 selon l\'épaisseur ; 0,18 à 0,24 à 125 Hz. Gardé pour mémoire, pas pour décider.', abouti: false },
+      { t: 'Une application Android pour un fichier hors ligne', s: 'Trois outils officiels suffisent : aapt2, d8, apksigner. Aucun magasin, aucun compte développeur, aucun frais. L\'application a été construite et signée v1+v2+v3.', abouti: true }
+    ],
+    condense: [
+      ['Trois notes sont devenues une.', '24 854 caractères au lieu de 59 195 — la fusion n\'a rien perdu, sauf ce qui était faux.'],
+      ['Six travaux de 2024-2026 tiennent.', 'Revérifiés : trois identifiants interrogés en direct, trois ouvrages confirmés par leur éditeur.'],
+      ['Une erreur trouvée et corrigée.', 'Une page d\'écart sur un ouvrage — le genre d\'erreur qui ne se voit qu\'en interrogeant la référence, pas en relisant le texte.'],
+      ['Sept questions restent ouvertes.', 'Ce n\'est pas un manque : c\'est une décision de méthode, écrite noir sur blanc dans la note.'],
+      ['Une application Android est construite et signée.', 'Un mégaoctet, aucune permission, aucune connexion. Elle s\'installe et fonctionne en avion.'],
+      ['Une maquette a été montée une première fois.', 'Elle tient — il reste à la vérifier et à la peaufiner.'],
+      ['Le vélo attend une manette.', 'La batterie serait offerte ; tout le reste est écrit et prêt.'],
+      ['Le tableau de bord et les sites sont en ligne.', 'Un seul fichier autonome, sans suivi, utilisable en ligne comme hors ligne.']
+    ]
+  };
+
+  function clone(obj){ return JSON.parse(JSON.stringify(obj)); }
+  function esc(s){
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function norm(s){
+    return String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+  }
+
+  function loadState(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(!raw) return clone(DEFAULT_DATA);
+      const parsed = JSON.parse(raw);
+      if(parsed && Array.isArray(parsed.projets) && Array.isArray(parsed.veille)){
+        if(!Array.isArray(parsed.condense)) parsed.condense = clone(DEFAULT_DATA.condense);
+        return parsed;
+      }
+    }catch(e){}
+    return clone(DEFAULT_DATA);
+  }
+
+  let state = loadState();
+  let projFilter = 'all';
+  let veilleFilter = 'all';
+  let openCards = new Set();
+
+  function isDirty(){
+    return JSON.stringify(state) !== JSON.stringify(DEFAULT_DATA);
+  }
+
+  function saveState(){
+    try{
+      if(isDirty()) localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      else localStorage.removeItem(STORAGE_KEY);
+    }catch(e){}
+    document.getElementById('savebar').classList.toggle('on', isDirty());
+  }
+
+  let toastTimer = null;
+  function showToast(msg){
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('on');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('on'), 2600);
+  }
+
+  function projectStats(p){
+    const total = p.etapes.length;
+    const done = p.etapes.filter(e => e.ok).length;
+    const pct = total ? Math.round((done / total) * 100) : 0;
+    let cls = 'cadre', label = 'Commencé';
+    if(total > 0 && done === total){ cls = 'fini'; label = 'Terminé'; }
+    else if(pct >= 50){ cls = 'encours'; label = 'En cours'; }
+    const nextStep = p.etapes.find(e => !e.ok);
+    return { total, done, pct, cls, label, nextStep };
+  }
+
+  function renderKPIs(){
+    const nbProj = state.projets.length;
+    let nbFinis = 0, totalDone = 0, totalSteps = 0;
+    state.projets.forEach(p => {
+      const st = projectStats(p);
+      if(st.cls === 'fini') nbFinis++;
+      totalDone += st.done;
+      totalSteps += st.total;
+    });
+    const globalPct = totalSteps ? Math.round((totalDone / totalSteps) * 100) : 0;
+    const vOk = state.veille.filter(v => v.abouti).length;
+    const vRien = state.veille.length - vOk;
+
+    document.getElementById('kpi-grid').innerHTML =
+      '<div class="kpi"><b>' + nbProj + '</b><span>Projets</span></div>' +
+      '<div class="kpi"><b>' + nbFinis + '</b><span>Terminés</span></div>' +
+      '<div class="kpi"><b>' + totalDone + '/' + totalSteps + '</b><span>Étapes faites</span></div>' +
+      '<div class="kpi kpi-accent"><b>' + globalPct + ' %</b><span>Avancement</span><div class="mini-bar"><i style="width:' + globalPct + '%"></i></div></div>' +
+      '<div class="kpi"><b>' + state.veille.length + '</b><span>Recherches</span><span class="sub">' + vOk + ' retenues · ' + vRien + ' sans résultat</span></div>';
+
+    document.getElementById('cnt-all').textContent = '(' + nbProj + ')';
+    document.getElementById('cnt-open').textContent = '(' + (nbProj - nbFinis) + ')';
+    document.getElementById('cnt-done').textContent = '(' + nbFinis + ')';
+  }
+
+  function renderFocus(){
+    const openProj = state.projets.filter(p => projectStats(p).cls !== 'fini');
+    const doneWithOpen = state.projets.filter(p => projectStats(p).cls === 'fini' && p.ouvert);
+    let html = '<div class="focus-card">';
+    if(!openProj.length){
+      html += '<div class="focus-row"><div><div class="focus-proj">Bravo</div><div class="focus-act">Tous les projets listés ont toutes leurs étapes cochées.</div></div></div>';
+    } else {
+      openProj.forEach(p => {
+        const st = projectStats(p);
+        html +=
+          '<div class="focus-row">' +
+            '<div>' +
+              '<div class="focus-proj">' + esc(p.nom) + ' <span class="focus-pct">' + st.done + '/' + st.total + ' · ' + st.pct + ' %</span></div>' +
+              '<div class="focus-act">' + esc(st.nextStep ? st.nextStep.t : 'Aucune étape restante') + '</div>' +
+            '</div>' +
+            '<a class="focus-go" href="#proj-' + esc(p.id) + '" data-jump="' + esc(p.id) + '">Ouvrir →</a>' +
+          '</div>';
+      });
+    }
+    html += '</div>';
+    if(doneWithOpen.length){
+      html += '<div class="focus-open"><b>Points ouverts sur les projets terminés :</b> ' +
+        doneWithOpen.map(p => '<b>' + esc(p.nom) + '</b> — ' + esc(p.ouvert)).join(' &nbsp;·&nbsp; ') +
+      '</div>';
+    }
+    document.getElementById('focus-zone').innerHTML = html;
+  }
+
+  function renderOverview(){
+    const sorted = state.projets.slice().sort((a, b) => projectStats(b).pct - projectStats(a).pct);
+    document.getElementById('overview-bars').innerHTML = sorted.map(p => {
+      const st = projectStats(p);
+      return '<a class="b" href="#proj-' + esc(p.id) + '" data-jump="' + esc(p.id) + '">' +
+        '<span class="bn">' + esc(p.nom) + '</span>' +
+        '<span class="bb"><i class="' + st.cls + '" style="width:' + st.pct + '%"></i></span>' +
+        '<span class="bc">' + st.done + '/' + st.total + '</span>' +
+        '<span class="bp">' + st.pct + ' %</span>' +
+      '</a>';
+    }).join('');
+  }
+
+  function updateToggleAllLabel(){
+    const btn = document.getElementById('btn-toggle-all');
+    const allOpen = state.projets.length > 0 && state.projets.every(p => openCards.has(p.id));
+    btn.textContent = allOpen ? 'Tout replier' : 'Tout déplier';
+  }
+
+  function renderProjects(){
+    const list = state.projets.filter(p => {
+      const st = projectStats(p);
+      if(projFilter === 'open') return st.cls !== 'fini';
+      if(projFilter === 'done') return st.cls === 'fini';
+      return true;
+    });
+
+    updateToggleAllLabel();
+
+    if(!list.length){
+      document.getElementById('projects-list').innerHTML = '<p class="vide">Aucun projet dans cette vue.</p>';
+      return;
+    }
+
+    document.getElementById('projects-list').innerHTML = list.map(p => {
+      const st = projectStats(p);
+      const isOpen = openCards.has(p.id);
+      const proxHtml = st.nextStep
+        ? '<div class="prox"><span class="lab">La prochaine étape</span><p>' + esc(st.nextStep.t) + '</p></div>'
+        : '<div class="prox done"><span class="lab">Statut</span><p>Toutes les étapes sont faites (' + st.total + ' / ' + st.total + ').</p></div>';
+
+      const noteHtml = p.ouvert
+        ? '<div class="decision-note"><b>Note :</b> ' + esc(p.ouvert) + '</div>'
+        : '';
+
+      const stepsHtml = p.etapes.map((e, idx) =>
+        '<li class="' + (e.ok ? 'oui' : 'non') + '">' +
+          '<label>' +
+            '<input type="checkbox" data-pid="' + esc(p.id) + '" data-idx="' + idx + '"' + (e.ok ? ' checked' : '') + '>' +
+            '<span class="et-txt">' + esc(e.t) + '</span>' +
+          '</label>' +
+          (e.custom ? '<button class="del-btn" type="button" title="Supprimer cette étape" data-del-step="' + esc(p.id) + ':' + idx + '">×</button>' : '') +
+        '</li>'
+      ).join('');
+
+      return '<article class="p ' + st.cls + '" id="proj-' + esc(p.id) + '">' +
+        '<header>' +
+          '<h3>' + esc(p.nom) + '</h3>' +
+          '<div class="p-head-right">' +
+            '<span class="tag ' + st.cls + '">' + st.label + '</span>' +
+            (p.custom ? '<button class="del-btn" type="button" title="Supprimer ce projet ajouté" data-del-proj="' + esc(p.id) + '">×</button>' : '') +
+          '</div>' +
+        '</header>' +
+        '<p class="idee">' + esc(p.idee) + '</p>' +
+        '<div class="jauge" role="img" aria-label="' + st.done + ' étapes sur ' + st.total + '"><i class="' + st.cls + '" style="width:' + st.pct + '%"></i></div>' +
+        '<p class="compte"><b>' + st.done + '</b> / ' + st.total + ' étapes · <b>' + st.pct + ' %</b></p>' +
+        '<div class="fin"><span class="lab">Il sera fini quand</span><p>' + esc(p.fin) + '</p></div>' +
+        proxHtml +
+        noteHtml +
+        '<details data-pid="' + esc(p.id) + '"' + (isOpen ? ' open' : '') + '>' +
+          '<summary>Les ' + st.total + ' étapes (' + st.done + ' faites)</summary>' +
+          '<ul class="etapes">' + stepsHtml + '</ul>' +
+          '<form class="add-step" data-add-step="' + esc(p.id) + '">' +
+            '<input type="text" placeholder="Ajouter une étape à ce projet…" aria-label="Nouvelle étape pour ' + esc(p.nom) + '">' +
+            '<button type="submit">+ Ajouter</button>' +
+          '</form>' +
+        '</details>' +
+      '</article>';
+    }).join('');
+  }
+
+  function renderVeille(){
+    const total = state.veille.length;
+    const okCount = state.veille.filter(v => v.abouti).length;
+    const rienCount = total - okCount;
+    document.getElementById('veille-count').textContent = total;
+    document.getElementById('vcnt-all').textContent = '(' + total + ')';
+    document.getElementById('vcnt-ok').textContent = '(' + okCount + ')';
+    document.getElementById('vcnt-rien').textContent = '(' + rienCount + ')';
+
+    const list = state.veille.filter(v => {
+      if(veilleFilter === 'ok') return v.abouti;
+      if(veilleFilter === 'rien') return !v.abouti;
+      return true;
+    });
+    const z = document.getElementById('veille');
+    if(!list.length){
+      z.innerHTML = '<p class="vide">Aucune recherche dans ce filtre.</p>';
+      return;
+    }
+    z.innerHTML = list.map(v => {
+      const b = v.abouti
+        ? '<span class="badge ok">retenu</span>'
+        : '<span class="badge rien">sans résultat</span>';
+      return '<div class="v"><div class="vt">' + esc(v.t) + b + '</div><div class="vs">' + esc(v.s) + '</div></div>';
+    }).join('');
+  }
+
+  function renderCondense(){
+    document.getElementById('condense-list').innerHTML = state.condense.map(c =>
+      '<li><b>' + esc(c[0]) + '</b> ' + esc(c[1]) + '</li>'
+    ).join('');
+  }
+
+  function buildCorpus(){
+    const items = [];
+    state.projets.forEach(p => {
+      const txt = [p.idee, p.fin, p.ouvert || '', ...p.etapes.map(e => e.t)].join(' · ');
+      items.push({ t: 'Projet — ' + p.nom, s: txt, href: '#proj-' + p.id, pid: p.id });
+    });
+    state.veille.forEach(v => {
+      items.push({ t: 'Veille — ' + v.t, s: v.s, href: '#section-veille' });
+    });
+    state.condense.forEach(c => {
+      items.push({ t: 'Condensé', s: c[0] + ' ' + c[1], href: '#condense' });
+    });
+    return items.map(it => ({ ...it, n: norm(it.t + ' ' + it.s) }));
+  }
+
+  function runSearch(){
+    const qz = document.getElementById('q');
+    const rz = document.getElementById('res');
+    const b = qz.value.trim();
+    if(b.length < 2){
+      rz.innerHTML = '<p class="vide">Deux ou trois lettres suffisent. La recherche se fait uniquement dans cette page — aucune donnée n\'est envoyée.</p>';
+      return;
+    }
+    const a = norm(b);
+    const corpus = buildCorpus();
+    const hits = [];
+    corpus.forEach(d => {
+      const sNorm = norm(d.s);
+      let pos = sNorm.indexOf(a);
+      if(pos !== -1){
+        hits.push({ t: d.t, href: d.href, pid: d.pid, txt: d.s.slice(Math.max(0, pos - 85), Math.min(d.s.length, pos + a.length + 135)) });
+      } else if(norm(d.t).indexOf(a) !== -1){
+        hits.push({ t: d.t, href: d.href, pid: d.pid, txt: d.s.slice(0, 200) });
+      }
+    });
+    if(!hits.length){
+      rz.innerHTML = '<p class="vide">Rien dans ce tableau de bord pour « ' + esc(b) + ' ».</p>';
+      return;
+    }
+    rz.innerHTML = '<p class="vide">' + hits.length + ' passage(s) trouvé(s).</p>' + hits.map(r => {
+      let t = esc(r.txt);
+      const j = norm(r.txt).indexOf(a);
+      if(j >= 0){
+        const rawBefore = r.txt.slice(0, j);
+        const rawMatch = r.txt.slice(j, j + a.length);
+        const rawAfter = r.txt.slice(j + a.length);
+        t = esc(rawBefore) + '<mark>' + esc(rawMatch) + '</mark>' + esc(rawAfter);
+      }
+      return '<a class="r" href="' + esc(r.href) + '"' + (r.pid ? ' data-jump="' + esc(r.pid) + '"' : '') + '>' +
+        '<div class="rs">' + esc(r.t) + '</div>…' + t + '…</a>';
+    }).join('');
+  }
+
+  function renderAll(){
+    renderKPIs();
+    renderFocus();
+    renderOverview();
+    renderProjects();
+    renderVeille();
+    renderCondense();
+    runSearch();
+    saveState();
+  }
+
+  // Événements : cases à cocher, ajout/suppression d'étapes, ouverture <details>
+  document.getElementById('projects-list').addEventListener('change', e => {
+    const cb = e.target.closest('input[type="checkbox"][data-pid]');
+    if(!cb) return;
+    const pid = cb.getAttribute('data-pid');
+    const idx = Number(cb.getAttribute('data-idx'));
+    const p = state.projets.find(x => x.id === pid);
+    if(!p || !p.etapes[idx]) return;
+    p.etapes[idx].ok = cb.checked;
+    openCards.add(pid);
+    renderAll();
+    showToast(cb.checked ? 'Étape cochée' : 'Étape décochée');
+  });
+
+  document.getElementById('projects-list').addEventListener('toggle', e => {
+    const det = e.target;
+    if(det.tagName !== 'DETAILS') return;
+    const pid = det.getAttribute('data-pid');
+    if(!pid) return;
+    if(det.open) openCards.add(pid);
+    else openCards.delete(pid);
+    updateToggleAllLabel();
+  }, true);
+
+  document.getElementById('projects-list').addEventListener('submit', e => {
+    const form = e.target.closest('form[data-add-step]');
+    if(!form) return;
+    e.preventDefault();
+    const pid = form.getAttribute('data-add-step');
+    const input = form.querySelector('input');
+    const val = input.value.trim();
+    if(!val) return;
+    const p = state.projets.find(x => x.id === pid);
+    if(!p) return;
+    p.etapes.push({ t: val, ok: false, custom: true });
+    openCards.add(pid);
+    renderAll();
+    showToast('Étape ajoutée à « ' + p.nom + ' »');
+  });
+
+  document.getElementById('projects-list').addEventListener('click', e => {
+    const delStep = e.target.closest('[data-del-step]');
+    if(delStep){
+      const [pid, idxStr] = delStep.getAttribute('data-del-step').split(':');
+      const p = state.projets.find(x => x.id === pid);
+      if(p){
+        p.etapes.splice(Number(idxStr), 1);
+        renderAll();
+        showToast('Étape supprimée');
+      }
+      return;
+    }
+    const delProj = e.target.closest('[data-del-proj]');
+    if(delProj){
+      const pid = delProj.getAttribute('data-del-proj');
+      const p = state.projets.find(x => x.id === pid);
+      if(p && confirm('Supprimer le projet « ' + p.nom + ' » ?')){
+        state.projets = state.projets.filter(x => x.id !== pid);
+        openCards.delete(pid);
+        renderAll();
+        showToast('Projet supprimé');
+      }
     }
   });
-  if(!tous.length){ rz.innerHTML = '<p class="vide">Rien dans cette page pour « ' + b.replace(/</g,'&lt;') + ' ».</p>'; return; }
-  rz.innerHTML = '<p class="vide">' + tous.length + ' passage(s).</p>' + tous.map(r => {
-    let t = r.txt.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    const j = norm(r.txt).indexOf(a);
-    if(j >= 0) t = t.slice(0,j) + '<mark>' + t.slice(j, j + a.length) + '</mark>' + t.slice(j + a.length);
-    return '<div class="r"><div class="rs">' + r.t + '</div>…' + t + '…</div>';
-  }).join('');
-}
-qz.addEventListener('input', cherche);
-qz.addEventListener('keydown', e => { if(e.key === 'Enter') cherche(); });
+
+  // Saut direct vers un projet (ouvre ses étapes automatiquement)
+  document.body.addEventListener('click', e => {
+    const link = e.target.closest('[data-jump]');
+    if(!link) return;
+    e.preventDefault();
+    const pid = link.getAttribute('data-jump');
+    if(projFilter !== 'all'){
+      projFilter = 'all';
+      document.querySelectorAll('[data-filter]').forEach(b => b.classList.toggle('active', b.getAttribute('data-filter') === 'all'));
+    }
+    openCards.add(pid);
+    renderProjects();
+    const target = document.getElementById('proj-' + pid);
+    if(target){
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      history.replaceState(null, '', '#proj-' + pid);
+    }
+  });
+
+  // Filtres projets
+  document.querySelectorAll('[data-filter]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      projFilter = btn.getAttribute('data-filter');
+      document.querySelectorAll('[data-filter]').forEach(b => b.classList.toggle('active', b === btn));
+      renderProjects();
+    });
+  });
+
+  // Tout déplier / replier
+  document.getElementById('btn-toggle-all').addEventListener('click', function(){
+    const allOpen = state.projets.length > 0 && state.projets.every(p => openCards.has(p.id));
+    if(allOpen) openCards.clear();
+    else state.projets.forEach(p => openCards.add(p.id));
+    renderProjects();
+  });
+
+  // Filtres veille
+  document.querySelectorAll('[data-vfilter]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      veilleFilter = btn.getAttribute('data-vfilter');
+      document.querySelectorAll('[data-vfilter]').forEach(b => b.classList.toggle('active', b === btn));
+      renderVeille();
+    });
+  });
+
+  // Recherche
+  document.getElementById('q').addEventListener('input', runSearch);
+  document.getElementById('q').addEventListener('keydown', e => { if(e.key === 'Enter') runSearch(); });
+
+  // Impression
+  document.getElementById('btn-print').addEventListener('click', () => window.print());
+
+  // Modales
+  function openModal(id){ document.getElementById(id).classList.add('on'); }
+  function closeModal(id){ document.getElementById(id).classList.remove('on'); }
+  document.getElementById('btn-data').addEventListener('click', () => openModal('modal-data'));
+  document.getElementById('btn-top-add-proj').addEventListener('click', () => openModal('modal-proj'));
+  document.getElementById('btn-add-proj').addEventListener('click', () => openModal('modal-proj'));
+  document.getElementById('btn-add-veille').addEventListener('click', () => openModal('modal-veille'));
+  document.querySelectorAll('[data-close]').forEach(b => {
+    b.addEventListener('click', () => closeModal(b.getAttribute('data-close')));
+  });
+  document.querySelectorAll('.modal-bg').forEach(bg => {
+    bg.addEventListener('click', e => { if(e.target === bg) bg.classList.remove('on'); });
+  });
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape') document.querySelectorAll('.modal-bg.on').forEach(m => m.classList.remove('on'));
+  });
+
+  // Ajouter un projet
+  document.getElementById('form-proj').addEventListener('submit', e => {
+    e.preventDefault();
+    const nom = document.getElementById('fp-nom').value.trim();
+    const idee = document.getElementById('fp-idee').value.trim();
+    const fin = document.getElementById('fp-fin').value.trim();
+    const etapes = document.getElementById('fp-etapes').value
+      .split('\n').map(s => s.trim()).filter(Boolean)
+      .map(t => ({ t, ok: false, custom: true }));
+    if(!nom || !etapes.length) return;
+    const id = 'p-' + Date.now().toString(36);
+    state.projets.push({ id, nom, idee, fin, ouvert: '', etapes, custom: true });
+    openCards.add(id);
+    e.target.reset();
+    closeModal('modal-proj');
+    renderAll();
+    showToast('Projet « ' + nom + ' » ajouté');
+  });
+
+  // Ajouter une recherche à la veille
+  document.getElementById('form-veille').addEventListener('submit', e => {
+    e.preventDefault();
+    const t = document.getElementById('fv-titre').value.trim();
+    const abouti = document.getElementById('fv-statut').value === 'ok';
+    const s = document.getElementById('fv-synth').value.trim();
+    if(!t || !s) return;
+    state.veille.unshift({ t, s, abouti, custom: true });
+    e.target.reset();
+    closeModal('modal-veille');
+    renderAll();
+    showToast('Recherche ajoutée à la veille');
+  });
+
+  // Export / Import / Copier / Réinitialiser
+  function exportJSON(){
+    const payload = JSON.stringify(state, null, 2);
+    const blob = new Blob([payload], { type: 'application/json;charset=utf-8' });
+    const a = document.createElement('a');
+    const d = new Date().toISOString().slice(0, 10);
+    a.href = URL.createObjectURL(blob);
+    a.download = 'tableau-de-bord-' + d + '.json';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 200);
+    showToast('Sauvegarde exportée');
+  }
+
+  function resetState(){
+    if(!confirm('Revenir à l\'état de référence du 16 novembre 2026 ? Les coches locales non exportées seront effacées.')) return;
+    state = clone(DEFAULT_DATA);
+    openCards.clear();
+    closeModal('modal-data');
+    renderAll();
+    showToast('État réinitialisé');
+  }
+
+  document.getElementById('m-export').addEventListener('click', exportJSON);
+  document.getElementById('sb-export').addEventListener('click', exportJSON);
+  document.getElementById('m-reset').addEventListener('click', resetState);
+  document.getElementById('sb-reset').addEventListener('click', resetState);
+
+  document.getElementById('m-import-btn').addEventListener('click', () => {
+    document.getElementById('m-import-file').click();
+  });
+  document.getElementById('m-import-file').addEventListener('change', e => {
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try{
+        const imported = JSON.parse(String(reader.result));
+        if(!imported || !Array.isArray(imported.projets) || !Array.isArray(imported.veille)){
+          throw new Error('Format non reconnu');
+        }
+        if(!Array.isArray(imported.condense)) imported.condense = clone(DEFAULT_DATA.condense);
+        state = imported;
+        closeModal('modal-data');
+        renderAll();
+        showToast('Sauvegarde importée');
+      }catch(err){
+        alert('Impossible de lire ce fichier JSON : ' + err.message);
+      }
+      e.target.value = '';
+    };
+    reader.readAsText(file, 'utf-8');
+  });
+
+  document.getElementById('m-copy').addEventListener('click', () => {
+    const lines = ['TABLEAU DE BORD — ' + new Date().toLocaleDateString('fr-FR'), ''];
+    state.projets.forEach(p => {
+      const st = projectStats(p);
+      lines.push('• ' + p.nom + ' — ' + st.done + '/' + st.total + ' (' + st.pct + ' %) [' + st.label + ']');
+      if(st.nextStep) lines.push('  Prochaine étape : ' + st.nextStep.t);
+      else if(p.ouvert) lines.push('  Point ouvert : ' + p.ouvert);
+    });
+    const txt = lines.join('\n');
+    const fallbackCopy = () => {
+      const ta = document.createElement('textarea');
+      ta.value = txt;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      ta.remove();
+      showToast('Résumé copié');
+    };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt)
+        .then(() => showToast('Résumé copié dans le presse-papiers'))
+        .catch(fallbackCopy);
+    } else {
+      fallbackCopy();
+    }
+  });
+
+  renderAll();
+})();
 </script>
-</div>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5aecc919fe0c752',t:'MTc5NDc1MTQwMw=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5aecc919fe0c752',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>

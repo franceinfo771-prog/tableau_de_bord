@@ -1,65 +1,71 @@
-# État du projet — Geoula Bulletin
+# État des projets — Tableau de bord
 
-> Ce fichier est la version texte du tableau de bord. La version visuelle est `index.html`,
-> et l'assistant de construction est `atelier.html`.
-> Dernière mise à jour : 25 octobre 2026.
+> Version texte du tableau de bord visuel `index.html`.
+> Dernière mise à jour : 16 novembre 2026.
 
-## Où vous en êtes
+## Vue d'ensemble
 
-**Étape 3 sur 6 — définir le contenu du bulletin.**
+- **Projets suivis** : 5
+- **Terminés** : 2 (`Notes de recherche`, `Les sites`)
+- **Étapes faites** : 22 / 31 (**71 %**)
+- **Veille** : 13 recherches consignées (6 retenues · 7 sans résultat)
 
-Le site est **publié** sur GitHub Pages et l'Atelier (assistant intégré) est disponible.
-Il reste la décision de fond : qui lit ce bulletin, à quelle fréquence, quelles rubriques.
+## À faire maintenant (prochaine étape par projet ouvert)
 
-## Les étapes
+1. **Une application de poche** (4/6 · 67 %) — Installer l'application sur un téléphone réel.
+2. **Maquette — une porte qui fait joli** (2/4 · 50 %) — Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ?
+3. **Vélo électrique DIY** (4/9 · 44 %) — Acheter la manette — poignée à effet Hall, 3 fils, sortie 5 V.
 
-| # | Étape | État | Détail |
-|---|-------|------|--------|
-| 1 | Dépôt créé | ✅ fait — 28/08/2026 | Branche `main` initialisée |
-| 2 | Tableau de bord | ✅ fait | `index.html`, `ETAT.md`, `etat.json`, `scripts/etat.sh` |
-| 3 | Définir le contenu du bulletin | 🟡 en cours | Lecteurs, fréquence, rubriques |
-| 4 | Maquette et charte graphique | ⬜ à venir | Page d'accueil, lisibilité mobile |
-| 5 | Construire le bulletin | ⬜ à venir | Articles, dates, archives |
-| 6 | Mettre en ligne | 🟡 partiel | GitHub Pages actif ; publication depuis `main` à confirmer |
+## Points ouverts (projets terminés)
 
-## Site en ligne
+- **Notes de recherche** (3/3 · 100 %) — Gardée privée pour l'instant (décidé le 15 novembre 2026).
+- **Les sites** (9/9 · 100 %) — Décider de rafraîchir ou non la veille des deux bulletins (datée d'octobre 2026).
 
-- Adresse : https://franceinfo771-prog.github.io/geoula-bulletin/
-- Tableau de bord : `/index.html`
-- Atelier (assistant) : `/atelier.html`
+## Détail des 5 projets
 
-## L'Atelier (`atelier.html`)
+### 1. Notes de recherche — 3 / 3 (100 %) · Terminé
+- [x] La note unique écrite — les trois notes fondues en une
+- [x] La version à lire (HTML) et la version texte pour le mail
+- [x] Relue à froid : les six sources revérifiées une par une
 
-Assistant intégré au site, **sans clé API ni serveur** — tout fonctionne dans le navigateur :
+### 2. Les sites — 9 / 9 (100 %) · Terminé
+- [x] Retirer les deux notes mortes du site
+- [x] Refermer le site aux moteurs — `robots.txt`, `noindex`
+- [x] La page des projets, prête : 5 projets, un fichier
+- [x] Y ajouter la veille — y compris les recherches sans résultat
+- [x] Y ajouter la recherche accélérée
+- [x] Y ajouter le condensé — huit lignes, claires et concises
+- [x] Publier (`tableau_de_bord`)
+- [x] Vérifier les deux autres adresses
+- [x] Le poste de travail — une page, un double-clic
 
-| Onglet | Ce qu'il fait |
-|---|---|
-| 💬 Assistant | Répond aux questions sur le projet (publier, 404, rubriques, sauvegarde…) |
-| 📍 Où j'en suis | Lit `etat.json` + checklist des actions, cochée et mémorisée |
-| ✍️ Générer un article | Construit un prompt prêt à copier pour rédiger un article vérifiable |
-| 🧭 Mes décisions | Enregistre lecteurs / fréquence / rubriques et permet de les exporter |
+### 3. Une application de poche — 4 / 6 (67 %) · En cours
+- [x] Les enregistrements faits
+- [x] Le fichier unique assemblé
+- [x] L'application construite, signée et vérifiée
+- [x] Le paquet déposé et sauvegardé en privé
+- [ ] Installer l'application sur un téléphone réel
+- [ ] Une deuxième copie du paquet, ailleurs
 
-## Les 3 prochaines actions
+### 4. Maquette — une porte qui fait joli — 2 / 4 (50 %) · En cours
+- [x] La photo de référence
+- [x] Une première épreuve montée
+- [ ] Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ?
+- [ ] La phrase d'une ligne qui dit ce qu'elle montre
 
-1. **Répondre aux 3 questions** — lecteurs, fréquence, rubriques (onglet « Mes décisions »).
-2. **Confirmer la source de publication** — Settings → Pages → `main` / `(root)`.
-3. **Écrire le premier article** — onglet « Générer un article ».
+### 5. Vélo électrique DIY — 4 / 9 (44 %) · Commencé
+- [x] Choix du vélo et du principe (friction arrière)
+- [x] Liste d'achats chiffrée — deux options
+- [x] Règles de câblage ZS-X11H — dont les trois pièges
+- [x] Programme Arduino écrit et relu
+- [ ] Acheter la manette — poignée à effet Hall, 3 fils, sortie 5 V
+- [ ] Batterie et chargeur : offerts — à récupérer et vérifier
+- [ ] Manette testée sur l'alimentation du labo, essai à vide
+- [ ] Galet profilé et support mécanique
+- [ ] Essai sur route sèche, 10 km
 
-## Contenu du dépôt
+## Journal récent
 
-| Fichier | Rôle |
-|---|---|
-| `index.html` | Tableau de bord d'avancement |
-| `atelier.html` | L'Atelier : assistant de construction du site |
-| `ETAT.md` | Cet état, en texte |
-| `etat.json` | Informations techniques générées (branche, commit, date) |
-| `scripts/etat.sh` | Régénère `etat.json` |
-| `README.md` | Présentation du dépôt |
-
-## Comment le maintenir
-
-```bash
-./scripts/etat.sh   # rafraîchit etat.json depuis git
-```
-
-Chiffres du bulletin : **0 article, 0 rubrique** — les décisions de l'étape 3 les feront apparaître.
+- **16 novembre 2026** : mise en place du tableau de bord interactif (`index.html`), synchronisation à 22/31 étapes (71 %), suppression des anciens doublons et du script Cloudflare parasite.
+- **15 novembre 2026 (16 h)** : vérification des deux autres adresses en ligne, mise à jour du poste de travail, projet « Les sites » passé à 9/9.
+- **15 novembre 2026 (15 h 45)** : publication de la nouvelle page sur `https://franceinfo771-prog.github.io/tableau_de_bord/`.
