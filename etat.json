@@ -1,16 +1,19 @@
 {
-  "project": "geoula-bulletin",
-  "branch": "arena/7f930b08-geoula-bulletin",
-  "short_sha": "4b130dd",
-  "full_sha": "4b130dd26bedfce00721bca75f4331135d8dd233",
-  "last_commit_message": "Merge pull request #2 from franceinfo771-prog/arena/5727047d-geoula-bulletin",
-  "last_commit_date": "2026-10-25T07:45:56+01:00",
-  "tracked_files": 6,
-  "uncommitted_changes": 5,
-  "generated_at": "2026-10-25T07:30:02+00:00",
-  "step": {
-    "current_step": 3,
-    "total_steps": 6,
-    "current_label": "Définir le contenu du bulletin"
+  "project": "tableau_de_bord",
+  "branch": "arena/ffa5678f-tableau-de-bord",
+  "short_sha": "9a8a028",
+  "full_sha": "9a8a028256e29e9692e608b73090b700b4a37ef3",
+  "last_commit_message": "Update and rename index (7).html to index.html",
+  "last_commit_date": "2026-11-15T15:45:27+01:00",
+  "tracked_files": 11,
+  "uncommitted_changes": 10,
+  "generated_at": "2026-11-16T08:49:11+00:00",
+  "summary": {
+    "projects_total": 5,
+    "projects_done": 2,
+    "steps_done": 22,
+    "steps_total": 31,
+    "progress_percent": 71,
+    "veille_count": 13
   }
 }

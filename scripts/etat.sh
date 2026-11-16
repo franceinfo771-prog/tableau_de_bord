@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Régénère etat.json : les faits techniques affichés par index.html.
+# Régénère etat.json : résumé technique du dépôt tableau_de_bord.
 # Usage :  ./scripts/etat.sh
 set -euo pipefail
 
@@ -20,15 +20,17 @@ import json, sys
 
 branch, short_sha, full_sha, msg, cdate, files, dirty, gen = sys.argv[1:9]
 
-# Étape courante du projet : c'est la seule valeur à modifier à la main.
-PROJECT = {
-    "current_step": 3,
-    "total_steps": 6,
-    "current_label": "Définir le contenu du bulletin",
+SUMMARY = {
+    "projects_total": 5,
+    "projects_done": 2,
+    "steps_done": 22,
+    "steps_total": 31,
+    "progress_percent": 71,
+    "veille_count": 13,
 }
 
 data = {
-    "project": "geoula-bulletin",
+    "project": "tableau_de_bord",
     "branch": branch,
     "short_sha": short_sha,
     "full_sha": full_sha,
@@ -37,7 +39,7 @@ data = {
     "tracked_files": int(files),
     "uncommitted_changes": int(dirty),
     "generated_at": gen,
-    "step": PROJECT,
+    "summary": SUMMARY,
 }
 
 print(json.dumps(data, ensure_ascii=False, indent=2))

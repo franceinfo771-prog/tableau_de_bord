@@ -1,55 +1,40 @@
-# Geoula Bulletin
+# Tableau de bord — Mes projets
 
-Site du bulletin Geoula.
+Tableau de bord autonome de suivi de cinq projets, de la veille et du condensé.
 
-🔗 **Site en ligne** : https://franceinfo771-prog.github.io/geoula-bulletin/
-🧭 **L'Atelier (assistant de construction)** : `/atelier.html`
+- **Site en ligne** : https://franceinfo771-prog.github.io/tableau_de_bord/
+- **Version texte** : `ETAT.md`
+- **Aucune dépendance externe** : un seul fichier `index.html` utilisable en ligne comme hors ligne, sans compte ni script de suivi (`noindex, nofollow` + `robots.txt`).
 
-## Où en est le projet ?
+## État au 16 novembre 2026
 
-**Étape 3 sur 6 — définir le contenu du bulletin.**
+**5 projets · 2 terminés · 22 / 31 étapes faites (71 %) · 13 recherches de veille.**
 
-| # | Étape | État |
-|---|-------|------|
-| 1 | Dépôt créé | ✅ fait (28/08/2026) |
-| 2 | Tableau de bord + Atelier | ✅ fait |
-| 3 | Définir le contenu du bulletin (rubriques, fréquence) | 🟡 en cours |
-| 4 | Maquette et charte graphique | ⬜ à venir |
-| 5 | Construire le bulletin | ⬜ à venir |
-| 6 | Mettre en ligne | 🟡 partiel (GitHub Pages actif) |
+| Projet | Avancement | Statut | Prochaine action / Point ouvert |
+|---|---:|---|---|
+| Notes de recherche | 3 / 3 (100 %) | ✅ Terminé | Gardée privée pour l'instant (décidé le 15/11) |
+| Les sites | 9 / 9 (100 %) | ✅ Terminé | Point ouvert : rafraîchir la veille des deux bulletins ou la laisser datée d'octobre |
+| Une application de poche | 4 / 6 (67 %) | 🟡 En cours | Installer l'application sur un téléphone réel |
+| Maquette — une porte qui fait joli | 2 / 4 (50 %) | 🟡 En cours | Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ? |
+| Vélo électrique DIY | 4 / 9 (44 %) | 🟣 Commencé | Acheter la manette — poignée à effet Hall, 3 fils, sortie 5 V |
 
-## Contenu actuel
+## Fonctionnalités de `index.html`
 
-- `index.html` — tableau de bord d'avancement (point de départ du site).
-- `atelier.html` — l'Atelier : assistant intégré, sans clé API, pour construire le site.
-- `ETAT.md` — l'état du projet en version texte.
-- `etat.json` — informations techniques (branche, commit, date), générées.
-- `scripts/etat.sh` — régénère `etat.json`.
+- **À faire maintenant** : affiche la prochaine étape prioritaire de chaque projet ouvert.
+- **Cases interactives** : cocher/décocher une étape recalcule immédiatement les barres, les pourcentages et la prochaine action, avec mémorisation locale (`localStorage`).
+- **Ajout rapide** : ajout d'étapes, de projets ou d'entrées de veille localement.
+- **Sauvegarde portable** : export/import en JSON, copie du résumé en texte brut, impression PDF propre.
+- **Recherche locale** : recherche instantanée sans réseau dans toute la page.
 
-## L'Atelier
-
-Quatre onglets, aucun compte, aucune clé, tout reste dans le navigateur :
-
-| Onglet | Rôle |
-|---|---|
-| 💬 Assistant | Réponses écrites sur le projet : publier, 404, rubriques, sauvegarde… |
-| 📍 Où j'en suis | État lu dans `etat.json` + checklist mémorisée |
-| ✍️ Générer un article | Prompt prêt à copier pour rédiger un article vérifiable |
-| 🧭 Mes décisions | Lecteurs / fréquence / rubriques, enregistrés et exportables |
-
-## Voir le site en local
+## Ouvrir en local
 
 ```bash
 python3 -m http.server 8000
-# http://localhost:8000        -> tableau de bord
-# http://localhost:8000/atelier.html -> l'Atelier
+# Ouvrir http://localhost:8000
 ```
 
-## Mettre l'état à jour
+## Mettre à jour `etat.json`
 
 ```bash
-./scripts/etat.sh   # rafraîchit etat.json à partir de git
+./scripts/etat.sh
 ```
-
-L'étape courante (`current_step`) se modifie à la main dans `scripts/etat.sh`
-(bloc `PROJECT`) et dans la frise de `index.html` / le tableau de `ETAT.md`.
