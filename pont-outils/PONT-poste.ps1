@@ -420,6 +420,51 @@ function Installer-LmStudio {
     return @($L, $lms)
 }
 
+function Demarrer-ServeurLocal($lms, [int]$port) {
+    # lms server start reste au premier plan : l'appeler directement
+    # figerait le pont, et le rapport d'installation ne partirait
+    # jamais. On le lance donc en arriere-plan, puis on attend que le
+    # port reponde.
+    $L = New-Object System.Collections.ArrayList
+    function Note([string]$ligne) {
+        [void]$L.Add($ligne)
+        Write-Host $ligne
+    }
+
+    if (-not $lms) {
+        Note 'CLI lms introuvable : serveur non demarre.'
+        return ($L -join "`n")
+    }
+
+    try {
+        Invoke-RestMethod -Uri "http://127.0.0.1:$port/v1/models" -TimeoutSec 5 | Out-Null
+        Note "Serveur deja en ecoute sur le port $port."
+        return ($L -join "`n")
+    } catch { }
+
+    Note 'Demarrage du serveur local en arriere-plan...'
+    try {
+        $log = Join-Path $env:TEMP 'lms-serveur.log'
+        Start-Process -FilePath $lms -ArgumentList @('server','start','--port',"$port") `
+            -RedirectStandardOutput $log -RedirectStandardError "$log.err" `
+            -WindowStyle Hidden | Out-Null
+    } catch {
+        Note ("  " + $_)
+        return ($L -join "`n")
+    }
+
+    for ($i = 0; $i -lt 40; $i++) {
+        Start-Sleep -Seconds 1
+        try {
+            Invoke-RestMethod -Uri "http://127.0.0.1:$port/v1/models" -TimeoutSec 5 | Out-Null
+            Note "Serveur en ecoute sur le port $port."
+            break
+        } catch { }
+    }
+
+    return ($L -join "`n")
+}
+
 function Choisir-Modele {
     # Deduit un modele adapte a la machine. Un modele qui ne tient pas en
     # memoire ne demarre simplement pas : on se base donc sur la RAM.
@@ -477,13 +522,12 @@ function Charger-Modele($lms, [string]$modele) {
         & $lms load $modele --gpu max --context-length 4096 --yes 2>&1 | ForEach-Object { Note ("  " + $_) }
     } catch { Note ("  " + $_) }
 
-    Note 'Demarrage du serveur local...'
-    try { & $lms server start 2>&1 | ForEach-Object { Note ("  " + $_) } } catch { Note ("  " + $_) }
+    $serveur = Demarrer-ServeurLocal $lms 1234
+    foreach ($ligne in ($serveur -split "`n")) { if ($ligne) { Note $ligne } }
 
-    Start-Sleep -Seconds 4
     try {
-        $r = Invoke-RestMethod -Uri 'http://localhost:1234/v1/models' -TimeoutSec 25
-        Note 'Modeles exposes sur http://localhost:1234 :'
+        $r = Invoke-RestMethod -Uri 'http://127.0.0.1:1234/v1/models' -TimeoutSec 25
+        Note 'Modeles exposes sur http://127.0.0.1:1234 :'
         foreach ($m in $r.data) { Note ("  - " + $m.id) }
     } catch { Note ("  serveur joignable ? : " + $_) }
 
@@ -787,8 +831,7 @@ function Executer-DeclencheurInstallation($config, [string]$demande) {
         $lms = Trouver-Lms
         if ($lms) {
             try { & $lms daemon up 2>&1 | Out-Null } catch { }
-            try { & $lms server start --port $port 2>&1 | Out-Null } catch { }
-            Start-Sleep -Seconds 3
+            Demarrer-ServeurLocal $lms $port | Out-Null
         }
 
         if ($methode -eq 'cloudflare') {
@@ -1006,7 +1049,9 @@ function Activer-Tunnel($ts, [int]$port) {
     if (-not $ts) { Note 'Tailscale absent : tunnel impossible.'; return ($L -join "`n") }
 
     Note 'Connexion de ce poste au reseau prive...'
-    $sortie = & $ts up --timeout=20s 2>&1 | Out-String
+    # La forme "--timeout 20s" (avec espace) est acceptee partout ;
+    # la forme "--timeout=20s" est rejetee par certains analyseurs.
+    $sortie = & $ts up --timeout 20s 2>&1 | Out-String
     foreach ($l in ($sortie -split "`n")) { if ($l.Trim()) { Note ("  " + $l.Trim()) } }
 
     if ($sortie -match 'https://login\.tailscale\.com/\S+') {
@@ -1015,11 +1060,23 @@ function Activer-Tunnel($ts, [int]$port) {
         Note ('  ' + $Matches[0]) -ForegroundColor White
     }
 
-    $etat = & $ts status --json 2>$null | Out-String
-    if ($etat -match '"BackendState"\s*:\s*"Running"') {
+    # On attend que le poste rejoigne le reseau prive : l'utilisateur peut
+    # valider le lien quand il veut, le pont s'en apercoit.
+    Note 'En attente de la validation (5 minutes maximum)...'
+    $connecte = $false
+    for ($i = 0; $i -lt 60; $i++) {
+        try {
+            $etat = & $ts status --json 2>$null | Out-String
+            if ($etat -match '"BackendState"\s*:\s*"Running"') { $connecte = $true; break }
+        } catch { }
+        Start-Sleep -Seconds 5
+    }
+
+    if ($connecte) {
         Note 'Poste connecte au reseau prive.'
     } else {
         Note 'Le poste n est pas encore connecte : ouvrez l adresse ci-dessus.'
+        Note 'Puis relancez : tailscale serve --bg http://127.0.0.1:' + $port
     }
 
     Note ''
@@ -1119,8 +1176,7 @@ if ($Tunnel) {
         $lms = Trouver-Lms
         if ($lms) {
             try { & $lms daemon up 2>&1 | Out-Null } catch { }
-            try { & $lms server start --port $Port 2>&1 | Out-Null } catch { }
-            Start-Sleep -Seconds 3
+            Demarrer-ServeurLocal $lms $Port | Out-Null
         }
 
         if ($Methode -eq 'cloudflare') {

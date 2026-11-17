@@ -20,7 +20,7 @@ $UrlBat  = 'https://raw.githubusercontent.com/franceinfo771-prog/tableau_de_bord
 # Secours : l'API GitHub sert le fichier en 'application/vnd.github.raw',
 # ce qui force le telechargement au lieu de l'afficher dans le navigateur.
 $UrlApi  = 'https://api.github.com/repos/franceinfo771-prog/tableau_de_bord/contents/pont-outils/PONT-START.bat?ref=pont'
-$Sha256  = '781192c5d248ab1fc43e9ab019b38ef84653b049b364ae4dbe9651275b5a5c19'
+$Sha256  = '3135afceebc4cd71e0bd43acf9a997ae9d61705defc8b320dd6cc3a2c0f58cce'
 $Cible   = Join-Path $env:LOCALAPPDATA 'Pont'
 $Fichier = Join-Path $Cible 'PONT-START.bat'
 
