@@ -71,6 +71,19 @@ def gh_put(path, text, message):
     return _request("PUT", f"{BASE}/{path}", body)
 
 
+def gh_delete(path, message):
+    """Supprime un fichier du dossier pont/ de la branche de travail.
+
+    Sert a nettoyer les artefacts de test : un poste reel demarrant
+    ensuite lirait une commande de test comme un ordre a executer.
+    """
+    existing = gh_get(path)
+    if not existing:
+        return None
+    body = {"message": message, "sha": existing["sha"], "branch": BRANCH}
+    return _request("DELETE", f"{BASE}/{path}", body)
+
+
 def passphrase():
     if not os.path.exists(KEYFILE):
         sys.exit("cle.txt manquant dans %s" % HERE)
