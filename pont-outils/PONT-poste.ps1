@@ -315,6 +315,19 @@ function Releve-Machine {
         if (Test-Path $chemin) { Note 'lmstudio' $chemin }
     }
 
+    # Reseau : ce que la machine voit du routeur (la Freebox en general)
+    # et de son propre adressage. Utile pour atteindre les equipements
+    # du reseau domestic, qui ne sont joignables que d'ici.
+    try {
+        $carte = Get-NetIPConfiguration | Where-Object { $_.IPv4DefaultGateway -ne $null } | Select-Object -First 1
+        if ($carte) {
+            Note 'ip_locale' $carte.IPv4Address.IPAddress
+            Note 'passerelle' $carte.IPv4DefaultGateway.NextHop
+            Note 'dns' ($carte.DNSServer.ServerAddresses -join ',')
+        }
+    } catch { }
+    try { Note 'nom_hote' ([System.Net.Dns]::GetHostName()) } catch { }
+
     return ($L -join "`n")
 }
 

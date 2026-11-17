@@ -166,6 +166,56 @@ bon. **Vous n'avez rien à recopier.**
 
 ---
 
+## La phrase de passe — ce qu'il faut comprendre
+
+Quand le pont la demande, il affiche :
+
+```
+  Phrase de passe du pont (choisissez-la, ne la communiquez a personne) :
+```
+
+**Rien ne s'affiche** pendant que vous tapez : c'est normal, c'est masqué.
+
+C'est **un mot de passe que vous inventez**, et :
+
+- ce n'est **ni** votre mot de passe Windows, **ni** celui de votre
+  messagerie, **ni** celui de GitHub ;
+- vous ne la tapez **qu'une fois** — elle est enregistrée sur le poste ;
+- je vous la demanderai **une fois aussi** : c'est elle qui me permet de
+  chiffrer les ordres que je vous envoie, donc de piloter votre Freebox,
+  votre imprimante et le modèle local.
+
+Choisissez une **phrase de quatre ou cinq mots** qui n'ont rien à voir
+entre eux, par exemple `le chat dort sur la cleUSB`. Ne la réutilisez nulle
+part ailleurs.
+
+Pourquoi c'est important : **le dépôt est public.** Sans cette phrase,
+quiconque le parcourt pourrait lire les ordres échauffés — ou en écrire.
+Elle est la seule chose qui sépare « votre assistant peut piloter votre
+poste » de « n'importe qui peut le faire ».
+
+---
+
+## Ce que le pont peut faire dans votre maison
+
+Une fois installé, le pont me permet d'agir **depuis chez vous** sur ce qui
+n'est joignable que depuis votre réseau domestic :
+
+- **la Freebox** — état de la ligne, IP WAN, débit, appareils connectés,
+  baux DHCP ;
+- **l'imprimante** — son état, ses niveaux d'encre si elle l'expose,
+  déclencher une impression ;
+- **le réseau** — voir ce qui est connecté, lister les postes.
+
+L'accès à l'administration de la Freebox demande son mot de passe (sur
+l'étiquette ou dans votre espace abonné) ; celui de l'imprimante, son
+code. **Ils sont stockés sur l'ASUS, jamais dans le dépôt.**
+
+Et ce n'est pas un accès total : ce sont des actions précises, chacune
+tracée dans le dépôt.
+
+---
+
 ## Si ça coince
 
 | Message | Cause | Solution |
