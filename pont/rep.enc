@@ -1,0 +1,1 @@
+{"alg":"A256CBC-HS256","ct":"vohEiu5zG5XgmAJSuVH7S+CkYpJfh2ii00FAmiAsp0zkj1yQMICFS38JgpiMP+2ELyyQ/9t0axNwu658qeYB/+QdGTmWyXOvJvkZZBksA8rysLF9LTHuu+j+M7auNJSO6RUHWpepf7gaap0hOC4sgg==","iv":"AOae4ybukrTNBTMUG99RWA==","kdf":{"i":200000,"p":"pbkdf2-hmac-sha256","s":"2IeP0rfEfdv/7NRc70VaoQ=="},"mac":"Hio8kA3q6xfiAcWizOnNcx7p6RO3BnJUSQeAoBUSpvc=","v":1}
