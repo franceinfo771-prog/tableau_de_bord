@@ -3,6 +3,14 @@
 Simule le poste a la maison : dechiffre la commande, l'execute, chiffre
 la reponse, la renvoie. Verifie ensuite que le sandbox relit la reponse.
 
+ATTENTION : ce test ecrit reellement dans le depot, sur la branche
+`pont`, dans le dossier `pont/`. Il y depose `cmd.enc` et `rep.enc`.
+
+C'est un probleme : au premier demarrage, un vrai poste de la maison
+lirait `cmd.enc` comme une commande a executer. Le test nettoie donc ses
+propres fichiers a la fin, et refuse de tourner si une autre commande est
+deja en attente (ce qui pourrait etre un ordre legitime).
+
 Usage : python3 test_e2e.py
 """
 
@@ -35,7 +43,41 @@ def etape(titre):
     print("\n=== %s ===" % titre)
 
 
+def nettoyer():
+    """Retire les artefacts du test du depot.
+
+    Sans cela, un poste reel demarrant apres le test executerait la
+    commande de test au lieu d'attendre un vrai ordre.
+    """
+    for nom in ("cmd.enc", "rep.enc"):
+        try:
+            ps.gh_delete(nom, "pont : nettoyage des artefacts de test")
+            print("   supprime : pont/%s" % nom)
+        except Exception as exc:
+            print("   (pont/%s : rien a supprimer ou echec %s)" % (nom, exc))
+
+
 def main():
+    # On refuse de tourner si une commande est deja en attente : elle
+    # pourrait etre un ordre legitime pour le poste de la maison.
+    try:
+        en_attente = ps.gh_get("cmd.enc")
+    except Exception:
+        en_attente = None
+    if en_attente:
+        print("REFUS : une commande est deja en attente dans pont/cmd.enc.")
+        print("        Elle pourrait etre un ordre legitime pour le poste.")
+        print("        Supprimez-la a la main si vous voulez vraiment lancer le test.")
+        return 2
+
+    try:
+        return deroule()
+    finally:
+        etape("7. Nettoyage des artefacts du test")
+        nettoyer()
+
+
+def deroule():
     etape("1. Le sandbox chiffre une commande et la publie")
     ordre = {
         "id": "e2e-%d" % int(time.time()),
