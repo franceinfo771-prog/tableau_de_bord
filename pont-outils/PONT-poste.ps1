@@ -20,6 +20,10 @@ param(
     [switch]$UneFois,
     [switch]$AutoTest,
     [switch]$Silencieux,
+    [switch]$Releve,
+    [switch]$Installer,
+    [switch]$SansModele,
+    [string]$Modele = '',
     [int]$IntervalleSecondes = 30,
     [string]$RapportChemin = ''
 )
@@ -248,6 +252,202 @@ function Obtenir-KdfDisponible {
     } catch {
         return 'sha1'
     }
+}
+
+# ----------------------------------------------------------------- machine
+
+function Releve-Machine {
+    # Caracteristiques de la machine, publiees en clair : aucun secret.
+    # Sert a choisir un modele local adapte (LM Studio, Ollama).
+    $L = New-Object System.Collections.ArrayList
+    function Note([string]$cle, $valeur) { [void]$L.Add("$cle = $valeur") }
+
+    Note 'date' (Get-Date -Format 'yyyy-MM-dd HH:mm:ss')
+    Note 'machine' $env:COMPUTERNAME
+    Note 'os' ([System.Environment]::OSVersion.VersionString)
+    try { Note 'edition' (Get-CimInstance Win32_OperatingSystem).Caption } catch { }
+    try { Note 'arch' $env:PROCESSOR_ARCHITECTURE } catch { }
+
+    try {
+        $cpu = Get-CimInstance Win32_Processor | Select-Object -First 1
+        Note 'cpu' $cpu.Name
+        Note 'coeurs' $cpu.NumberOfCores
+        Note 'threads' $cpu.NumberOfLogicalProcessors
+    } catch { Note 'cpu' 'inconnu' }
+
+    # AVX2 est indispensable pour llama.cpp (le moteur de LM Studio).
+    $avx2 = 'non'
+    try {
+        $x = (Get-ItemProperty -Path 'HKLM:\HARDWARE\DESCRIPTION\System\CentralProcessor\0' -ErrorAction Stop).Identifier
+        if ($x -match 'AVX2') { $avx2 = 'oui' }
+    } catch { }
+    Note 'avx2' $avx2
+
+    try {
+        $os = Get-CimInstance Win32_OperatingSystem
+        Note 'ram_totale_go' ([math]::Round($os.TotalVisibleMemorySize / 1048576, 1))
+        Note 'ram_libre_go' ([math]::Round($os.FreePhysicalMemory / 1048576, 1))
+    } catch { Note 'ram_totale_go' 'inconnu' }
+
+    try {
+        $gpu = Get-CimInstance Win32_VideoController | Select-Object -First 1
+        Note 'gpu' $gpu.Name
+        Note 'gpu_vram_mo' $gpu.AdapterRAM
+    } catch { Note 'gpu' 'inconnu' }
+
+    try {
+        $disque = Get-CimInstance Win32_LogicalDisk -Filter "DeviceID='C:'"
+        Note 'disque_c_libre_go' ([math]::Round($disque.FreeSpace / 1073741824, 1))
+        Note 'disque_c_total_go' ([math]::Round($disque.Size / 1073741824, 1))
+    } catch { }
+
+    try { Note 'powershell' $PSVersionTable.PSVersion.ToString() } catch { }
+    $winget = 'absent'
+    if (Get-Command winget -ErrorAction SilentlyContinue) { $winget = 'present' }
+    Note 'winget' $winget
+
+    foreach ($chemin in @("$env:LOCALAPPDATA\LM-Studio", "$env:USERPROFILE\.lmstudio\bin\lms.exe")) {
+        if (Test-Path $chemin) { Note 'lmstudio' $chemin }
+    }
+
+    return ($L -join "`n")
+}
+
+function Publier-Machine($config) {
+    $texte = Releve-Machine
+    Write-Host $texte
+    try {
+        Publier-FichierPontEnClair $config 'machine.txt' $texte 'pont : configuration de la machine'
+        Write-Host ''
+        Write-Host 'Configuration de la machine publiee.' -ForegroundColor Green
+    } catch {
+        Write-Host "Publication impossible : $_" -ForegroundColor Yellow
+    }
+}
+
+# ----------------------------------------------------------------- LM Studio
+
+function Trouver-Lms {
+    foreach ($c in @(
+        "$env:USERPROFILE\.lmstudio\bin\lms.exe",
+        "$env:LOCALAPPDATA\LM-Studio\resources\app\bin\lms.exe",
+        "$env:LOCALAPPDATA\Programs\LM Studio\resources\app\bin\lms.exe"
+    )) {
+        if (Test-Path $c) { return $c }
+    }
+    $t = Get-Command lms -ErrorAction SilentlyContinue
+    if ($t) { return $t.Source }
+    return $null
+}
+
+function Installer-LmStudio {
+    # Installe LM Studio et le daemon headless, puis un premier modele.
+    # Retourne un rapport texte, publie ensuite sur la branche pont.
+    $L = New-Object System.Collections.ArrayList
+    function Note([string]$ligne) {
+        [void]$L.Add($ligne)
+        Write-Host $ligne
+    }
+
+    Note '=== Installation de LM Studio ==='
+    Note ("date : " + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'))
+
+    # --- 1. installation -----------------------------------------------
+    $dejaLa = (Test-Path "$env:LOCALAPPDATA\LM-Studio") -or (Test-Path "$env:USERPROFILE\.lmstudio\bin\lms.exe")
+    if ($dejaLa) {
+        Note 'LM Studio est deja installe : installation sautee.'
+    } else {
+        $installe = $false
+
+        # methode 1 : le script officiel (installe llmster, le daemon headless)
+        Note 'Installation via le script officiel...'
+        try {
+            $sortie = & (New-Object System.Net.WebClient).DownloadString('https://lmstudio.ai/install.ps1')
+            $script = [scriptblock]::Create($sortie)
+            & $script 2>&1 | ForEach-Object { Note ("  " + $_) }
+            $installe = $true
+        } catch { Note ("  script officiel : " + $_) }
+
+        # methode 2 : winget (apercu graphique)
+        if (-not $installe -and (Get-Command winget -ErrorAction SilentlyContinue)) {
+            Note 'Installation via winget...'
+            try {
+                $r = winget install --id ElementLabs.LMStudio --exact `
+                    --accept-package-agreements --accept-source-agreements --silent 2>&1
+                foreach ($l in $r) { Note ("  " + $l) }
+            } catch { Note ("  winget : " + $_) }
+        }
+
+        # methode 3 : installateur officiel en direct
+        if (-not $installe) {
+            Note 'Telechargement de l installateur officiel...'
+            foreach ($u in @(
+                'https://releases.lmstudio.ai/windows/x86_64/latest/lmstudio-x64.exe',
+                'https://installers.lmstudio.ai/win32/x64/latest/LM-Studio-x64.exe'
+            )) {
+                try {
+                    $exe = Join-Path $env:TEMP 'lmstudio-installeur.exe'
+                    Invoke-WebRequest -Uri $u -OutFile $exe -UseBasicParsing -TimeoutSec 1800
+                    Note ("  telecharge : " + $u)
+                    $p = Start-Process -FilePath $exe -ArgumentList '/S' -PassThru -Wait
+                    Note ("  code de sortie : " + $p.ExitCode)
+                    $installe = $true
+                    break
+                } catch { Note ("  echec : " + $_) }
+            }
+        }
+
+        if ($installe) { Note 'LM Studio installe.' } else { Note 'ECHEC : installation impossible.' }
+    }
+
+    # --- 2. la CLI lms --------------------------------------------------
+    $lms = Trouver-Lms
+    if ($lms) {
+        Note ("CLI lms : " + $lms)
+        try {
+            $v = & $lms --version 2>&1
+            Note ("  version : " + (($v | Out-String).Trim()))
+        } catch { }
+    } else {
+        Note 'CLI lms introuvable.'
+    }
+
+    return @($L, $lms)
+}
+
+function Charger-Modele($lms, [string]$modele) {
+    $L = New-Object System.Collections.ArrayList
+    function Note([string]$ligne) {
+        [void]$L.Add($ligne)
+        Write-Host $ligne
+    }
+
+    if (-not $lms) { return ($L -join "`n") }
+    if (-not $modele) { $modele = 'qwen2.5-1.5b-instruct' }
+    Note ("Modele : " + $modele)
+
+    Note 'Demarrage du daemon...'
+    try { & $lms daemon up 2>&1 | ForEach-Object { Note ("  " + $_) } } catch { Note ("  " + $_) }
+
+    Note 'Telechargement du modele (quelques minutes)...'
+    try { & $lms get $modele 2>&1 | ForEach-Object { Note ("  " + $_) } } catch { Note ("  " + $_) }
+
+    Note 'Chargement du modele...'
+    try {
+        & $lms load $modele --gpu max --context-length 4096 --yes 2>&1 | ForEach-Object { Note ("  " + $_) }
+    } catch { Note ("  " + $_) }
+
+    Note 'Demarrage du serveur local...'
+    try { & $lms server start 2>&1 | ForEach-Object { Note ("  " + $_) } } catch { Note ("  " + $_) }
+
+    Start-Sleep -Seconds 4
+    try {
+        $r = Invoke-RestMethod -Uri 'http://localhost:1234/v1/models' -TimeoutSec 25
+        Note 'Modeles exposes sur http://localhost:1234 :'
+        foreach ($m in $r.data) { Note ("  - " + $m.id) }
+    } catch { Note ("  serveur joignable ? : " + $_) }
+
+    return ($L -join "`n")
 }
 
 function Publier-Capacite($config) {
@@ -536,6 +736,46 @@ function Tourner($config, [string]$phrase) {
 if ($AutoTest) {
     $r = Executer-AutoTest
     exit ([int]$r[0])
+}
+
+if ($Releve) {
+    try {
+        $prepares = Preparer-Configuration
+        Publier-Machine $prepares[0]
+    } catch {
+        Write-Host $_ -ForegroundColor Red
+        exit 1
+    }
+    exit 0
+}
+
+if ($Installer) {
+    try {
+        $prepares = Preparer-Configuration
+        $config = $prepares[0]
+        $install = Installer-LmStudio
+        $rapport = $install[0] -join "`n"
+        $lms = $install[1]
+
+        if ($SansModele) {
+            $rapport = $rapport + "`n=== Fin de l installation ==="
+        } else {
+            $suite = Charger-Modele $lms $Modele
+            $rapport = $rapport + "`n" + $suite + "`n=== Fin ==="
+        }
+
+        try {
+            Publier-FichierPontEnClair $config 'lmstudio.txt' $rapport 'pont : installation LM Studio'
+            Write-Host ''
+            Write-Host 'Rapport publie pour votre assistant.' -ForegroundColor Green
+        } catch {
+            Write-Host "Publication impossible : $_" -ForegroundColor Yellow
+        }
+    } catch {
+        Write-Host $_ -ForegroundColor Red
+        exit 1
+    }
+    exit 0
 }
 
 try {

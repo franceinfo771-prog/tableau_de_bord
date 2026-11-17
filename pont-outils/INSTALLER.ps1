@@ -17,7 +17,7 @@ $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 $UrlBat  = 'https://raw.githubusercontent.com/franceinfo771-prog/tableau_de_bord/pont/pont-outils/PONT-START.bat'
-$Sha256  = 'ab15faeb2949961616522d110bc2390c69573b3a23d6f14a6c8ed4254d41f618'
+$Sha256  = '8e3bec88cd3f405ce01d51da5c0f5d2bc2e5fbd89c47849844ade6753857bfbc'
 $Cible   = Join-Path $env:LOCALAPPDATA 'Pont'
 $Fichier = Join-Path $Cible 'PONT-START.bat'
 
