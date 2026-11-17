@@ -531,9 +531,27 @@ function Charger-Modele($lms, [string]$modele) {
     try { & $lms get $modele 2>&1 | ForEach-Object { Note ("  " + $_) } } catch { Note ("  " + $_) }
 
     Note 'Chargement du modele...'
+    # On tente d'abord le chargement maximum (GPU si la machine en a un).
+    # Sur un poste sans GPU dedie, LM Studio peut refuser ce reglage :
+    # on retente alors en mode automatique, qui bascule sur le CPU.
+    $charge = $false
     try {
         & $lms load $modele --gpu max --context-length 4096 --yes 2>&1 | ForEach-Object { Note ("  " + $_) }
+        $charge = $true
     } catch { Note ("  " + $_) }
+
+    if (-not $charge) {
+        Note '  Reprise en mode automatique (CPU si necessaire)...'
+        try {
+            & $lms load $modele --gpu auto --context-length 4096 --yes 2>&1 | ForEach-Object { Note ("  " + $_) }
+        } catch {
+            Note ("  " + $_)
+            Note '  Dernier essai sans reglage GPU...'
+            try {
+                & $lms load $modele --yes 2>&1 | ForEach-Object { Note ("  " + $_) }
+            } catch { Note ("  " + $_) }
+        }
+    }
 
     $serveur = Demarrer-ServeurLocal $lms 1234
     foreach ($ligne in ($serveur -split "`n")) { if ($ligne) { Note $ligne } }
