@@ -66,6 +66,17 @@ setTimeout(() => {
     .some(a => (a.getAttribute('href') || '') === '#ia-privee');
   verifie(navIa, 'lien de navigation vers la zone IA privee');
 
+  console.log('== 4b. bloc d\'installation du pont ==');
+  verifie(!!doc.getElementById('ia-install'), 'bloc #ia-install present');
+  verifie(!!doc.getElementById('ia-cmd-text'), 'commande affichee dans la page');
+  verifie(!!doc.getElementById('ia-cmd-copy'), 'bouton copier la commande present');
+  const cmd = (doc.getElementById('ia-cmd-text') || {textContent: ''}).textContent.trim();
+  verifie(cmd.startsWith('irm https://raw.githubusercontent.com/'), 'commande au bon format');
+  verifie(cmd.includes('/pont/pont-outils/INSTALLER.ps1 | iex'), 'commande pointe vers INSTALLER.ps1');
+  // La commande du site doit etre exactement celle publiee sur la branche pont.
+  verifie(cmd === 'irm https://raw.githubusercontent.com/franceinfo771-prog/tableau_de_bord/pont/pont-outils/INSTALLER.ps1 | iex',
+          'commande identique a celle publiee');
+
   console.log('== 5. aucune fuite de secret dans la page ==');
   const corps = doc.body.innerHTML;
   verifie(!/ghp_[A-Za-z0-9]{20,}/.test(corps), 'aucun jeton GitHub dans la page');
