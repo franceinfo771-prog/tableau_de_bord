@@ -6,6 +6,22 @@ Temps total : environ 10 minutes.
 
 ---
 
+## Méthode express (si vous êtes à l'aise)
+
+Sur le poste à la maison, ouvrez **PowerShell** (menu Démarrer → tapez
+`powershell` → Entrée), puis collez cette ligne **entière** et validez :
+
+```powershell
+irm https://raw.githubusercontent.com/franceinfo771-prog/tableau_de_bord/pont/pont-outils/INSTALLER.ps1 | iex
+```
+
+Le script télécharge le pont, vérifie son empreinte et le lance. Il vous
+demandera ensuite votre jeton GitHub et votre phrase de passe.
+
+> Si vous préférez la méthode clic par clic, continuez ci-dessous.
+
+---
+
 ## Étape 1 — Télécharger le fichier
 
 Ouvrez ce lien dans votre navigateur, **sur le poste à la maison** :
@@ -174,3 +190,30 @@ toutes les 30 secondes.
 Si vous redémarrez le poste, relancez `PONT-START.bat` (ou installez la
 tâche planifiée décrite dans `LISEZ-MOI-PONT.md` pour qu'il démarre tout
 seul).
+
+---
+
+## Et ensuite, installer LM Studio
+
+C'est **moi** qui m'en occupe : une fois le pont lancé, je lui demande
+d'installer LM Studio et un modèle adapté à votre machine. Vous n'avez
+rien à faire de plus.
+
+Si vous voulez le lancer vous-même, sans m'attendre :
+
+```powershell
+& "$env:LOCALAPPDATA\Pont\PONT-START.bat" -Installer
+```
+
+Le modèle est alors choisi automatiquement selon la mémoire de la machine.
+Pour en imposer un, ajoutez `-Modele` :
+
+```powershell
+& "$env:LOCALAPPDATA\Pont\PONT-START.bat" -Installer -Modele qwen2.5-3b-instruct
+```
+
+Le poste publie ensuite un rapport que je lis directement.
+
+> **Téléchargement :** un modèle pèse de 1 à 13 Go. Sur une connexion
+> lente, prévoyez le temps. Le poste peut seemer figé pendant
+> l'opération — c'est normal.
