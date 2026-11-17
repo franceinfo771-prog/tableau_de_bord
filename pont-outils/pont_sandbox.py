@@ -208,6 +208,10 @@ def cmd_installer(argv):
         "sansModele": sans_modele,
         "ts": time.strftime("%Y-%m-%d %H:%M:%S"),
     }
+    if "--simulation" in argv:
+        print("SIMULATION — rien n'a ete publie :")
+        print(json.dumps(demande, ensure_ascii=False, indent=2))
+        return
     gh_put(
         "installer.txt",
         json.dumps(demande, ensure_ascii=False, indent=2),
@@ -222,30 +226,54 @@ def cmd_installer(argv):
 
 
 def cmd_tunnel(argv):
-    """Demande au poste d'ouvrir l'acces prive (Tailscale).
+    """Demande au poste d'ouvrir l'acces prive.
 
-    Le poste installe Tailscale, se connecte au reseau prive, puis publie
-    le serveur local sur une adresse https privee. Le rapport indique
-    l'adresse a coller dans le tableau de bord.
+    Deux methodes :
+      tailscale  (defaut) le poste installe Tailscale si besoin, se
+                 connecte au reseau prive, puis publie le serveur local sur
+                 une adresse https privee.
+      cloudflare le poste utilise cloudflared, deja installe : soit un
+                 tunnel nomme (adresse fixe), soit un tunnel rapide
+                 (adresse aleatoire, changeante).
+
+    Usage : tunnel [--methode tailscale|cloudflare] [--port 1234]
     """
     port = 1234
-    for i, arg in enumerate(argv):
+    methode = "tailscale"
+    i = 0
+    while i < len(argv):
+        arg = argv[i]
         if arg == "--port" and i + 1 < len(argv):
-            port = int(argv[i + 1])
+            port = int(argv[i + 1]); i += 1
+        elif arg == "--methode" and i + 1 < len(argv):
+            methode = argv[i + 1]; i += 1
+        elif arg in ("tailscale", "cloudflare"):
+            methode = arg
+        i += 1
 
     demande = {
         "id": time.strftime("%Y%m%d-%H%M%S") + "-" + os.urandom(2).hex(),
         "action": "tunnel",
+        "methode": methode,
         "port": port,
         "ts": time.strftime("%Y-%m-%d %H:%M:%S"),
     }
+    if "--simulation" in argv:
+        print("SIMULATION — rien n'a ete publie :")
+        print(json.dumps(demande, ensure_ascii=False, indent=2))
+        return
     gh_put(
         "installer.txt",
         json.dumps(demande, ensure_ascii=False, indent=2),
         "pont : demande de tunnel prive",
     )
-    print("Tunnel prive demande (id %s), port %d." % (demande["id"], port))
-    print("Le poste affichera une adresse d'authentification a ouvrir.")
+    print("Tunnel prive demande (id %s)." % demande["id"])
+    print("  methode :", methode)
+    print("  port    :", port)
+    if methode == "tailscale":
+        print("Le poste affichera une adresse d'authentification a ouvrir.")
+    else:
+        print("Le poste publiera l'adresse du tunnel.")
 
 
 def cmd_tunnel_rapport(argv):

@@ -24,6 +24,8 @@ param(
     [switch]$Installer,
     [switch]$Tunnel,
     [switch]$SansModele,
+    [ValidateSet('tailscale', 'cloudflare')]
+    [string]$Methode = 'tailscale',
     [int]$Port = 1234,
     [string]$Modele = '',
     [int]$IntervalleSecondes = 30,
@@ -777,9 +779,30 @@ function Executer-DeclencheurInstallation($config, [string]$demande) {
     # Une demande peut porter une action particuliere : installation
     # du modele, ouverture du tunnel prive, ou les deux.
     if ($ordre.action -eq 'tunnel') {
-        $install = Installer-Tailscale
-        $rapport = $install[0] -join "`n"
-        $rapport = $rapport + "`n" + (Activer-Tunnel $install[1] $ordre.port)
+        $port = 1234
+        if ($ordre.port) { $port = [int]$ordre.port }
+        $methode = 'tailscale'
+        if ($ordre.methode) { $methode = $ordre.methode }
+
+        $lms = Trouver-Lms
+        if ($lms) {
+            try { & $lms daemon up 2>&1 | Out-Null } catch { }
+            try { & $lms server start --port $port 2>&1 | Out-Null } catch { }
+            Start-Sleep -Seconds 3
+        }
+
+        if ($methode -eq 'cloudflare') {
+            $cf = Trouver-Cloudflared
+            if (-not $cf) {
+                $rapport = 'cloudflared introuvable sur ce poste.'
+            } else {
+                $rapport = Activer-TunnelCloudflare $cf $port
+            }
+        } else {
+            $install = Installer-Tailscale
+            $rapport = $install[0] -join "`n"
+            $rapport = $rapport + "`n" + (Activer-Tunnel $install[1] $port)
+        }
         try {
             Publier-FichierPontEnClair $config 'tunnel.txt' $rapport 'pont : tunnel prive'
             Write-Host 'Rapport du tunnel publie.' -ForegroundColor Green
@@ -865,6 +888,109 @@ function Installer-Tailscale {
     }
     Note ("Tailscale : " + $ts)
     return @($L, $ts)
+}
+
+function Trouver-Cloudflared {
+    foreach ($c in @(
+        "$env:ProgramFiles\cloudflared\cloudflared.exe",
+        "$env:LOCALAPPDATA\Programs\cloudflared\cloudflared.exe",
+        "$env:USERPROFILE\.cloudflared\cloudflared.exe"
+    )) {
+        if (Test-Path $c) { return $c }
+    }
+    $t = Get-Command cloudflared -ErrorAction SilentlyContinue
+    if ($t) { return $t.Source }
+    return $null
+}
+
+function Activer-TunnelCloudflare($cf, [int]$port) {
+    # cloudflared ouvre un tunnel vers le serveur local. Deux cas :
+    #   - un tunnel nomme existe deja (config.yaml) : l adresse est fixe ;
+    #   - sinon on ouvre un tunnel rapide : l adresse est aleatoire et
+    #     change a chaque redemarrage.
+    $L = New-Object System.Collections.ArrayList
+    function Note([string]$ligne) {
+        [void]$L.Add($ligne)
+        Write-Host $ligne
+    }
+
+    if (-not $cf) {
+        Note 'cloudflared introuvable sur ce poste.'
+        return ($L -join "`n")
+    }
+    Note ("cloudflared : " + $cf)
+
+    $cible = "http://127.0.0.1:$port"
+    $config = Join-Path $env:USERPROFILE '.cloudflared\config.yaml'
+    $configAlt = Join-Path $env:USERPROFILE '.cloudflared\config.yml'
+    if (-not (Test-Path $config)) { $config = $configAlt }
+
+    $url = ''
+    $nomme = ''
+
+    if (Test-Path $config) {
+        try {
+            $texte = Get-Content $config -Raw
+            if ($texte -match '(?m)^\s*hostname:\s*(\S+)') { $url = $Matches[1] }
+            if ($texte -match '(?m)^\s*tunnel:\s*(\S+)') { $nomme = $Matches[1] }
+        } catch { }
+    }
+
+    if ($nomme -and $url) {
+        Note ("Tunnel nomme : " + $nomme)
+        Note ("Adresse : " + $url)
+        try {
+            Start-Process -FilePath $cf -ArgumentList @('tunnel','run',$nomme,'--no-autoupdate') `
+                -WindowStyle Hidden | Out-Null
+            Start-Sleep -Seconds 6
+            Note 'Tunnel demarre.'
+        } catch { Note ("  " + $_) }
+        Note ''
+        Note ('A coller dans la zone " Mon IA privee " du tableau de bord : ' + $url)
+        return ($L -join "`n")
+    }
+
+    # Pas de tunnel nomme : on ouvre un tunnel rapide.
+    Note 'Ouverture d un tunnel rapide...'
+    $log = Join-Path $env:TEMP 'cloudflared-pont.log'
+    $err = Join-Path $env:TEMP 'cloudflared-pont.err'
+    try {
+        Start-Process -FilePath $cf `
+            -ArgumentList @('tunnel','--no-autoupdate','--url',$cible) `
+            -RedirectStandardOutput $log -RedirectStandardError $err `
+            -WindowStyle Hidden -PassThru | Out-Null
+    } catch {
+        Note ("  " + $_)
+        return ($L -join "`n")
+    }
+
+    for ($i = 0; $i -lt 40; $i++) {
+        Start-Sleep -Milliseconds 500
+        foreach ($f in @($err, $log)) {
+            if (Test-Path $f) {
+                try {
+                    $t = Get-Content $f -Raw
+                    if ($t -match '(https://[a-z0-9\-]+\.trycloudflare\.com)') {
+                        $url = $Matches[1]
+                        break
+                    }
+                } catch { }
+            }
+        }
+        if ($url) { break }
+    }
+
+    if ($url) {
+        Note ("Adresse : " + $url)
+        Note ''
+        Note 'Attention : un tunnel rapide change d adresse a chaque redemarrage.'
+        Note 'Pour une adresse stable, il faut un tunnel nomme.'
+        Note ('A coller dans la zone " Mon IA privee " du tableau de bord : ' + $url)
+    } else {
+        Note "Adresse non obtenue. Journal : $err"
+    }
+
+    return ($L -join "`n")
 }
 
 function Activer-Tunnel($ts, [int]$port) {
@@ -987,10 +1113,30 @@ if ($Tunnel) {
     try {
         $prepares = Preparer-Configuration
         $config = $prepares[0]
-        $install = Installer-Tailscale
-        $rapport = $install[0] -join "`n"
-        $ts = $install[1]
-        $rapport = $rapport + "`n" + (Activer-Tunnel $ts $Port)
+
+        # Le serveur LM Studio doit tourner avant que le tunnel ne serve
+        # a quelque chose.
+        $lms = Trouver-Lms
+        if ($lms) {
+            try { & $lms daemon up 2>&1 | Out-Null } catch { }
+            try { & $lms server start --port $Port 2>&1 | Out-Null } catch { }
+            Start-Sleep -Seconds 3
+        }
+
+        if ($Methode -eq 'cloudflare') {
+            $cf = Trouver-Cloudflared
+            if (-not $cf) {
+                Write-Host 'cloudflared introuvable sur ce poste.' -ForegroundColor Yellow
+                $rapport = 'cloudflared introuvable.'
+            } else {
+                $rapport = Activer-TunnelCloudflare $cf $Port
+            }
+        } else {
+            $install = Installer-Tailscale
+            $rapport = $install[0] -join "`n"
+            $rapport = $rapport + "`n" + (Activer-Tunnel $install[1] $Port)
+        }
+
         try {
             Publier-FichierPontEnClair $config 'tunnel.txt' $rapport 'pont : tunnel prive'
             Write-Host ''
