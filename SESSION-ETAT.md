@@ -137,6 +137,63 @@ L'agent peut donc reprendre la main sans que l'utilisateur prévienne.
 5. coller l'URL privée et le jeton dans la zone « Mon IA privée » du site ;
 6. vérifier de bout en bout et documenter performances et limites.
 
+## Jeton GitHub — ce qui a été vérifié
+
+- **Impossible de créer un jeton par API.** `GET /user/fine-grained-tokens`
+  renvoie 404 et la page de doc correspondante est introuvable : la
+  création passe obligatoirement par le navigateur.
+- **GitHub pré-remplit le formulaire par URL** (documenté officiellement).
+  Paramètres : `name`, `description`, `target_name`, `expires_in`, et
+  `<permission>=read|write|admin`.
+  Lien envoyé par mail :
+  `https://github.com/settings/personal-access-tokens/new?name=pont-arena&description=Pont+Arena+-+agent+du+poste+a+la+maison&target_name=franceinfo771-prog&expires_in=365&contents=write`
+- **Permission requise : `contents: write`** (l'écriture passe par l'API
+  Contents, branche `pont`). Vérifié par un test d'écriture réel
+  (PUT puis DELETE) — le dossier `pont/` a été nettoyé ensuite.
+- **Un jeton n'est pas lié à l'ordinateur qui le crée** : celui fait sur
+  le portable fonctionne tel quel sur l'ASUS.
+- L'utilisateur teste son jeton **lui-même**, sans me le transmettre :
+  `pont-outils/TESTER-JETON.ps1` (une ligne à lancer). Il vérifie que le
+  jeton est reconnu ET qu'il peut écrire ; le fichier de test est
+  supprimé aussitôt. Le jeton est saisi sans être affiché.
+- Mails envoyés à `franceinfo771@gmail.com` : 02:23 (commande), 02:35
+  (lien jeton pré-rempli), ~02:40 (test du jeton).
+
+## La commande est dans le site (plus besoin du mail)
+
+L'utilisateur devait ouvrir un mail sur son portable pour retrouver la
+commande, puis la recopier sur l'ASUS : une friction entre deux
+machines, et un point de rupture.
+
+**Corrigé** : la zone « Mon IA privée » de `index.html` contient un bloc
+`<details>` replié — *« Installer le pont sur le PC de la maison »* —
+avec la commande affichée et un bouton **Copier la commande**
+(`#ia-cmd-copy`). Le site est déjà ouvert sur l'ASUS : plus de mail.
+
+Le bloc disparaît une fois le chat configuré (le `ia-setup` est masqué).
+
+Tests : `scripts/verif_rendu.js` passe à **26/26** (6 nouveaux contrôles,
+dont l'identité exacte entre la commande affichée et celle publiée) et
+`scripts/verif_copie_commande.js` (nouveau) passe **8/8** — ouverture du
+bloc, presse-papiers, confirmation du bouton.
+
+PR **#11** fusionnée dans `main` (commit `08ac900`). Build Pages
+vérifié : `built` sur ce commit, branche `main`.
+
+> `curl` vers GitHub Pages échoue avec `HTTP 000` dans ce sandbox : la
+> vérification du site passe par l'API Pages (`/pages` et
+> `/pages/builds/latest`), qui confirme le commit servi.
+
+## Phrase de passe — comment l'agent la reçoit
+
+`pont_sandbox.py` la lit dans `pont/cle.txt` (non suivi par Git). La
+variable d'environnement `PONT_PHRASE` est acceptée **en priorité** :
+elle ne touche pas le disque et disparaît avec la session.
+
+Le mot de passe saisi sur l'ASUS est dans `cle.txt` à côté du script.
+
+Ni l'un ni l'autre n'est versionné : le secret reste hors du dépôt.
+
 ## Note sur l'outillage Gmail
 Les appels `call_connector_tool` avec Gmail exigent les arguments sous
 forme de **chaîne JSON** (pas d'objet) : `{"input": "{\"to\": [...]}"}`.
