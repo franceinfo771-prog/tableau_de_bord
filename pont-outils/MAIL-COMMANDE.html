@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="margin:0;padding:0;background:#f4f5f7;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#1a1a1a;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f5f7;padding:24px 12px;">
+<tr><td align="center">
+<table role="presentation" width="620" cellpadding="0" cellspacing="0" style="max-width:620px;width:100%;background:#ffffff;border-radius:14px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);">
+
+<tr><td style="background:#1f2a44;padding:26px 32px;">
+  <div style="color:#ffffff;font-size:20px;font-weight:700;letter-spacing:.2px;">Pont Arena</div>
+  <div style="color:#a8b4d0;font-size:13px;margin-top:4px;">La commande à lancer sur le PC de la maison</div>
+</td></tr>
+
+<tr><td style="padding:32px;">
+
+<p style="margin:0 0 18px;font-size:16px;line-height:1.6;">
+Bonjour&nbsp;!<br>
+Voici la commande à lancer sur le PC de la maison (l'ASUS), quand vous serez prêt. Rien d'autre à préparer avant&nbsp;: elle fait tout le reste.
+</p>
+
+<div style="background:#eef2fb;border-left:4px solid #3b6fd4;border-radius:6px;padding:16px 18px;margin:0 0 22px;">
+  <div style="font-size:12px;font-weight:700;color:#3b6fd4;letter-spacing:.6px;text-transform:uppercase;margin-bottom:10px;">Sur le PC de la maison — PowerShell</div>
+  <div style="font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;line-height:1.6;color:#12203a;word-break:break-all;background:#ffffff;border:1px solid #d6e0f5;border-radius:6px;padding:12px 14px;">irm https://raw.githubusercontent.com/franceinfo771-prog/tableau_de_bord/pont/pont-outils/INSTALLER.ps1 | iex</div>
+</div>
+
+<p style="margin:0 0 8px;font-size:15px;line-height:1.6;color:#333;">
+<strong>Comment l'ouvrir :</strong> menu Démarrer → tapez <code style="background:#f0f0f0;padding:1px 5px;border-radius:3px;font-size:14px;">powershell</code> → Entrée. Puis collez la ligne ci-dessus (clic droit → Coller) et appuyez sur Entrée.
+</p>
+
+<div style="background:#fdf6e3;border-left:4px solid #d9a441;border-radius:6px;padding:16px 18px;margin:0 0 22px;">
+  <div style="font-size:15px;font-weight:700;color:#8a6314;margin-bottom:10px;">Ce qui va vous être demandé</div>
+  <ol style="margin:0;padding-left:20px;font-size:14px;line-height:1.75;color:#4a3c1c;">
+    <li style="margin-bottom:8px;"><strong>Votre jeton GitHub.</strong> Il s'affiche en clair&nbsp;: c'est normal. Vous devez l'avoir créé au préalable, avec la permission <em>Contents: Read and write</em> sur le dépôt <code style="background:#fff;border:1px solid #e5d9b0;border-radius:3px;padding:0 4px;font-size:13px;">tableau_de_bord</code>.<br>
+      <a href="https://github.com/settings/personal-access-tokens/new" style="color:#8a6314;">Créer le jeton ici</a></li>
+    <li style="margin-bottom:8px;"><strong>Une phrase de passe.</strong> Vous l'inventez&nbsp;: quatre ou cinq mots qui n'ont rien à voir entre eux (par exemple <em>le chat dort sur la cleUSB</em>).<br>
+      <span style="color:#6b5722;">Rien ne s'affiche pendant la frappe&nbsp;: c'est normal, c'est masqué. Ce n'est ni votre mot de passe Windows, ni celui de GitHub. Ne la réutilisez nulle part ailleurs.</span></li>
+  </ol>
+</div>
+
+<p style="margin:0 0 22px;font-size:15px;line-height:1.6;color:#333;">
+Ensuite, <strong>laissez la fenêtre ouverte</strong>. C'est elle qui me permet de piloter votre poste. Vous n'avez rien à recopier&nbsp;: je lis directement les rapports qu'elle publie.
+</p>
+
+<div style="border-top:1px solid #e5e7eb;padding-top:22px;margin-bottom:22px;">
+  <div style="font-size:15px;font-weight:700;color:#1f2a44;margin-bottom:10px;">Si la commande ne veut pas passer</div>
+  <p style="margin:0 0 12px;font-size:14px;line-height:1.65;color:#555;">
+    Téléchargez le fichier avec Chrome à la place, puis double-cliquez&nbsp;:
+  </p>
+  <div style="font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;line-height:1.6;color:#12203a;word-break:break-all;background:#f7f8fa;border:1px solid #e0e3e8;border-radius:6px;padding:12px 14px;margin-bottom:12px;">https://github.com/franceinfo771-prog/tableau_de_bord/raw/pont/pont-outils/PONT-START.bat</div>
+  <p style="margin:0 0 0;font-size:13.5px;line-height:1.65;color:#666;">
+    Si Chrome affiche le texte au lieu de le télécharger&nbsp;: clic droit sur la page → <em>Enregistrer sous…</em> → Bureau. Puis clic droit sur le fichier → <em>Propriétés</em> → cochez <strong>✓ Débloquer</strong> → OK.
+  </p>
+</div>
+
+<div style="background:#f0f7f2;border-left:4px solid #4a9d5f;border-radius:6px;padding:16px 18px;">
+  <div style="font-size:14px;font-weight:700;color:#2f6b3e;margin-bottom:8px;">Deux choses rassurantes</div>
+  <ul style="margin:0;padding-left:20px;font-size:14px;line-height:1.7;color:#3d5a44;">
+    <li style="margin-bottom:6px;">Aucun droit administrateur n'est demandé. Le pont écrit uniquement dans <code style="background:#fff;border:1px solid #cfe3d3;border-radius:3px;padding:0 4px;font-size:13px;">C:\Users\&lt;vous&gt;\AppData\Local\Pont</code>.</li>
+    <li>Votre jeton et votre phrase de passe ne quittent jamais ce poste&nbsp;: ils ne sont écrits ni dans le dépôt, ni dans un mail.</li>
+  </ul>
+</div>
+
+<p style="margin:24px 0 0;font-size:15px;line-height:1.65;color:#333;">
+Une fois la commande lancée, répondez-moi simplement <strong>« c'est fait »</strong>&nbsp;: je relis les rapports et j'enchaîne seul (modèle, installation, accès privé, vérifications).
+</p>
+
+<p style="margin:20px 0 0;font-size:14px;line-height:1.6;color:#777;">
+Si une étape vous semble inquiétante, arrêtez-vous&nbsp;: on peut d'abord regarder le poste sans rien installer.
+</p>
+
+</td></tr>
+
+<tr><td style="background:#f7f8fa;padding:18px 32px;border-top:1px solid #e5e7eb;">
+  <div style="font-size:12.5px;line-height:1.6;color:#8a8f98;">
+    Message envoyé par votre assistant Arena, depuis <code>franceinfo771@gmail.com</code>.<br>
+    Aucun secret n'est contenu dans ce mail. Le dépôt <code>tableau_de_bord</code> est public&nbsp;: c'est votre phrase de passe, et elle seule, qui protège vos ordres.
+  </div>
+</td></tr>
+
+</table>
+</td></tr></table>
+</body>
+</html>

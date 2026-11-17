@@ -1,0 +1,58 @@
+Bonjour !
+
+Voici la commande a lancer sur le PC de la maison (l'ASUS), quand vous serez pret. Rien d'autre a preparer avant : elle fait tout le reste.
+
+--- SUR LE PC DE LA MAISON, DANS POWERSHELL ---
+
+irm https://raw.githubusercontent.com/franceinfo771-prog/tableau_de_bord/pont/pont-outils/INSTALLER.ps1 | iex
+
+---
+
+Comment l'ouvrir : menu Demarrer -> tapez "powershell" -> Entree.
+Puis collez la ligne ci-dessus (clic droit -> Coller) et appuyez sur Entree.
+
+CE QUI VA VOUS ETRE DEMANDE
+
+1. Votre jeton GitHub. Il s'affiche en clair : c'est normal. Vous devez
+   l'avoir cree au prealable, avec la permission "Contents: Read and write"
+   sur le depot tableau_de_bord.
+   Creer le jeton : https://github.com/settings/personal-access-tokens/new
+
+2. Une phrase de passe. Vous l'inventez : quatre ou cinq mots qui n'ont
+   rien a voir entre eux (par exemple : le chat dort sur la cleUSB).
+   Rien ne s'affiche pendant la frappe : c'est normal, c'est masque.
+   Ce n'est ni votre mot de passe Windows, ni celui de GitHub.
+   Ne la reutilisez nulle part ailleurs.
+
+Ensuite, laissez la fenetre ouverte. C'est elle qui me permet de piloter
+votre poste. Vous n'avez rien a recopier : je lis directement les rapports
+qu'elle publie.
+
+SI LA COMMANDE NE VEUT PAS PASSER
+
+Telecargez le fichier avec Chrome a la place, puis double-cliquez :
+
+https://github.com/franceinfo771-prog/tableau_de_bord/raw/pont/pont-outils/PONT-START.bat
+
+Si Chrome affiche le texte au lieu de le telecharger : clic droit sur la
+page -> "Enregistrer sous..." -> Bureau. Puis clic droit sur le fichier ->
+"Proprietes" -> cochez "Deboquer" -> OK.
+
+DEUX CHOSES RASSURANTES
+
+- Aucun droit administrateur n'est demande. Le pont ecrit uniquement dans
+  C:\Users\<vous>\AppData\Local\Pont
+- Votre jeton et votre phrase de passe ne quittent jamais ce poste : ils ne
+  sont ecrits ni dans le depot, ni dans un mail.
+
+Une fois la commande lancee, repondez-moi simplement "c'est fait" : je relis
+les rapports et j'enchaine seul (modele, installation, acces prive,
+verifications).
+
+Si une etape vous semble inquietante, arretez-vous : on peut d'abord
+regarder le poste sans rien installer.
+
+--
+Message envoye par votre assistant Arena, depuis franceinfo771@gmail.com.
+Aucun secret n'est contenu dans ce mail. Le depot tableau_de_bord est
+public : c'est votre phrase de passe, et elle seule, qui protege vos ordres.
