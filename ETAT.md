@@ -65,13 +65,15 @@
 - [ ] Galet profilé et support mécanique
 - [ ] Essai sur route sèche, 10 km
 
-### 6. Découverte de logiciels IA — 2 / 7 (29 %) · Commencé
+### 6. Découverte de logiciels IA — 2 / 9 (22 %) · Commencé
 - [x] Inventaire de la machine (CPU/GPU, RAM, disque) — ce qu'elle peut faire tourner
   - **PC du travail** (diagnostic du 16 nov.) : Intel Atom x5-Z8350 @ 1,44 GHz (4 cœurs) · 3,9 Go RAM · Intel HD Graphics (intégré, pas de GPU dédié) · 6,7 Go libres sur C: · Windows 10 Professionnel : modèles ≤ 1,5 milliard de paramètres en 4 bits, sur CPU — local réaliste en curiosité ; l'assistant en ligne (Arena, Claude, ChatGPT) rester le vrai outil quotidien.
   - **PC de la maison** (cible) : un **ASUS**, de configuration bien supérieure — l'inventaire exact sera relevé automatiquement par le pont, sans demande de caractéristiques à la main.
 - [x] Choisir un outil à tester — **LM Studio**, choisi pour son démon *headless* (`llmster`) et sa CLI `lms` : installable et pilotable à distance, sans interface ni clic.
 - [ ] Installer l'outil à distance sur le PC de la maison — agent `PONT-poste.ps1 -Installer` prêt (script officiel → `winget` → installateur direct) ; reste à lancer le pont sur l'ASUS.
 - [ ] Installer et lancer un premier modèle — le modèle est choisi automatiquement selon la RAM relevée (1,5B / 3B / 7B / gpt-oss-20b)
+- [ ] Ouvrir un accès privé depuis le travail — **Tailscale** : réseau privé entre les deux postes (WireGuard), aucun port ouvert sur la box ; `tailscale serve` publie l'API locale sur une adresse HTTPS privée. Détail dans `pont-outils/ESPACE-PRIVE.md`.
+- [ ] Brancher la zone « Mon IA privée » du tableau de bord sur l'API — l'interface est **déjà écrite** (`index.html`, diffusion en continu, réglages gardés dans le navigateur) ; il reste à y coller l'adresse privée et le jeton.
 - [ ] Le tester sur 2-3 tâches réelles du quotidien
 - [ ] Noter ce qui marche / ce qui ne marche pas (taille des modèles, vitesse, qualité)
 - [ ] Adopter l'outil retenu (local ou en ligne) dans l'usage courant

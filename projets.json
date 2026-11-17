@@ -212,6 +212,16 @@
           "t": "Adopter l'outil retenu (local ou en ligne) dans l'usage courant",
           "ok": false,
           "custom": true
+        },
+        {
+          "t": "Ouvrir un accès privé depuis le travail — Tailscale, aucun port ouvert sur la box",
+          "ok": false,
+          "custom": true
+        },
+        {
+          "t": "Brancher la zone « Mon IA privée » du tableau de bord sur l'API",
+          "ok": false,
+          "custom": true
         }
       ]
     }

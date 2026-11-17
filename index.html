@@ -1184,6 +1184,27 @@ footer b{color:var(--ink-2)}
   .cond-card b{color:#000}
   details{display:block}
 }
+/* ---- IA privée — interface vers LM Studio sur le poste à la maison ---- */
+.ia-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.ia-note{font-size:13.5px;color:var(--dim);line-height:1.62;margin:0 0 14px}
+.ia-note code{background:var(--surface-alt);padding:1px 5px;border-radius:5px;font-size:12.5px}
+.ia-setup{display:grid;gap:11px}
+.ia-field{display:grid;gap:4px}
+.ia-field label{font-size:12.5px;color:var(--dim);font-weight:600}
+.ia-field input{width:100%;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px}
+.ia-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:4px}
+.ia-chat{display:grid;gap:12px;margin-top:15px}
+.ia-log{display:grid;gap:10px;max-height:54vh;overflow:auto;padding:2px}
+.ia-msg{padding:11px 13px;border-radius:12px;font-size:14px;line-height:1.62;white-space:pre-wrap;word-break:break-word}
+.ia-msg.user{background:var(--accent-bg);border:1px solid var(--accent-bd)}
+.ia-msg.bot{background:var(--surface-alt);border:1px solid var(--line)}
+.ia-msg.sys{background:var(--blue-bg);border:1px solid var(--blue-bd);color:#173f68;font-size:13px}
+.ia-compose{display:flex;gap:8px;align-items:flex-end}
+.ia-compose textarea{flex:1 1 auto;min-height:46px;resize:vertical;font-size:14px;line-height:1.5;font-family:inherit}
+.ia-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--dim);margin-right:7px;vertical-align:middle}
+.ia-dot.on{background:var(--ok-bar)}
+.ia-dot.off{background:var(--rien)}
+.ia-modeltag{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;color:var(--dim)}
 </style>
 </head>
 <body>
@@ -1198,6 +1219,7 @@ footer b{color:var(--ink-2)}
       <a href="#section-veille">Veille</a>
       <a href="#condense">Condensé</a>
       <a href="#section-cherche">Chercher</a>
+      <a href="#ia-privee">IA privée</a>
       <a href="#aide">Aide</a>
     </div>
     <div class="top-actions">
@@ -1301,6 +1323,47 @@ footer b{color:var(--ink-2)}
   <div class="search-box">
     <input id="q" type="search" placeholder="galet · NRC · manette · veille · Android · OpenAlex…" autocomplete="off" aria-label="Chercher dans le tableau de bord">
     <div id="res"><p class="vide">Deux ou trois lettres suffisent. La recherche se fait uniquement dans cette page — aucune donnée n'est envoyée.</p></div>
+  </div>
+
+  <h2 class="sect" id="ia-privee">Mon IA privée <small>le modèle qui tourne chez vous, sur l'ASUS</small></h2>
+  <div class="ia-box">
+    <p class="ia-note">
+      Cette zone interroge <b> votre</b> LM Studio, installé sur le poste à la maison.
+      La question part de ce navigateur, elle arrive sur l'ASUS, le modèle répond, la
+      réponse revient — <b>rien ne transite par un serveur d'IA en ligne</b>.
+      L'adresse et le jeton restent dans <b>ce navigateur</b> (stockage local de Brave) :
+      jamais dans le dépôt, jamais dans le code du site, jamais ailleurs.
+    </p>
+
+    <div id="ia-setup" class="ia-setup">
+      <div class="ia-field">
+        <label for="ia-url">Adresse du serveur (base de l'API)</label>
+        <input type="text" id="ia-url" placeholder="https://asus.xxxx.ts.net/v1" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="ia-field">
+        <label for="ia-token">Jeton d'API — facultatif si le serveur n'en demande pas</label>
+        <input type="password" id="ia-token" placeholder="lm-…" autocomplete="off">
+      </div>
+      <div class="ia-row">
+        <button class="btn-sm" type="button" id="ia-test">Tester la connexion</button>
+        <button class="btn-sm" type="button" id="ia-save">Enregistrer et chatter</button>
+        <button class="btn-sm" type="button" id="ia-forget">Effacer</button>
+        <span id="ia-state"><span class="ia-dot"></span><span id="ia-state-text">non configuré</span></span>
+      </div>
+      <div class="gh-msg" id="ia-msg" role="status" aria-live="polite"></div>
+    </div>
+
+    <div class="ia-chat" id="ia-chat" hidden>
+      <div class="ia-log" id="ia-log"></div>
+      <div class="ia-compose">
+        <textarea id="ia-input" rows="2" placeholder="Écrivez votre question…"></textarea>
+        <button class="btn-top primary" type="button" id="ia-send">Envoyer</button>
+      </div>
+      <div class="ia-row">
+        <button class="btn-sm" type="button" id="ia-clear">Effacer la conversation</button>
+        <span class="ia-modeltag" id="ia-model"></span>
+      </div>
+    </div>
   </div>
 
   <h2 class="sect" id="aide">Aide — comment lire et utiliser cette page</h2>
@@ -2812,8 +2875,268 @@ footer b{color:var(--ink-2)}
     });
   })();
 
+  // ------------------------------------------------------------------
+  //  IA privée — dialogue avec LM Studio sur le poste à la maison
+  // ------------------------------------------------------------------
+  //  L'adresse et le jeton vivent uniquement dans le navigateur.
+  //  Aucune requête ne part ailleurs qu'à l'adresse indiquée ici.
+  const IA_URL_KEY   = 'tdb_lm_url';
+  const IA_TOKEN_KEY = 'tdb_lm_token';
+  const IA_CONV_KEY  = 'tdb_lm_conv';
+
+  let iaConv = [];        // [{role:'user'|'assistant', content:'...'}]
+  let iaModel = '';       // modele choisi par le serveur
+  let iaBusy = false;
+
+  function iaGet(k){ try { return localStorage.getItem(k) || ''; } catch(e){ return ''; } }
+  function iaSet(k, v){ try { v ? localStorage.setItem(k, v) : localStorage.removeItem(k); } catch(e){} }
+
+  function iaMsg(kind, text){
+    const box = document.getElementById('ia-msg');
+    box.className = 'gh-msg on ' + kind;
+    box.innerHTML = text;
+  }
+  function iaMsgClear(){ document.getElementById('ia-msg').className = 'gh-msg'; }
+
+  function iaBase(){
+    let u = iaGet(IA_URL_KEY).trim();
+    if (!u) return '';
+    if (!/^https?:\/\//i.test(u)) u = 'https://' + u;
+    return u.replace(/\/+$/, '');
+  }
+  function iaHeaders(){
+    const h = { 'Content-Type': 'application/json' };
+    const t = iaGet(IA_TOKEN_KEY).trim();
+    if (t) h['Authorization'] = 'Bearer ' + t;
+    return h;
+  }
+
+  function iaState(dot, text){
+    document.getElementById('ia-state').innerHTML =
+      '<span class="ia-dot ' + dot + '"></span><span>' + text + '</span>';
+  }
+
+  function iaRenderLog(){
+    const log = document.getElementById('ia-log');
+    log.innerHTML = '';
+    if (!iaConv.length){
+      const vide = document.createElement('div');
+      vide.className = 'ia-msg sys';
+      vide.textContent = 'Aucun message. Posez une question — la réponse viendra du modèle qui tourne chez vous.';
+      log.appendChild(vide);
+      return;
+    }
+    for (const m of iaConv){
+      const d = document.createElement('div');
+      d.className = 'ia-msg ' + (m.role === 'user' ? 'user' : 'bot');
+      d.textContent = m.content;
+      log.appendChild(d);
+    }
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function iaSaveConv(){
+    try { localStorage.setItem(IA_CONV_KEY, JSON.stringify(iaConv.slice(-40))); } catch(e){}
+  }
+  function iaLoadConv(){
+    try {
+      const raw = localStorage.getItem(IA_CONV_KEY);
+      if (raw) iaConv = JSON.parse(raw) || [];
+    } catch(e){ iaConv = []; }
+  }
+
+  // Teste la connexion et récupère la liste des modèles chargés.
+  async function iaTest(){
+    iaMsgClear();
+    const base = iaBase();
+    if (!base){ iaMsg('err', 'Indiquez d\'abord l\'adresse du serveur.'); return; }
+    iaState('', 'test en cours…');
+    try {
+      const r = await fetch(base + '/models', { headers: iaHeaders() });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const j = await r.json();
+      const ids = (j.data || []).map(m => m.id);
+      if (!ids.length){
+        iaState('off', 'serveur joignable, aucun modèle chargé');
+        iaMsg('info', 'Le serveur répond, mais aucun modèle n\'est chargé. Sur l\'ASUS, chargez-en un puis réessayez.');
+        return;
+      }
+      iaModel = ids[0];
+      document.getElementById('ia-model').textContent = 'modèle : ' + iaModel;
+      iaState('on', 'connecté — ' + ids.length + ' modèle(s)');
+      iaMsg('ok', 'Connexion réussie. Modèles disponibles : <code>' + ids.join('</code>, <code>') + '</code>.');
+    } catch(e){
+      iaState('off', 'joignable ?');
+      iaMsg('err', 'Connexion impossible : ' + escapeHtml(String(e)) +
+        '<br>Vérifiez que le poste à la maison est allumé, que le tunnel est actif, et que l\'adresse est en <code>https://</code>.' +
+        '<br>Si la page est en HTTPS, l\'adresse doit l\'être aussi — le navigateur bloque <code>http://</code> depuis une page sécurisée.');
+    }
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  }
+
+  // Lit un flux SSE et renvoie le texte reçu. Isolée pour être testable.
+  async function iaLireFlux(lecteur, surTexte){
+    const decodeur = new TextDecoder();
+    let reste = '';
+    let texte = '';
+    for(;;){
+      const { done, value } = await lecteur.read();
+      if (done) break;
+      reste += decodeur.decode(value, { stream: true });
+      const blocs = reste.split('\n\n');
+      reste = blocs.pop();
+      for (const bloc of blocs){
+        for (const ligne of bloc.split('\n')){
+          if (!ligne.startsWith('data:')) continue;
+          const charge = ligne.slice(5).trim();
+          if (!charge || charge === '[DONE]') continue;
+          try {
+            const j = JSON.parse(charge);
+            const d = (j.choices && j.choices[0] && j.choices[0].delta && j.choices[0].delta.content) || '';
+            if (d){
+              texte += d;
+              if (surTexte) surTexte(texte);
+            }
+          } catch(e){}
+        }
+      }
+    }
+    // dernier bloc, sans séparateur final
+    if (reste.trim()){
+      for (const ligne of reste.split('\n')){
+        if (!ligne.startsWith('data:')) continue;
+        const charge = ligne.slice(5).trim();
+        if (!charge || charge === '[DONE]') continue;
+        try {
+          const j = JSON.parse(charge);
+          const d = (j.choices && j.choices[0] && j.choices[0].delta && j.choices[0].delta.content) || '';
+          if (d){ texte += d; if (surTexte) surTexte(texte); }
+        } catch(e){}
+      }
+    }
+    return texte;
+  }
+
+  async function iaEnvoyer(){
+    if (iaBusy) return;
+    const saisie = document.getElementById('ia-input').value.trim();
+    if (!saisie) return;
+    const base = iaBase();
+    if (!base){ iaMsg('err', 'Indiquez d\'abord l\'adresse du serveur.'); return; }
+
+    iaConv.push({ role: 'user', content: saisie });
+    document.getElementById('ia-input').value = '';
+    iaRenderLog();
+
+    const bulle = document.createElement('div');
+    bulle.className = 'ia-msg bot';
+    bulle.textContent = '…';
+    document.getElementById('ia-log').appendChild(bulle);
+
+    iaBusy = true;
+    document.getElementById('ia-send').disabled = true;
+    let reponse = '';
+
+    try {
+      const corps = {
+        model: iaModel || 'local-model',
+        messages: iaConv.map(m => ({ role: m.role, content: m.content })),
+        stream: true
+      };
+      const r = await fetch(base + '/chat/completions', {
+        method: 'POST',
+        headers: iaHeaders(),
+        body: JSON.stringify(corps)
+      });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+
+      const lecteur = r.body.getReader();
+      reponse = await iaLireFlux(lecteur, t => {
+        bulle.textContent = t;
+        document.getElementById('ia-log').scrollTop = 1e9;
+      });
+      if (!reponse){
+        // certains serveurs ne diffusent pas : on retente en une seule fois
+        const r2 = await fetch(base + '/chat/completions', {
+          method: 'POST', headers: iaHeaders(),
+          body: JSON.stringify({ model: iaModel || 'local-model', messages: corps.messages })
+        });
+        const j2 = await r2.json();
+        reponse = (j2.choices && j2.choices[0] && j2.choices[0].message && j2.choices[0].message.content) || '';
+        bulle.textContent = reponse;
+      }
+    } catch(e){
+      bulle.className = 'ia-msg sys';
+      bulle.textContent = 'Erreur : ' + String(e) +
+        '\n\nVérifiez que le tunnel vers l\'ASUS est actif, et que le serveur accepte les requêtes depuis cette origine (CORS).';
+    }
+
+    if (reponse) iaConv.push({ role: 'assistant', content: reponse });
+    iaSaveConv();
+    iaBusy = false;
+    document.getElementById('ia-send').disabled = false;
+    iaRenderLog();
+  }
+
+  function setupIaPrivee(){
+    const url = document.getElementById('ia-url');
+    const tok = document.getElementById('ia-token');
+    if (!url) return;
+
+    url.value = iaGet(IA_URL_KEY);
+    tok.value = iaGet(IA_TOKEN_KEY);
+    iaLoadConv();
+    iaRenderLog();
+
+    const configure = () => {
+      const base = iaBase();
+      if (!base){ iaMsg('err', 'Indiquez l\'adresse du serveur.'); return false; }
+      iaSet(IA_URL_KEY, base);
+      iaSet(IA_TOKEN_KEY, tok.value.trim());
+      document.getElementById('ia-setup').hidden = true;
+      document.getElementById('ia-chat').hidden = false;
+      iaState('on', 'configuré');
+      return true;
+    };
+
+    document.getElementById('ia-test').addEventListener('click', async () => {
+      iaSet(IA_URL_KEY, iaBase());
+      iaSet(IA_TOKEN_KEY, tok.value.trim());
+      await iaTest();
+    });
+    document.getElementById('ia-save').addEventListener('click', () => {
+      if (configure()) iaTest();
+    });
+    document.getElementById('ia-forget').addEventListener('click', () => {
+      iaSet(IA_URL_KEY, ''); iaSet(IA_TOKEN_KEY, ''); iaSet(IA_CONV_KEY, '');
+      url.value = ''; tok.value = ''; iaConv = [];
+      document.getElementById('ia-setup').hidden = false;
+      document.getElementById('ia-chat').hidden = true;
+      document.getElementById('ia-model').textContent = '';
+      iaState('', 'non configuré');
+      iaMsgClear();
+    });
+    document.getElementById('ia-send').addEventListener('click', iaEnvoyer);
+    document.getElementById('ia-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)){ e.preventDefault(); iaEnvoyer(); }
+    });
+    document.getElementById('ia-clear').addEventListener('click', () => {
+      iaConv = []; iaSaveConv(); iaRenderLog();
+    });
+
+    if (iaGet(IA_URL_KEY)){
+      document.getElementById('ia-setup').hidden = true;
+      document.getElementById('ia-chat').hidden = false;
+      iaState('', 'configuré — testez la connexion');
+    }
+  }
+
   setupCorriger();
   setupGitHub();
+  setupIaPrivee();
   renderAll();
   loadFromServer();
   updatePendingUI();
