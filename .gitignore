@@ -1,0 +1,6 @@
+# Dependances installees localement (jamais commitees)
+node_modules/
+
+# Fichiers de travail locaux
+*.log
+.DS_Store
