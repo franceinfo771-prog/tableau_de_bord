@@ -22,7 +22,11 @@ param(
     [switch]$Silencieux,
     [switch]$Releve,
     [switch]$Installer,
+    [switch]$Tunnel,
     [switch]$SansModele,
+    [ValidateSet('tailscale', 'cloudflare')]
+    [string]$Methode = 'tailscale',
+    [int]$Port = 1234,
     [string]$Modele = '',
     [int]$IntervalleSecondes = 30,
     [string]$RapportChemin = ''
@@ -35,6 +39,7 @@ $DossierScript = Split-Path -Parent $MyInvocation.MyCommand.Path
 $FichierConfig = Join-Path $DossierScript 'pont-config.json'
 $FichierCle    = Join-Path $DossierScript 'cle.txt'
 $FichierEtat   = Join-Path $DossierScript 'pont-etat.txt'
+$FichierEtatInstall = Join-Path $DossierScript 'pont-etat-install.txt'
 
 $ALG   = 'A256CBC-HS256'
 $ITER  = 200000
@@ -310,6 +315,19 @@ function Releve-Machine {
         if (Test-Path $chemin) { Note 'lmstudio' $chemin }
     }
 
+    # Reseau : ce que la machine voit du routeur (la Freebox en general)
+    # et de son propre adressage. Utile pour atteindre les equipements
+    # du reseau domestic, qui ne sont joignables que d'ici.
+    try {
+        $carte = Get-NetIPConfiguration | Where-Object { $_.IPv4DefaultGateway -ne $null } | Select-Object -First 1
+        if ($carte) {
+            Note 'ip_locale' $carte.IPv4Address.IPAddress
+            Note 'passerelle' $carte.IPv4DefaultGateway.NextHop
+            Note 'dns' ($carte.DNSServer.ServerAddresses -join ',')
+        }
+    } catch { }
+    try { Note 'nom_hote' ([System.Net.Dns]::GetHostName()) } catch { }
+
     return ($L -join "`n")
 }
 
@@ -415,6 +433,51 @@ function Installer-LmStudio {
     return @($L, $lms)
 }
 
+function Demarrer-ServeurLocal($lms, [int]$port) {
+    # lms server start reste au premier plan : l'appeler directement
+    # figerait le pont, et le rapport d'installation ne partirait
+    # jamais. On le lance donc en arriere-plan, puis on attend que le
+    # port reponde.
+    $L = New-Object System.Collections.ArrayList
+    function Note([string]$ligne) {
+        [void]$L.Add($ligne)
+        Write-Host $ligne
+    }
+
+    if (-not $lms) {
+        Note 'CLI lms introuvable : serveur non demarre.'
+        return ($L -join "`n")
+    }
+
+    try {
+        Invoke-RestMethod -Uri "http://127.0.0.1:$port/v1/models" -TimeoutSec 5 | Out-Null
+        Note "Serveur deja en ecoute sur le port $port."
+        return ($L -join "`n")
+    } catch { }
+
+    Note 'Demarrage du serveur local en arriere-plan...'
+    try {
+        $log = Join-Path $env:TEMP 'lms-serveur.log'
+        Start-Process -FilePath $lms -ArgumentList @('server','start','--port',"$port") `
+            -RedirectStandardOutput $log -RedirectStandardError "$log.err" `
+            -WindowStyle Hidden | Out-Null
+    } catch {
+        Note ("  " + $_)
+        return ($L -join "`n")
+    }
+
+    for ($i = 0; $i -lt 40; $i++) {
+        Start-Sleep -Seconds 1
+        try {
+            Invoke-RestMethod -Uri "http://127.0.0.1:$port/v1/models" -TimeoutSec 5 | Out-Null
+            Note "Serveur en ecoute sur le port $port."
+            break
+        } catch { }
+    }
+
+    return ($L -join "`n")
+}
+
 function Choisir-Modele {
     # Deduit un modele adapte a la machine. Un modele qui ne tient pas en
     # memoire ne demarre simplement pas : on se base donc sur la RAM.
@@ -472,13 +535,12 @@ function Charger-Modele($lms, [string]$modele) {
         & $lms load $modele --gpu max --context-length 4096 --yes 2>&1 | ForEach-Object { Note ("  " + $_) }
     } catch { Note ("  " + $_) }
 
-    Note 'Demarrage du serveur local...'
-    try { & $lms server start 2>&1 | ForEach-Object { Note ("  " + $_) } } catch { Note ("  " + $_) }
+    $serveur = Demarrer-ServeurLocal $lms 1234
+    foreach ($ligne in ($serveur -split "`n")) { if ($ligne) { Note $ligne } }
 
-    Start-Sleep -Seconds 4
     try {
-        $r = Invoke-RestMethod -Uri 'http://localhost:1234/v1/models' -TimeoutSec 25
-        Note 'Modeles exposes sur http://localhost:1234 :'
+        $r = Invoke-RestMethod -Uri 'http://127.0.0.1:1234/v1/models' -TimeoutSec 25
+        Note 'Modeles exposes sur http://127.0.0.1:1234 :'
         foreach ($m in $r.data) { Note ("  - " + $m.id) }
     } catch { Note ("  serveur joignable ? : " + $_) }
 
@@ -740,7 +802,340 @@ function Preparer-Configuration {
     return @($config, $phrase)
 }
 
+function Lire-DeclencheurInstallation($config) {
+    # Declencheur en clair : l'assistant publie le nom du modele a
+    # installer, le pont le voit et agit. Aucun secret dans ce fichier,
+    # donc aucune phrase de passe n'est necessaire cote assistant.
+    $url = "https://api.github.com/repos/$($config.depot)/contents/pont/installer.txt?ref=$($config.branche)"
+    try {
+        $reponse = Invoke-RestMethod -Uri $url -Headers (Obtenir-Entetes $config.jetonGitHub) -Method Get -TimeoutSec 30
+    } catch {
+        return $null
+    }
+    if (-not $reponse.content) { return $null }
+    $brut = ($reponse.content -replace '\s', '')
+    try {
+        return [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($brut))
+    } catch {
+        return $null
+    }
+}
+
+function Executer-DeclencheurInstallation($config, [string]$demande) {
+    # La demande est un JSON : { "id": "...", "modele": "..." }.
+    $ordre = $null
+    try { $ordre = $demande | ConvertFrom-Json } catch { $ordre = $null }
+    if (-not $ordre -or -not $ordre.id) { return $false }
+
+    $dernier = ''
+    if (Test-Path $FichierEtatInstall) { $dernier = (Get-Content $FichierEtatInstall -Raw -ErrorAction SilentlyContinue) }
+    if ($dernier -and $dernier.Trim() -eq $ordre.id) { return $false }
+
+    Write-Host "`nDemande dinstallation recue : $($ordre.id)" -ForegroundColor Cyan
+
+    # Une demande peut porter une action particuliere : installation
+    # du modele, ouverture du tunnel prive, ou les deux.
+    if ($ordre.action -eq 'tunnel') {
+        $port = 1234
+        if ($ordre.port) { $port = [int]$ordre.port }
+        $methode = 'tailscale'
+        if ($ordre.methode) { $methode = $ordre.methode }
+
+        $lms = Trouver-Lms
+        if ($lms) {
+            try { & $lms daemon up 2>&1 | Out-Null } catch { }
+            Demarrer-ServeurLocal $lms $port | Out-Null
+        }
+
+        if ($methode -eq 'cloudflare') {
+            $cf = Trouver-Cloudflared
+            if (-not $cf) {
+                $rapport = 'cloudflared introuvable sur ce poste.'
+            } else {
+                $rapport = Activer-TunnelCloudflare $cf $port
+            }
+        } else {
+            $install = Installer-Tailscale
+            $rapport = $install[0] -join "`n"
+            $rapport = $rapport + "`n" + (Activer-Tunnel $install[1] $port)
+        }
+        try {
+            Publier-FichierPontEnClair $config 'tunnel.txt' $rapport 'pont : tunnel prive'
+            Write-Host 'Rapport du tunnel publie.' -ForegroundColor Green
+        } catch {
+            Write-Host "Publication impossible : $_" -ForegroundColor Yellow
+        }
+        try {
+            $utf8 = New-Object System.Text.UTF8Encoding($false)
+            [System.IO.File]::WriteAllText($FichierEtatInstall, $ordre.id, $utf8)
+        } catch { }
+        return $true
+    }
+
+    if ($ordre.modele) { Write-Host "  Modele demande : $($ordre.modele)" -ForegroundColor Cyan }
+
+    $install = Installer-LmStudio
+    $rapport = $install[0] -join "`n"
+    $lms = $install[1]
+
+    if ($ordre.sansModele) {
+        Write-Host '  Installation seule : aucun modele demande.' -ForegroundColor DarkGray
+        $rapport = $rapport + "`n=== Fin de l installation (aucun modele charge) ==="
+    } elseif ($ordre.modele) {
+        $rapport = $rapport + "`n" + (Charger-Modele $lms $ordre.modele) + "`n=== Fin ==="
+    } else {
+        $rapport = $rapport + "`n" + (Charger-Modele $lms '') + "`n=== Fin ==="
+    }
+
+    try {
+        Publier-FichierPontEnClair $config 'lmstudio.txt' $rapport 'pont : installation LM Studio'
+        Write-Host 'Rapport publie pour votre assistant.' -ForegroundColor Green
+    } catch {
+        Write-Host "Publication impossible : $_" -ForegroundColor Yellow
+    }
+
+    try {
+        $utf8 = New-Object System.Text.UTF8Encoding($false)
+        [System.IO.File]::WriteAllText($FichierEtatInstall, $ordre.id, $utf8)
+    } catch { }
+    return $true
+}
+
+# ----------------------------------------------------------------- tunnel
+
+function Trouver-Tailscale {
+    foreach ($c in @(
+        "$env:ProgramFiles\Tailscale\tailscale.exe",
+        "$env:ProgramFiles(x86)\Tailscale\tailscale.exe",
+        "$env:LOCALAPPDATA\Tailscale\tailscale.exe"
+    )) {
+        if (Test-Path $c) { return $c }
+    }
+    $t = Get-Command tailscale -ErrorAction SilentlyContinue
+    if ($t) { return $t.Source }
+    return $null
+}
+
+function Installer-Tailscale {
+    # Installe Tailscale : il cree un reseau prive entre vos appareils,
+    # sans ouvrir le moindre port sur la box. C'est ce qui rend l'IA
+    # accessible depuis le travail tout en restant introuvable
+    # depuis internet.
+    $L = New-Object System.Collections.ArrayList
+    function Note([string]$ligne) {
+        [void]$L.Add($ligne)
+        Write-Host $ligne
+    }
+
+    $ts = Trouver-Tailscale
+    if (-not $ts) {
+        Note 'Installation de Tailscale...'
+        try {
+            $r = winget install --id Tailscale.Tailscale --exact `
+                --accept-package-agreements --accept-source-agreements --silent 2>&1
+            foreach ($l in $r) { Note ("  " + $l) }
+        } catch { Note ("  winget : " + $_) }
+        $ts = Trouver-Tailscale
+    }
+
+    if (-not $ts) {
+        Note 'ECHEC : Tailscale introuvable apres installation.'
+        return @($L, $null)
+    }
+    Note ("Tailscale : " + $ts)
+    return @($L, $ts)
+}
+
+function Trouver-Cloudflared {
+    foreach ($c in @(
+        "$env:ProgramFiles\cloudflared\cloudflared.exe",
+        "$env:LOCALAPPDATA\Programs\cloudflared\cloudflared.exe",
+        "$env:USERPROFILE\.cloudflared\cloudflared.exe"
+    )) {
+        if (Test-Path $c) { return $c }
+    }
+    $t = Get-Command cloudflared -ErrorAction SilentlyContinue
+    if ($t) { return $t.Source }
+    return $null
+}
+
+function Activer-TunnelCloudflare($cf, [int]$port) {
+    # cloudflared ouvre un tunnel vers le serveur local. Deux cas :
+    #   - un tunnel nomme existe deja (config.yaml) : l adresse est fixe ;
+    #   - sinon on ouvre un tunnel rapide : l adresse est aleatoire et
+    #     change a chaque redemarrage.
+    $L = New-Object System.Collections.ArrayList
+    function Note([string]$ligne) {
+        [void]$L.Add($ligne)
+        Write-Host $ligne
+    }
+
+    if (-not $cf) {
+        Note 'cloudflared introuvable sur ce poste.'
+        return ($L -join "`n")
+    }
+    Note ("cloudflared : " + $cf)
+
+    $cible = "http://127.0.0.1:$port"
+    $config = Join-Path $env:USERPROFILE '.cloudflared\config.yaml'
+    $configAlt = Join-Path $env:USERPROFILE '.cloudflared\config.yml'
+    if (-not (Test-Path $config)) { $config = $configAlt }
+
+    $url = ''
+    $nomme = ''
+
+    if (Test-Path $config) {
+        try {
+            $texte = Get-Content $config -Raw
+            if ($texte -match '(?m)^\s*hostname:\s*(\S+)') { $url = $Matches[1] }
+            if ($texte -match '(?m)^\s*tunnel:\s*(\S+)') { $nomme = $Matches[1] }
+        } catch { }
+    }
+
+    if ($nomme -and $url) {
+        Note ("Tunnel nomme : " + $nomme)
+        Note ("Adresse : " + $url)
+        try {
+            Start-Process -FilePath $cf -ArgumentList @('tunnel','run',$nomme,'--no-autoupdate') `
+                -WindowStyle Hidden | Out-Null
+            Start-Sleep -Seconds 6
+            Note 'Tunnel demarre.'
+        } catch { Note ("  " + $_) }
+        Note ''
+        Note ('A coller dans la zone " Mon IA privee " du tableau de bord : ' + $url)
+        return ($L -join "`n")
+    }
+
+    # Pas de tunnel nomme : on ouvre un tunnel rapide.
+    Note 'Ouverture d un tunnel rapide...'
+    $log = Join-Path $env:TEMP 'cloudflared-pont.log'
+    $err = Join-Path $env:TEMP 'cloudflared-pont.err'
+    try {
+        Start-Process -FilePath $cf `
+            -ArgumentList @('tunnel','--no-autoupdate','--url',$cible) `
+            -RedirectStandardOutput $log -RedirectStandardError $err `
+            -WindowStyle Hidden -PassThru | Out-Null
+    } catch {
+        Note ("  " + $_)
+        return ($L -join "`n")
+    }
+
+    for ($i = 0; $i -lt 40; $i++) {
+        Start-Sleep -Milliseconds 500
+        foreach ($f in @($err, $log)) {
+            if (Test-Path $f) {
+                try {
+                    $t = Get-Content $f -Raw
+                    if ($t -match '(https://[a-z0-9\-]+\.trycloudflare\.com)') {
+                        $url = $Matches[1]
+                        break
+                    }
+                } catch { }
+            }
+        }
+        if ($url) { break }
+    }
+
+    if ($url) {
+        Note ("Adresse : " + $url)
+        Note ''
+        Note 'Attention : un tunnel rapide change d adresse a chaque redemarrage.'
+        Note 'Pour une adresse stable, il faut un tunnel nomme.'
+        Note ('A coller dans la zone " Mon IA privee " du tableau de bord : ' + $url)
+    } else {
+        Note "Adresse non obtenue. Journal : $err"
+    }
+
+    return ($L -join "`n")
+}
+
+function Activer-Tunnel($ts, [int]$port) {
+    # tailscale up affiche une adresse d'authentification a ouvrir dans
+    # un navigateur. On la remonte : l'utilisateur doit la valider une
+    # fois, sur le poste de travail.
+    $L = New-Object System.Collections.ArrayList
+    function Note([string]$ligne) {
+        [void]$L.Add($ligne)
+        Write-Host $ligne
+    }
+
+    if (-not $ts) { Note 'Tailscale absent : tunnel impossible.'; return ($L -join "`n") }
+
+    Note 'Connexion de ce poste au reseau prive...'
+    # La forme "--timeout 20s" (avec espace) est acceptee partout ;
+    # la forme "--timeout=20s" est rejetee par certains analyseurs.
+    $sortie = & $ts up --timeout 20s 2>&1 | Out-String
+    foreach ($l in ($sortie -split "`n")) { if ($l.Trim()) { Note ("  " + $l.Trim()) } }
+
+    if ($sortie -match 'https://login\.tailscale\.com/\S+') {
+        Note ''
+        Note 'A OUVRIR DANS UN NAVIGATEUR pour valider :' -ForegroundColor Yellow
+        Note ('  ' + $Matches[0]) -ForegroundColor White
+    }
+
+    # On attend que le poste rejoigne le reseau prive : l'utilisateur peut
+    # valider le lien quand il veut, le pont s'en apercoit.
+    Note 'En attente de la validation (5 minutes maximum)...'
+    $connecte = $false
+    for ($i = 0; $i -lt 60; $i++) {
+        try {
+            $etat = & $ts status --json 2>$null | Out-String
+            if ($etat -match '"BackendState"\s*:\s*"Running"') { $connecte = $true; break }
+        } catch { }
+        Start-Sleep -Seconds 5
+    }
+
+    if ($connecte) {
+        Note 'Poste connecte au reseau prive.'
+    } else {
+        Note 'Le poste n est pas encore connecte : ouvrez l adresse ci-dessus.'
+        Note 'Puis relancez : tailscale serve --bg http://127.0.0.1:' + $port
+    }
+
+    Note ''
+    Note 'Publication du serveur local sur une adresse prive en https...'
+    try {
+        $s = & $ts serve --bg "http://127.0.0.1:$port" 2>&1 | Out-String
+        foreach ($l in ($s -split "`n")) { if ($l.Trim()) { Note ("  " + $l.Trim()) } }
+    } catch { Note ("  " + $_) }
+
+    Start-Sleep -Seconds 3
+    $url = ''
+    try {
+        $st = & $ts serve status --json 2>$null | Out-String
+        if ($st -match '"URL"\s*:\s*"(https://[^"]+)"') { $url = $Matches[1] }
+    } catch { }
+    if (-not $url) {
+        try {
+            $st = & $ts serve status 2>&1 | Out-String
+            if ($st -match '(https://[A-Za-z0-9\.\-]+\.ts\.net)') { $url = $Matches[1] }
+        } catch { }
+    }
+
+    if ($url) {
+        Note ''
+        Note ("Adresse prive : " + $url) -ForegroundColor Green
+        Note 'A coller dans la zone " Mon IA privee " du tableau de bord.'
+    } else {
+        Note ''
+        Note 'Adresse non obtenue : lancez " tailscale serve status " pour la voir.'
+    }
+
+    return ($L -join "`n")
+}
+
 function Tourner($config, [string]$phrase) {
+    # D'abord le declencheur en clair : c'est lui qui porte les actions
+    # lourdes (installation d'un modele) que l'assistant lance.
+    try {
+        $demande = Lire-DeclencheurInstallation $config
+        if ($demande) {
+            if (Executer-DeclencheurInstallation $config $demande) { return $true }
+        }
+    } catch {
+        Write-Host "`nDeclencheur illisible : $_" -ForegroundColor Yellow
+    }
+
     $enveloppe = Lire-CommandeEnAttente $config
     if (-not $enveloppe) { Write-Host '.' -NoNewline; return $false }
 
@@ -777,6 +1172,47 @@ if ($Releve) {
     try {
         $prepares = Preparer-Configuration
         Publier-Machine $prepares[0]
+    } catch {
+        Write-Host $_ -ForegroundColor Red
+        exit 1
+    }
+    exit 0
+}
+
+if ($Tunnel) {
+    try {
+        $prepares = Preparer-Configuration
+        $config = $prepares[0]
+
+        # Le serveur LM Studio doit tourner avant que le tunnel ne serve
+        # a quelque chose.
+        $lms = Trouver-Lms
+        if ($lms) {
+            try { & $lms daemon up 2>&1 | Out-Null } catch { }
+            Demarrer-ServeurLocal $lms $Port | Out-Null
+        }
+
+        if ($Methode -eq 'cloudflare') {
+            $cf = Trouver-Cloudflared
+            if (-not $cf) {
+                Write-Host 'cloudflared introuvable sur ce poste.' -ForegroundColor Yellow
+                $rapport = 'cloudflared introuvable.'
+            } else {
+                $rapport = Activer-TunnelCloudflare $cf $Port
+            }
+        } else {
+            $install = Installer-Tailscale
+            $rapport = $install[0] -join "`n"
+            $rapport = $rapport + "`n" + (Activer-Tunnel $install[1] $Port)
+        }
+
+        try {
+            Publier-FichierPontEnClair $config 'tunnel.txt' $rapport 'pont : tunnel prive'
+            Write-Host ''
+            Write-Host 'Rapport publie pour votre assistant.' -ForegroundColor Green
+        } catch {
+            Write-Host "Publication impossible : $_" -ForegroundColor Yellow
+        }
     } catch {
         Write-Host $_ -ForegroundColor Red
         exit 1
