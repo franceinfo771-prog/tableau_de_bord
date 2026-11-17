@@ -85,8 +85,21 @@ def gh_delete(path, message):
 
 
 def passphrase():
+    """La phrase de passe du pont.
+
+    Ordre de recherche :
+      1. la variable d'environnement PONT_PHRASE (pratique : elle ne
+         touche pas le disque et disparait a la fin de la session) ;
+      2. le fichier cle.txt a cote de ce script.
+
+    Dans les deux cas, la phrase reste hors du depot : ni versionnee,
+    ni publiee.
+    """
+    env = os.environ.get("PONT_PHRASE")
+    if env and env.strip():
+        return env.strip()
     if not os.path.exists(KEYFILE):
-        sys.exit("cle.txt manquant dans %s" % HERE)
+        sys.exit("cle.txt manquant dans %s (ou variable PONT_PHRASE)" % HERE)
     key = open(KEYFILE, encoding="utf-8").read().strip()
     if not key:
         sys.exit("cle.txt vide")
