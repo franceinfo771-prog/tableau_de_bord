@@ -173,9 +173,9 @@
     {
       "id": "ia-decouverte",
       "nom": "Découverte de logiciels IA",
-      "idee": "Découvrir les logiciels IA — ceux qui tournent en local sur le PC (hors ligne, hors compte, données privées), et les assistants en ligne (Claude, ChatGPT, Gemini) — comprendre lequel sert à quoi.",
+      "idee": "Découvrir les logiciels IA — ceux qui tournent en local sur le PC de la maison (hors ligne, hors compte, données privées), et les assistants en ligne (Claude, ChatGPT, Gemini) — comprendre lequel sert à quoi.",
       "fin": "Une configuration IA locale précise en place et maîtrisée : un assistant/LLM local installé, lancé, et utilisé pour au moins une tâche réelle, avec ses limites notées.",
-      "ouvert": "Ouvert : lequel des assistants en ligne tester en premier — Claude, ChatGPT ou Gemini ?",
+      "ouvert": "Ouvert : l'API locale depuis le travail, la confidentialité, ou la comparaison honnête avec les assistants en ligne ?",
       "custom": true,
       "etapes": [
         {
@@ -184,12 +184,17 @@
           "custom": true
         },
         {
-          "t": "Choisir un outil à tester (Ollama ou LM Studio)",
+          "t": "Choisir un outil à tester — LM Studio, retenu pour son démon headless pilotable à distance",
+          "ok": true,
+          "custom": true
+        },
+        {
+          "t": "Installer l'outil à distance sur le PC de la maison",
           "ok": false,
           "custom": true
         },
         {
-          "t": "Installer et lancer un premier modèle",
+          "t": "Installer et lancer un premier modèle — choisi selon la RAM relevée",
           "ok": false,
           "custom": true
         },
@@ -205,6 +210,16 @@
         },
         {
           "t": "Adopter l'outil retenu (local ou en ligne) dans l'usage courant",
+          "ok": false,
+          "custom": true
+        },
+        {
+          "t": "Ouvrir un accès privé depuis le travail — Tailscale, aucun port ouvert sur la box",
+          "ok": false,
+          "custom": true
+        },
+        {
+          "t": "Brancher la zone « Mon IA privée » du tableau de bord sur l'API",
           "ok": false,
           "custom": true
         }
