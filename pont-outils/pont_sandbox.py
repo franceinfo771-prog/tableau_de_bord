@@ -4,6 +4,11 @@ Usage :
   python3 pont_sandbox.py envoyer "ipconfig /all" [--shell cmd|powershell]
   python3 pont_sandbox.py lire
   python3 pont_sandbox.py etat
+
+Sans phrase de passe (rapports publies en clair par le poste) :
+  python3 pont_sandbox.py machine              configuration du poste
+  python3 pont_sandbox.py installer <modele>    installe LM Studio + modele
+  python3 pont_sandbox.py rapport               rapport de l'installation
 """
 
 import base64
@@ -133,7 +138,7 @@ def cmd_lire():
         print(result["stderr"])
 
 
-def cmd_etat():
+def cmd_etat(argv=None):
     cmd = gh_get("cmd.enc")
     rep = gh_get("rep.enc")
     print("commande en attente : %s" % ("oui" if cmd else "non"))
@@ -149,7 +154,81 @@ def cmd_etat():
             print("reponse illisible   : %s" % exc)
 
 
-COMMANDS = {"envoyer": cmd_envoyer, "lire": cmd_lire, "etat": cmd_etat}
+def cmd_machine(argv):
+    """Lit la configuration de la machine publiee en clair par le poste.
+
+    Aucun secret ici : le rapport ne contient ni jeton ni phrase de passe.
+    """
+    payload = gh_get("machine.txt")
+    if not payload:
+        print("Aucune configuration publiee pour l'instant.")
+        print("Le poste doit avoir demarre le pont au moins une fois.")
+        return
+    print(base64.b64decode(payload["content"]).decode("utf-8", errors="replace"))
+
+
+def cmd_rapport(argv):
+    """Lit le rapport d'installation LM Studio publie en clair."""
+    payload = gh_get("lmstudio.txt")
+    if not payload:
+        print("Aucun rapport d'installation pour l'instant.")
+        return
+    print(base64.b64decode(payload["content"]).decode("utf-8", errors="replace"))
+
+
+def cmd_installer(argv):
+    """Demande au poste d'installer LM Studio et un modele.
+
+    Le declencheur est en clair : c'est le nom du modele, rien de secret.
+    Le poste le voit dans sa boucle, installe, charge le modele, lance le
+    serveur, puis publie le rapport.
+
+    Usage : installer [modele] [--sans-modele]
+    """
+    modele = ""
+    sans_modele = False
+    reste = []
+    i = 0
+    while i < len(argv):
+        arg = argv[i]
+        if arg == "--sans-modele":
+            sans_modele = True
+        elif arg == "--modele" and i + 1 < len(argv):
+            modele = argv[i + 1]
+            i += 1
+        else:
+            reste.append(arg)
+        i += 1
+    if reste:
+        modele = " ".join(reste)
+
+    demande = {
+        "id": time.strftime("%Y%m%d-%H%M%S") + "-" + os.urandom(2).hex(),
+        "modele": modele,
+        "sansModele": sans_modele,
+        "ts": time.strftime("%Y-%m-%d %H:%M:%S"),
+    }
+    gh_put(
+        "installer.txt",
+        json.dumps(demande, ensure_ascii=False, indent=2),
+        "pont : demande d'installation LM Studio",
+    )
+    print("Installation demandee (id %s)." % demande["id"])
+    if modele:
+        print("  modele :", modele)
+    else:
+        print("  modele : choix automatique selon la memoire de la machine")
+    print("Le poste s'en occupera a son prochain tour de boucle (30 s).")
+
+
+COMMANDS = {
+    "envoyer": cmd_envoyer,
+    "lire": cmd_lire,
+    "etat": cmd_etat,
+    "machine": cmd_machine,
+    "rapport": cmd_rapport,
+    "installer": cmd_installer,
+}
 
 
 def main():

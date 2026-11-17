@@ -35,6 +35,7 @@ $DossierScript = Split-Path -Parent $MyInvocation.MyCommand.Path
 $FichierConfig = Join-Path $DossierScript 'pont-config.json'
 $FichierCle    = Join-Path $DossierScript 'cle.txt'
 $FichierEtat   = Join-Path $DossierScript 'pont-etat.txt'
+$FichierEtatInstall = Join-Path $DossierScript 'pont-etat-install.txt'
 
 $ALG   = 'A256CBC-HS256'
 $ITER  = 200000
@@ -415,6 +416,41 @@ function Installer-LmStudio {
     return @($L, $lms)
 }
 
+function Choisir-Modele {
+    # Deduit un modele adapte a la machine. Un modele qui ne tient pas en
+    # memoire ne demarre simplement pas : on se base donc sur la RAM.
+    $ramGo = 0
+    try {
+        $os = Get-CimInstance Win32_OperatingSystem
+        $ramGo = [math]::Round($os.TotalVisibleMemorySize / 1048576, 1)
+    } catch { }
+
+    # La VRAM annoncee par WMI est plafonnee a 4 Go et se revele fausse
+    # sur les cartes recentes : on ne s'y fie pas pour choisir un modele
+    # qu'on veut charger integralement en memoire.
+    $vramGo = 0
+    try {
+        $g = Get-CimInstance Win32_VideoController | Select-Object -First 1
+        $mo = [math]::Round($g.AdapterRAM / 1048576, 0)
+        if ($mo -gt 0 -and $mo -lt 4096) { $vramGo = [math]::Round($mo / 1024, 1) }
+    } catch { }
+
+    Write-Host "  memoire : ${ramGo} Go   vram detectee : ${vramGo} Go" -ForegroundColor DarkGray
+
+    # budget : la memoire totale moins 2 Go pour le systeme et les
+    # navigateurs. On ne retient pas la VRAM : elle peut etre annoncee
+    # de travers, et un modele a cheval sur les deux se met a swapper.
+    $budget = $ramGo - 2
+    if ($budget -lt 2) { $budget = 2 }
+
+    Write-Host "  budget memoire pour le modele : ${budget} Go" -ForegroundColor DarkGray
+
+    if ($budget -ge 14) { return 'gpt-oss-20b' }
+    if ($budget -ge 8)  { return 'qwen2.5-7b-instruct' }
+    if ($budget -ge 4)  { return 'qwen2.5-3b-instruct' }
+    return 'qwen2.5-1.5b-instruct'
+}
+
 function Charger-Modele($lms, [string]$modele) {
     $L = New-Object System.Collections.ArrayList
     function Note([string]$ligne) {
@@ -423,7 +459,7 @@ function Charger-Modele($lms, [string]$modele) {
     }
 
     if (-not $lms) { return ($L -join "`n") }
-    if (-not $modele) { $modele = 'qwen2.5-1.5b-instruct' }
+    if (-not $modele) { $modele = Choisir-Modele }
     Note ("Modele : " + $modele)
 
     Note 'Demarrage du daemon...'
@@ -705,7 +741,77 @@ function Preparer-Configuration {
     return @($config, $phrase)
 }
 
+function Lire-DeclencheurInstallation($config) {
+    # Declencheur en clair : l'assistant publie le nom du modele a
+    # installer, le pont le voit et agit. Aucun secret dans ce fichier,
+    # donc aucune phrase de passe n'est necessaire cote assistant.
+    $url = "https://api.github.com/repos/$($config.depot)/contents/pont/installer.txt?ref=$($config.branche)"
+    try {
+        $reponse = Invoke-RestMethod -Uri $url -Headers (Obtenir-Entetes $config.jetonGitHub) -Method Get -TimeoutSec 30
+    } catch {
+        return $null
+    }
+    if (-not $reponse.content) { return $null }
+    $brut = ($reponse.content -replace '\s', '')
+    try {
+        return [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($brut))
+    } catch {
+        return $null
+    }
+}
+
+function Executer-DeclencheurInstallation($config, [string]$demande) {
+    # La demande est un JSON : { "id": "...", "modele": "..." }.
+    $ordre = $null
+    try { $ordre = $demande | ConvertFrom-Json } catch { $ordre = $null }
+    if (-not $ordre -or -not $ordre.id) { return $false }
+
+    $dernier = ''
+    if (Test-Path $FichierEtatInstall) { $dernier = (Get-Content $FichierEtatInstall -Raw -ErrorAction SilentlyContinue) }
+    if ($dernier -and $dernier.Trim() -eq $ordre.id) { return $false }
+
+    Write-Host "`nDemande d'installation recue : $($ordre.id)" -ForegroundColor Cyan
+    if ($ordre.modele) { Write-Host "  Modele demande : $($ordre.modele)" -ForegroundColor Cyan }
+
+    $install = Installer-LmStudio
+    $rapport = $install[0] -join "`n"
+    $lms = $install[1]
+
+    if ($ordre.sansModele) {
+        Write-Host '  Installation seule : aucun modele demande.' -ForegroundColor DarkGray
+        $rapport = $rapport + "`n=== Fin de l installation (aucun modele charge) ==="
+    } elseif ($ordre.modele) {
+        $rapport = $rapport + "`n" + (Charger-Modele $lms $ordre.modele) + "`n=== Fin ==="
+    } else {
+        $rapport = $rapport + "`n" + (Charger-Modele $lms '') + "`n=== Fin ==="
+    }
+
+    try {
+        Publier-FichierPontEnClair $config 'lmstudio.txt' $rapport 'pont : installation LM Studio'
+        Write-Host 'Rapport publie pour votre assistant.' -ForegroundColor Green
+    } catch {
+        Write-Host "Publication impossible : $_" -ForegroundColor Yellow
+    }
+
+    try {
+        $utf8 = New-Object System.Text.UTF8Encoding($false)
+        [System.IO.File]::WriteAllText($FichierEtatInstall, $ordre.id, $utf8)
+    } catch { }
+    return $true
+}
+
 function Tourner($config, [string]$phrase) {
+    # D'abord le declencheur en clair : c'est lui qui porte les actions
+    # lourdes (installation d'un modele) que l'assistant lance.
+    try {
+        $demande = Lire-DeclencheurInstallation $config
+        if ($demande) {
+            if (Executer-DeclencheurInstallation $config $demande) { return $true }
+        }
+    } catch {
+        Write-Host "`nDeclencheur illisible : $_" -ForegroundColor Yellow
+    }
+
     $enveloppe = Lire-CommandeEnAttente $config
     if (-not $enveloppe) { Write-Host '.' -NoNewline; return $false }
 
@@ -799,6 +905,12 @@ if (-not $Silencieux) {
     Write-Host "Verification du chiffrement et publication du rapport..." -ForegroundColor Cyan
     $rapport = Executer-AutoTest
     Publier-RapportAutoTest $config $rapport[1]
+
+    # On publie aussi la configuration de la machine : elle permet a
+    # l'assistant de choisir un modele local adapte (LM Studio, Ollama)
+    # sans avoir a demander les caracteristiques a l'utilisateur.
+    Write-Host "Publication de la configuration de la machine..." -ForegroundColor Cyan
+    Publier-Machine $config
 }
 
 if ($UneFois) {

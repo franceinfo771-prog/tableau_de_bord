@@ -17,7 +17,10 @@ $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 $UrlBat  = 'https://raw.githubusercontent.com/franceinfo771-prog/tableau_de_bord/pont/pont-outils/PONT-START.bat'
-$Sha256  = '8e3bec88cd3f405ce01d51da5c0f5d2bc2e5fbd89c47849844ade6753857bfbc'
+# Secours : l'API GitHub sert le fichier en 'application/vnd.github.raw',
+# ce qui force le telechargement au lieu de l'afficher dans le navigateur.
+$UrlApi  = 'https://api.github.com/repos/franceinfo771-prog/tableau_de_bord/contents/pont-outils/PONT-START.bat?ref=pont'
+$Sha256  = '0fdde9cbfd343303f85e179b1f66bf9ebe5db6e74193215bfe6a85d6662991e7'
 $Cible   = Join-Path $env:LOCALAPPDATA 'Pont'
 $Fichier = Join-Path $Cible 'PONT-START.bat'
 
@@ -33,27 +36,52 @@ if (-not (Test-Path $Cible)) {
     Write-Host "  Dossier cree : $Cible" -ForegroundColor DarkGray
 }
 
-# --- 2. telechargement -----------------------------------------------
+# --- 2. test de connexion --------------------------------------------
+# On verifie d'abord que le site est joignable : sinon l'erreur de
+# telechargement serait incomprehensible ("une erreur s'est produite").
+try {
+    $tete = Invoke-WebRequest -Uri $UrlBat -Method Head -UseBasicParsing -TimeoutSec 20
+    Write-Host '  Connexion au depot : OK' -ForegroundColor Green
+} catch {
+    Write-Host '  Connexion directe bloquee, tentative par l API GitHub...' -ForegroundColor Yellow
+}
+
+# --- 3. telechargement -----------------------------------------------
+# On essaie plusieurs sources : le lien brut d'abord, puis l'API.
+$Sources = @(
+    @{ Nom = 'lien brut'; Url = $UrlBat; Entete = $null },
+    @{ Nom = 'API GitHub'; Url = $UrlApi; Entete = 'application/vnd.github.raw' }
+)
+
 $ok = $false
-for ($essai = 1; $essai -le 3 -and -not $ok; $essai++) {
-    try {
-        Write-Host "  Telechargement ($essai/3)..." -ForegroundColor Cyan
-        Invoke-WebRequest -Uri $UrlBat -OutFile $Fichier -UseBasicParsing -TimeoutSec 60
-        $ok = $true
-    } catch {
-        Write-Host "  Echec : $_" -ForegroundColor Yellow
-        Start-Sleep -Seconds 2
+foreach ($source in $Sources) {
+    if ($ok) { break }
+    for ($essai = 1; $essai -le 2 -and -not $ok; $essai++) {
+        try {
+            Write-Host "  Telechargement via $($source.Nom) ($essai/2)..." -ForegroundColor Cyan
+            if ($source.Entete) {
+                Invoke-WebRequest -Uri $source.Url -OutFile $Fichier -UseBasicParsing `
+                    -Headers @{ 'Accept' = $source.Entete } -TimeoutSec 60
+            } else {
+                Invoke-WebRequest -Uri $source.Url -OutFile $Fichier -UseBasicParsing -TimeoutSec 60
+            }
+            $ok = $true
+        } catch {
+            Write-Host "  Echec : $_" -ForegroundColor Yellow
+            Start-Sleep -Seconds 2
+        }
     }
 }
 
 if (-not $ok) {
     Write-Host ''
     Write-Host '  [ERREUR] Telechargement impossible.' -ForegroundColor Red
-    Write-Host '  Verifiez la connexion internet, puis relancez.' -ForegroundColor Red
+    Write-Host '  Verifiez la connexion internet du poste, puis relancez.' -ForegroundColor Red
+    Write-Host '  Si un antivirus bloque, autorisez PowerShell dans ses reglages.' -ForegroundColor Red
     exit 1
 }
 
-# --- 3. verification de l'empreinte ---------------------------------
+# --- 4. verification de l'empreinte ---------------------------------
 $empreinte = (Get-FileHash -Path $Fichier -Algorithm SHA256).Hash.ToLower()
 if ($empreinte -ne $Sha256) {
     Write-Host ''
@@ -64,7 +92,14 @@ if ($empreinte -ne $Sha256) {
 }
 Write-Host '  Empreinte SHA-256 verifiee : le fichier est intact.' -ForegroundColor Green
 
-# --- 4. lancement ----------------------------------------------------
+# --- 5. lancement ----------------------------------------------------
+# Au second lancement, le pont est deja installe : on ne retelecharge
+# rien, on relance seulement.
+$dejaLa = Test-Path (Join-Path $Cible 'PONT-poste.ps1')
+if ($dejaLa) {
+    Write-Host '  Pont deja installe : relance seulement.' -ForegroundColor DarkGray
+}
+
 Write-Host ''
 Write-Host '  Lancement du pont...' -ForegroundColor Cyan
 Write-Host ''
