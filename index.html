@@ -9,40 +9,41 @@
 <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
 <style>
 :root{
-  --bg:#f9f7f2;
+  /* Palette de test — indigo sur gris-bleu (remplace le crème/teal) */
+  --bg:#f1f3fa;
   --surface:#ffffff;
-  --surface-alt:#f3efe6;
-  --ink:#191c22;
-  --ink-2:#414852;
-  --dim:#666f7a;
-  --line:#e5dfd2;
-  --line-soft:#f0ebe0;
-  --accent:#0f766e;
-  --accent-bg:#eaf7f4;
-  --accent-bd:#bce3db;
-  --blue:#2c5d91;
-  --blue-bg:#eff5fb;
-  --blue-bd:#cddff2;
-  --ok:#247a52;
-  --ok-bar:#2f8f62;
-  --ok-bg:#edf8f2;
-  --ok-bd:#bde0cd;
-  --enc:#8a6100;
-  --enc-bar:#c58f12;
-  --enc-bg:#fdf6e3;
-  --enc-bd:#ead59e;
-  --cad:#5b5173;
-  --cad-bar:#7e7297;
-  --cad-bg:#f4f1f9;
-  --cad-bd:#d6cfe4;
-  --warn-bg:#fdf6e3;
-  --warn-bd:#e8d49c;
-  --warn-ink:#4f421d;
-  --rien:#9a3b28;
-  --rien-bg:#fdf0ee;
-  --rien-bd:#f0cfc6;
+  --surface-alt:#e9ecf7;
+  --ink:#15171f;
+  --ink-2:#3b4152;
+  --dim:#646b7e;
+  --line:#dce1ef;
+  --line-soft:#e9ecf6;
+  --accent:#4338ca;
+  --accent-bg:#eef0ff;
+  --accent-bd:#c5c9fb;
+  --blue:#1d4ed8;
+  --blue-bg:#eff6ff;
+  --blue-bd:#bfdbfe;
+  --ok:#15803d;
+  --ok-bar:#16a34a;
+  --ok-bg:#f0fdf4;
+  --ok-bd:#bbf7d0;
+  --enc:#a16207;
+  --enc-bar:#ca8a04;
+  --enc-bg:#fefce8;
+  --enc-bd:#fde68a;
+  --cad:#7e22ce;
+  --cad-bar:#9333ea;
+  --cad-bg:#faf5ff;
+  --cad-bd:#e9d5ff;
+  --warn-bg:#fefce8;
+  --warn-bd:#fde68a;
+  --warn-ink:#4d3c0f;
+  --rien:#b91c1c;
+  --rien-bg:#fef2f2;
+  --rien-bd:#fecaca;
   --radius:14px;
-  --shadow:0 1px 3px rgba(25,28,34,.04);
+  --shadow:0 1px 3px rgba(21,23,31,.05);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -90,7 +91,7 @@ a{color:var(--accent)}
   height:9px;
   border-radius:50%;
   background:var(--accent);
-  box-shadow:0 0 0 3px rgba(15,118,110,.15);
+  box-shadow:0 0 0 3px rgba(67,56,202,.15);
 }
 .navlinks{
   display:flex;
@@ -162,6 +163,19 @@ h1{
 }
 .chapo b{color:var(--ink)}
 
+/* Bannière photo */
+.banniere{
+  display:block;
+  width:100%;
+  height:230px;
+  object-fit:cover;
+  object-position:center;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  margin:0 0 22px;
+  box-shadow:var(--shadow);
+}
+
 /* Bandeau KPI */
 .resume{
   display:grid;
@@ -221,7 +235,7 @@ h1{
 .chantier{
   background:var(--warn-bg);
   border:1px solid var(--warn-bd);
-  border-left:4px solid #c9a227;
+  border-left:4px solid #ca8a04;
   border-radius:11px;
   padding:14px 18px;
   margin:0 0 28px;
@@ -235,7 +249,7 @@ h1{
   margin-bottom:5px;
 }
 .chantier p{margin:0;font-size:14.4px;color:var(--warn-ink);line-height:1.58}
-.chantier p.v{margin-top:6px;font-size:12.6px;color:#826e37}
+.chantier p.v{margin-top:6px;font-size:12.6px;color:#6b5514}
 
 /* Titres de section */
 h2.sect{
@@ -352,7 +366,7 @@ h2.sect small{
 .b:last-child{border-bottom:0}
 .b:hover{background:var(--surface-alt)}
 .bn{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink);font-weight:600}
-.bb{height:8px;background:#ece6d9;border-radius:99px;overflow:hidden}
+.bb{height:8px;background:#e5e9f5;border-radius:99px;overflow:hidden}
 .bb i{display:block;height:100%;border-radius:99px;transition:width .3s ease}
 .bc{text-align:right;color:var(--dim);font-variant-numeric:tabular-nums;font-size:12.5px}
 .bp{text-align:right;color:var(--ink-2);font-variant-numeric:tabular-nums;font-size:13px;font-weight:700}
@@ -444,11 +458,27 @@ i.cadre{background:var(--cad-bar)}
 .tag.fini{color:var(--ok);border-color:var(--ok-bd);background:var(--ok-bg)}
 .tag.encours{color:var(--enc);border-color:var(--enc-bd);background:var(--enc-bg)}
 .tag.cadre{color:var(--cad);border-color:var(--cad-bd);background:var(--cad-bg)}
+.p-photo{
+  margin:2px 0 14px;
+  border:1px solid var(--line);
+  border-radius:11px;
+  overflow:hidden;
+  background:var(--surface-alt);
+}
+.p-photo img{
+  display:block;
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  object-position:center;
+  transition:transform .35s ease;
+}
+.p:hover .p-photo img{transform:scale(1.03)}
 .idee{margin:0 0 14px;font-size:14.8px;color:var(--ink-2)}
 
 .jauge{
   height:9px;
-  background:#efeae0;
+  background:#e5e9f5;
   border-radius:99px;
   overflow:hidden;
   margin:0 0 6px;
@@ -546,7 +576,7 @@ ul.etapes input[type="checkbox"]{
   height:18px;
   margin-top:2px;
   border-radius:5px;
-  border:1.5px solid #cbc3b2;
+  border:1.5px solid #c6ccdf;
   background:#fff;
   cursor:pointer;
   position:relative;
@@ -568,7 +598,7 @@ ul.etapes input[type="checkbox"]:checked::after{
   border-width:0 2px 2px 0;
   transform:rotate(42deg);
 }
-ul.etapes li.oui .et-txt{color:var(--dim);text-decoration:line-through;text-decoration-color:#c4bdb0}
+ul.etapes li.oui .et-txt{color:var(--dim);text-decoration:line-through;text-decoration-color:#c2c8da}
 ul.etapes li.non .et-txt{color:var(--ink)}
 .del-btn{
   background:none;
@@ -647,8 +677,8 @@ ul.etapes li.non .et-txt{color:var(--ink)}
 
 /* Condensé */
 .cond-card{
-  background:#115e59;
-  color:#e6f7f4;
+  background:#312e81;
+  color:#eef2ff;
   border-radius:var(--radius);
   padding:22px 24px;
   box-shadow:var(--shadow);
@@ -702,7 +732,7 @@ ol.cond b{color:#fff;font-weight:750}
   outline:none;
   border-color:var(--accent);
   background:#fff;
-  box-shadow:0 0 0 3px rgba(15,118,110,.12);
+  box-shadow:0 0 0 3px rgba(67,56,202,.12);
 }
 #res .r{
   border-bottom:1px solid var(--line-soft);
@@ -780,7 +810,7 @@ footer b{color:var(--ink-2)}
   bottom:16px;
   transform:translateX(-50%);
   z-index:50;
-  background:#191c22;
+  background:#1e1b4b;
   color:#f3f4f6;
   border-radius:12px;
   padding:10px 14px;
@@ -793,7 +823,7 @@ footer b{color:var(--ink-2)}
   font-size:13px;
 }
 .savebar.on{display:flex}
-.savebar .dot-save{width:8px;height:8px;border-radius:50%;background:#34d399;flex:0 0 auto}
+.savebar .dot-save{width:8px;height:8px;border-radius:50%;background:#a5b4fc;flex:0 0 auto}
 .savebar button{
   font:inherit;
   font-size:12.5px;
@@ -805,7 +835,7 @@ footer b{color:var(--ink-2)}
   color:#fff;
   cursor:pointer;
 }
-.savebar button.prim{background:#14b8a6;border-color:#14b8a6;color:#052e2b}
+.savebar button.prim{background:#6366f1;border-color:#6366f1;color:#eef2ff}
 .savebar button:hover{filter:brightness(1.1)}
 
 /* Modales */
@@ -813,7 +843,7 @@ footer b{color:var(--ink-2)}
   position:fixed;
   inset:0;
   z-index:80;
-  background:rgba(25,28,34,.52);
+  background:rgba(21,23,31,.52);
   backdrop-filter:blur(3px);
   display:none;
   align-items:center;
@@ -882,7 +912,7 @@ footer b{color:var(--ink-2)}
   right:18px;
   bottom:74px;
   z-index:90;
-  background:#115e59;
+  background:#312e81;
   color:#fff;
   padding:10px 15px;
   border-radius:10px;
@@ -1006,7 +1036,7 @@ footer b{color:var(--ink-2)}
 /* Écran Corriger — gros pavés */
 .corriger-overlay{
   position:fixed;inset:0;z-index:70;
-  background:rgba(25,28,34,.55);
+  background:rgba(21,23,31,.55);
   backdrop-filter:blur(3px);
   display:none;
   align-items:flex-start;justify-content:center;
@@ -1046,7 +1076,7 @@ footer b{color:var(--ink-2)}
   display:flex;flex-direction:column;gap:6px;
   transition:border-color .15s,transform .1s,box-shadow .15s;
 }
-.tile:hover{border-color:var(--accent);box-shadow:0 6px 20px rgba(15,118,110,.12);transform:translateY(-1px)}
+.tile:hover{border-color:var(--accent);box-shadow:0 6px 20px rgba(67,56,202,.12);transform:translateY(-1px)}
 .tile .tile-ico{font-size:26px;line-height:1}
 .tile .tile-t{font-size:17px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
 .tile .tile-s{font-size:13px;color:var(--dim);line-height:1.5}
@@ -1139,12 +1169,14 @@ footer b{color:var(--ink-2)}
 @media (max-width:560px){
   .topbar-in{padding:9px 14px}
   .envel{padding:24px 14px 96px}
+  .banniere{height:150px}
+  .p-photo img{height:140px}
   .p{padding:16px}
   .focus-row{grid-template-columns:1fr}
   .focus-go{justify-self:start}
 }
 @media print{
-  .topbar,.toolbar,.add-step,.del-btn,.savebar,.modal-bg,.toast,#section-cherche,.search-box,.gh-bar,.corriger-overlay,.arena-box{display:none!important}
+  .topbar,.toolbar,.add-step,.del-btn,.savebar,.modal-bg,.toast,#section-cherche,.search-box,.gh-bar,.corriger-overlay,.arena-box,.banniere,.p-photo{display:none!important}
   body{background:#fff;color:#000}
   .envel{max-width:none;padding:0}
   .p,.kpi,.focus-card,.overview,.veille-box,.aide,.cond-card{box-shadow:none;break-inside:avoid}
@@ -1184,6 +1216,7 @@ footer b{color:var(--ink-2)}
   <h1>Tableau de bord</h1>
   <p class="date">État au <b>16 novembre 2026</b> · mis à jour à la main · fonctionne en ligne et hors ligne, sans compte ni suivi</p>
   <p class="chapo">Six projets suivis au même endroit. Pour chacun : où il en est, <b>ce qui le terminera</b>, et <b>la seule chose à faire ensuite</b>. Vous pouvez cocher une étape directement : les barres, les pourcentages et la prochaine action se mettent à jour aussitôt.</p>
+  <img class="banniere" src="img/banniere.jpg" alt="Bureau de travail : carnet de notes, ordinateur et café, lumière du matin" width="1100" height="300">
   <div class="arena-box" aria-label="Comment faire évoluer ce site">
     <span><b>✦ Vous voulez modifier ce site ?</b> Ouvrez <a class="arena-link" href="https://arena.ai/agent" target="_blank" rel="noopener noreferrer">✦ Mon assistant Arena</a> et collez-y votre <b>premier message</b> :</span>
     <code class="arena-prompt" id="arena-prompt">Lis le dépôt franceinfo771-prog/tableau_de_bord (branche main) : ASSISTANT.md, puis ETAT.md et projets.json. C'est mon tableau de bord de projets. Ensuite, attends mes demandes — et pour chaque changement, branche + PR, jamais direct sur main.</code>
@@ -1825,6 +1858,16 @@ footer b{color:var(--ink-2)}
     btn.textContent = allOpen ? 'Tout replier' : 'Tout déplier';
   }
 
+  // Photos des projets (secours si le champ « photo » est absent de projets.json)
+  const PHOTOS = {
+    'notes':'img/notes.jpg',
+    'sites':'img/sites.jpg',
+    'poche':'img/poche.jpg',
+    'maquette':'img/maquette.jpg',
+    'velo':'img/velo.jpg',
+    'ia-decouverte':'img/ia.jpg'
+  };
+
   function renderProjects(){
     const list = state.projets.filter(p => {
       const st = projectStats(p);
@@ -1861,6 +1904,11 @@ footer b{color:var(--ink-2)}
         '</li>'
       ).join('');
 
+      const photoSrc = p.photo || PHOTOS[p.id] || '';
+      const photoHtml = photoSrc
+        ? '<div class="p-photo"><img src="' + esc(photoSrc) + '" alt="" loading="lazy" width="660" height="180"></div>'
+        : '';
+
       return '<article class="p ' + st.cls + '" id="proj-' + esc(p.id) + '">' +
         '<header>' +
           '<h3>' + esc(p.nom) + '</h3>' +
@@ -1869,6 +1917,7 @@ footer b{color:var(--ink-2)}
             (p.custom ? '<button class="del-btn" type="button" title="Supprimer ce projet ajouté" data-del-proj="' + esc(p.id) + '">×</button>' : '') +
           '</div>' +
         '</header>' +
+        photoHtml +
         '<p class="idee">' + esc(p.idee) + '</p>' +
         '<div class="jauge" role="img" aria-label="' + st.done + ' étapes sur ' + st.total + '"><i class="' + st.cls + '" style="width:' + st.pct + '%"></i></div>' +
         '<p class="compte"><b>' + st.done + '</b> / ' + st.total + ' étapes · <b>' + st.pct + ' %</b></p>' +
