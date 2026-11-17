@@ -22,7 +22,9 @@ param(
     [switch]$Silencieux,
     [switch]$Releve,
     [switch]$Installer,
+    [switch]$Tunnel,
     [switch]$SansModele,
+    [int]$Port = 1234,
     [string]$Modele = '',
     [int]$IntervalleSecondes = 30,
     [string]$RapportChemin = ''
@@ -770,7 +772,27 @@ function Executer-DeclencheurInstallation($config, [string]$demande) {
     if (Test-Path $FichierEtatInstall) { $dernier = (Get-Content $FichierEtatInstall -Raw -ErrorAction SilentlyContinue) }
     if ($dernier -and $dernier.Trim() -eq $ordre.id) { return $false }
 
-    Write-Host "`nDemande d'installation recue : $($ordre.id)" -ForegroundColor Cyan
+    Write-Host "`nDemande dinstallation recue : $($ordre.id)" -ForegroundColor Cyan
+
+    # Une demande peut porter une action particuliere : installation
+    # du modele, ouverture du tunnel prive, ou les deux.
+    if ($ordre.action -eq 'tunnel') {
+        $install = Installer-Tailscale
+        $rapport = $install[0] -join "`n"
+        $rapport = $rapport + "`n" + (Activer-Tunnel $install[1] $ordre.port)
+        try {
+            Publier-FichierPontEnClair $config 'tunnel.txt' $rapport 'pont : tunnel prive'
+            Write-Host 'Rapport du tunnel publie.' -ForegroundColor Green
+        } catch {
+            Write-Host "Publication impossible : $_" -ForegroundColor Yellow
+        }
+        try {
+            $utf8 = New-Object System.Text.UTF8Encoding($false)
+            [System.IO.File]::WriteAllText($FichierEtatInstall, $ordre.id, $utf8)
+        } catch { }
+        return $true
+    }
+
     if ($ordre.modele) { Write-Host "  Modele demande : $($ordre.modele)" -ForegroundColor Cyan }
 
     $install = Installer-LmStudio
@@ -798,6 +820,112 @@ function Executer-DeclencheurInstallation($config, [string]$demande) {
         [System.IO.File]::WriteAllText($FichierEtatInstall, $ordre.id, $utf8)
     } catch { }
     return $true
+}
+
+# ----------------------------------------------------------------- tunnel
+
+function Trouver-Tailscale {
+    foreach ($c in @(
+        "$env:ProgramFiles\Tailscale\tailscale.exe",
+        "$env:ProgramFiles(x86)\Tailscale\tailscale.exe",
+        "$env:LOCALAPPDATA\Tailscale\tailscale.exe"
+    )) {
+        if (Test-Path $c) { return $c }
+    }
+    $t = Get-Command tailscale -ErrorAction SilentlyContinue
+    if ($t) { return $t.Source }
+    return $null
+}
+
+function Installer-Tailscale {
+    # Installe Tailscale : il cree un reseau prive entre vos appareils,
+    # sans ouvrir le moindre port sur la box. C'est ce qui rend l'IA
+    # accessible depuis le travail tout en restant introuvable
+    # depuis internet.
+    $L = New-Object System.Collections.ArrayList
+    function Note([string]$ligne) {
+        [void]$L.Add($ligne)
+        Write-Host $ligne
+    }
+
+    $ts = Trouver-Tailscale
+    if (-not $ts) {
+        Note 'Installation de Tailscale...'
+        try {
+            $r = winget install --id Tailscale.Tailscale --exact `
+                --accept-package-agreements --accept-source-agreements --silent 2>&1
+            foreach ($l in $r) { Note ("  " + $l) }
+        } catch { Note ("  winget : " + $_) }
+        $ts = Trouver-Tailscale
+    }
+
+    if (-not $ts) {
+        Note 'ECHEC : Tailscale introuvable apres installation.'
+        return @($L, $null)
+    }
+    Note ("Tailscale : " + $ts)
+    return @($L, $ts)
+}
+
+function Activer-Tunnel($ts, [int]$port) {
+    # tailscale up affiche une adresse d'authentification a ouvrir dans
+    # un navigateur. On la remonte : l'utilisateur doit la valider une
+    # fois, sur le poste de travail.
+    $L = New-Object System.Collections.ArrayList
+    function Note([string]$ligne) {
+        [void]$L.Add($ligne)
+        Write-Host $ligne
+    }
+
+    if (-not $ts) { Note 'Tailscale absent : tunnel impossible.'; return ($L -join "`n") }
+
+    Note 'Connexion de ce poste au reseau prive...'
+    $sortie = & $ts up --timeout=20s 2>&1 | Out-String
+    foreach ($l in ($sortie -split "`n")) { if ($l.Trim()) { Note ("  " + $l.Trim()) } }
+
+    if ($sortie -match 'https://login\.tailscale\.com/\S+') {
+        Note ''
+        Note 'A OUVRIR DANS UN NAVIGATEUR pour valider :' -ForegroundColor Yellow
+        Note ('  ' + $Matches[0]) -ForegroundColor White
+    }
+
+    $etat = & $ts status --json 2>$null | Out-String
+    if ($etat -match '"BackendState"\s*:\s*"Running"') {
+        Note 'Poste connecte au reseau prive.'
+    } else {
+        Note 'Le poste n est pas encore connecte : ouvrez l adresse ci-dessus.'
+    }
+
+    Note ''
+    Note 'Publication du serveur local sur une adresse prive en https...'
+    try {
+        $s = & $ts serve --bg "http://127.0.0.1:$port" 2>&1 | Out-String
+        foreach ($l in ($s -split "`n")) { if ($l.Trim()) { Note ("  " + $l.Trim()) } }
+    } catch { Note ("  " + $_) }
+
+    Start-Sleep -Seconds 3
+    $url = ''
+    try {
+        $st = & $ts serve status --json 2>$null | Out-String
+        if ($st -match '"URL"\s*:\s*"(https://[^"]+)"') { $url = $Matches[1] }
+    } catch { }
+    if (-not $url) {
+        try {
+            $st = & $ts serve status 2>&1 | Out-String
+            if ($st -match '(https://[A-Za-z0-9\.\-]+\.ts\.net)') { $url = $Matches[1] }
+        } catch { }
+    }
+
+    if ($url) {
+        Note ''
+        Note ("Adresse prive : " + $url) -ForegroundColor Green
+        Note 'A coller dans la zone " Mon IA privee " du tableau de bord.'
+    } else {
+        Note ''
+        Note 'Adresse non obtenue : lancez " tailscale serve status " pour la voir.'
+    }
+
+    return ($L -join "`n")
 }
 
 function Tourner($config, [string]$phrase) {
@@ -848,6 +976,28 @@ if ($Releve) {
     try {
         $prepares = Preparer-Configuration
         Publier-Machine $prepares[0]
+    } catch {
+        Write-Host $_ -ForegroundColor Red
+        exit 1
+    }
+    exit 0
+}
+
+if ($Tunnel) {
+    try {
+        $prepares = Preparer-Configuration
+        $config = $prepares[0]
+        $install = Installer-Tailscale
+        $rapport = $install[0] -join "`n"
+        $ts = $install[1]
+        $rapport = $rapport + "`n" + (Activer-Tunnel $ts $Port)
+        try {
+            Publier-FichierPontEnClair $config 'tunnel.txt' $rapport 'pont : tunnel prive'
+            Write-Host ''
+            Write-Host 'Rapport publie pour votre assistant.' -ForegroundColor Green
+        } catch {
+            Write-Host "Publication impossible : $_" -ForegroundColor Yellow
+        }
     } catch {
         Write-Host $_ -ForegroundColor Red
         exit 1

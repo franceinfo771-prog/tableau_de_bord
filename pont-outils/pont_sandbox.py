@@ -221,6 +221,42 @@ def cmd_installer(argv):
     print("Le poste s'en occupera a son prochain tour de boucle (30 s).")
 
 
+def cmd_tunnel(argv):
+    """Demande au poste d'ouvrir l'acces prive (Tailscale).
+
+    Le poste installe Tailscale, se connecte au reseau prive, puis publie
+    le serveur local sur une adresse https privee. Le rapport indique
+    l'adresse a coller dans le tableau de bord.
+    """
+    port = 1234
+    for i, arg in enumerate(argv):
+        if arg == "--port" and i + 1 < len(argv):
+            port = int(argv[i + 1])
+
+    demande = {
+        "id": time.strftime("%Y%m%d-%H%M%S") + "-" + os.urandom(2).hex(),
+        "action": "tunnel",
+        "port": port,
+        "ts": time.strftime("%Y-%m-%d %H:%M:%S"),
+    }
+    gh_put(
+        "installer.txt",
+        json.dumps(demande, ensure_ascii=False, indent=2),
+        "pont : demande de tunnel prive",
+    )
+    print("Tunnel prive demande (id %s), port %d." % (demande["id"], port))
+    print("Le poste affichera une adresse d'authentification a ouvrir.")
+
+
+def cmd_tunnel_rapport(argv):
+    """Lit le rapport du tunnel prive."""
+    payload = gh_get("tunnel.txt")
+    if not payload:
+        print("Aucun rapport de tunnel pour l'instant.")
+        return
+    print(base64.b64decode(payload["content"]).decode("utf-8", errors="replace"))
+
+
 COMMANDS = {
     "envoyer": cmd_envoyer,
     "lire": cmd_lire,
@@ -228,6 +264,8 @@ COMMANDS = {
     "machine": cmd_machine,
     "rapport": cmd_rapport,
     "installer": cmd_installer,
+    "tunnel": cmd_tunnel,
+    "tunnel-rapport": cmd_tunnel_rapport,
 }
 
 
