@@ -3,7 +3,8 @@
 ## État actuel
 
 Branche de session : `arena/ebda441b-tableau-de-bord` (poussée, commit `65c6562`).
-Branche distante `pont` : commit **`dc7162c`** (artefacts du pont + tests + secours).
+Branche distante `pont` : commit **`c77c024`** (artefacts du pont + tests + secours
++ chargement adaptatif du modèle).
 Branche `main` : `2fda254d` (inchangée, PR #10 déjà fusionnée).
 
 Le worktree temporaire a été supprimé. Le dossier `pont/` reste exclu du
@@ -63,13 +64,16 @@ embarqué identique à `PONT-poste.ps1`, `Demarrer-ServeurLocal` présent,
 - `scripts/sync_donnees_embedded.py --verifier` : à jour.
 - `test_kat.py` : **sha256 OK, sha1 OK** → l'autotest affichera « OK » sur un
   poste Windows réel (le KAT du script PowerShell est reproduit exactement).
+- Chargement du modèle adaptatif : `--gpu max`, puis `--gpu auto`, puis sans
+  réglage GPU. Un ASUS sans GPU dédié peut refuser `--gpu max` ; le modèle se
+  charge quand même.
 - `test_e2e.py` : chiffrement, refus de mauvaise phrase, refus de falsification,
   puis **nettoyage des artefacts**.
 - Aucun secret dans le diff (`pont-kat-2016` est un vecteur de test à clé connue
   dans l'autotest ; `pont-config.json` est un gabarit).
 
 ## Vérifications en ligne (via l'API GitHub, pas en local)
-- Hash du BAT servi = hash annoncé dans `INSTALLER.ps1` : `d8d71dcd…e6af1`.
+- Hash du BAT servi = hash annoncé dans `INSTALLER.ps1` : `a8335a63…2fac`.
 - Script embarqué dans le `.bat` == `PONT-poste.ps1` publié : identique.
 - `ip_locale`, `passerelle`, `dns`, `nom_hote` présents dans le script servi.
 - `Demarrer-ServeurLocal` présent, **0** appel bloquant à `lms server start`.
@@ -107,6 +111,13 @@ deux points rassurants. HTML + version texte. Aucun secret dedans.
 Si la commande échoue : `pont-outils/SECOURS.md` (aussi publié sur la branche
 `pont`) donne cinq méthodes indépendantes, de la plus simple à la plus
 exhaustive, plus un tableau « ce que vous voyez → ce que ça veut dire ».
+
+### Le test aura lieu à midi, pas le soir
+L'utilisateur testera l'installation vers 12 h (heure de Paris) le 17 nov. 2026.
+La surveillance (démarrée à 11 h 25, durée 3 h → jusqu'à 14 h 25) couvre ce
+créneau. Le téléchargement du modèle (1 à 5 Go) est la seule étape longue :
+il se fait via `lms get`, qui gère la reprise, et le pont ne l'attend pas
+bloqué — il publie son rapport même si le téléchargement n'est pas fini.
 
 ### Surveillance en cours
 `pont/surveiller_pont.py` tourne en arrière-plan (process_id
