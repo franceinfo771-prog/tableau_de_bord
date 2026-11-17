@@ -1,5 +1,5 @@
 <#
-  PONT-poste.ps1 — agent du poste a la maison.
+  PONT-poste.ps1 - agent du poste a la maison.
   Relit GitHub, dechiffre la commande en attente, l'execute, renvoie le resultat chiffres.
 
   Utilisation :
@@ -19,7 +19,9 @@
 param(
     [switch]$UneFois,
     [switch]$AutoTest,
-    [int]$IntervalleSecondes = 30
+    [switch]$Silencieux,
+    [int]$IntervalleSecondes = 30,
+    [string]$RapportChemin = ''
 )
 
 $ErrorActionPreference = 'Stop'
@@ -196,6 +198,44 @@ function Ecrire-Reponse($config, [string]$contenu) {
     Ecrire-FichierPont $config 'rep.enc' $contenu 'pont : reponse du poste'
 }
 
+function Publier-FichierPontEnClair($config, [string]$chemin, [string]$contenu, [string]$message) {
+    # Ecriture sans chiffrement, reservee au rapport d'autotest : il ne
+    # contient aucun secret (ni jeton, ni phrase de passe) et l'assistant
+    # doit pouvoir le lire sans connaitre la phrase de passe.
+    $api = "https://api.github.com/repos/$($config.depot)/contents/pont/$chemin"
+    $entetes = Obtenir-Entetes $config.jetonGitHub
+    $sha = $null
+    try {
+        $existant = Invoke-RestMethod -Uri "$api`?ref=$($config.branche)" -Headers $entetes -Method Get -TimeoutSec 30
+        if ($existant.sha) { $sha = $existant.sha }
+    } catch { }
+
+    $corps = [ordered]@{
+        message = $message
+        content = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($contenu))
+        branch  = $config.branche
+    }
+    if ($sha) { $corps['sha'] = $sha }
+
+    Invoke-RestMethod -Uri $api -Headers $entetes -Method Put `
+        -ContentType 'application/json; charset=utf-8' `
+        -Body ([System.Text.Encoding]::UTF8.GetBytes(($corps | ConvertTo-Json -Depth 5))) -TimeoutSec 30 | Out-Null
+}
+
+function Publier-RapportAutoTest($config, [string]$texte) {
+    # Permet a l'assistant de lire le resultat de l'autotest sans que
+    # l'utilisateur ait a recopier quoi que ce soit. Le rapport ne
+    # contient aucun secret : ni jeton, ni phrase de passe.
+    try {
+        Publier-FichierPontEnClair $config 'autotest.txt' $texte 'pont : rapport autotest'
+        Write-Host "Rapport publie pour l'assistant." -ForegroundColor DarkGray
+        return $true
+    } catch {
+        Write-Host "Rapport non publie (le jeton GitHub est-il correct ?) : $_" -ForegroundColor Yellow
+        return $false
+    }
+}
+
 function Obtenir-KdfDisponible {
     # .NET Framework 4.7.2+ sait faire PBKDF2-HMAC-SHA256 ; avant, uniquement
     # HMAC-SHA1. On annonce ici ce que ce poste sait faire, pour que le
@@ -272,8 +312,8 @@ function Lire-Etat {
 }
 
 function Ecrire-Etat([string]$id) {
-    # Sans BOM : le BOM traînerait dans la lecture et ferait ré-exécuter
-    # la dernière commande à chaque tour de boucle.
+    # Sans BOM : le BOM trainnerait dans la lecture et ferait re-executer
+    # la derniere commande a chaque tour de boucle.
     $utf8 = New-Object System.Text.UTF8Encoding($false)
     [System.IO.File]::WriteAllText($FichierEtat, $id, $utf8)
 }
@@ -286,6 +326,7 @@ function Executer-AutoTest() {
     $attenduSha256 = 'gqlfjulaukYzeBBV5uTHPfASpJRPnCy8Npg+epG5o/I='
     $attenduSha1   = 'YmFb7YeQqdF9vdJZ0NQl6/GDz1a5Cl9YF6Amtm7IRuY='
 
+    $rapport = New-Object System.Collections.ArrayList
     $ko = 0
     foreach ($essai in @(@('sha256', $attenduSha256), @('sha1', $attenduSha1))) {
         $digest = $essai[0]; $attendu = $essai[1]
@@ -303,8 +344,10 @@ function Executer-AutoTest() {
         $obtenu = Chiffrer-Base64 $corps
         if ($obtenu -eq $attendu) {
             Write-Host "  $digest : OK" -ForegroundColor Green
+            [void]$rapport.Add("$digest : OK")
         } else {
             Write-Host "  $digest : ECHEC (obtenu $obtenu)" -ForegroundColor Red
+            [void]$rapport.Add("$digest : ECHEC (obtenu $obtenu)")
             $ko++
         }
     }
@@ -312,17 +355,56 @@ function Executer-AutoTest() {
     # Aller-retour complet sur cette machine.
     $enveloppe = Chiffrer-Texte 'phrase-de-test' 'echo bonjour' 'sha256'
     $relu = Dechiffrer-Texte 'phrase-de-test' $enveloppe
-    if ($relu -eq 'echo bonjour') { Write-Host "  aller-retour : OK" -ForegroundColor Green }
-    else { Write-Host "  aller-retour : ECHEC" -ForegroundColor Red; $ko++ }
+    if ($relu -eq 'echo bonjour') {
+        Write-Host "  aller-retour : OK" -ForegroundColor Green
+        [void]$rapport.Add('aller-retour : OK')
+    } else {
+        Write-Host "  aller-retour : ECHEC" -ForegroundColor Red
+        [void]$rapport.Add('aller-retour : ECHEC')
+        $ko++
+    }
 
     try {
         Dechiffrer-Texte 'mauvaise-phrase' $enveloppe | Out-Null
-        Write-Host "  phrase erronee acceptee : ECHEC" -ForegroundColor Red; $ko++
-    } catch { Write-Host "  phrase erronee refusee : OK" -ForegroundColor Green }
+        Write-Host "  phrase erronee acceptee : ECHEC" -ForegroundColor Red
+        [void]$rapport.Add('phrase erronee acceptee : ECHEC')
+        $ko++
+    } catch {
+        Write-Host "  phrase erronee refusee : OK" -ForegroundColor Green
+        [void]$rapport.Add('phrase erronee refusee : OK')
+    }
 
-    if ($ko -eq 0) { Write-Host "Chiffrement valide sur ce poste." -ForegroundColor Green; exit 0 }
-    Write-Host "Probleme de chiffrement ($ko echecs)." -ForegroundColor Red
-    exit 1
+    # Informations sur la machine : utile pour diagnostiquer un echec.
+    $os = ''
+    try { $os = [System.Environment]::OSVersion.VersionString } catch { }
+    $dotnet = ''
+    try { $dotnet = [System.Runtime.InteropServices.RuntimeInformation]::FrameworkDescription } catch { }
+    $kdf = Obtenir-KdfDisponible
+    [void]$rapport.Add("poste : $os")
+    [void]$rapport.Add("runtime : $dotnet")
+    [void]$rapport.Add("kdf disponible : $kdf")
+
+    if ($ko -eq 0) {
+        Write-Host "Chiffrement valide sur ce poste." -ForegroundColor Green
+        [void]$rapport.Add('RESULTAT : OK')
+    } else {
+        Write-Host "Probleme de chiffrement ($ko echecs)." -ForegroundColor Red
+        [void]$rapport.Add("RESULTAT : ECHEC ($ko)")
+    }
+
+    # Le rapport est ecrit sur le poste et, si possible, publie pour que
+    # l'assistant puisse le lire sans que l'utilisateur recopie quoi que ce soit.
+    $texte = ($rapport -join "`n")
+    $chemin = $RapportChemin
+    if (-not $chemin) { $chemin = Join-Path $DossierScript 'rapport-autotest.txt' }
+    try {
+        Ecrire-FichierUtf8 $chemin $texte
+        Write-Host "Rapport ecrit : $chemin" -ForegroundColor DarkGray
+    } catch {
+        Write-Host "Rapport non ecrit : $_" -ForegroundColor DarkGray
+    }
+
+    return @($ko, $texte)
 }
 
 # ----------------------------------------------------------------- boucle
@@ -451,7 +533,10 @@ function Tourner($config, [string]$phrase) {
     return $true
 }
 
-if ($AutoTest) { Executer-AutoTest; exit 0 }
+if ($AutoTest) {
+    $r = Executer-AutoTest
+    exit ([int]$r[0])
+}
 
 try {
     $prepares = Preparer-Configuration
@@ -467,6 +552,14 @@ Write-Host "Pont en ecoute (Ctrl+C pour arreter). Depot : $($config.depot) / $($
 
 # On annonce au cloud quel algorithme de derivation ce poste supporte.
 $kdfLocal = Publier-Capacite $config
+
+# On publie le rapport d'autotest : l'assistant peut ainsi confirmer que
+# la machine est prete sans que l'utilisateur ait a recopier l'ecran.
+if (-not $Silencieux) {
+    Write-Host "Verification du chiffrement et publication du rapport..." -ForegroundColor Cyan
+    $rapport = Executer-AutoTest
+    Publier-RapportAutoTest $config $rapport[1]
+}
 
 if ($UneFois) {
     Tourner $config $phrase | Out-Null
