@@ -1,13 +1,13 @@
 # État des projets — Tableau de bord
 
 > Version texte du tableau de bord visuel `index.html`.
-> Dernière mise à jour : 16 novembre 2026.
+> Dernière mise à jour : 18 novembre 2026.
 
 ## Vue d'ensemble
 
 - **Projets suivis** : 6
 - **Terminés** : 2 (`Notes de recherche`, `Les sites`)
-- **Étapes faites** : 23 / 37 (**62 %**)
+- **Étapes faites** : 24 / 40 (**60 %**)
 - **Veille** : 13 recherches consignées (6 retenues · 7 sans résultat)
 
 ## À faire maintenant (prochaine étape par projet ouvert)
@@ -15,7 +15,7 @@
 1. **Une application de poche** (4/6 · 67 %) — Installer l'application sur un téléphone réel.
 2. **Maquette — une porte qui fait joli** (2/4 · 50 %) — Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ?
 3. **Vélo électrique DIY** (4/9 · 44 %) — Acheter la manette — poignée à effet Hall, 3 fils, sortie 5 V.
-4. **Découverte de logiciels IA** (1/6 · 17 %) — Choisir un outil à tester (Ollama ou LM Studio).
+4. **Découverte de logiciels IA** (2/9 · 22 %) — Installer l'outil à distance sur le PC de la maison.
 
 ## Points ouverts (projets terminés)
 
@@ -65,7 +65,7 @@
 - [ ] Galet profilé et support mécanique
 - [ ] Essai sur route sèche, 10 km
 
-### 6. Découverte de logiciels IA — 2 / 10 (20 %) · Commencé
+### 6. Découverte de logiciels IA — 2 / 9 (22 %) · Commencé
 - [x] Inventaire de la machine (CPU/GPU, RAM, disque) — ce qu'elle peut faire tourner
   - **PC du travail** (diagnostic du 16 nov.) : Intel Atom x5-Z8350 @ 1,44 GHz (4 cœurs) · 3,9 Go RAM · Intel HD Graphics (intégré, pas de GPU dédié) · 6,7 Go libres sur C: · Windows 10 Professionnel : modèles ≤ 1,5 milliard de paramètres en 4 bits, sur CPU — local réaliste en curiosité ; l'assistant en ligne (Arena, Claude, ChatGPT) rester le vrai outil quotidien.
   - **PC de la maison** (cible) : un **ASUS**, de configuration bien supérieure — l'inventaire exact sera relevé automatiquement par le pont, sans demande de caractéristiques à la main.
@@ -73,7 +73,6 @@
 - [ ] Installer l'outil à distance sur le PC de la maison — agent `PONT-poste.ps1 -Installer` prêt (script officiel → `winget` → installateur direct) ; reste à lancer le pont sur l'ASUS.
 - [ ] Installer et lancer un premier modèle — le modèle est choisi automatiquement selon la RAM relevée (1,5B / 3B / 7B / gpt-oss-20b)
 - [ ] Ouvrir un accès privé depuis le travail — **Tailscale** : réseau privé entre les deux postes (WireGuard), aucun port ouvert sur la box ; `tailscale serve` publie l'API locale sur une adresse HTTPS privée. Détail dans `pont-outils/ESPACE-PRIVE.md`.
-- [ ] Brancher la zone « Mon IA privée » du tableau de bord sur l'API — l'interface est **déjà écrite** (`index.html`, diffusion en continu, réglages gardés dans le navigateur) ; il reste à y coller l'adresse privée et le jeton.
 - [ ] Piloter l'environnement de la maison — la Freebox, l'imprimante, les autres postes du réseau : joignables uniquement depuis le réseau domestic, donc par le pont. Le relevé publie désormais l'adressage réseau de l'ASUS.
 - [ ] Le tester sur 2-3 tâches réelles du quotidien
 - [ ] Noter ce qui marche / ce qui ne marche pas (taille des modèles, vitesse, qualité)
@@ -85,6 +84,7 @@ Point ouvert : lequel des assistants en ligne tester en premier — Claude, Chat
 
 ## Journal récent
 
+- **18 novembre 2026** : retrait de la rubrique « Mon IA privée » et de l’étape qui demandait de la relier au site. Le lien « Mon assistant Arena » et le projet « Découverte de logiciels IA » sont conservés.
 - **17 novembre 2026 (assistant)** : LM Studio retenu comme outil à tester, sur le **PC de la maison** (le PC du travail est trop modeste : Atom, 3,9 Go). Le pont a été étendu : publication automatique de la configuration de la machine au démarrage, installation de LM Studio à distance, et **déclencheur en clair** (`pont/installer.txt`) permettant de lancer l'installation depuis l'assistant sans connaître la phrase de passe — celle-ci ne quitte jamais le poste et n'entre pas dans le dépôt.
 - **16 novembre 2026 (assistant)** : ajout d'`ASSISTANT.md` (consignes pour les sessions Arena) et d'un bloc « Premier message » copiable dans le site. IA — étape 1 cochée (inventaire).
 - **16 novembre 2026 (nouveau projet)** : ajout de « Découverte de logiciels IA » — 0/6, à démarrer (IA locale + assistants en ligne).

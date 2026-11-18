@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-16",
+  "version": "2026-11-18",
   "projets": [
     {
       "id": "notes",
@@ -215,11 +215,6 @@
         },
         {
           "t": "Ouvrir un accès privé depuis le travail — Tailscale, aucun port ouvert sur la box",
-          "ok": false,
-          "custom": true
-        },
-        {
-          "t": "Brancher la zone « Mon IA privée » du tableau de bord sur l'API",
           "ok": false,
           "custom": true
         },
