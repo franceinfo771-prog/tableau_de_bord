@@ -4,3 +4,6 @@ node_modules/
 # Fichiers de travail locaux
 *.log
 .DS_Store
+
+# Archive livrable (regénérable : python3 scripts/construire_archive.py)
+tableau-de-bord-*.zip

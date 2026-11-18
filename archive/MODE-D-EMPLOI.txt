@@ -1,0 +1,108 @@
+TABLEAU DE BORD — MES PROJETS
+Archive du 18 novembre 2026
+============================
+
+6 projets · 25 / 41 étapes faites (61 %) · 13 recherches de veille.
+
+Ce dossier contient tout : le site, ses données, ses images, et ce mode
+d'emploi. Il fonctionne SANS INTERNET, sans compte, sans installation.
+Tu peux le copier sur une clé, l'envoyer par mail, ou le garder six mois
+dans un coin — il s'ouvrira encore.
+
+
+1. OUVRIR LE TABLEAU DE BORD
+----------------------------
+  1. Décompresse le dossier (.zip : clic droit → « Extraire tout » sur
+     Windows, double-clic sur Mac). Travaille dans le dossier extrait,
+     pas dans le zip.
+  2. Double-clique sur COMMENCER-ICI.html : il s'ouvre dans le navigateur.
+  3. Clique sur « Ouvrir le tableau de bord ».
+
+  Ça s'ouvre dans un éditeur de texte ? Clic droit sur le fichier →
+  « Ouvrir avec » → choisis ton navigateur (Firefox, Chrome, Edge, Safari).
+  Si le navigateur demande « autoriser les scripts », accepte : sans eux,
+  rien ne s'anime.
+
+
+2. CE QU'ON PEUT FAIRE DESSUS
+-----------------------------
+  - Clic sur une barre ......... ouvre le projet, déplie ses étapes.
+  - Case à cocher .............. compte l'étape ; compteurs et
+                                 « prochaine étape » changent aussitôt.
+  - Recherche .................. cherche un mot dans toute la page.
+                                 Aucune donnée ne sort.
+  - « Tout déplier » ........... ouvre tous les projets d'un coup.
+  - Sauvegarder → Exporter ..... télécharge un fichier .json complet.
+  - Sauvegarder → Importer ..... remet un fichier exporté auparavant.
+  - Sauvegarder → Réinitialiser  annule les coches de cet appareil.
+  - Imprimer ................... version papier propre, sans les boutons.
+
+  Adresses directes : ajouter à la fin de l'adresse
+    #proj-velo  #proj-poche  #proj-sites  #proj-maquette
+    #proj-notes  #proj-ia-decouverte
+  La page s'ouvre sur ce projet, étapes dépliées.
+
+  Ce qui change, ce qui ne change pas :
+  - Les coches sont gardées PAR APPAREIL, dans le navigateur.
+    Deux appareils ne se parlent pas.
+  - RIEN N'EST PUBLIÉ tant qu'on n'appuie pas sur « Enregistrer sur
+    GitHub » — et ce bouton a besoin d'une clé qui n'est pas dans cette
+    archive. Impossible de casser le site par erreur.
+  - Fermer l'onglet ne perd rien ; vider les données du navigateur, si.
+
+
+3. ENVOYER OU PARTAGER
+----------------------
+  - Par mail : joindre le .zip (environ 1,5 Mo, ça passe partout).
+  - Par clé USB : copier le dossier extrait tel quel.
+  - Le lien en ligne, si le site est encore publié :
+    https://franceinfo771-prog.github.io/tableau_de_bord/
+
+
+4. LE RETROUVER DANS SIX MOIS, OU DANS DEUX ANS
+-----------------------------------------------
+  Rien à mettre à jour, rien à maintenir : les fichiers HTML et les images
+  sont des formats que les navigateurs liront encore dans vingt ans.
+  Trois précautions suffisent :
+    1. Garder l'archive en double : une copie sur l'ordinateur, une sur
+       une clé ou un disque externe. C'est la seule vraie fragilité.
+    2. Ne pas la modifier à la main. Si un chiffre doit changer, il se
+       change dans le tableau puis « Exporter ».
+    3. Se souvenir du nom : le tableau s'appelle « tableau de bord — mes
+       projets », dépôt GitHub franceinfo771-prog/tableau_de_bord.
+
+
+5. POUR PLUS TARD : REPRENDRE LE SITE
+-------------------------------------
+  Le dossier technique/ contient le code source, les données
+  (projets.json), les consignes (ASSISTANT.md), l'état des lieux
+  (ETAT.md) et les scripts de vérification.
+
+  - Sans rien installer : demander à un assistant de reprendre le dossier.
+    Premier message possible : « Voici mon tableau de bord, un site en une
+    page. Lis ASSISTANT.md puis ETAT.md, et aide-moi à le faire évoluer. »
+  - En ligne : ouvrir le dépôt GitHub, créer une branche, proposer une
+    modification, fusionner. Le site se redéploie seul en une minute.
+
+
+CONFIDENTIALITÉ
+---------------
+  La page ne contient aucun script de mesure, aucun cookie, aucune police
+  ni image distante. Ouverte depuis ce dossier, elle ne contacte aucun
+  serveur. Le site en ligne est hébergé par GitHub Pages, qui garde une
+  trace technique des visites dans ses journaux ; il demande aux moteurs
+  de recherche de ne pas l'indexer (robots.txt + noindex).
+
+
+Contenu de l'archive
+--------------------
+  COMMENCER-ICI.html .... cette page, en version illustrée (point de départ)
+  MODE-D-EMPLOI.html .... le mode d'emploi complet, imprimable
+  LISEZ-MOI.txt ......... le présent texte
+  site/ ................. le site tel qu'il est en ligne
+                          (accueil.html, index.html, projets.json, img/)
+  version-internet/ ..... le site complet (atelier, bulletins)
+  technique/ ............ code source, données, consignes, vérifications
+  archives/ ............. sauvegardes .json exportées depuis le site
+
+Mode d'emploi rédigé le 18 novembre 2026. Il tient sur deux feuilles.

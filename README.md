@@ -38,6 +38,15 @@ Une page de présentation, pensée pour montrer le tableau de bord à quelqu'un 
 - **Recherche locale** : recherche instantanée sans réseau dans toute la page.
 - **Lien direct vers un projet** : une adresse terminée par `#proj-<id>` (ex. `…#proj-velo`) ouvre le projet au démarrage, déplie ses étapes et fait défiler jusqu'à lui. Le changement d'ancre après coup (`hashchange`) et les liens de l'aperçu, du « À faire maintenant » ou de la recherche font la même chose ; si un filtre masquait le projet, il revient à « Tous ».
 
+## Archive « coffret » (mode d'emploi inclus)
+
+```bash
+python3 scripts/construire_archive.py     # produit tableau-de-bord-AAAA-MM-JJ.zip
+node scripts/verif_archive.js            # vérifie l'archive comme si on l'ouvrait par double-clic
+```
+
+L'archive se suffit à elle-même : `COMMENCER-ICI.html` (page de démarrage), `MODE-D-EMPLOI.html` et `LISEZ-MOI.txt` (le mode d'emploi, imprimable), `site/` (le site complet, hors ligne), `technique/` (code, données, consignes, scripts) et `archives/` (sauvegardes `.json`). Elle fonctionne sans réseau et s'ouvre aussi bien sous Windows que sous Mac ou Linux. Les modèles des deux pages vivent dans `archive/`.
+
 ## Ouvrir en local
 
 ```bash
@@ -50,6 +59,7 @@ python3 -m http.server 8000
 node scripts/verif_rendu.js        # rendu headless : 0 erreur JS, comptes, boutons intacts
 node scripts/verif_ancre.js        # liens #proj-…, sauts, brouillon local, cochage
 node scripts/verif_accueil.js      # page de présentation : bouton, raccourcis, chiffres
+node scripts/verif_archive.js      # archive livrée : contenu, liens, ouverture hors ligne
 node scripts/verif_copie_commande.js
 python3 scripts/sync_donnees_embedded.py --verifier
 ```

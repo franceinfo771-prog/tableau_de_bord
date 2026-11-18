@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mode d'emploi — le tableau de bord de mes projets</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Mode d'emploi de l'archive : comment ouvrir le tableau de bord, quoi faire dessus, comment le retrouver dans six mois, et comment le republier.">
+<style>
+:root{
+  --bg:#f1f3fa;--surface:#fff;--surface-alt:#e9ecf7;--ink:#15171f;--ink-2:#3b4152;
+  --dim:#646b7e;--line:#dce1ef;--accent:#4338ca;--accent-bg:#eef0ff;--accent-bd:#c5c9fb;
+  --warn-bg:#fefce8;--warn-bd:#fde68a;--warn-ink:#4d3c0f;--radius:14px;
+  --shadow:0 1px 3px rgba(21,23,31,.05);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.68 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.envel{max-width:820px;margin:0 auto;padding:30px 20px 70px}
+a{color:var(--accent)}
+.carte{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:34px 36px;box-shadow:var(--shadow)}
+.eyebrow{display:inline-block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--accent);background:var(--accent-bg);border:1px solid var(--accent-bd);
+  border-radius:999px;padding:4px 12px;margin:0 0 14px}
+h1{font-size:29px;line-height:1.22;margin:0 0 8px;letter-spacing:-.01em}
+.date{color:var(--dim);font-size:14px;margin:0 0 24px}
+h2{font-size:19px;margin:34px 0 10px;letter-spacing:-.01em;padding-top:8px;border-top:1px solid var(--line)}
+h2:first-of-type{border-top:0;padding-top:0;margin-top:26px}
+h3{font-size:15.5px;margin:20px 0 6px;color:var(--accent)}
+p{margin:0 0 12px}
+ul,ol{margin:0 0 14px;padding-left:24px}
+li{margin:7px 0}
+code{background:var(--surface-alt);padding:1px 6px;border-radius:5px;font-size:13.5px}
+kbd{font:inherit;font-size:12.5px;background:var(--surface-alt);border:1px solid var(--line);
+  border-bottom-width:2px;border-radius:6px;padding:1px 6px;white-space:nowrap}
+.etape{display:grid;grid-template-columns:34px 1fr;gap:14px;align-items:start;margin:0 0 14px}
+.num{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;
+  background:var(--accent);color:#fff;font-weight:700;font-size:14.5px}
+.etape b{display:block}
+.etape span{color:var(--ink-2);font-size:15px}
+table{width:100%;border-collapse:collapse;font-size:14.5px;margin:0 0 16px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--dim)}
+td:first-child{font-weight:600;white-space:nowrap}
+.note{background:var(--warn-bg);border:1px solid var(--warn-bd);border-left:4px solid #ca8a04;
+  border-radius:10px;padding:13px 16px;font-size:14.8px;color:var(--warn-ink);margin:16px 0}
+.note b{color:#3f3208}
+.fin{margin:18px 0 0;color:var(--dim);font-size:14px}
+@media (max-width:640px){
+  .envel{padding:14px 12px 40px}
+  .carte{padding:22px 18px}
+  h1{font-size:23px}
+  h2{font-size:17px}
+  td:first-child{white-space:normal}
+  .etape{grid-template-columns:28px 1fr;gap:10px}
+}
+@media print{
+  body{background:#fff;font-size:11.5pt}
+  .envel{max-width:none;padding:0}
+  .carte{border:none;box-shadow:none;padding:0}
+  h2{break-after:avoid-page}
+  .etape,table,.note{break-inside:avoid-page}
+  a{color:#000;text-decoration:none}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:9pt;color:#444}
+  .eyebrow{border-color:#999;background:none;color:#000}
+}
+</style>
+</head>
+<body>
+<div class="envel">
+<article class="carte">
+  <p class="eyebrow">Mode d'emploi</p>
+  <h1>Le tableau de bord de mes projets</h1>
+  <p class="date">Archive du 18 novembre 2026 — 6 projets · 25 / 41 étapes (61 %) · 13 recherches de veille.</p>
+
+  <p>
+    Ce dossier contient tout : le site, ses données, ses images, et ce mode d'emploi.
+    Il fonctionne <b>sans Internet</b>, sans compte, sans installation. Tu peux le copier sur une clé,
+    l'envoyer par mail, ou le garder six mois dans un coin — il s'ouvrira encore.
+  </p>
+
+  <h2>1. Ouvrir le tableau de bord</h2>
+  <div class="etape">
+    <span class="num" aria-hidden="true">1</span>
+    <div><b>Décompresse le dossier</b>
+      <span>Si l'archive est un <code>.zip</code> : clic droit → « Extraire tout » (Windows) ou double-clic (Mac). Il faut travailler dans le dossier extrait, pas dans le zip.</span></div>
+  </div>
+  <div class="etape">
+    <span class="num" aria-hidden="true">2</span>
+    <div><b>Ouvre <code>COMMENCER-ICI.html</code></b>
+      <span>Double-clic dessus. Il s'ouvre dans ton navigateur.</span></div>
+  </div>
+  <div class="etape">
+    <span class="num" aria-hidden="true">3</span>
+    <div><b>Clique sur « Ouvrir le tableau de bord »</b>
+      <span>Tu arrives sur la page d'accueil de présentation, puis sur le tableau lui-même.</span></div>
+  </div>
+
+  <div class="note">
+    <b>Ça s'ouvre dans un éditeur de texte ?</b> Clic droit sur le fichier → <i>Ouvrir avec</i> →
+    choisis ton navigateur (Firefox, Chrome, Edge, Safari). Sur Mac, <i>Ouvrir avec → Safari</i>.
+    Si le navigateur demande « autoriser les scripts », accepte : sans eux, rien ne s'anime.
+  </div>
+
+  <h2>2. Ce qu'on peut faire dessus</h2>
+  <table>
+    <thead><tr><th>Geste</th><th>Ce que ça fait</th></tr></thead>
+    <tbody>
+      <tr><td>Clic sur une barre</td><td>Ouvre le projet et déplie ses étapes, la page glisse jusqu'à lui.</td></tr>
+      <tr><td>Case à cocher</td><td>Compte l'étape comme faite ; les compteurs et la « prochaine étape » changent tout de suite.</td></tr>
+      <tr><td>Recherche</td><td>Cherche un mot dans toute la page (projets, veille, condensé). Aucune donnée ne sort.</td></tr>
+      <tr><td>« Tout déplier »</td><td>Ouvre tous les projets d'un coup, ou les referme.</td></tr>
+      <tr><td>Sauvegarder → Exporter</td><td>Télécharge un fichier <code>.json</code> avec tout l'avancement.</td></tr>
+      <tr><td>Sauvegarder → Importer</td><td>Remet un fichier exporté auparavant.</td></tr>
+      <tr><td>Sauvegarder → Réinitialiser</td><td>Annule les coches faites sur cet appareil, revient à la version de référence.</td></tr>
+      <tr><td>Imprimer</td><td>Sort une version papier propre, sans les boutons.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Les adresses qui ouvrent directement un projet</h3>
+  <p>
+    À la fin de l'adresse dans la barre du navigateur, on peut ajouter
+    <code>#proj-velo</code>, <code>#proj-poche</code>, <code>#proj-sites</code>,
+    <code>#proj-maquette</code>, <code>#proj-notes</code>, <code>#proj-ia-decouverte</code>.
+    La page s'ouvre alors directement sur ce projet, étapes dépliées.
+  </p>
+
+  <h3>Ce qui change et ce qui ne change pas</h3>
+  <ul>
+    <li>Les coches sont gardées <b>par appareil</b>, dans le navigateur. Deux appareils ne se parlent pas.</li>
+    <li><b>Rien n'est publié</b> tant qu'on n'appuie pas sur « Enregistrer sur GitHub » — et ce bouton a besoin d'une clé qui n'est pas dans cette archive. Impossible donc de casser le site par erreur.</li>
+    <li>Fermer l'onglet ne perd rien ; vider les données du navigateur, si.</li>
+  </ul>
+
+  <h2>3. Envoyer ou partager</h2>
+  <ul>
+    <li><b>Par mail</b> : joindre le <code>.zip</code>. Attention, beaucoup de boîtes refusent au-delà de 20–25 Mo ; celle-ci pèse environ 1,5 Mo, ça passe.</li>
+    <li><b>Par clé USB</b> : copier le dossier extrait tel quel.</li>
+    <li><b>Le lien en ligne</b>, si le site est encore publié :
+      <code>https://franceinfo771-prog.github.io/tableau_de_bord/</code></li>
+  </ul>
+
+  <h2>4. Le retrouver dans six mois, ou dans deux ans</h2>
+  <p>
+    Il n'y a rien à mettre à jour, rien à maintenir : les fichiers HTML et les images sont des formats
+    que les navigateurs liront encore dans vingt ans. Trois précautions suffisent :
+  </p>
+  <ol>
+    <li><b>Garder l'archive en double</b> : une copie sur l'ordinateur, une sur une clé ou un disque externe. C'est la seule vraie fragilité — pas le format, la perte du fichier.</li>
+    <li><b>Ne pas la modifier à la main.</b> Si un chiffre doit changer, il se change dans le tableau puis « Exporter », ou avec les fichiers de <code>technique/</code> (voir plus bas).</li>
+    <li><b>Se souvenir du nom</b> : le tableau s'appelle <i>tableau de bord — mes projets</i>, et il vit dans le dépôt GitHub <code>franceinfo771-prog/tableau_de_bord</code>.</li>
+  </ol>
+
+  <h2>5. Pour plus tard : reprendre le site</h2>
+  <p>
+    Le dossier <code>technique/</code> contient le code source, les données (<code>projets.json</code>),
+    les consignes de travail (<code>ASSISTANT.md</code>), l'état des lieux (<code>ETAT.md</code>) et les
+    scripts de vérification. Deux manières de repartir :
+  </p>
+  <ul>
+    <li><b>Sans rien installer</b> : demander à un assistant (Arena ou autre) de reprendre le dossier.
+      Colle ceci comme premier message : « Voici mon tableau de bord, un site en une page.
+      Lis <code>ASSISTANT.md</code> puis <code>ETAT.md</code>, et aide-moi à le faire évoluer. »</li>
+    <li><b>En ligne</b> : ouvrir le dépôt GitHub <code>franceinfo771-prog/tableau_de_bord</code>,
+      créer une branche, proposer une modification, puis fusionner. Le site se redéploie seul en une minute.</li>
+  </ul>
+  <p>
+    Les commandes de vérification, si tu es à l'aise avec le terminal, sont dans
+    <code>technique/README.md</code>. Elles ont servi avant chaque mise en ligne
+    (58 vérifications automatiques au total : rendu, liens, page d'accueil, bouton de copie).
+  </p>
+
+  <div class="note">
+    <b>Confidentialité.</b> La page ne contient aucun script de mesure, aucun cookie, aucune police
+    ni image distante. Ouverte depuis ce dossier, elle ne contacte aucun serveur. Le site en ligne,
+    lui, est hébergé par GitHub Pages, qui garde une trace technique des visites dans ses journaux —
+    et le site demande aux moteurs de recherche de ne pas l'indexer (<code>robots.txt</code> + <code>noindex</code>).
+  </div>
+
+  <p class="fin">
+    Mode d'emploi rédigé le 18 novembre 2026. Il tient sur deux feuilles imprimées.
+  </p>
+</article>
+</div>
+</body>
+</html>
