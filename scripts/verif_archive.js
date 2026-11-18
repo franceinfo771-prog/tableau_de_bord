@@ -95,8 +95,7 @@ function lister(dossier) {
       'site/' + f + ' identique au dépôt');
   }
 
-  console.log('\n== 3. liens internes ==');
-  const pages = ['COMMENCER-ICI.html', 'MODE-D-EMPLOI.html', 'site/accueil.html', 'site/index.html'];
+  console.log('\n== 3. liens internes ==');  const pages = ['COMMENCER-ICI.html', 'MODE-D-EMPLOI.html', 'site/accueil.html', 'site/index.html'];
   const casse = [];
   for (const page of pages) {
     const dossier = path.dirname(path.join(racine, page));
@@ -119,6 +118,33 @@ function lister(dossier) {
   const demarrage = fs.readFileSync(path.join(racine, 'COMMENCER-ICI.html'), 'utf8');
   verifie(/class="gros-bouton"\s+href="site\/accueil\.html"/.test(demarrage),
     'COMMENCER-ICI.html mène à site/accueil.html');
+
+  console.log('\n== 3 bis. le travail des projets ==');
+  const sommaire = path.join(racine, 'travail', 'INDEX.html');
+  if (fs.existsSync(sommaire)) {
+    const html = fs.readFileSync(sommaire, 'utf8');
+    const cibles = [...html.matchAll(/<li><a href="([^"]+)"/g)].map(m => m[1]);
+    const absents = cibles.filter(c => !fs.existsSync(path.join(racine, 'travail', c)));
+    verifie(cibles.length > 0, 'travail/INDEX.html liste des fichiers', String(cibles.length));
+    verifie(absents.length === 0, 'chaque fichier du sommaire existe vraiment',
+      absents.slice(0, 3).join(' | '));
+    // Le fichier le plus précieux : le programme du vélo doit être lisible.
+    const velo = path.join(racine, 'travail', '02-velo-electrique', 'controleur_velo_zs_x11h.ino');
+    verifie(fs.existsSync(velo) && fs.statSync(velo).size > 1000,
+      'le programme Arduino du vélo est dans l\'archive');
+    // Aucune archive imbriquée ne doit être vide (téléchargement raté).
+    const vides = [];
+    (function marche(d) {
+      for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+        const p = path.join(d, e.name);
+        if (e.isDirectory()) marche(p);
+        else if (fs.statSync(p).size === 0) vides.push(path.relative(racine, p));
+      }
+    })(path.join(racine, 'travail'));
+    verifie(vides.length === 0, 'aucun fichier vide dans travail/', vides.slice(0, 3).join(' | '));
+  } else {
+    verifie(true, 'pas de travail/ dans cette archive (dossier travaux/ absent à la construction)');
+  }
 
   console.log('\n== 4. le site s\'ouvre hors ligne (file://) ==');
   const url = 'file://' + path.join(racine, 'site', 'index.html');

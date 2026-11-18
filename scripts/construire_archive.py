@@ -5,6 +5,7 @@ L'archive doit se rouvrir toute seule, sans réseau, dans des années :
     COMMENCER-ICI.html        la page de démarrage (point d'entrée)
     MODE-D-EMPLOI.html        le mode d'emploi à lire ou à imprimer
     site/                     le site complet, prêt à s'ouvrir (pages, images, données)
+    travail/                  les fichiers des projets, tels quels (voir plus bas)
     technique/                code source, données, consignes, vérifications
     archives/                 les sauvegardes .json exportées depuis le site
     LISEZ-MOI.txt             le même mode d'emploi, en texte brut
@@ -12,6 +13,11 @@ L'archive doit se rouvrir toute seule, sans réseau, dans des années :
 Les deux modèles HTML vivent dans `archive/` (ils sont versionnés) ; tout le
 reste est recopié depuis le dépôt. Un seul exemplaire des images, pour que
 l'archive reste légère et s'ouvre aussi bien sous Windows.
+
+Le dossier `travail/` n'est PAS versionné : il vit dans `travaux/`, à la
+racine, exclu par `.gitignore` (ces fichiers portent des liens Drive privés,
+une clé de signature et un mot de passe — le dépôt est public). S'il est
+absent, l'archive est construite sans lui, et le script le dit.
 
 Usage :
     python3 scripts/construire_archive.py [--sortie DOSSIER]
@@ -32,6 +38,20 @@ SITE = ["index.html", "accueil.html", "atelier.html", "projets.json", "robots.tx
 # Pages secondaires publiées en plus (le « site complet »).
 EXTRA = ["img", "geoula-a-televerser"]
 
+# Le travail des projets, réuni depuis le Drive. NON versionné (voir plus haut).
+# Chaque entrée : (dossier dans travaux/ , nom lisible dans l'archive).
+TRAVAIL = [
+    ("projet", "01-projet"),
+    ("velo", "02-velo-electrique"),
+    ("maquette", "03-maquette-portes"),
+    ("voyages", "04-mes-voyages-a-bon-prix"),
+    ("actualite", "05-actualite-avec-recul"),
+    ("hachkaba", "06-hachkaba"),
+    ("gods-eye", "07-gods-eye-view"),
+    ("index-sites", "08-mes-sites-crees"),
+    ("photos", "09-photos"),
+]
+
 # Ce qui part dans technique/.
 TECHNIQUE = [
     "index.html", "accueil.html", "projets.json", "robots.txt", ".nojekyll",
@@ -50,6 +70,62 @@ def copier(src, dst_dir):
     else:
         shutil.copy2(src, dst)
     return dst
+
+
+def page_sommaire(lignes):
+    """Un sommaire HTML qui s'ouvre hors ligne et liste les fichiers du travail."""
+    def poids(n):
+        if n >= 1024 * 1024:
+            return "%.1f Mo" % (n / 1024 / 1024)
+        return "%.0f Ko" % (n / 1024)
+
+    def echange(t):
+        return (t.replace("&", "&amp;").replace("<", "&lt;")
+                 .replace(">", "&gt;").replace('"', "&quot;"))
+
+    groupes = {}
+    for chemin, taille in lignes:
+        dossier = chemin.split("/")[0]
+        groupes.setdefault(dossier, []).append((chemin, taille))
+
+    corps = []
+    for dossier in sorted(groupes):
+        corps.append("<h2>%s</h2>\n<ul>" % echange(dossier))
+        for chemin, taille in groupes[dossier]:
+            nom = chemin.split("/", 1)[1]
+            corps.append('<li><a href="%s">%s</a> <span>%s</span></li>'
+                         % (echange(chemin), echange(nom), poids(taille)))
+        corps.append("</ul>")
+
+    return """<!DOCTYPE html>
+<html lang="fr">
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<title>Travail des projets — sommaire</title>
+<style>
+ body{font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      max-width:46rem;margin:0 auto;padding:2rem 1.25rem;color:#1c2024;background:#fbfbf9}
+ h1{font-size:1.7rem;margin:0 0 .3rem}
+ .intro{color:#555;margin:0 0 2rem}
+ h2{font-size:1.05rem;margin:2rem 0 .5rem;padding-bottom:.3rem;
+    border-bottom:1px solid #dcdfe3;text-transform:capitalize}
+ ul{list-style:none;padding:0;margin:0}
+ li{padding:.35rem 0;border-bottom:1px solid #f0f1f2;display:flex;
+    justify-content:space-between;gap:1rem;flex-wrap:wrap}
+ a{color:#0a58ca;text-decoration:none;word-break:break-all}
+ a:hover{text-decoration:underline}
+ span{color:#777;font-size:.85rem;white-space:nowrap}
+ footer{margin-top:3rem;color:#777;font-size:.85rem}
+</style>
+<h1>Le travail des projets</h1>
+<p class="intro">Tous les fichiers de tes projets, tels quels — ceux qui étaient
+rangés dans ton Drive. Ce sont des copies : les originaux sont restés en place.
+Rien ici n'a besoin d'Internet.</p>
+%s
+<footer>Archive du 18 novembre 2026. Ce sommaire s'ouvre sans réseau, sans
+installation, et restera lisible dans dix ans : c'est du HTML, rien d'autre.</footer>
+</html>
+""" % "\n".join(corps)
 
 
 def main():
@@ -78,6 +154,34 @@ def main():
         chemin = os.path.join(RACINE, d)
         if os.path.isdir(chemin):
             copier(chemin, site)
+
+    # 3. travail/ : les fichiers des projets, tels quels, avec un sommaire.
+    #    Absent du dépôt (non versionné) : l'archive se construit sans lui
+    #    plutôt que d'échouer.
+    src_travail = os.path.join(RACINE, "travaux")
+    travail = os.path.join(paquet, "travail")
+    if os.path.isdir(src_travail):
+        os.makedirs(travail)
+        lignes = []
+        for source, cible in TRAVAIL:
+            dossier = os.path.join(src_travail, source)
+            if not os.path.isdir(dossier):
+                continue
+            compte = copier(dossier, travail)
+            shutil.move(compte, os.path.join(travail, cible))
+            fichiers = sorted(
+                f for f in os.listdir(os.path.join(travail, cible))
+                if os.path.isfile(os.path.join(travail, cible, f))
+            )
+            for f in fichiers:
+                lignes.append((cible + "/" + f, os.path.getsize(os.path.join(travail, cible, f))))
+        with open(os.path.join(travail, "INDEX.html"), "w", encoding="utf-8") as f:
+            f.write(page_sommaire(lignes))
+        print("Travail : %d fichiers dans travail/ (%.1f Mo)"
+              % (len(lignes), sum(t for _, t in lignes) / 1024 / 1024))
+    else:
+        print("Travail : dossier travaux/ absent — archive construite sans travail/ "
+              "(voir scripts/construire_archive.py).")
 
     # 4. technique/ : de quoi reprendre le travail.
     tech = os.path.join(paquet, "technique")

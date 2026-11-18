@@ -45,7 +45,11 @@ python3 scripts/construire_archive.py     # produit tableau-de-bord-AAAA-MM-JJ.z
 node scripts/verif_archive.js            # vérifie l'archive comme si on l'ouvrait par double-clic
 ```
 
-L'archive se suffit à elle-même : `COMMENCER-ICI.html` (page de démarrage), `MODE-D-EMPLOI.html` et `LISEZ-MOI.txt` (le mode d'emploi, imprimable), `site/` (le site complet, hors ligne), `technique/` (code, données, consignes, scripts) et `archives/` (sauvegardes `.json`). Elle fonctionne sans réseau et s'ouvre aussi bien sous Windows que sous Mac ou Linux. Les modèles des deux pages vivent dans `archive/`.
+L'archive se suffit à elle-même : `COMMENCER-ICI.html` (page de démarrage), `MODE-D-EMPLOI.html` et `LISEZ-MOI.txt` (le mode d'emploi, imprimable), `site/` (le site complet, hors ligne), `travail/` (les fichiers des projets), `technique/` (code, données, consignes, scripts) et `archives/` (sauvegardes `.json`). Elle fonctionne sans réseau et s'ouvre aussi bien sous Windows que sous Mac ou Linux. Les modèles des deux pages vivent dans `archive/`.
+
+### `travail/` — le travail des projets, hors Git
+
+`travail/` réunit les fichiers des projets rangés dans le Drive : code Arduino du vélo, fiches techniques, APK, archives des sites, photos. Ils sont rangés dans `travaux/` à la racine, **exclu par `.gitignore`** — ce dépôt est public et ces fichiers portent des liens Drive privés, une clé de signature et un mot de passe. `scripts/construire_archive.py` les recopie dans `travail/` avec un sommaire `travail/INDEX.html`. Si `travaux/` est absent, l'archive se construit sans cette partie (30 vérifications au lieu de 33) : rien n'échoue.
 
 ## Ouvrir en local
 

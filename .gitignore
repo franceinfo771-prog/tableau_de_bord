@@ -7,3 +7,7 @@ node_modules/
 
 # Archive livrable (regénérable : python3 scripts/construire_archive.py)
 tableau-de-bord-*.zip
+
+# Travail personnel importé depuis le Drive : jamais publié.
+# Contient des liens Drive privés, une clé de signature et un mot de passe.
+travaux/
