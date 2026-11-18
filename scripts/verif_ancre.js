@@ -9,6 +9,11 @@ const RACINE = path.join(__dirname, '..');
 const PAGE = fs.readFileSync(path.join(RACINE, 'index.html'), 'utf8');
 const DONNEES = JSON.parse(fs.readFileSync(path.join(RACINE, 'projets.json'), 'utf8'));
 
+// Chiffres dérivés de projets.json : les tests ne dépendent pas d'un total figé.
+const TOTAL = DONNEES.projets.reduce((n, p) => n + p.etapes.length, 0);
+const FAITES = DONNEES.projets.reduce((n, p) => n + p.etapes.filter(e => e.ok).length, 0);
+const KPI = (faites) => faites + '/' + TOTAL;
+
 let ok = 0;
 let ko = 0;
 function verifie(cond, libelle, detail) {
@@ -139,7 +144,8 @@ const pause = ms => new Promise(r => setTimeout(r, ms));
     apres: async (doc) => {
       const cb = doc.querySelector('#proj-poche input[data-idx="4"]');
       verifie(!!(cb && cb.checked), 'la coche locale est affichée');
-      verifie(doc.getElementById('kpi-grid').textContent.includes('25/40'), 'KPI = 25/40');
+      verifie(doc.getElementById('kpi-grid').textContent.includes(KPI(FAITES + 1)),
+        'KPI = ' + KPI(FAITES + 1) + ' après la coche locale');
       verifie(doc.getElementById('savebar').classList.contains('on'), 'barre de sauvegarde visible');
     },
   });
@@ -153,7 +159,7 @@ const pause = ms => new Promise(r => setTimeout(r, ms));
       cb.checked = !avant;
       cb.dispatchEvent(new doc.defaultView.Event('change', { bubbles: true }));
       await pause(30);
-      verifie(doc.getElementById('kpi-grid').textContent.includes(avant ? '23/40' : '25/40'),
+      verifie(doc.getElementById('kpi-grid').textContent.includes(KPI(avant ? FAITES - 1 : FAITES + 1)),
         'le KPI suit la coche');
       const det = doc.querySelector('#proj-poche details');
       verifie(!!(det && det.open), 'le projet reste déplié après la coche');

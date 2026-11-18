@@ -7,7 +7,7 @@
 
 - **Projets suivis** : 6
 - **Terminés** : 2 (`Notes de recherche`, `Les sites`)
-- **Étapes faites** : 24 / 40 (**60 %**)
+- **Étapes faites** : 25 / 41 (**61 %**)
 - **Veille** : 13 recherches consignées (6 retenues · 7 sans résultat)
 
 ## À faire maintenant (prochaine étape par projet ouvert)
@@ -20,7 +20,7 @@
 ## Points ouverts (projets terminés)
 
 - **Notes de recherche** (3/3 · 100 %) — Gardée privée pour l'instant (décidé le 15 novembre 2026).
-- **Les sites** (9/9 · 100 %) — Décider de rafraîchir ou non la veille des deux bulletins (datée d'octobre 2026).
+- **Les sites** (10/10 · 100 %) — Abouti le 18 novembre 2026. La veille reste datée d'octobre : rafraîchie quand il y aura du nouveau, pas pour tenir un calendrier.
 
 ## Détail des 6 projets
 
@@ -29,7 +29,7 @@
 - [x] La version à lire (HTML) et la version texte pour le mail
 - [x] Relue à froid : les six sources revérifiées une par une
 
-### 2. Les sites — 9 / 9 (100 %) · Terminé
+### 2. Les sites — 10 / 10 (100 %) · Terminé
 - [x] Retirer les deux notes mortes du site
 - [x] Refermer le site aux moteurs — `robots.txt`, `noindex`
 - [x] La page des projets, prête : 5 projets, un fichier
@@ -39,6 +39,7 @@
 - [x] Publier (`tableau_de_bord`)
 - [x] Vérifier les deux autres adresses
 - [x] Le poste de travail — une page, un double-clic
+- [x] Projet abouti — bilan du 18 novembre 2026 : rien à ajouter, le site tient
 
 ### 3. Une application de poche — 4 / 6 (67 %) · En cours
 - [x] Les enregistrements faits
@@ -84,6 +85,7 @@ Point ouvert : lequel des assistants en ligne tester en premier — Claude, Chat
 
 ## Journal récent
 
+- **18 novembre 2026 — projet « Les sites » abouti** (10/10) : le site ne montre aucune note morte, il n'est pas indexable, il dit « en construction » et il porte la veille, la recherche et le condensé. Question de la veille tranchée : on la garde datée d'octobre, elle sera rafraîchie quand il y aura du nouveau. Côté technique, une adresse terminée par `#proj-<id>` ouvre maintenant le bon projet au démarrage (PR #13).
 - **18 novembre 2026** : retrait de la rubrique « Mon IA privée » et de l’étape qui demandait de la relier au site. Le lien « Mon assistant Arena » et le projet « Découverte de logiciels IA » sont conservés.
 - **17 novembre 2026 (assistant)** : LM Studio retenu comme outil à tester, sur le **PC de la maison** (le PC du travail est trop modeste : Atom, 3,9 Go). Le pont a été étendu : publication automatique de la configuration de la machine au démarrage, installation de LM Studio à distance, et **déclencheur en clair** (`pont/installer.txt`) permettant de lancer l'installation depuis l'assistant sans connaître la phrase de passe — celle-ci ne quitte jamais le poste et n'entre pas dans le dépôt.
 - **16 novembre 2026 (assistant)** : ajout d'`ASSISTANT.md` (consignes pour les sessions Arena) et d'un bloc « Premier message » copiable dans le site. IA — étape 1 cochée (inventaire).

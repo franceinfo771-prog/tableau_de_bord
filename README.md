@@ -8,12 +8,12 @@ Tableau de bord autonome de suivi de six projets, de la veille et du condensé.
 
 ## État au 18 novembre 2026
 
-**6 projets · 2 terminés · 24 / 40 étapes faites (60 %) · 13 recherches de veille.**
+**6 projets · 2 terminés · 25 / 41 étapes faites (61 %) · 13 recherches de veille.**
 
 | Projet | Avancement | Statut | Prochaine action / Point ouvert |
 |---|---:|---|---|
 | Notes de recherche | 3 / 3 (100 %) | ✅ Terminé | Gardée privée pour l'instant (décidé le 15/11) |
-| Les sites | 9 / 9 (100 %) | ✅ Terminé | Point ouvert : rafraîchir la veille des deux bulletins ou la laisser datée d'octobre |
+| Les sites | 10 / 10 (100 %) | ✅ Terminé (abouti le 18/11) | Veille datée d'octobre, rafraîchie quand il y aura du nouveau |
 | Une application de poche | 4 / 6 (67 %) | 🟡 En cours | Installer l'application sur un téléphone réel |
 | Maquette — une porte qui fait joli | 2 / 4 (50 %) | 🟡 En cours | Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ? |
 | Vélo électrique DIY | 4 / 9 (44 %) | 🟣 Commencé | Acheter la manette — poignée à effet Hall, 3 fils, sortie 5 V |
