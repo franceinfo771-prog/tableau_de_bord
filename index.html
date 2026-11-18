@@ -55,6 +55,8 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 a{color:var(--accent)}
+.topbar .accueil-lien{color:var(--dim);text-decoration:none;font-size:14px;padding:6px 10px;border-radius:999px;border:1px solid transparent}
+.topbar .accueil-lien:hover{color:var(--accent);border-color:var(--accent-bd);background:var(--accent-bg)}
 
 /* Navigation collante */
 .topbar{
@@ -1172,13 +1174,33 @@ footer b{color:var(--ink-2)}
   .token-row{flex-direction:column}
 }
 @media (max-width:560px){
-  .topbar-in{padding:9px 14px}
-  .envel{padding:24px 14px 96px}
+  /* Sur téléphone, la barre du haut tenait plus de la moitié de l'écran.
+     Deux rangées qui défilent latéralement : la marque et les actions,
+     puis les liens. Rien ne disparaît, on glisse du doigt. */
+  .topbar-in{padding:8px 12px;gap:8px;row-gap:6px;flex-wrap:wrap}
+  .brand{font-size:14px;margin-right:0}
+  .brand .brand-txt{display:none}
+  .navlinks{
+    order:3;flex:1 0 100%;flex-wrap:nowrap;gap:2px;overflow-x:auto;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px
+  }
+  .navlinks::-webkit-scrollbar{display:none}
+  .navlinks a{white-space:nowrap}
+  .top-actions{
+    order:2;margin-left:auto;flex-wrap:nowrap;gap:6px;overflow-x:auto;
+    scrollbar-width:none;max-width:100%
+  }
+  .top-actions::-webkit-scrollbar{display:none}
+  .top-actions .btn-top,.top-actions .btn-github,.top-actions .btn-arena{white-space:nowrap}
+  .envel{padding:20px 14px 96px}
   .banniere{height:150px}
   .p-photo img{height:140px}
   .p{padding:16px}
   .focus-row{grid-template-columns:1fr}
   .focus-go{justify-self:start}
+  /* La barre mobile est plus haute : on décale les ancres d'autant. */
+  h2.sect{scroll-margin-top:112px}
+  .p{scroll-margin-top:116px}
 }
 @media print{
   .topbar,.toolbar,.add-step,.del-btn,.savebar,.modal-bg,.toast,#section-cherche,.search-box,.gh-bar,.corriger-overlay,.arena-box,.banniere,.p-photo{display:none!important}
@@ -1195,7 +1217,7 @@ footer b{color:var(--ink-2)}
 
 <nav class="topbar" aria-label="Navigation principale">
   <div class="topbar-in">
-    <a class="brand" href="#haut"><span class="brand-dot" aria-hidden="true"></span>Tableau de bord</a>
+    <a class="brand" href="#haut" title="Tableau de bord — retour en haut"><span class="brand-dot" aria-hidden="true"></span><span class="brand-txt">Tableau de bord</span></a>
     <div class="navlinks">
       <a href="#focus">À faire</a>
       <a href="#apercu">Vue d'ensemble</a>
@@ -1203,6 +1225,7 @@ footer b{color:var(--ink-2)}
       <a href="#section-veille">Veille</a>
       <a href="#condense">Condensé</a>
       <a href="#section-cherche">Chercher</a>
+      <a class="accueil-lien" href="accueil.html" title="Revenir à la page de présentation">← Accueil</a>
       <a href="#aide">Aide</a>
     </div>
     <div class="top-actions">
@@ -1345,6 +1368,7 @@ footer b{color:var(--ink-2)}
     <p><b>Ce que cette page dit, et ce qu'elle ne dit pas.</b> Elle compte des étapes cochées, elle ne mesure pas leur difficulté. Une étape faite est une étape faite — mais toutes ne se valent pas.</p>
     <p><b>Confidentialité — vérifié le 16 novembre 2026.</b> Cette page n'a <b>aucun</b> script de mesure, pas de Google Analytics, pas de pixel, pas de cookie tiers, aucune police distante et aucune image externe. <b>Mais l'hébergeur, lui, garde une trace technique :</b> GitHub Pages enregistre l'adresse IP des visites dans ses journaux serveur (« à des fins de sécurité »), auxquels le propriétaire du site n'a pas accès. En ouvrant ce fichier localement depuis votre ordinateur, aucun serveur n'est contacté.</p>
     <p>Tableau de bord mis à jour le <b>18 novembre 2026</b> · page + <code>projets.json</code> · zéro dépendance extérieure.</p>
+    <p>Page d'accueil de présentation : <a href="accueil.html">accueil.html</a> · reprise le <b>18 novembre 2026</b>.</p>
   </footer>
 </div>
 
@@ -2152,7 +2176,10 @@ footer b{color:var(--ink-2)}
     e.preventDefault();
     const pid = link.getAttribute('data-jump');
     if(openAndScroll(pid)){
-      history.replaceState(null, '', '#proj-' + pid);
+      // L'URL n'est qu'un agrément : certains navigateurs la refusent (fichier
+      // ouvert par double-clic, page affichée en cadre). Ça ne doit jamais
+      // interrompre le saut vers le projet.
+      try{ history.replaceState(null, '', '#proj-' + pid); }catch(e){}
       return;
     }
     // Lien trouvé dans la recherche : le projet n'est pas affiché (filtre, carte retirée).

@@ -166,6 +166,45 @@ const pause = ms => new Promise(r => setTimeout(r, ms));
     },
   });
 
+  // 5. Démo sans fausse note : les cas où le navigateur refuse l'API d'URL
+  // (page ouverte par double-clic, cadre) ne doivent pas casser le saut.
+  console.log('\n== 5. démonstration : navigateur qui refuse de changer l\'URL ==');
+  await scenario('clic avec history.replaceState en échec', 'https://x.test/tableau_de_bord/', {
+    avant: (win) => { win.history.replaceState = () => { throw new Error('SecurityError'); }; },
+    apres: async (doc) => {
+      const lien = doc.querySelector('[data-jump]');
+      verifie(!!lien, 'un lien de saut est présent');
+      if (!lien) return;
+      const pid = lien.getAttribute('data-jump');
+      lien.click();
+      await pause(50);
+      const det = doc.querySelector('#proj-' + pid + ' details');
+      verifie(!!(det && det.open), 'le projet s\'ouvre quand même (' + pid + ')');
+    },
+  });
+
+  // 6. Faire puis défaire une coche : l'état de départ revient exactement.
+  console.log('\n== 6. faire puis défaire une coche ==');
+  await scenario('coche puis réinitialisation', 'https://x.test/tableau_de_bord/', {
+    avant: (win) => { win.confirm = () => true; },
+    apres: async (doc) => {
+      const cb = doc.querySelector('#proj-poche input[data-idx="4"]');
+      if (!cb) { verifie(false, 'la case de l\'étape existe'); return; }
+      const depart = cb.checked;
+      cb.click();
+      await pause(40);
+      verifie(doc.getElementById('kpi-grid').textContent.includes(KPI(depart ? FAITES - 1 : FAITES + 1)), 'le KPI suit la coche');
+      doc.getElementById('btn-data').click();
+      await pause(40);
+      doc.getElementById('m-reset').click();
+      await pause(80);
+      const apres = doc.querySelector('#proj-poche input[data-idx="4"]').checked;
+      verifie(apres === depart, 'la case revient à son état de départ');
+      verifie(doc.getElementById('kpi-grid').textContent.includes(KPI(FAITES)), 'le KPI revient à ' + KPI(FAITES));
+      verifie(!doc.getElementById('savebar').classList.contains('on'), 'plus rien en attente de publication');
+    },
+  });
+
   console.log('\n' + (ko === 0 ? ok + ' vérifications réussies' : ok + ' ok, ' + ko + ' ECHEC(S)'));
   process.exit(ko === 0 ? 0 : 1);
 })();
