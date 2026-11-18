@@ -85,6 +85,7 @@ Point ouvert : lequel des assistants en ligne tester en premier — Claude, Chat
 
 ## Journal récent
 
+- **18 novembre 2026 — page d'accueil de démonstration** : ajout d'`accueil.html`, une page de présentation en trois points (ce que c'est, ce qu'il faut essayer, les chiffres du jour) avec un bouton « Entrer dans le tableau de bord ». Le tableau renvoie vers elle par un lien « ← Accueil » dans la barre de navigation et un lien en bas de page. Les chiffres sont relus dans `projets.json`, avec des nombres de secours si le fichier n'est pas joignable.
 - **18 novembre 2026 — ménage à la racine** : retrait de `Projets.html` et `Projets (2).html` (≈ 950 Ko), deux pages déposées à la main et jamais reliées au site. Le dépôt passe sous 2 Mo ; `index.html`, `atelier.html` et les pages de `geoula-a-televerser/` ne bougent pas.
 - **18 novembre 2026 — projet « Les sites » abouti** (10/10) : le site ne montre aucune note morte, il n'est pas indexable, il dit « en construction » et il porte la veille, la recherche et le condensé. Question de la veille tranchée : on la garde datée d'octobre, elle sera rafraîchie quand il y aura du nouveau. Côté technique, une adresse terminée par `#proj-<id>` ouvre maintenant le bon projet au démarrage (PR #13).
 - **18 novembre 2026** : retrait de la rubrique « Mon IA privée » et de l’étape qui demandait de la relier au site. Le lien « Mon assistant Arena » et le projet « Découverte de logiciels IA » sont conservés.

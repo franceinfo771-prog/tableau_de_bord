@@ -23,6 +23,10 @@ Tableau de bord autonome de suivi de six projets, de la veille et du condensé.
 
 Les données affichées (projets, veille, condensé) vivent dans **`projets.json`**, à la racine du dépôt. `index.html` le charge au démarrage ; si le fichier est inaccessible (ouverture hors ligne), une copie de secours intégrée à la page prend le relais. Les modifications faites dans le navigateur sont d'abord gardées sur l'appareil (`localStorage`), puis publiées sur `main` via le bouton **Enregistrer sur GitHub**.
 
+## Page d'accueil de démonstration : `accueil.html`
+
+Une page de présentation, pensée pour montrer le tableau de bord à quelqu'un qui ne le connaît pas : trois phrases sur ce que c'est, les trois choses à essayer (ouvrir un projet, cocher une étape, chercher), les chiffres du jour, puis un bouton **Entrer dans le tableau de bord**. Elle relit `projets.json` pour afficher des chiffres justes, et garde des nombres écrits en dur si le fichier n'est pas joignable (ouverture par double-clic). Le tableau renvoie vers elle par un lien **← Accueil** dans la barre de navigation.
+
 ## Fonctionnalités de `index.html`
 
 - **Corriger** (bouton en haut) : écran à gros pavés pour corriger un projet (titre, idée, critère de fin, point ouvert, suppression), les étapes d'un projet (renommer, cocher, monter/descendre, ajouter, supprimer), ajouter un nouveau projet, corriger ou ajouter une fiche de veille.
@@ -45,6 +49,7 @@ python3 -m http.server 8000
 ```bash
 node scripts/verif_rendu.js        # rendu headless : 0 erreur JS, comptes, boutons intacts
 node scripts/verif_ancre.js        # liens #proj-…, sauts, brouillon local, cochage
+node scripts/verif_accueil.js      # page de présentation : bouton, raccourcis, chiffres
 node scripts/verif_copie_commande.js
 python3 scripts/sync_donnees_embedded.py --verifier
 ```
