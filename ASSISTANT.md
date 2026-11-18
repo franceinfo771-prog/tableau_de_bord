@@ -9,6 +9,7 @@
 - `projets.json` — **les données** : projets (id, nom, idée, critère de fin, point ouvert, étapes), veille, condensé. C'est la source de vérité ; `index.html` en contient une copie de secours intégrée — **les deux doivent rester synchronisés**.
 - `ETAT.md` — l'état des lieux en texte (projets, étapes, points ouverts, journal).
 - `scripts/etat.sh` — régénère `etat.json` (résumé technique, chiffres dérivés de `projets.json`).
+- `scripts/verif_rendu.js`, `scripts/verif_ancre.js`, `scripts/verif_copie_commande.js` — vérifications headless (rendu, liens `#proj-…`, bouton de copie).
 
 ## Règles
 
@@ -18,7 +19,7 @@
 4. **Pose les questions en pavés** (options cliquables) pour les choix importants ; demande validation avant de publier.
 5. **Calculs et chiffres** : déduis-les de `projets.json` (étapes faites / total). Si `ETAT.md`, `README.md` ou `etat.json` divergent, resynchronise-les.
 6. **Terminologie** : tutoiement, français, concret — la personne n'est pas technique. Commits et PR en français, clairs, avec la raison du changement.
-7. **Vérifier avant de fusionner** : rendu headless (jsdom ou équivalent) — 0 erreur JS, nombre de cartes/veilles attendu, boutons intacts, `projets.json` valide.
+7. **Vérifier avant de fusionner** : rendu headless (jsdom ou équivalent) — 0 erreur JS, nombre de cartes/veilles attendu, boutons intacts, `projets.json` valide. `node scripts/verif_rendu.js` puis `node scripts/verif_ancre.js` (liens directs `#proj-<id>`).
 8. **Une évolution = une branche = une PR.** Si la session précédente a été fusionnée, repartir d'une branche neuve (ou du bouton Continue).
 9. Si l'humain dit « publie » : branche, commit, push, PR, fusion, puis vérifier que Pages a redéployé (`/pages/builds/latest`).
 10. Respecter le style du fichier existant (pas de refactor gratuit, pas de nouvelles dépendances).

@@ -32,12 +32,21 @@ Les données affichées (projets, veille, condensé) vivent dans **`projets.json
 - **Ajout rapide** : ajout d'étapes, de projets ou d'entrées de veille localement.
 - **Sauvegarde portable** : export/import en JSON, copie du résumé en texte brut, impression PDF propre.
 - **Recherche locale** : recherche instantanée sans réseau dans toute la page.
+- **Lien direct vers un projet** : une adresse terminée par `#proj-<id>` (ex. `…#proj-velo`) ouvre le projet au démarrage, déplie ses étapes et fait défiler jusqu'à lui. Le changement d'ancre après coup (`hashchange`) et les liens de l'aperçu, du « À faire maintenant » ou de la recherche font la même chose ; si un filtre masquait le projet, il revient à « Tous ».
 
 ## Ouvrir en local
 
 ```bash
 python3 -m http.server 8000
 # Ouvrir http://localhost:8000
+```
+
+## Vérifier avant de publier
+```bash
+node scripts/verif_rendu.js        # rendu headless : 0 erreur JS, comptes, boutons intacts
+node scripts/verif_ancre.js        # liens #proj-…, sauts, brouillon local, cochage
+node scripts/verif_copie_commande.js
+python3 scripts/sync_donnees_embedded.py --verifier
 ```
 
 ## Mettre à jour `etat.json`

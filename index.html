@@ -426,6 +426,11 @@ i.cadre{background:var(--cad-bar)}
 }
 .p.fini{border-left-color:var(--ok-bar)}
 .p.encours{border-left-color:var(--enc-bar)}
+/* Mise en évidence brève quand on saute vers un projet depuis un lien */
+.p.flash{box-shadow:0 0 0 3px var(--accent-soft, rgba(67,56,202,.25))}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+}
 .p header{
   display:flex;
   justify-content:space-between;
@@ -2109,23 +2114,67 @@ footer b{color:var(--ink-2)}
     }
   });
 
+  // Déplie un projet et fait défiler jusqu'à lui (sans toucher à l'URL).
+  function openAndScroll(pid, opts){
+    if(!pid) return false;
+    const p = state.projets.find(x => x.id === pid);
+    if(!p) return false;
+    const smooth = !(opts && opts.instant);
+    if(projFilter !== 'all'){
+      projFilter = 'all';
+      document.querySelectorAll('[data-filter]').forEach(b => b.classList.toggle('active', b.getAttribute('data-filter') === 'all'));
+    }
+    const wasOpen = openCards.has(pid);
+    openCards.add(pid);
+    renderProjects();
+    const target = document.getElementById('proj-' + pid);
+    if(!target) return false;
+    if(!smooth){ document.documentElement.style.scrollBehavior = 'auto'; }
+    if(typeof target.scrollIntoView === 'function'){
+      target.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+    }
+    if(!smooth){
+      document.documentElement.style.scrollBehavior = '';
+      if(wasOpen) return true; // déjà ouvert : pas de nouvelle mise en évidence
+      target.classList.remove('flash');
+      void target.offsetWidth; // relance l'animation si on reclique
+      target.classList.add('flash');
+      setTimeout(() => target.classList.remove('flash'), 1600);
+    }
+    return true;
+  }
+
   // Saut direct vers un projet (ouvre ses étapes automatiquement)
   document.body.addEventListener('click', e => {
     const link = e.target.closest('[data-jump]');
     if(!link) return;
     e.preventDefault();
     const pid = link.getAttribute('data-jump');
-    if(projFilter !== 'all'){
-      projFilter = 'all';
-      document.querySelectorAll('[data-filter]').forEach(b => b.classList.toggle('active', b.getAttribute('data-filter') === 'all'));
-    }
-    openCards.add(pid);
-    renderProjects();
-    const target = document.getElementById('proj-' + pid);
-    if(target){
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if(openAndScroll(pid)){
       history.replaceState(null, '', '#proj-' + pid);
+      return;
     }
+    // Lien trouvé dans la recherche : le projet n'est pas affiché (filtre, carte retirée).
+    // On retombe sur le comportement normal du lien pour ne pas laisser un clic sans effet.
+    const href = link.getAttribute('href') || '';
+    const dest = document.getElementById(href.replace(/^#/, ''));
+    if(dest && typeof dest.scrollIntoView === 'function') dest.scrollIntoView();
+  });
+
+  // Ancre de l'URL au démarrage : #proj-<id> (lien partagé, raccourci, rechargement)
+  function pidFromHash(hash){
+    const m = /^#proj-([\w-]+)$/.exec(hash || '');
+    return m ? m[1] : '';
+  }
+
+  function openFromHash(opts){
+    const pid = pidFromHash(location.hash);
+    if(!pid) return false;
+    return openAndScroll(pid, opts);
+  }
+
+  window.addEventListener('hashchange', () => {
+    if(pidFromHash(location.hash)) openFromHash();
   });
 
   // Filtres projets
@@ -2826,7 +2875,14 @@ footer b{color:var(--ink-2)}
   setupCorriger();
   setupGitHub();
   renderAll();
-  loadFromServer();
+  // Ancre éventuelle dans l'URL (#proj-…) : on déplie tout de suite avec les données locales.
+  openFromHash({ instant: true });
+  loadFromServer().then(() => {
+    // Les données publiées sont arrivées : on rouvre l'ancre si le rendu l'a perdue.
+    openFromHash({ instant: true });
+  });
+  // Le navigateur peut aussi restaurer la position de défilement : on la corrige.
+  window.addEventListener('load', () => openFromHash({ instant: true }));
   updatePendingUI();
 })();
 </script>
