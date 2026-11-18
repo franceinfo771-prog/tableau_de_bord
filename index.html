@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tableau de bord — Mes projets (16 novembre 2026)</title>
-<meta name="description" content="Tableau de bord de cinq projets, à la date du 16 novembre 2026 : ce qui est fait, ce qui reste, la prochaine étape de chacun, la veille et le condensé.">
+<title>Tableau de bord — Mes projets (18 novembre 2026)</title>
+<meta name="description" content="Tableau de bord de six projets, à la date du 18 novembre 2026 : ce qui est fait, ce qui reste, la prochaine étape de chacun, la veille et le condensé.">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
 <style>
@@ -1184,39 +1184,6 @@ footer b{color:var(--ink-2)}
   .cond-card b{color:#000}
   details{display:block}
 }
-/* ---- IA privée — interface vers LM Studio sur le poste à la maison ---- */
-.ia-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
-.ia-note{font-size:13.5px;color:var(--dim);line-height:1.62;margin:0 0 14px}
-.ia-note code{background:var(--surface-alt);padding:1px 5px;border-radius:5px;font-size:12.5px}
-.ia-setup{display:grid;gap:11px}
-.ia-install{margin:0 0 16px;border:1px solid var(--line);border-radius:12px;background:var(--surface-alt);overflow:hidden}
-.ia-install>summary{cursor:pointer;padding:13px 16px;font-size:14px;font-weight:700;list-style:none;display:flex;align-items:center;gap:9px}
-.ia-install>summary::-webkit-details-marker{display:none}
-.ia-install>summary::before{content:"\25B8";color:var(--accent);font-size:13px;transition:transform .15s}
-.ia-install[open]>summary::before{transform:rotate(90deg)}
-.ia-install>summary small{font-weight:500;color:var(--dim);font-size:12.5px}
-.ia-install[open]>summary{border-bottom:1px solid var(--line)}
-.ia-install-body{padding:15px 16px 4px}
-.ia-cmd{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 13px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
-.ia-cmd code{flex:1 1 340px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;line-height:1.55;color:var(--text);word-break:break-all;background:none;padding:0;border:none}
-.ia-install-body .ia-note{margin-bottom:13px}
-.ia-install-body .ia-note:last-child{margin-bottom:13px}
-.ia-field{display:grid;gap:4px}
-.ia-field label{font-size:12.5px;color:var(--dim);font-weight:600}
-.ia-field input{width:100%;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px}
-.ia-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:4px}
-.ia-chat{display:grid;gap:12px;margin-top:15px}
-.ia-log{display:grid;gap:10px;max-height:54vh;overflow:auto;padding:2px}
-.ia-msg{padding:11px 13px;border-radius:12px;font-size:14px;line-height:1.62;white-space:pre-wrap;word-break:break-word}
-.ia-msg.user{background:var(--accent-bg);border:1px solid var(--accent-bd)}
-.ia-msg.bot{background:var(--surface-alt);border:1px solid var(--line)}
-.ia-msg.sys{background:var(--blue-bg);border:1px solid var(--blue-bd);color:#173f68;font-size:13px}
-.ia-compose{display:flex;gap:8px;align-items:flex-end}
-.ia-compose textarea{flex:1 1 auto;min-height:46px;resize:vertical;font-size:14px;line-height:1.5;font-family:inherit}
-.ia-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--dim);margin-right:7px;vertical-align:middle}
-.ia-dot.on{background:var(--ok-bar)}
-.ia-dot.off{background:var(--rien)}
-.ia-modeltag{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;color:var(--dim)}
 </style>
 </head>
 <body>
@@ -1231,7 +1198,6 @@ footer b{color:var(--ink-2)}
       <a href="#section-veille">Veille</a>
       <a href="#condense">Condensé</a>
       <a href="#section-cherche">Chercher</a>
-      <a href="#ia-privee">IA privée</a>
       <a href="#aide">Aide</a>
     </div>
     <div class="top-actions">
@@ -1248,7 +1214,7 @@ footer b{color:var(--ink-2)}
 <div class="envel" id="haut">
 
   <h1>Tableau de bord</h1>
-  <p class="date">État au <b>16 novembre 2026</b> · mis à jour à la main · fonctionne en ligne et hors ligne, sans compte ni suivi</p>
+  <p class="date">État au <b>18 novembre 2026</b> · mis à jour à la main · fonctionne en ligne et hors ligne, sans compte ni suivi</p>
   <p class="chapo">Six projets suivis au même endroit. Pour chacun : où il en est, <b>ce qui le terminera</b>, et <b>la seule chose à faire ensuite</b>. Vous pouvez cocher une étape directement : les barres, les pourcentages et la prochaine action se mettent à jour aussitôt.</p>
   <img class="banniere" src="img/banniere.jpg" alt="Bureau de travail : carnet de notes, ordinateur et café, lumière du matin" width="1100" height="300">
   <div class="arena-box" aria-label="Comment faire évoluer ce site">
@@ -1272,7 +1238,7 @@ footer b{color:var(--ink-2)}
   <div class="chantier">
     <b class="eyebrow">En construction</b>
     <p>Ce tableau de bord n'est jamais figé. Il montre l'état réel des projets, garde la trace des recherches — <b>y compris celles qui n'ont rien donné</b> — et reste un seul fichier autonome que vous gardez chez vous.</p>
-    <p class="v">Version du 16 novembre 2026 · synchronisée avec la fiche de reprise du 15 novembre à 16 h (projet « Les sites » passé à 9/9).</p>
+    <p class="v">Version du 18 novembre 2026.</p>
   </div>
 
   <h2 class="sect" id="focus">À faire maintenant <small>une seule prochaine action par projet ouvert</small></h2>
@@ -1337,70 +1303,6 @@ footer b{color:var(--ink-2)}
     <div id="res"><p class="vide">Deux ou trois lettres suffisent. La recherche se fait uniquement dans cette page — aucune donnée n'est envoyée.</p></div>
   </div>
 
-  <h2 class="sect" id="ia-privee">Mon IA privée <small>le modèle qui tourne chez vous, sur l'ASUS</small></h2>
-  <div class="ia-box">
-    <p class="ia-note">
-      Cette zone interroge <b> votre</b> LM Studio, installé sur le poste à la maison.
-      La question part de ce navigateur, elle arrive sur l'ASUS, le modèle répond, la
-      réponse revient — <b>rien ne transite par un serveur d'IA en ligne</b>.
-      L'adresse et le jeton restent dans <b>ce navigateur</b> (stockage local de Brave) :
-      jamais dans le dépôt, jamais dans le code du site, jamais ailleurs.
-    </p>
-
-    <details class="ia-install" id="ia-install">
-      <summary>Installer le pont sur le PC de la maison <small>une seule commande</small></summary>
-      <div class="ia-install-body">
-        <p class="ia-note">
-          À faire <b>une seule fois</b>, sur le PC à la maison (l'ASUS), dans PowerShell.
-          Cette commande installe le pont, puis vous demandera votre jeton GitHub et une
-          phrase de passe. <b>Laisser la fenêtre ouverte ensuite</b> : c'est elle qui me
-          permet de piloter le poste.
-        </p>
-        <div class="ia-cmd">
-          <code id="ia-cmd-text">irm https://raw.githubusercontent.com/franceinfo771-prog/tableau_de_bord/pont/pont-outils/INSTALLER.ps1 | iex</code>
-          <button class="btn-sm" type="button" id="ia-cmd-copy">📋 Copier la commande</button>
-        </div>
-        <p class="ia-note">
-          Pour ouvrir PowerShell : menu Démarrer → tapez <code>powershell</code> → Entrée.
-          Puis collez la commande (clic droit → Coller) et appuyez sur Entrée.
-        </p>
-        <p class="ia-note">
-          Si la commande ne passe pas, ou en cas de blocage,<a class="arena-link" href="https://github.com/franceinfo771-prog/tableau_de_bord/blob/pont/pont-outils/SECOURS.md" target="_blank" rel="noopener">consultez le guide de secours</a>.
-        </p>
-      </div>
-    </details>
-
-    <div id="ia-setup" class="ia-setup">
-      <div class="ia-field">
-        <label for="ia-url">Adresse du serveur (base de l'API)</label>
-        <input type="text" id="ia-url" placeholder="https://asus.xxxx.ts.net/v1" autocomplete="off" spellcheck="false">
-      </div>
-      <div class="ia-field">
-        <label for="ia-token">Jeton d'API — facultatif si le serveur n'en demande pas</label>
-        <input type="password" id="ia-token" placeholder="lm-…" autocomplete="off">
-      </div>
-      <div class="ia-row">
-        <button class="btn-sm" type="button" id="ia-test">Tester la connexion</button>
-        <button class="btn-sm" type="button" id="ia-save">Enregistrer et chatter</button>
-        <button class="btn-sm" type="button" id="ia-forget">Effacer</button>
-        <span id="ia-state"><span class="ia-dot"></span><span id="ia-state-text">non configuré</span></span>
-      </div>
-      <div class="gh-msg" id="ia-msg" role="status" aria-live="polite"></div>
-    </div>
-
-    <div class="ia-chat" id="ia-chat" hidden>
-      <div class="ia-log" id="ia-log"></div>
-      <div class="ia-compose">
-        <textarea id="ia-input" rows="2" placeholder="Écrivez votre question…"></textarea>
-        <button class="btn-top primary" type="button" id="ia-send">Envoyer</button>
-      </div>
-      <div class="ia-row">
-        <button class="btn-sm" type="button" id="ia-clear">Effacer la conversation</button>
-        <span class="ia-modeltag" id="ia-model"></span>
-      </div>
-    </div>
-  </div>
-
   <h2 class="sect" id="aide">Aide — comment lire et utiliser cette page</h2>
   <div class="aide">
     <details>
@@ -1437,7 +1339,7 @@ footer b{color:var(--ink-2)}
   <footer>
     <p><b>Ce que cette page dit, et ce qu'elle ne dit pas.</b> Elle compte des étapes cochées, elle ne mesure pas leur difficulté. Une étape faite est une étape faite — mais toutes ne se valent pas.</p>
     <p><b>Confidentialité — vérifié le 16 novembre 2026.</b> Cette page n'a <b>aucun</b> script de mesure, pas de Google Analytics, pas de pixel, pas de cookie tiers, aucune police distante et aucune image externe. <b>Mais l'hébergeur, lui, garde une trace technique :</b> GitHub Pages enregistre l'adresse IP des visites dans ses journaux serveur (« à des fins de sécurité »), auxquels le propriétaire du site n'a pas accès. En ouvrant ce fichier localement depuis votre ordinateur, aucun serveur n'est contacté.</p>
-    <p>Tableau de bord mis à jour le <b>16 novembre 2026</b> · page + <code>projets.json</code> · zéro dépendance extérieure.</p>
+    <p>Tableau de bord mis à jour le <b>18 novembre 2026</b> · page + <code>projets.json</code> · zéro dépendance extérieure.</p>
   </footer>
 </div>
 
@@ -1479,7 +1381,7 @@ footer b{color:var(--ink-2)}
       </div>
       <div class="m-row">
         <div>
-          <strong>Revenir à l'état du 16 novembre</strong>
+          <strong>Revenir à la version de référence</strong>
           <span>Annule les coches ou ajouts locaux sur cet appareil.</span>
         </div>
         <button class="btn-top" type="button" id="m-reset">Réinitialiser</button>
@@ -1582,7 +1484,7 @@ footer b{color:var(--ink-2)}
   // ne peut pas être chargé, ex. fichier ouvert en local sans serveur).
   // La source normale est projets.json, chargé au démarrage.
   const DEFAULT_DATA = {
-    version: '2026-11-16',
+    version: '2026-11-18',
     projets: [
       {
         id: 'notes',
@@ -1676,7 +1578,6 @@ footer b{color:var(--ink-2)}
           { t: 'Noter ce qui marche / ce qui ne marche pas (taille des modèles, vitesse, qualité)', ok: false, custom: true },
           { t: 'Adopter l\'outil retenu (local ou en ligne) dans l\'usage courant', ok: false, custom: true },
           { t: 'Ouvrir un accès privé depuis le travail — Tailscale, aucun port ouvert sur la box', ok: false, custom: true },
-          { t: 'Brancher la zone « Mon IA privée » du tableau de bord sur l\'API', ok: false, custom: true },
           { t: 'Piloter l\'environnement de la maison - Freebox, imprimante, autres postes du reseau', ok: false, custom: true }
         ]
       }
@@ -1727,6 +1628,14 @@ footer b{color:var(--ink-2)}
     if(!d || !Array.isArray(d.projets) || !Array.isArray(d.veille)) return null;
     if(!Array.isArray(d.condense)) d.condense = clone(DEFAULT_DATA.condense);
     if(typeof d.version !== 'string') d.version = '2026-11-16';
+    if(d.version <= '2026-11-17'){
+      const ia = d.projets.find(p => p && p.id === 'ia-decouverte');
+      if(ia && Array.isArray(ia.etapes)){
+        const ancienneEtape = "Brancher la zone « Mon IA privée » du tableau de bord sur l'API";
+        ia.etapes = ia.etapes.filter(e => !e || e.t !== ancienneEtape);
+      }
+      d.version = '2026-11-18';
+    }
     return d;
   }
 
@@ -2344,7 +2253,7 @@ footer b{color:var(--ink-2)}
           throw new Error('Format non reconnu');
         }
         if(!Array.isArray(imported.condense)) imported.condense = clone(BASE_DATA.condense);
-        state = imported;
+        state = normalizeData(imported);
         closeModal('modal-data');
         renderAll();
         showToast('Sauvegarde importée');
@@ -2914,294 +2823,8 @@ footer b{color:var(--ink-2)}
     });
   })();
 
-  // ------------------------------------------------------------------
-  //  IA privée — dialogue avec LM Studio sur le poste à la maison
-  // ------------------------------------------------------------------
-  //  L'adresse et le jeton vivent uniquement dans le navigateur.
-  //  Aucune requête ne part ailleurs qu'à l'adresse indiquée ici.
-  const IA_URL_KEY   = 'tdb_lm_url';
-  const IA_TOKEN_KEY = 'tdb_lm_token';
-  const IA_CONV_KEY  = 'tdb_lm_conv';
-
-  let iaConv = [];        // [{role:'user'|'assistant', content:'...'}]
-  let iaModel = '';       // modele choisi par le serveur
-  let iaBusy = false;
-
-  function iaGet(k){ try { return localStorage.getItem(k) || ''; } catch(e){ return ''; } }
-  function iaSet(k, v){ try { v ? localStorage.setItem(k, v) : localStorage.removeItem(k); } catch(e){} }
-
-  function iaMsg(kind, text){
-    const box = document.getElementById('ia-msg');
-    box.className = 'gh-msg on ' + kind;
-    box.innerHTML = text;
-  }
-  function iaMsgClear(){ document.getElementById('ia-msg').className = 'gh-msg'; }
-
-  function iaBase(){
-    let u = iaGet(IA_URL_KEY).trim();
-    if (!u) return '';
-    if (!/^https?:\/\//i.test(u)) u = 'https://' + u;
-    return u.replace(/\/+$/, '');
-  }
-  function iaHeaders(){
-    const h = { 'Content-Type': 'application/json' };
-    const t = iaGet(IA_TOKEN_KEY).trim();
-    if (t) h['Authorization'] = 'Bearer ' + t;
-    return h;
-  }
-
-  function iaState(dot, text){
-    document.getElementById('ia-state').innerHTML =
-      '<span class="ia-dot ' + dot + '"></span><span>' + text + '</span>';
-  }
-
-  function iaRenderLog(){
-    const log = document.getElementById('ia-log');
-    log.innerHTML = '';
-    if (!iaConv.length){
-      const vide = document.createElement('div');
-      vide.className = 'ia-msg sys';
-      vide.textContent = 'Aucun message. Posez une question — la réponse viendra du modèle qui tourne chez vous.';
-      log.appendChild(vide);
-      return;
-    }
-    for (const m of iaConv){
-      const d = document.createElement('div');
-      d.className = 'ia-msg ' + (m.role === 'user' ? 'user' : 'bot');
-      d.textContent = m.content;
-      log.appendChild(d);
-    }
-    log.scrollTop = log.scrollHeight;
-  }
-
-  function iaSaveConv(){
-    try { localStorage.setItem(IA_CONV_KEY, JSON.stringify(iaConv.slice(-40))); } catch(e){}
-  }
-  function iaLoadConv(){
-    try {
-      const raw = localStorage.getItem(IA_CONV_KEY);
-      if (raw) iaConv = JSON.parse(raw) || [];
-    } catch(e){ iaConv = []; }
-  }
-
-  // Teste la connexion et récupère la liste des modèles chargés.
-  async function iaTest(){
-    iaMsgClear();
-    const base = iaBase();
-    if (!base){ iaMsg('err', 'Indiquez d\'abord l\'adresse du serveur.'); return; }
-    iaState('', 'test en cours…');
-    try {
-      const r = await fetch(base + '/models', { headers: iaHeaders() });
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      const j = await r.json();
-      const ids = (j.data || []).map(m => m.id);
-      if (!ids.length){
-        iaState('off', 'serveur joignable, aucun modèle chargé');
-        iaMsg('info', 'Le serveur répond, mais aucun modèle n\'est chargé. Sur l\'ASUS, chargez-en un puis réessayez.');
-        return;
-      }
-      iaModel = ids[0];
-      document.getElementById('ia-model').textContent = 'modèle : ' + iaModel;
-      iaState('on', 'connecté — ' + ids.length + ' modèle(s)');
-      iaMsg('ok', 'Connexion réussie. Modèles disponibles : <code>' + ids.join('</code>, <code>') + '</code>.');
-    } catch(e){
-      iaState('off', 'joignable ?');
-      iaMsg('err', 'Connexion impossible : ' + escapeHtml(String(e)) +
-        '<br>Vérifiez que le poste à la maison est allumé, que le tunnel est actif, et que l\'adresse est en <code>https://</code>.' +
-        '<br>Si la page est en HTTPS, l\'adresse doit l\'être aussi — le navigateur bloque <code>http://</code> depuis une page sécurisée.');
-    }
-  }
-
-  function escapeHtml(s){
-    return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-  }
-
-  // Lit un flux SSE et renvoie le texte reçu. Isolée pour être testable.
-  async function iaLireFlux(lecteur, surTexte){
-    const decodeur = new TextDecoder();
-    let reste = '';
-    let texte = '';
-    for(;;){
-      const { done, value } = await lecteur.read();
-      if (done) break;
-      reste += decodeur.decode(value, { stream: true });
-      const blocs = reste.split('\n\n');
-      reste = blocs.pop();
-      for (const bloc of blocs){
-        for (const ligne of bloc.split('\n')){
-          if (!ligne.startsWith('data:')) continue;
-          const charge = ligne.slice(5).trim();
-          if (!charge || charge === '[DONE]') continue;
-          try {
-            const j = JSON.parse(charge);
-            const d = (j.choices && j.choices[0] && j.choices[0].delta && j.choices[0].delta.content) || '';
-            if (d){
-              texte += d;
-              if (surTexte) surTexte(texte);
-            }
-          } catch(e){}
-        }
-      }
-    }
-    // dernier bloc, sans séparateur final
-    if (reste.trim()){
-      for (const ligne of reste.split('\n')){
-        if (!ligne.startsWith('data:')) continue;
-        const charge = ligne.slice(5).trim();
-        if (!charge || charge === '[DONE]') continue;
-        try {
-          const j = JSON.parse(charge);
-          const d = (j.choices && j.choices[0] && j.choices[0].delta && j.choices[0].delta.content) || '';
-          if (d){ texte += d; if (surTexte) surTexte(texte); }
-        } catch(e){}
-      }
-    }
-    return texte;
-  }
-
-  async function iaEnvoyer(){
-    if (iaBusy) return;
-    const saisie = document.getElementById('ia-input').value.trim();
-    if (!saisie) return;
-    const base = iaBase();
-    if (!base){ iaMsg('err', 'Indiquez d\'abord l\'adresse du serveur.'); return; }
-
-    iaConv.push({ role: 'user', content: saisie });
-    document.getElementById('ia-input').value = '';
-    iaRenderLog();
-
-    const bulle = document.createElement('div');
-    bulle.className = 'ia-msg bot';
-    bulle.textContent = '…';
-    document.getElementById('ia-log').appendChild(bulle);
-
-    iaBusy = true;
-    document.getElementById('ia-send').disabled = true;
-    let reponse = '';
-
-    try {
-      const corps = {
-        model: iaModel || 'local-model',
-        messages: iaConv.map(m => ({ role: m.role, content: m.content })),
-        stream: true
-      };
-      const r = await fetch(base + '/chat/completions', {
-        method: 'POST',
-        headers: iaHeaders(),
-        body: JSON.stringify(corps)
-      });
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-
-      const lecteur = r.body.getReader();
-      reponse = await iaLireFlux(lecteur, t => {
-        bulle.textContent = t;
-        document.getElementById('ia-log').scrollTop = 1e9;
-      });
-      if (!reponse){
-        // certains serveurs ne diffusent pas : on retente en une seule fois
-        const r2 = await fetch(base + '/chat/completions', {
-          method: 'POST', headers: iaHeaders(),
-          body: JSON.stringify({ model: iaModel || 'local-model', messages: corps.messages })
-        });
-        const j2 = await r2.json();
-        reponse = (j2.choices && j2.choices[0] && j2.choices[0].message && j2.choices[0].message.content) || '';
-        bulle.textContent = reponse;
-      }
-    } catch(e){
-      bulle.className = 'ia-msg sys';
-      bulle.textContent = 'Erreur : ' + String(e) +
-        '\n\nVérifiez que le tunnel vers l\'ASUS est actif, et que le serveur accepte les requêtes depuis cette origine (CORS).';
-    }
-
-    if (reponse) iaConv.push({ role: 'assistant', content: reponse });
-    iaSaveConv();
-    iaBusy = false;
-    document.getElementById('ia-send').disabled = false;
-    iaRenderLog();
-  }
-
-  function setupIaPrivee(){
-    const url = document.getElementById('ia-url');
-    const tok = document.getElementById('ia-token');
-    if (!url) return;
-
-    url.value = iaGet(IA_URL_KEY);
-    tok.value = iaGet(IA_TOKEN_KEY);
-    iaLoadConv();
-    iaRenderLog();
-
-    const configure = () => {
-      const base = iaBase();
-      if (!base){ iaMsg('err', 'Indiquez l\'adresse du serveur.'); return false; }
-      iaSet(IA_URL_KEY, base);
-      iaSet(IA_TOKEN_KEY, tok.value.trim());
-      document.getElementById('ia-setup').hidden = true;
-      document.getElementById('ia-chat').hidden = false;
-      iaState('on', 'configuré');
-      return true;
-    };
-
-    document.getElementById('ia-test').addEventListener('click', async () => {
-      iaSet(IA_URL_KEY, iaBase());
-      iaSet(IA_TOKEN_KEY, tok.value.trim());
-      await iaTest();
-    });
-    document.getElementById('ia-save').addEventListener('click', () => {
-      if (configure()) iaTest();
-    });
-    document.getElementById('ia-forget').addEventListener('click', () => {
-      iaSet(IA_URL_KEY, ''); iaSet(IA_TOKEN_KEY, ''); iaSet(IA_CONV_KEY, '');
-      url.value = ''; tok.value = ''; iaConv = [];
-      document.getElementById('ia-setup').hidden = false;
-      document.getElementById('ia-chat').hidden = true;
-      document.getElementById('ia-model').textContent = '';
-      iaState('', 'non configuré');
-      iaMsgClear();
-    });
-    document.getElementById('ia-send').addEventListener('click', iaEnvoyer);
-    document.getElementById('ia-input').addEventListener('keydown', e => {
-      if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)){ e.preventDefault(); iaEnvoyer(); }
-    });
-    document.getElementById('ia-clear').addEventListener('click', () => {
-      iaConv = []; iaSaveConv(); iaRenderLog();
-    });
-
-    // Bouton "Copier la commande" : la commande est deja affichee dans la
-    // page, il n'y a donc jamais besoin d'un mail ni d'un copier-coller
-    // a la main entre deux machines.
-    const cmdBtn = document.getElementById('ia-cmd-copy');
-    const cmdTxt = document.getElementById('ia-cmd-text');
-    if (cmdBtn && cmdTxt){
-      cmdBtn.addEventListener('click', () => {
-        const txt = cmdTxt.textContent.trim();
-        const replique = () => {
-          cmdBtn.textContent = '✓ Copié !';
-          setTimeout(() => { cmdBtn.textContent = '📋 Copier la commande'; }, 2200);
-          showToast('Commande copiée — collez-la dans PowerShell sur l’ASUS');
-        };
-        const repli = () => {
-          const ta = document.createElement('textarea');
-          ta.value = txt;
-          ta.style.position = 'fixed'; ta.style.opacity = '0';
-          document.body.appendChild(ta); ta.select();
-          try { document.execCommand('copy'); } catch(e) {}
-          ta.remove();
-        };
-        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(replique, () => { repli(); replique(); });
-        else { repli(); replique(); }
-      });
-    }
-
-    if (iaGet(IA_URL_KEY)){
-      document.getElementById('ia-setup').hidden = true;
-      document.getElementById('ia-chat').hidden = false;
-      iaState('', 'configuré — testez la connexion');
-    }
-  }
-
   setupCorriger();
   setupGitHub();
-  setupIaPrivee();
   renderAll();
   loadFromServer();
   updatePendingUI();

@@ -1,7 +1,6 @@
-/* Verifie que le bouton "Copier la commande" met bien la commande dans
- * le presse-papiers, et que le bloc s'ouvre bien au clic.
- *
- *   node scripts/verif_copie_commande.js
+/* Vérifie le bouton « Copier » du premier message destiné à Arena.
+ * Le bloc d’installation du chat local n’existe plus sur cette page.
+ * Usage : node scripts/verif_copie_commande.js
  */
 
 const fs = require('fs');
@@ -43,35 +42,17 @@ Object.defineProperty(window.navigator, 'clipboard', {
 });
 
 setTimeout(() => {
-  console.log('== bloc d\'installation du pont ==');
-  const bloc = doc.getElementById('ia-install');
-  const btn = doc.getElementById('ia-cmd-copy');
-  const cmd = doc.getElementById('ia-cmd-text');
-
-  verifie(!!bloc, 'le bloc existe');
-  verifie(bloc.tagName === 'DETAILS', 'le bloc est un <details> repliable');
-  verifie(!bloc.hasAttribute('open'), 'le bloc est replie au depart');
-
-  console.log('== au clic sur le resume ==');
-  bloc.querySelector('summary').dispatchEvent(new window.MouseEvent('click', { bubbles: true }));
-  verifie(bloc.hasAttribute('open'), 'le bloc s\'ouvre au clic');
-
-  console.log('== au clic sur "Copier la commande" ==');
-  btn.dispatchEvent(new window.MouseEvent('click', { bubbles: true }));
+  const btn = doc.getElementById('arena-copy');
+  const message = doc.getElementById('arena-prompt');
+  verifie(!doc.getElementById('ia-cmd-copy'), 'aucun bouton de copie pour le chat retiré');
+  verifie(!!(btn && message), 'le bouton et le premier message pour Arena existent');
+  if(btn) btn.click();
 
   setTimeout(() => {
-    verifie(presse === cmd.textContent.trim(), 'la commande est dans le presse-papiers');
-    verifie(presse.startsWith('irm https://raw.githubusercontent.com/'), 'le presse-papiers contient la bonne commande');
-    verifie(btn.textContent.indexOf('Copié') !== -1, 'le bouton confirme la copie');
-
-    console.log('== la commande copiee est-elle celle publiee ? ==');
-    const attendue = 'irm https://raw.githubusercontent.com/franceinfo771-prog/tableau_de_bord/pont/pont-outils/INSTALLER.ps1 | iex';
-    verifie(presse === attendue, 'commande identique a celle publiee sur la branche pont');
-
+    verifie(!!presse && !!message && presse === message.textContent.trim(), 'le premier message est copié sans modification');
+    verifie(!!btn && btn.textContent.includes('Copié'), 'le bouton confirme la copie');
     dom.window.close();
-    console.log('');
-    console.log(ko === 0 ? ('  ' + ok + ' verifications passees, aucune erreur')
-                          : ('  ' + ok + ' ok, ' + ko + ' ECHEC(S)'));
+    console.log(ko === 0 ? ('  ' + ok + ' vérifications réussies') : ('  ' + ko + ' échec(s)'));
     process.exit(ko === 0 ? 0 : 1);
   }, 120);
-}, 900);
+}, 300);

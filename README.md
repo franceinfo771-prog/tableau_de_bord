@@ -1,14 +1,14 @@
 # Tableau de bord — Mes projets
 
-Tableau de bord autonome de suivi de cinq projets, de la veille et du condensé.
+Tableau de bord autonome de suivi de six projets, de la veille et du condensé.
 
 - **Site en ligne** : https://franceinfo771-prog.github.io/tableau_de_bord/
 - **Version texte** : `ETAT.md`
 - **Aucune dépendance externe** : `index.html` + `projets.json`, utilisables en ligne comme hors ligne, sans compte ni script de suivi (`noindex, nofollow` + `robots.txt`).
 
-## État au 16 novembre 2026
+## État au 18 novembre 2026
 
-**6 projets · 2 terminés · 23 / 37 étapes faites (62 %) · 13 recherches de veille.**
+**6 projets · 2 terminés · 24 / 40 étapes faites (60 %) · 13 recherches de veille.**
 
 | Projet | Avancement | Statut | Prochaine action / Point ouvert |
 |---|---:|---|---|
@@ -17,7 +17,7 @@ Tableau de bord autonome de suivi de cinq projets, de la veille et du condensé.
 | Une application de poche | 4 / 6 (67 %) | 🟡 En cours | Installer l'application sur un téléphone réel |
 | Maquette — une porte qui fait joli | 2 / 4 (50 %) | 🟡 En cours | Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ? |
 | Vélo électrique DIY | 4 / 9 (44 %) | 🟣 Commencé | Acheter la manette — poignée à effet Hall, 3 fils, sortie 5 V |
-| Découverte de logiciels IA | 1 / 6 (17 %) | 🟣 Commencé | Choisir un outil à tester (Ollama ou LM Studio) |
+| Découverte de logiciels IA | 2 / 9 (22 %) | 🟣 Commencé | Installer l'outil à distance sur le PC de la maison |
 
 ## Données : `projets.json`
 

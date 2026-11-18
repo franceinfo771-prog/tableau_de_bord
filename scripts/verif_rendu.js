@@ -3,7 +3,7 @@
  *   node scripts/verif_rendu.js
  *
  * Vérifie : 0 erreur JS, le bon nombre de cartes de projets et de fiches
- * de veille, les boutons intacts, et la présence de la zone « IA privée ».
+ * de veille, les boutons intacts, et l’absence de la zone « IA privée ».
  */
 
 const fs = require('fs');
@@ -56,26 +56,12 @@ setTimeout(() => {
     verifie(!!doc.getElementById(id), 'bouton #' + id);
   }
 
-  console.log('== 4. zone « IA privée » ==');
-  verifie(!!doc.getElementById('ia-privee'), 'section #ia-privee presente');
-  verifie(!!doc.getElementById('ia-url'), 'champ adresse present');
-  verifie(!!doc.getElementById('ia-token'), 'champ jeton present');
-  verifie(!!doc.getElementById('ia-send'), 'bouton envoyer present');
-  verifie(!!doc.getElementById('ia-log'), 'zone de messages presente');
-  const navIa = Array.from(doc.querySelectorAll('.navlinks a'))
-    .some(a => (a.getAttribute('href') || '') === '#ia-privee');
-  verifie(navIa, 'lien de navigation vers la zone IA privee');
-
-  console.log('== 4b. bloc d\'installation du pont ==');
-  verifie(!!doc.getElementById('ia-install'), 'bloc #ia-install present');
-  verifie(!!doc.getElementById('ia-cmd-text'), 'commande affichee dans la page');
-  verifie(!!doc.getElementById('ia-cmd-copy'), 'bouton copier la commande present');
-  const cmd = (doc.getElementById('ia-cmd-text') || {textContent: ''}).textContent.trim();
-  verifie(cmd.startsWith('irm https://raw.githubusercontent.com/'), 'commande au bon format');
-  verifie(cmd.includes('/pont/pont-outils/INSTALLER.ps1 | iex'), 'commande pointe vers INSTALLER.ps1');
-  // La commande du site doit etre exactement celle publiee sur la branche pont.
-  verifie(cmd === 'irm https://raw.githubusercontent.com/franceinfo771-prog/tableau_de_bord/pont/pont-outils/INSTALLER.ps1 | iex',
-          'commande identique a celle publiee');
+  console.log('== 4. retrait du chat local ; Arena reste accessible ==');
+  verifie(!doc.querySelector('#ia-privee, #ia-install, #ia-cmd-copy, #ia-setup, #ia-url, #ia-token, #ia-chat, #ia-log, #ia-send'),
+          'ni chat local, ni réglages, ni installation');
+  verifie(!doc.querySelector('a[href="#ia-privee"]'), 'aucun lien vers la rubrique retirée');
+  verifie(!!doc.querySelector('a.btn-arena[href="https://arena.ai/agent"]'), 'lien « Mon assistant Arena » présent');
+  verifie(!doc.querySelector('#projects-list').textContent.includes('Mon IA privée'), 'aucune étape de branchement à la rubrique');
 
   console.log('== 5. aucune fuite de secret dans la page ==');
   const corps = doc.body.innerHTML;
