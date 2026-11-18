@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tableau de bord — coffret d'ouverture</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Page de démarrage de l'archive : comment ouvrir le tableau de bord, et où trouver chaque chose.">
+<style>
+:root{
+  --bg:#f1f3fa;--surface:#fff;--surface-alt:#e9ecf7;--ink:#15171f;--ink-2:#3b4152;
+  --dim:#646b7e;--line:#dce1ef;--accent:#4338ca;--accent-bg:#eef0ff;--accent-bd:#c5c9fb;
+  --ok:#15803d;--warn-bg:#fefce8;--warn-bd:#fde68a;--warn-ink:#4d3c0f;--radius:14px;
+  --shadow:0 1px 3px rgba(21,23,31,.05);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.envel{max-width:900px;margin:0 auto;padding:26px 18px 60px}
+a{color:var(--accent)}
+.banniere{display:block;width:100%;height:190px;object-fit:cover;object-position:center;
+  border:1px solid var(--line);border-radius:var(--radius);margin:0 0 22px;box-shadow:var(--shadow)}
+.carte{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:30px 32px;box-shadow:var(--shadow);margin:0 0 16px}
+.eyebrow{display:inline-block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--accent);background:var(--accent-bg);border:1px solid var(--accent-bd);
+  border-radius:999px;padding:4px 12px;margin:0 0 14px}
+h1{font-size:29px;line-height:1.2;margin:0 0 12px;letter-spacing:-.01em}
+h1 span{color:var(--accent)}
+h2{font-size:15px;text-transform:uppercase;letter-spacing:.09em;color:var(--dim);
+  margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.chapo{font-size:17px;color:var(--ink-2);margin:0 0 22px;max-width:62ch}
+.gros-bouton{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#fff;
+  text-decoration:none;font-weight:700;font-size:18px;padding:16px 30px;border-radius:999px;
+  box-shadow:0 4px 14px rgba(67,56,202,.25);transition:transform .12s,box-shadow .12s}
+.gros-bouton:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(67,56,202,.3)}
+.gros-bouton:focus-visible{outline:3px solid var(--accent-bd);outline-offset:3px}
+.sous{color:var(--dim);font-size:14px;margin:12px 0 0}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
+th{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--dim)}
+td:first-child{font-weight:600;white-space:nowrap}
+code{background:var(--surface-alt);padding:1px 6px;border-radius:5px;font-size:13px}
+ol,ul{margin:0 0 0;padding-left:22px}
+li{margin:6px 0}
+.note{background:var(--warn-bg);border:1px solid var(--warn-bd);border-left:4px solid #ca8a04;
+  border-radius:10px;padding:13px 16px;font-size:14.5px;color:var(--warn-ink);margin:18px 0 0}
+.note b{color:#3f3208}
+.deux{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){
+  .envel{padding:14px 12px 40px}
+  .banniere{height:130px}
+  .carte{padding:20px 18px}
+  h1{font-size:23px}
+  .gros-bouton{width:100%;justify-content:center;font-size:17px;padding:15px 20px}
+  .deux{grid-template-columns:1fr}
+  td:first-child{white-space:normal}
+}
+@media (prefers-reduced-motion:reduce){.gros-bouton{transition:none}.gros-bouton:hover{transform:none}}
+@media print{
+  body{background:#fff}
+  .banniere,.gros-bouton,.sous{display:none!important}
+  .carte{border:none;box-shadow:none;padding:0;margin:0 0 18px}
+  .envel{max-width:none;padding:0}
+}
+</style>
+</head>
+<body>
+<div class="envel">
+
+  <img class="banniere" src="site/img/banniere.jpg" alt="Bureau de travail : carnet de notes, ordinateur et café, lumière du matin" width="1100" height="300">
+
+  <main class="carte">
+    <p class="eyebrow">Archive — 18 novembre 2026</p>
+    <h1>Le tableau de bord de <span>mes projets</span></h1>
+    <p class="chapo">
+      Tout est là, dans ce dossier, et rien n'a besoin d'Internet. Ouvre
+      <b>COMMENCER-ICI.html</b> (ce fichier) et clique sur le bouton ci-dessous.
+    </p>
+
+    <a class="gros-bouton" href="site/accueil.html">Ouvrir le tableau de bord →</a>
+    <p class="sous">Le tableau de bord direct : <a href="site/index.html">site/index.html</a></p>
+
+    <div class="note">
+      <b>Si la page s'ouvre dans un éditeur de texte</b> au lieu de s'afficher :
+      clic droit sur le fichier → <i>Ouvrir avec</i> → ton navigateur (Firefox, Chrome, Edge, Safari).
+    </div>
+  </main>
+
+  <main class="carte">
+    <h2>Ce que contient l'archive</h2>
+    <table>
+      <thead><tr><th>Fichier</th><th>À quoi ça sert</th></tr></thead>
+      <tbody>
+        <tr><td>COMMENCER-ICI.html</td><td>Cette page : le point de départ.</td></tr>
+        <tr><td>MODE-D-EMPLOI.html</td><td>Le mode d'emploi complet, à lire ou à imprimer.</td></tr>
+        <tr><td>site/</td><td>Le site tel qu'il était en ligne : page d'accueil, tableau de bord, données, images.</td></tr>
+        <tr><td>version-internet/</td><td>Le site complet, avec ses pages d'atelier et de bulletins.</td></tr>
+        <tr><td>technique/</td><td>Pour plus tard, si un jour le site doit être repris : code source, consignes, vérifications.</td></tr>
+        <tr><td>archives/</td><td>Les sauvegardes <code>.json</code> exportées depuis le site.</td></tr>
+      </tbody>
+    </table>
+  </main>
+
+  <div class="deux">
+    <main class="carte">
+      <h2>L'essentiel en cinq gestes</h2>
+      <ol>
+        <li>Ouvrir la page d'accueil, puis <b>Entrer</b>.</li>
+        <li>Cliquer une barre de l'aperçu : le projet s'ouvre.</li>
+        <li>Cocher une étape : les compteurs bougent.</li>
+        <li>Chercher un mot dans la recherche.</li>
+        <li>Refermer : tout reste en place.</li>
+      </ol>
+    </main>
+    <main class="carte">
+      <h2>À savoir</h2>
+      <ul>
+        <li>Rien ne part sur Internet.</li>
+        <li>Les coches restent sur l'appareil.</li>
+        <li>Le bouton « Enregistrer sur GitHub » ne peut rien publier sans clé.</li>
+        <li>L'archive se lit dans n'importe quel navigateur, même ancien.</li>
+      </ul>
+    </main>
+  </div>
+
+  <p class="sous" style="text-align:center">
+    Archive constituée le 18 novembre 2026 · tableau de bord à 25 / 41 étapes (61 %) · 6 projets · 13 recherches de veille.
+  </p>
+</div>
+</body>
+</html>
