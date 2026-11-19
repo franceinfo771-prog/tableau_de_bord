@@ -86,6 +86,9 @@ Une page de présentation, pensée pour montrer le tableau de bord à quelqu'un 
   session de travail (branche → PR → fusion). Vérifié par `scripts/verif_sauvegarde.js`.
 - **Où ça en est** : affiche, pour chaque projet ouvert, l'étape qui débloque la suite. C'est
   un repère, pas une consigne (voir la règle 0 d'`ASSISTANT.md`).
+- **L'IA locale** : une fiche d'état dérivée du projet `ia-decouverte` — la machine, l'outil
+  retenu, le modèle, par où on la joint, les trois niveaux. **Ce n'est pas un chat** : aucun
+  champ, aucun appel réseau. Vérifiée par `scripts/verif_ia_locale.js` (26 contrôles).
 - **Cases interactives** : cocher/décocher une étape recalcule immédiatement les barres, les pourcentages et l'étape suivante, avec mémorisation locale (`localStorage`). Cocher est un confort, jamais une obligation : le tableau suit.
 - **Ajout rapide** : ajout d'étapes, de projets ou d'entrées de veille localement.
 - **Sauvegarde portable** : export/import en JSON, copie du résumé en texte brut, impression PDF propre.
@@ -120,6 +123,7 @@ node scripts/verif_accueil.js      # page de présentation : bouton, raccourcis,
 node scripts/verif_alerte_manette.js  # alerte de stock : module Python, fichier publié, affichage
 node scripts/verif_sauvegarde.js   # bouton Sauvegarder : export, import, reset, aucune publication
 node scripts/verif_porte.js        # porte privée : un seul lien sortant, réglage gardé
+node scripts/verif_ia_locale.js    # rubrique IA locale : fiche, chiffres, et surtout pas un chat
 node scripts/verif_archive.js      # archive livrée : contenu, liens, ouverture hors ligne
 node scripts/verif_copie_commande.js  # façade : aucune mention d'Arena/GitHub/clé ne doit s'afficher
 python3 scripts/sync_donnees_embedded.py --verifier

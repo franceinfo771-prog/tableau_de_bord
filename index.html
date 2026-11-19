@@ -278,6 +278,32 @@ h2.sect small{
   color:var(--dim);
 }
 
+/* --- Rubrique « L'IA locale » (fiche d'état, pas un chat) --- */
+.ia-carte{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px 20px;box-shadow:var(--shadow);margin:0 0 12px;
+}
+.ia-haut{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin:0 0 10px}
+.ia-titre{font-size:15.5px;font-weight:800;letter-spacing:-.01em;margin:0}
+.ia-etat{font-size:12px;font-weight:700;color:var(--enc);background:var(--enc-bg);
+  border:1px solid var(--enc-bd);border-radius:999px;padding:2px 9px;white-space:nowrap}
+.ia-bloc{margin:0 0 14px}
+.ia-bloc:last-child{margin-bottom:0}
+.ia-lbl{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--dim);
+  font-weight:700;margin:0 0 5px}
+.ia-txt{font-size:14.6px;line-height:1.6;color:var(--ink-2);margin:0}
+.ia-txt b{color:var(--ink)}
+.ia-grille{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:0 0 14px}
+.ia-case{background:var(--surface-alt);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.ia-case .ia-lbl{margin-bottom:3px}
+.ia-case .ia-txt{font-size:14px}
+.ia-niveaux{width:100%;border-collapse:collapse;font-size:13.6px;margin:0}
+.ia-niveaux th,.ia-niveaux td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+.ia-niveaux th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim)}
+.ia-niveaux tr:last-child td{border-bottom:0}
+.ia-niveaux .n{font-weight:800;color:var(--accent);white-space:nowrap}
+.ia-note{font-size:12.6px;color:var(--dim);margin:8px 0 0;line-height:1.55}
+
 /* Bloc Prochaines actions (Focus) */
 .focus-card{
   background:var(--surface);
@@ -1236,6 +1262,7 @@ footer b{color:var(--ink-2)}
       <a href="#focus">Où ça en est</a>
       <a href="#apercu">Vue d'ensemble</a>
       <a href="#projets">Projets</a>
+      <a href="#ia-locale">IA locale</a>
       <a href="#section-veille">Veille</a>
       <a href="#condense">Condensé</a>
       <a href="#section-cherche">Chercher</a>
@@ -1266,6 +1293,9 @@ footer b{color:var(--ink-2)}
 
   <h2 class="sect" id="focus">Où ça en est <small>l'étape qui débloque la suite, projet par projet</small></h2>
   <div id="focus-zone"></div>
+
+  <h2 class="sect" id="ia-locale">L'IA locale <small>l'état de la machine qui doit la faire tourner — une fiche, pas un chat</small></h2>
+  <div id="ia-locale-zone"></div>
 
   <h2 class="sect" id="apercu">D'un coup d'œil <small>cliquez un projet pour y aller</small></h2>
   <div class="overview" id="overview-bars"></div>
@@ -2058,9 +2088,87 @@ footer b{color:var(--ink-2)}
     }).join('');
   }
 
+  // --- Rubrique « L'IA locale » : une fiche d'état, dérivée du projet ia-decouverte.
+  // Elle ne parle pas, ne se connecte à rien. Elle dit où en est la machine qui
+  // doit faire tourner le modèle, et par où on la joint. Décision du 19/11/2026.
+  function renderIALocale(){
+    const zone = document.getElementById('ia-locale-zone');
+    if(!zone) return;
+    const p = state.projets.find(x => x && x.id === 'ia-decouverte');
+    if(!p){ zone.innerHTML = ''; return; }
+
+    const etapes = Array.isArray(p.etapes) ? p.etapes : [];
+    const faites = etapes.filter(e => e && e.ok).length;
+    const totale = etapes.length;
+    const prochaine = etapes.find(e => !e.ok) || null;
+
+    // Ce que dit la fiche, en clair et sans injonction.
+    const machine = 'L\'ASUS, à la maison — le PC du travail est trop modeste (Atom, 3,9 Go).';
+    const outil = 'LM Studio, retenu pour son démon headless : il se pilote à distance, sans écran.';
+    const modele = 'Pas encore choisi — il dépendra de la RAM relevée sur l\'ASUS.';
+    const joint = 'Par le pont : il interroge le modèle sur place, sur la machine de la maison, et relaie la réponse. '
+      + 'Le tunnel (Tailscale) ne sert qu\'au dialogue direct dans un navigateur — il n\'est pas installé.';
+    const point = (p.ouvert || '').trim();
+
+    const niveaux = [
+      ['1', 'Le pont', 'Piloter l\'ASUS et son réseau : Freebox, imprimante, autres postes.', 'La commande sur l\'ASUS et la phrase de passe.'],
+      ['2', 'Le modèle', 'Interroger le modèle qui tourne sur l\'ASUS, sur place.', 'Le modèle téléchargé et chargé.'],
+      ['3', 'Le tunnel', 'Toi, interrogeant le modèle depuis le navigateur.', 'Tailscale installé sur l\'ASUS.'],
+    ];
+
+    zone.innerHTML =
+      '<div class="ia-carte">' +
+        '<div class="ia-haut">' +
+          '<h3 class="ia-titre">L\'IA privée, sur la machine de la maison</h3>' +
+          '<span class="ia-etat">' + faites + ' / ' + totale + ' étapes</span>' +
+        '</div>' +
+        '<div class="ia-bloc">' +
+          '<p class="ia-lbl">Où ça en est</p>' +
+          '<p class="ia-txt">' +
+            (prochaine
+              ? 'L\'étape qui débloque la suite : <b>' + esc(prochaine.t) + '</b>.'
+              : 'Toutes les étapes sont faites — la fiche n\'a plus rien à signaler.') +
+          '</p>' +
+        '</div>' +
+        '<div class="ia-grille">' +
+          '<div class="ia-case"><p class="ia-lbl">La machine</p><p class="ia-txt">' + machine + '</p></div>' +
+          '<div class="ia-case"><p class="ia-lbl">L\'outil</p><p class="ia-txt">' + outil + '</p></div>' +
+          '<div class="ia-case"><p class="ia-lbl">Le modèle</p><p class="ia-txt">' + modele + '</p></div>' +
+        '</div>' +
+        '<div class="ia-bloc">' +
+          '<p class="ia-lbl">Comment on la joint</p>' +
+          '<p class="ia-txt">' + joint + '</p>' +
+        '</div>' +
+        '<div class="ia-bloc">' +
+          '<p class="ia-lbl">Les trois niveaux</p>' +
+          '<table class="ia-niveaux">' +
+            '<thead><tr><th>#</th><th>Ce que ça donne</th><th>Ce qui manque</th></tr></thead>' +
+            '<tbody>' +
+              niveaux.map(n =>
+                '<tr><td class="n">' + n[0] + '</td>' +
+                '<td><b>' + n[1] + '</b> — ' + n[2] + '</td>' +
+                '<td>' + n[3] + '</td></tr>').join('') +
+            '</tbody>' +
+          '</table>' +
+          '<p class="ia-note">Le niveau 2 n\'a pas besoin du tunnel : le pont interroge LM Studio en local. ' +
+              'Le tunnel ne sert qu\'au dialogue direct, plus fluide.</p>' +
+        '</div>' +
+        (point
+          ? '<div class="ia-bloc"><p class="ia-lbl">Le point ouvert</p><p class="ia-txt">' + esc(point) + '</p></div>'
+          : '') +
+        '<div class="ia-bloc">' +
+          '<p class="ia-lbl">Ce que cette rubrique ne fait pas</p>' +
+          '<p class="ia-txt">Elle ne parle pas et ne se connecte à rien. Une page en HTTPS ne peut pas ' +
+            'appeler une machine de la maison sans tunnel, et le site n\'a ni clé ni service derrière lui. ' +
+            'C\'est une fiche d\'état : elle se lit, elle ne discute pas.</p>' +
+        '</div>' +
+      '</div>';
+  }
+
   function renderAll(){
     renderKPIs();
     renderFocus();
+    renderIALocale();
     renderOverview();
     renderProjects();
     renderVeille();
