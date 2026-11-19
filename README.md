@@ -4,6 +4,8 @@ Tableau de bord autonome de suivi de six projets, de la veille et du condensé.
 
 - **Site en ligne** : https://franceinfo771-prog.github.io/tableau_de_bord/
 - **Version texte** : `ETAT.md`
+- **Porte privée** : `conversation.html` — page non publiée dans les liens, `noindex`, un seul
+  lien sortant (règle de l'adresse une fois). Vérifiée par `scripts/verif_porte.js`.
 - **Aucune dépendance externe** : `index.html` + `projets.json`, utilisables en ligne comme hors ligne, sans compte ni script de suivi (`noindex, nofollow` + `robots.txt`).
 
 ## État au 19 novembre 2026
@@ -116,9 +118,10 @@ node scripts/verif_rendu.js        # rendu headless : 0 erreur JS, comptes, bout
 node scripts/verif_ancre.js        # liens #proj-…, sauts, brouillon local, cochage
 node scripts/verif_accueil.js      # page de présentation : bouton, raccourcis, chiffres
 node scripts/verif_alerte_manette.js  # alerte de stock : module Python, fichier publié, affichage
+node scripts/verif_sauvegarde.js   # bouton Sauvegarder : export, import, reset, aucune publication
+node scripts/verif_porte.js        # porte privée : un seul lien sortant, réglage gardé
 node scripts/verif_archive.js      # archive livrée : contenu, liens, ouverture hors ligne
 node scripts/verif_copie_commande.js  # façade : aucune mention d'Arena/GitHub/clé ne doit s'afficher
-node scripts/verif_sauvegarde.js    # bouton Sauvegarder : fenêtre, export, import, copie, réinitialisation
 python3 scripts/sync_donnees_embedded.py --verifier
 ```
 

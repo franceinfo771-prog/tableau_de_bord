@@ -117,6 +117,22 @@ Point ouvert : lequel des assistants en ligne tester en premier — Claude, Chat
 
 ## Journal récent
 
+- **19 novembre 2026 — la porte privée vers la conversation** : l'humain cherchait « un endroit
+  dans le site où parler avec Arena ». Réponse tenue : pas de chat dans le site (il faudrait une
+  clé dans la page et un service extérieur — contraire aux règles, et n'importe qui pourrait
+  parler à ses frais). À la place, une **page privée non publiée**, `conversation.html`, posée
+  dans le dossier (donc servie par GitHub Pages, mais liée depuis nulle part et `noindex`). Elle
+  contient un seul lien sortant — le bouton « Ouvrir la conversation » — dont l'adresse se règle
+  une fois et se garde sur l'appareil (`localStorage`), avec arena.ai comme valeur par défaut.
+  Aucun appel réseau, aucune dépendance, aucun secret. Contrôles : `scripts/verif_porte.js`
+  (**21 vérifications**), qui garantit aussi que les trois pages publiques ne la référencent pas.
+  À faire quand l'humain donnera l'adresse réelle : la coller sur la page, bouton Enregistrer.
+  **Décision du même jour** : pas de vrai privé (exclusion de la publication) — l'humain
+  tranche que le contenu n'est pas confidentiel (« que des projets que j'ai en tête, rien de
+  très important ») et qu'il voit tout cela comme un exercice de gestion de projet. La page
+  reste donc servie par Pages, `noindex` et liée depuis nulle part. Ne pas reproposer le
+  retrait de la publication sans qu'il le demande.
+
 - **19 novembre 2026 — de quoi reprendre sans faire répéter** : l'humain a posé la bonne
   question (« si j'utilise l'Arena du site, la conversation reprend le projet ? »). Le constat
   était honnête : les fichiers survivaient, mais une session neuve devait fouiller trois

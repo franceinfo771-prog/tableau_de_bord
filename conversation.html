@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>La porte — parler du tableau</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="description" content="Page privée, non publiée : la porte vers la conversation qui connaît le tableau de bord.">
+<style>
+:root{
+  --bg:#f1f3fa;--surface:#fff;--surface-alt:#e9ecf7;--ink:#15171f;--ink-2:#3b4152;
+  --dim:#646b7e;--line:#dce1ef;--accent:#4338ca;--accent-bg:#eef0ff;--accent-bd:#c5c9fb;
+  --ok:#15803d;--warn-bg:#fefce8;--warn-bd:#fde68a;--warn-ink:#4d3c0f;--radius:14px;
+  --shadow:0 1px 3px rgba(21,23,31,.05);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.envel{max-width:760px;margin:0 auto;padding:30px 18px 70px}
+a{color:var(--accent)}
+.carte{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:30px 32px;box-shadow:var(--shadow);margin:0 0 16px}
+.eyebrow{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--dim);
+  font-weight:700;margin:0 0 6px}
+h1{font-size:29px;line-height:1.2;margin:0 0 12px;letter-spacing:-.02em}
+h1 span{color:var(--accent)}
+h2{font-size:17px;margin:0 0 10px;letter-spacing:-.01em}
+.chapo{font-size:17px;color:var(--ink-2);margin:0 0 22px}
+.gros-bouton{display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:17px 22px;border-radius:12px;border:1px solid #3628b8;
+  background:linear-gradient(180deg,#5246e0,#4338ca);color:#fff;text-decoration:none;
+  font-size:18px;font-weight:800;letter-spacing:-.01em;box-shadow:0 6px 18px rgba(67,56,202,.25);
+  transition:transform .12s ease,filter .12s ease}
+.gros-bouton:hover{transform:translateY(-1px);filter:brightness(1.06)}
+.gros-bouton:active{transform:translateY(0)}
+.sous{font-size:13px;color:var(--dim);margin:10px 0 0;text-align:center}
+.note{background:var(--warn-bg);border:1px solid var(--warn-bd);color:var(--warn-ink);
+  border-radius:10px;padding:12px 14px;font-size:14px;margin:18px 0 0}
+.note b{color:#3d2f0a}
+.reglage{margin-top:22px;padding-top:20px;border-top:1px solid var(--line)}
+.reglage label{display:block;font-size:13px;font-weight:700;color:var(--ink-2);margin:0 0 6px}
+.champ{display:flex;gap:8px;flex-wrap:wrap}
+.champ input{flex:1 1 260px;min-width:0;padding:10px 12px;border:1px solid var(--line);
+  border-radius:9px;font:14px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  background:var(--surface-alt);color:var(--ink)}
+.champ input:focus{outline:2px solid var(--accent-bd);outline-offset:1px;background:#fff}
+.champ button{padding:10px 16px;border-radius:9px;border:1px solid var(--line);
+  background:var(--surface);color:var(--ink);font-weight:700;font-size:14px;cursor:pointer}
+.champ button:hover{border-color:var(--accent);color:var(--accent)}
+.etat{font-size:13px;margin:8px 0 0;color:var(--ok);font-weight:700}
+.etat.vide{color:var(--dim);font-weight:400}
+ul{margin:0;padding-left:20px}
+li{margin:0 0 7px}
+ol{margin:0;padding-left:22px}
+code{background:var(--surface-alt);border:1px solid var(--line);border-radius:5px;
+  padding:1px 5px;font-size:13px}
+.pied{text-align:center;font-size:12.5px;color:var(--dim);margin-top:22px}
+@media (max-width:560px){
+  .carte{padding:24px 20px}
+  h1{font-size:24px}
+}
+@media print{.gros-bouton,.reglage{display:none!important}}
+</style>
+</head>
+<body>
+<div class="envel">
+
+  <main class="carte">
+    <p class="eyebrow">Page privée · jamais publiée</p>
+    <h1>La porte vers <span>la conversation</span></h1>
+    <p class="chapo">
+      Cette page ne fait pas partie du site. Elle vit seulement dans ton dossier, sur ton
+      ordinateur, et n'est jamais envoyée sur Internet. C'est la porte d'entrée vers l'endroit
+      où tu parles de tes projets.
+    </p>
+
+    <a class="gros-bouton" id="porte" href="https://arena.ai" target="_blank" rel="noopener">
+      Ouvrir la conversation →
+    </a>
+    <p class="sous" id="cible">arena.ai</p>
+
+    <div class="note">
+      <b>Ce n'est pas un chat dans le site.</b> C'est un raccourci : la conversation s'ouvre
+      dans son propre onglet, avec le dépôt du tableau de bord branché. Le site, lui, ne
+      contient aucun assistant — et le restera.
+    </div>
+  </main>
+
+  <main class="carte">
+    <h2>Si le bouton n'ouvre pas le bon endroit</h2>
+    <p style="margin:0 0 6px;color:var(--ink-2);font-size:14.5px">
+      Va sur la page de conversation dans ton navigateur, copie <b>l'adresse complète</b> de la
+      barre d'adresse, colle-la ci-dessous, puis clique <b>Enregistrer</b>. Le bouton ouvrira
+      ensuite toujours cet endroit, y compris après avoir fermé le navigateur.
+    </p>
+    <div class="reglage">
+      <label for="adresse">Adresse de ma conversation</label>
+      <div class="champ">
+        <input id="adresse" type="url" spellcheck="false" autocomplete="off"
+               placeholder="https://…">
+        <button type="button" id="enregistrer">Enregistrer</button>
+        <button type="button" id="defaut">Remettre le défaut</button>
+      </div>
+      <p class="etat vide" id="etat" role="status" aria-live="polite">Aucune adresse personnalisée.</p>
+    </div>
+  </main>
+
+  <main class="carte">
+    <h2>Une fois dans la conversation, trois phrases suffisent</h2>
+    <ul>
+      <li><b>Pour situer :</b> « où en est le vélo ? » — la conversation lit le dépôt
+        <code>tableau_de_bord</code> et doit répondre sans que tu réexpliques.</li>
+      <li><b>Pour raconter :</b> « vélo : manette commandée » — elle met le tableau à jour et
+        publie, tu n'as rien à cocher.</li>
+      <li><b>Pour reprendre plus tard :</b> ouvre une nouvelle conversation sur ce même dépôt,
+        pas un nouveau projet. C'est le dépôt qui garde la mémoire, pas la conversation.</li>
+    </ul>
+    <div class="note" style="background:var(--accent-bg);border-color:var(--accent-bd);color:var(--ink-2)">
+      <b>Si elle te demande quel dépôt :</b> <code>franceinfo771-prog/tableau_de_bord</code>.
+      C'est tout ce qu'elle a besoin de savoir — les règles et l'état des projets sont dedans.
+    </div>
+  </main>
+
+  <p class="pied">
+    Page privée · créée le 19 novembre 2026 · aucun envoi, aucun suivi, aucune dépendance.<br>
+    Le tableau de bord, lui, reste ici : <a href="index.html">index.html</a>
+  </p>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var CLE = 'porte-conversation-adresse';
+  var DEFAUT = 'https://arena.ai';
+  var lien = document.getElementById('porte');
+  var champ = document.getElementById('adresse');
+  var cible = document.getElementById('cible');
+  var etat = document.getElementById('etat');
+
+  function lire(){
+    try { return localStorage.getItem(CLE) || ''; } catch(e){ return ''; }
+  }
+  function ecrire(v){
+    try {
+      if(v){ localStorage.setItem(CLE, v); } else { localStorage.removeItem(CLE); }
+      return true;
+    } catch(e){ return false; }
+  }
+
+  function afficher(){
+    var perso = lire();
+    var url = perso || DEFAUT;
+    lien.href = url;
+    champ.value = perso;
+    cible.textContent = url.replace(/^https?:\/\//,'').replace(/\/$/,'');
+    if(perso){
+      etat.textContent = 'Adresse personnalisée enregistrée sur cet appareil.';
+      etat.className = 'etat';
+    } else {
+      etat.textContent = 'Aucune adresse personnalisée : le bouton utilise l’adresse par défaut.';
+      etat.className = 'etat vide';
+    }
+  }
+
+  function propre(v){
+    v = String(v || '').trim();
+    if(!v) return '';
+    if(!/^[a-z]+:\/\//i.test(v)) v = 'https://' + v;
+    return v;
+  }
+
+  document.getElementById('enregistrer').addEventListener('click', function(){
+    var v = propre(champ.value);
+    if(!v){ return; }
+    if(!ecrire(v)){
+      etat.textContent = 'Impossible d’enregistrer ici (le navigateur refuse le stockage local).';
+      etat.className = 'etat vide';
+      return;
+    }
+    afficher();
+  });
+
+  document.getElementById('defaut').addEventListener('click', function(){
+    ecrire('');
+    afficher();
+  });
+
+  afficher();
+})();
+</script>
+</body>
+</html>
