@@ -63,14 +63,17 @@ function charger(options) {
     bouton ? bouton.getAttribute('href') : '');
 
   const liens = [...doc.querySelectorAll('.raccourcis a')];
-  verifie(liens.length === 5, '5 raccourcis de section', String(liens.length));
-  verifie(liens.every(a => /^index\.html#[a-z-]+$/.test(a.getAttribute('href') || '')),
-    'tous les raccourcis pointent vers une section de index.html',
-    liens.map(a => a.getAttribute('href')).join(' '));
+  verifie(liens.length === 6, '6 raccourcis (5 sections du tableau + la page de veille)', String(liens.length));
+  // Cinq raccourcis visent une section du tableau ; un mène à la page de veille.
+  const sections = liens.filter(a => /^index\.html#[a-z-]+$/.test(a.getAttribute('href') || ''));
+  const pages = liens.filter(a => /^[a-z-]+\.html$/.test(a.getAttribute('href') || ''));
+  verifie(sections.length === 5, '5 raccourcis vers une section de index.html', String(sections.length));
+  verifie(pages.length === 1 && fs.existsSync(path.join(RACINE, pages[0].getAttribute('href'))),
+    '1 raccourci vers une page existante', pages.map(a => a.getAttribute('href')).join(' '));
 
   // Les ancres visées doivent exister dans index.html.
   const index = fs.readFileSync(path.join(RACINE, 'index.html'), 'utf8');
-  const cibles = liens.map(a => a.getAttribute('href').split('#')[1]);
+  const cibles = sections.map(a => a.getAttribute('href').split('#')[1]);
   const manquantes = cibles.filter(id => !index.includes('id="' + id + '"'));
   verifie(manquantes.length === 0, 'les sections visées existent dans index.html', manquantes.join(', '));
 

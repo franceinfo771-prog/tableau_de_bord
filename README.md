@@ -1,14 +1,15 @@
 # Tableau de bord — Mes projets
 
 Tableau de bord autonome de suivi de six projets, de la veille et du condensé.
+Une page de veille à part (`veille-supermimic.html`) raconte SuperMimic, le robot humanoïde.
 
 - **Site en ligne** : https://franceinfo771-prog.github.io/tableau_de_bord/
 - **Version texte** : `ETAT.md`
 - **Aucune dépendance externe** : `index.html` + `projets.json`, utilisables en ligne comme hors ligne, sans compte ni script de suivi (`noindex, nofollow` + `robots.txt`).
 
-## État au 18 novembre 2026
+## État au 19 novembre 2026
 
-**6 projets · 2 terminés · 25 / 41 étapes faites (61 %) · 13 recherches de veille.**
+**6 projets · 2 terminés · 25 / 42 étapes faites (60 %) · 14 recherches de veille.**
 
 | Projet | Avancement | Statut | Prochaine action / Point ouvert |
 |---|---:|---|---|
@@ -17,11 +18,21 @@ Tableau de bord autonome de suivi de six projets, de la veille et du condensé.
 | Une application de poche | 4 / 6 (67 %) | 🟡 En cours | Installer l'application sur un téléphone réel |
 | Maquette — une porte qui fait joli | 2 / 4 (50 %) | 🟡 En cours | Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ? |
 | Vélo électrique DIY | 4 / 9 (44 %) | 🟣 Commencé | Acheter la manette — poignée à effet Hall, 3 fils, sortie 5 V |
-| Découverte de logiciels IA | 2 / 9 (22 %) | 🟣 Commencé | Installer l'outil à distance sur le PC de la maison |
+| Découverte de logiciels IA | 2 / 10 (20 %) | 🟣 Commencé | Installer l'outil à distance sur le PC de la maison |
 
 ## Données : `projets.json`
 
 Les données affichées (projets, veille, condensé) vivent dans **`projets.json`**, à la racine du dépôt. `index.html` le charge au démarrage ; si le fichier est inaccessible (ouverture hors ligne), une copie de secours intégrée à la page prend le relais. Les modifications faites dans le navigateur sont d'abord gardées sur l'appareil (`localStorage`), puis publiées sur `main` via le bouton **Enregistrer sur GitHub**.
+
+## Page de veille : `veille-supermimic.html`
+
+Une page à part, demandée le 19 novembre 2026 : SuperMimic, un humanoïde qui apprend
+tous les gestes humains, expliqué sans jargon — ce que c'est, comment ça marche en trois
+temps, ce que montre le film, les chiffres (avec leurs limites), ce que ça ne veut pas
+dire, et trois liens pour le voir soi-même. Page statique, `noindex`, sans script ni
+image distante ; la photo est une illustration générée, et la page le dit. Elle est
+reliée au tableau (« Robot qui apprend » dans la barre) et à la page d'accueil, et elle
+accompagne l'étape correspondante du projet « Découverte de logiciels IA ».
 
 ## Page d'accueil de démonstration : `accueil.html`
 
@@ -63,6 +74,7 @@ python3 -m http.server 8000
 node scripts/verif_rendu.js        # rendu headless : 0 erreur JS, comptes, boutons intacts
 node scripts/verif_ancre.js        # liens #proj-…, sauts, brouillon local, cochage
 node scripts/verif_accueil.js      # page de présentation : bouton, raccourcis, chiffres
+node scripts/verif_veille.js       # page de veille SuperMimic : liens, chiffres, propreté
 node scripts/verif_archive.js      # archive livrée : contenu, liens, ouverture hors ligne
 node scripts/verif_copie_commande.js
 python3 scripts/sync_donnees_embedded.py --verifier
