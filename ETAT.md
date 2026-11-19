@@ -127,6 +127,11 @@ Point ouvert : lequel des assistants en ligne tester en premier — Claude, Chat
   Aucun appel réseau, aucune dépendance, aucun secret. Contrôles : `scripts/verif_porte.js`
   (**21 vérifications**), qui garantit aussi que les trois pages publiques ne la référencent pas.
   À faire quand l'humain donnera l'adresse réelle : la coller sur la page, bouton Enregistrer.
+  **Décision du même jour** : pas de vrai privé (exclusion de la publication) — l'humain
+  tranche que le contenu n'est pas confidentiel (« que des projets que j'ai en tête, rien de
+  très important ») et qu'il voit tout cela comme un exercice de gestion de projet. La page
+  reste donc servie par Pages, `noindex` et liée depuis nulle part. Ne pas reproposer le
+  retrait de la publication sans qu'il le demande.
 
 - **19 novembre 2026 — de quoi reprendre sans faire répéter** : l'humain a posé la bonne
   question (« si j'utilise l'Arena du site, la conversation reprend le projet ? »). Le constat
