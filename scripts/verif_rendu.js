@@ -50,17 +50,17 @@ setTimeout(() => {
     'fiches de veille : ' + fichesVeille.length + ' (attendu ' + donnees.veille.length + ')');
 
   console.log('== 3. boutons intacts ==');
-  const attendus = ['btn-github-top', 'btn-github-big', 'btn-corriger', 'btn-top-add-proj',
-                     'btn-print', 'btn-data', 'arena-copy', 'btn-gh-setup'];
+  const attendus = ['btn-corriger', 'btn-top-add-proj', 'btn-print', 'btn-data'];
   for (const id of attendus) {
     verifie(!!doc.getElementById(id), 'bouton #' + id);
   }
 
-  console.log('== 4. retrait du chat local ; Arena reste accessible ==');
+  console.log('== 4. le site ne montre pas sa fabrication ==');
   verifie(!doc.querySelector('#ia-privee, #ia-install, #ia-cmd-copy, #ia-setup, #ia-url, #ia-token, #ia-chat, #ia-log, #ia-send'),
           'ni chat local, ni réglages, ni installation');
   verifie(!doc.querySelector('a[href="#ia-privee"]'), 'aucun lien vers la rubrique retirée');
-  verifie(!!doc.querySelector('a.btn-arena[href="https://arena.ai/agent"]'), 'lien « Mon assistant Arena » présent');
+  // Retiré volontairement (19/11) : le public n'a pas à savoir avec quoi c'est fait.
+  verifie(!doc.querySelector('a.btn-arena, .arena-box, #modal-github'), 'ni Arena, ni réglage GitHub en façade');
   verifie(!doc.querySelector('#projects-list').textContent.includes('Mon IA privée'), 'aucune étape de branchement à la rubrique');
 
   console.log('== 5. aucune fuite de secret dans la page ==');

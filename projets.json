@@ -303,12 +303,12 @@
     },
     {
       "t": "SuperMimic — un humanoïde qui imite tous les gestes, entraîné en 3 heures sur un seul GPU",
-      "s": "Repéré dans une infolettre, puis vérifié à la source : page du projet (supermimic.github.io), dépôt GitHub HybridRobotics/supermimic, article arXiv:2610.28480 accepté à CoRL 2026. Résultat annoncé : dépasse un entraînement de 7 jours sur 128 GPU — plus de 1000 fois moins de calcul — et 0 échec sur 129 514 mouvements après 9,8 h sur 2 GPU. Code en licence Apache 2.0 ; la démo web, elle, est propriétaire (visible, pas copiable).",
+      "s": "Repéré dans une infolettre, puis vérifié à la source : page du projet, article arXiv:2610.28480 accepté à CoRL 2026, code source publié en Apache 2.0. Résultat annoncé : dépasse un entraînement de 7 jours sur 128 GPU — plus de 1000 fois moins de calcul — et 0 échec sur 129 514 mouvements après 9,8 h sur 2 GPU. Code en licence Apache 2.0 ; la démo web, elle, est propriétaire (visible, pas copiable).",
       "abouti": true
     },
     {
       "t": "Manette du vélo — prix relevés et modèle retenu (19/11)",
-      "s": "Choix : AdreaPocket 5F36POIGELTROT, 13,99 €, 5 fils (rouge +5 V, noir masse, blanc signal sur A0 ; 2 fils « Indicator »), guidon 22 mm (trou 22,2 mm). En rupture — décision d'attendre plutôt que payer plus cher, le vélo ne roulant pas en hiver. Comparatif du jour : MotoQuadElec 20 € (effet Hall 5 fils, stock Normandie, 2ᵉ connecteur = éclairage, pas coupe-circuit) ; MonsterBike62 25,99 € (bouton coupe-circuit, le plus sûr si AdreaPocket ne revient pas) ; Cdiscount 17-22 €. Anciennes réfs de la fiche du 13/11 : Enlybee B0DB6WCQVV 16,39 € (Amazon, indisponible) et Yosoo B08KY8HDN8 16,75 €. Alerte : le robot vérifie chaque matin à 7 h 20 la page AdreaPocket et publie alerte-manette.json — en service depuis le 19/11 à 10 h 47 (premier passage réussi, commit « Alerte manette »). Le jour du retour en stock, il ouvre un ticket GitHub qui envoie l'e-mail.",
+      "s": "Choix : AdreaPocket 5F36POIGELTROT, 13,99 €, 5 fils (rouge +5 V, noir masse, blanc signal sur A0 ; 2 fils « Indicator »), guidon 22 mm (trou 22,2 mm). En rupture — décision d'attendre plutôt que payer plus cher, le vélo ne roulant pas en hiver. Comparatif du jour : MotoQuadElec 20 € (effet Hall 5 fils, stock Normandie, 2ᵉ connecteur = éclairage, pas coupe-circuit) ; MonsterBike62 25,99 € (bouton coupe-circuit, le plus sûr si AdreaPocket ne revient pas) ; Cdiscount 17-22 €. Anciennes réfs de la fiche du 13/11 : Enlybee B0DB6WCQVV 16,39 € (Amazon, indisponible) et Yosoo B08KY8HDN8 16,75 €. Alerte : le robot vérifie chaque matin à 7 h 20 la page AdreaPocket et publie alerte-manette.json — en service depuis le 19/11 à 10 h 47 (premier passage réussi, commit « Alerte manette »). Le jour du retour en stock, une alerte part automatiquement par e-mail.",
       "abouti": true
     }
   ],

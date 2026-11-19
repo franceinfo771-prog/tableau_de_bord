@@ -947,7 +947,7 @@ footer b{color:var(--ink-2)}
 }
 .toast.on{opacity:1;transform:none}
 
-/* Bouton Corriger + GitHub */
+/* Boutons de la barre (Corriger, Imprimer, Sauvegarder) */
 .btn-corriger{
   font:inherit;
   font-size:14px;
@@ -1247,8 +1247,6 @@ footer b{color:var(--ink-2)}
     <div class="top-actions">
       <button class="btn-top" type="button" id="btn-top-add-proj" title="Créer un nouveau projet">+ Projet</button>
       <button class="btn-corriger" type="button" id="btn-corriger" title="Corriger projets, étapes et veille">✎ Corriger</button>
-      <a class="btn-arena" href="https://arena.ai/agent" target="_blank" rel="noopener noreferrer" title="Ouvrir Arena — votre assistant pour faire évoluer ce site (décrivez votre demande, ex. : « coche l'étape 1 du projet IA »)">✦ Mon assistant Arena</a>
-      <button class="btn-github" type="button" id="btn-github-top" title="Publier projets.json sur GitHub (branche main)"><span class="pending-dot none" id="gh-dot-top" aria-hidden="true"></span><span id="gh-label-top">Enregistrer sur GitHub</span></button>
       <button class="btn-top" type="button" id="btn-print" title="Imprimer ou enregistrer en PDF">Imprimer</button>
       <button class="btn-top primary" type="button" id="btn-data">Sauvegarder</button>
     </div>
@@ -1261,22 +1259,6 @@ footer b{color:var(--ink-2)}
   <p class="date">État au <b>19 novembre 2026</b> · mis à jour à la main · fonctionne en ligne et hors ligne, sans compte ni suivi</p>
   <p class="chapo">Six projets suivis au même endroit. Pour chacun : où il en est, <b>ce qui le terminera</b>, et <b>la seule chose à faire ensuite</b>. Vous pouvez cocher une étape directement : les barres, les pourcentages et la prochaine action se mettent à jour aussitôt.</p>
   <img class="banniere" src="img/humanoides.jpg" alt="Un robot humanoïde blanc et gris en équilibre dans un laboratoire de robotique, deux ingénieurs derrière lui" width="1100" height="300">
-  <div class="arena-box" aria-label="Comment faire évoluer ce site">
-    <span><b>✦ Vous voulez modifier ce site ?</b> Ouvrez <a class="arena-link" href="https://arena.ai/agent" target="_blank" rel="noopener noreferrer">✦ Mon assistant Arena</a> et collez-y votre <b>premier message</b> :</span>
-    <code class="arena-prompt" id="arena-prompt">Lis le dépôt franceinfo771-prog/tableau_de_bord (branche main) : ASSISTANT.md, puis ETAT.md et projets.json. C'est mon tableau de bord de projets. Ensuite, attends mes demandes — et pour chaque changement, branche + PR, jamais direct sur main.</code>
-    <button class="arena-copy" type="button" id="arena-copy">📋 Copier</button>
-  </div>
-
-  <div class="gh-bar" aria-label="Enregistrement sur GitHub">
-    <button class="btn-github big" type="button" id="btn-github-big"><span class="pending-dot none" id="gh-dot-big" aria-hidden="true"></span><span id="gh-label-big">⬆ Enregistrer sur GitHub</span></button>
-    <div class="gh-status">
-      <span id="gh-pending-text"><b>Aucune modification en attente.</b></span>
-      <span class="gh-hint" id="gh-hint-text">Les données viennent de <code>projets.json</code> (chargé au démarrage, avec secours hors ligne).</span>
-      <span class="gh-last" id="gh-last-text"></span>
-      <button class="gh-setup-link" type="button" id="btn-gh-setup">Réglage de la clé GitHub →</button>
-    </div>
-  </div>
-
   <div class="resume" id="kpi-grid" aria-label="Chiffres clés"></div>
 
   <div class="chantier">
@@ -1382,7 +1364,7 @@ footer b{color:var(--ink-2)}
 
   <footer>
     <p><b>Ce que cette page dit, et ce qu'elle ne dit pas.</b> Elle compte des étapes cochées, elle ne mesure pas leur difficulté. Une étape faite est une étape faite — mais toutes ne se valent pas.</p>
-    <p><b>Confidentialité — vérifié le 16 novembre 2026.</b> Cette page n'a <b>aucun</b> script de mesure, pas de Google Analytics, pas de pixel, pas de cookie tiers, aucune police distante et aucune image externe. <b>Mais l'hébergeur, lui, garde une trace technique :</b> GitHub Pages enregistre l'adresse IP des visites dans ses journaux serveur (« à des fins de sécurité »), auxquels le propriétaire du site n'a pas accès. En ouvrant ce fichier localement depuis votre ordinateur, aucun serveur n'est contacté.</p>
+    <p><b>Confidentialité — vérifié le 16 novembre 2026.</b> Cette page n'a <b>aucun</b> script de mesure, pas de Google Analytics, pas de pixel, pas de cookie tiers, aucune police distante et aucune image externe. Aucun compte, aucun formulaire, aucune donnée envoyée. Si l'adresse du site est publique, l'hébergeur conserve de son côté des journaux techniques (adresse IP) auxquels je n'ai pas accès. En ouvrant ce fichier localement depuis votre ordinateur, aucun serveur n'est contacté.</p>
     <p>Tableau de bord mis à jour le <b>19 novembre 2026</b> · page + <code>projets.json</code> · zéro dépendance extérieure.</p>
     <p>Page d'accueil de présentation : <a href="accueil.html">accueil.html</a> · reprise le <b>19 novembre 2026</b>.<br>
     Page de veille : <a href="veille-supermimic.html">le robot humanoïde SuperMimic, expliqué simplement</a> ·
@@ -1491,25 +1473,11 @@ footer b{color:var(--ink-2)}
     <div class="corriger-head">
       <div>
         <h3 id="corriger-title">✎ Corriger</h3>
-        <p>Choisissez une grande case, puis corrigez. Tout est enregistré sur cet appareil ; cliquez ensuite sur <b>Enregistrer sur GitHub</b> pour publier.</p>
+        <p>Choisissez une grande case, puis corrigez. Tout est enregistré sur cet appareil, et reporté sur le site à la prochaine mise à jour.</p>
       </div>
       <button class="btn-close-big" type="button" id="corriger-close" aria-label="Fermer Corriger">✕</button>
     </div>
     <div id="corriger-body"></div>
-  </div>
-</div>
-
-<!-- Modale Réglage GitHub — clé fine-grained stockée uniquement dans Brave -->
-<div class="modal-bg" id="modal-github" role="dialog" aria-modal="true" aria-labelledby="mg-title">
-  <div class="modal" style="max-width:620px">
-    <h3 id="mg-title">Enregistrer sur GitHub — réglage guidé</h3>
-    <p class="m-sub">La clé reste <b>uniquement dans Brave sur votre PC</b> (stockage local du navigateur). Elle n'est <b>jamais</b> écrite dans le dépôt, dans <code>projets.json</code> ni envoyée ailleurs que vers <code>api.github.com</code>.</p>
-    <div id="gh-setup-zone"></div>
-    <div class="gh-msg" id="gh-msg" role="status" aria-live="polite"></div>
-    <div class="m-actions">
-      <button class="btn-top" type="button" id="gh-forget">Effacer la clé de Brave</button>
-      <button class="btn-top" type="button" data-close="modal-github">Fermer</button>
-    </div>
   </div>
 </div>
 
@@ -1645,8 +1613,8 @@ footer b{color:var(--ink-2)}
       { t: 'Les gains d\'un vélo à friction', s: 'Rendement 60-80 % contre 85-92 % pour un moyeu. Pneu usé en 500-1 500 km contre 2 000-5 000. Perte de 20 à 40 % d\'autonomie. Convergent sur plusieurs sources techniques indépendantes.', abouti: true },
       { t: 'L\'absorption réelle des mousses pyramidales — sans importance', s: 'Recherche faite, puis mise hors du projet : la maquette est un objet d\'aspect, pas un dispositif. NRC 0,70 à 1,00 selon l\'épaisseur ; 0,18 à 0,24 à 125 Hz. Gardé pour mémoire, pas pour décider.', abouti: false },
       { t: 'Une application Android pour un fichier hors ligne', s: 'Trois outils officiels suffisent : aapt2, d8, apksigner. Aucun magasin, aucun compte développeur, aucun frais. L\'application a été construite et signée v1+v2+v3.', abouti: true },
-      { t: 'SuperMimic — un humanoïde qui imite tous les gestes, entraîné en 3 heures sur un seul GPU', s: 'Repéré dans une infolettre, puis vérifié à la source : page du projet (supermimic.github.io), dépôt GitHub HybridRobotics/supermimic, article arXiv:2610.28480 accepté à CoRL 2026. Résultat annoncé : dépasse un entraînement de 7 jours sur 128 GPU — plus de 1000 fois moins de calcul — et 0 échec sur 129 514 mouvements après 9,8 h sur 2 GPU. Code en licence Apache 2.0 ; la démo web, elle, est propriétaire (visible, pas copiable).', abouti: true },
-      { t: 'Manette du vélo — prix relevés et modèle retenu (19/11)', s: 'Choix : AdreaPocket 5F36POIGELTROT, 13,99 €, 5 fils (rouge +5 V, noir masse, blanc signal sur A0 ; 2 fils « Indicator »), guidon 22 mm (trou 22,2 mm). En rupture — décision d\'attendre plutôt que payer plus cher, le vélo ne roulant pas en hiver. Comparatif du jour : MotoQuadElec 20 € (effet Hall 5 fils, stock Normandie, 2ᵉ connecteur = éclairage, pas coupe-circuit) ; MonsterBike62 25,99 € (bouton coupe-circuit, le plus sûr si AdreaPocket ne revient pas) ; Cdiscount 17-22 €. Anciennes réfs de la fiche du 13/11 : Enlybee B0DB6WCQVV 16,39 € (Amazon, indisponible) et Yosoo B08KY8HDN8 16,75 €. Alerte : le robot vérifie chaque matin à 7 h 20 la page AdreaPocket et publie alerte-manette.json — en service depuis le 19/11 à 10 h 47 (premier passage réussi, commit « Alerte manette »). Le jour du retour en stock, il ouvre un ticket GitHub qui envoie l\'e-mail.', abouti: true }
+      { t: 'SuperMimic — un humanoïde qui imite tous les gestes, entraîné en 3 heures sur un seul GPU', s: 'Repéré dans une infolettre, puis vérifié à la source : page du projet, article arXiv:2610.28480 accepté à CoRL 2026, code source publié en Apache 2.0. Résultat annoncé : dépasse un entraînement de 7 jours sur 128 GPU — plus de 1000 fois moins de calcul — et 0 échec sur 129 514 mouvements après 9,8 h sur 2 GPU. Code en licence Apache 2.0 ; la démo web, elle, est propriétaire (visible, pas copiable).', abouti: true },
+      { t: 'Manette du vélo — prix relevés et modèle retenu (19/11)', s: 'Choix : AdreaPocket 5F36POIGELTROT, 13,99 €, 5 fils (rouge +5 V, noir masse, blanc signal sur A0 ; 2 fils « Indicator »), guidon 22 mm (trou 22,2 mm). En rupture — décision d\'attendre plutôt que payer plus cher, le vélo ne roulant pas en hiver. Comparatif du jour : MotoQuadElec 20 € (effet Hall 5 fils, stock Normandie, 2ᵉ connecteur = éclairage, pas coupe-circuit) ; MonsterBike62 25,99 € (bouton coupe-circuit, le plus sûr si AdreaPocket ne revient pas) ; Cdiscount 17-22 €. Anciennes réfs de la fiche du 13/11 : Enlybee B0DB6WCQVV 16,39 € (Amazon, indisponible) et Yosoo B08KY8HDN8 16,75 €. Alerte : le robot vérifie chaque matin à 7 h 20 la page AdreaPocket et publie alerte-manette.json — en service depuis le 19/11 à 10 h 47 (premier passage réussi, commit « Alerte manette »). Le jour du retour en stock, une alerte part automatiquement par e-mail.', abouti: true }
     ],
     condense: [
       ['Trois notes sont devenues une.', '24 854 caractères au lieu de 59 195 — la fusion n\'a rien perdu, sauf ce qui était faux.'],
@@ -1734,40 +1702,10 @@ footer b{color:var(--ink-2)}
     updatePendingUI();
   }
 
-  function updatePendingUI(){
-    const dirty = isDirty();
-    const n = dirty ? pendingSummary() : 0;
-    const hasToken = !!getToken();
-    const dots = [document.getElementById('gh-dot-top'), document.getElementById('gh-dot-big')].filter(Boolean);
-    dots.forEach(d => {
-      d.className = 'pending-dot' + (dirty ? '' : ' ok');
-      if(!dirty) d.classList.add('ok');
-    });
-    const pt = document.getElementById('gh-pending-text');
-    const ht = document.getElementById('gh-hint-text');
-    const lt = document.getElementById('gh-last-text');
-    if(pt){
-      pt.innerHTML = dirty
-        ? '<b>● ' + n + ' modification(s) en attente</b> — non encore publiées sur GitHub.'
-        : '<b>Aucune modification en attente.</b>';
-    }
-    if(ht){
-      ht.textContent = hasToken
-        ? 'Clé GitHub présente dans Brave — prête à publier sur ' + GH_BRANCH + '.'
-        : 'Clé GitHub non réglée — cliquez sur « Réglage de la clé GitHub » (2 minutes, une seule fois).';
-    }
-    if(lt){
-      let last = '';
-      try{ last = localStorage.getItem(LAST_PUSH_KEY) || ''; }catch(e){}
-      lt.textContent = last ? ('Dernière publication : ' + last) : '';
-    }
-    const lblTop = document.getElementById('gh-label-top');
-    if(lblTop) lblTop.textContent = dirty ? 'Enregistrer sur GitHub (' + n + ')' : 'Enregistrer sur GitHub';
-    const lblBig = document.getElementById('gh-label-big');
-    if(lblBig) lblBig.textContent = dirty ? '⬆ Enregistrer sur GitHub — ' + n + ' en attente' : '⬆ Enregistrer sur GitHub';
-    const btns = [document.getElementById('btn-github-top'), document.getElementById('btn-github-big')].filter(Boolean);
-    btns.forEach(b => { b.disabled = ghBusy; });
-  }
+  //  L'outillage de publication vit dans le code mais ne s'affiche plus :
+  //  le site ne raconte pas comment il est fabriqué. Rien à mettre à jour
+  //  visuellement — on garde la fonction pour ne pas casser les appels.
+  function updatePendingUI(){}
 
   function getToken(){
     try{ return (localStorage.getItem(TOKEN_KEY) || '').trim(); }catch(e){ return ''; }
@@ -2433,8 +2371,10 @@ footer b{color:var(--ink-2)}
   });
 
   // ============================================================
-  //  GitHub — publication de projets.json sur main (API GitHub)
-  //  La clé fine-grained vit uniquement dans Brave (localStorage).
+  //  Publication des données — outillage interne, HORS INTERFACE.
+  //  Plus aucun élément ne l'appelle : le site ne raconte pas comment il est
+  //  fabriqué. Conservé pour ne rien casser ; un bouton peut le rappeler.
+  //  La clé fine-grained vit uniquement dans le navigateur (localStorage).
   // ============================================================
   async function ghApi(method, path, body){
     const res = await fetch('https://api.github.com' + path, {
@@ -2586,15 +2526,9 @@ footer b{color:var(--ink-2)}
   }
   function persistLocal(){ renderAll(); } // saveState() est appelé par renderAll
 
-  function pendingBtnHTML(){
-    const dirty = isDirty();
-    return '<button class="btn-github big" type="button" data-gh-save>' +
-      '<span class="pending-dot' + (dirty ? '' : ' ok') + '"></span>' +
-      (dirty ? '⬆ Enregistrer sur GitHub — publier les modifications' : '⬆ Enregistrer sur GitHub — tout est publié') +
-      '</button>';
-  }
+  function pendingBtnHTML(){ return ''; }
   function footNote(){
-    return '<p class="gh-hint" style="margin:12px 2px 0">Modifications appliquées immédiatement sur cet appareil. Pour les publier sur le site : <b>Enregistrer sur GitHub</b>.</p>';
+    return '<p class="gh-hint" style="margin:12px 2px 0">Modifications appliquées immédiatement sur cet appareil. Elles seront reportées sur le site à la prochaine mise à jour.</p>';
   }
   function projectStatsShort(p){
     const st = projectStats(p);
@@ -2928,38 +2862,7 @@ footer b{color:var(--ink-2)}
     }, true);
   }
 
-  function setupGitHub(){
-    document.getElementById('btn-github-top').addEventListener('click', publishToGitHub);
-    document.getElementById('btn-github-big').addEventListener('click', publishToGitHub);
-    document.getElementById('btn-gh-setup').addEventListener('click', () => { ghMsgClear(); renderGhSetup(); openModal('modal-github'); });
-    document.getElementById('gh-forget').addEventListener('click', () => { setToken(''); renderGhSetup(); ghMsg('info', 'Clé effacée de Brave.'); });
-  }
-
-  // Copier le premier message à coller dans Arena
-  (function setupArenaCopy(){
-    const btn = document.getElementById('arena-copy');
-    const src = document.getElementById('arena-prompt');
-    if(!btn || !src) return;
-    const fallback = (txt) => {
-      const ta = document.createElement('textarea');
-      ta.value = txt;
-      ta.style.position = 'fixed'; ta.style.opacity = '0';
-      document.body.appendChild(ta); ta.select();
-      try { document.execCommand('copy'); } catch(e) {}
-      ta.remove();
-    };
-    btn.addEventListener('click', () => {
-      const txt = src.textContent.trim();
-      const done = () => {
-        btn.textContent = '✓ Copié !';
-        btn.classList.add('copied');
-        setTimeout(() => { btn.textContent = '📋 Copier'; btn.classList.remove('copied'); }, 2200);
-        showToast('Premier message copié — collez-le dans Arena');
-      };
-      if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, () => { fallback(txt); done(); });
-      else { fallback(txt); done(); }
-    });
-  })();
+  function setupGitHub(){}
 
   setupCorriger();
   setupGitHub();

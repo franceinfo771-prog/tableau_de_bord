@@ -24,6 +24,29 @@ Une page de veille à part (`veille-supermimic.html`) raconte SuperMimic, le rob
 
 Les données affichées (projets, veille, condensé) vivent dans **`projets.json`**, à la racine du dépôt. `index.html` le charge au démarrage ; si le fichier est inaccessible (ouverture hors ligne), une copie de secours intégrée à la page prend le relais. Les modifications faites dans le navigateur sont d'abord gardées sur l'appareil (`localStorage`), puis publiées sur `main` via le bouton **Enregistrer sur GitHub**.
 
+## Ce que le site ne montre pas (19 novembre 2026)
+
+Le tableau de bord est public ; son mode de fabrication ne l'est pas. Ont été retirés de
+l'interface : l'encadré « Mon assistant Arena » et son premier message à copier, les boutons
+« Enregistrer sur GitHub », la modale de réglage de la clé et les textes de statut de
+publication. Le nom de l'hébergeur a aussi disparu de la note de confidentialité (le fait
+reste dit, la marque non).
+
+**L'outillage reste dans le code, muet.** Rien ne l'appelle : `scripts/verif_copie_commande.js`
+(18 contrôles) vérifie qu'aucun de ces éléments ne réapparaît à l'écran. Conséquence assumée :
+corriger une coche dans le navigateur ne publie plus rien — la modification reste sur
+l'appareil et sera reportée à la prochaine mise à jour faite depuis la session de travail.
+
+Sur la page de veille SuperMimic, les liens vers le dépôt de code du robot ont été remplacés
+par une phrase (« code source publié sous licence Apache 2.0 ») ; la page du projet et
+l'article arXiv restent, eux, cités en clair : ce sont les sources du sujet — `supermimic.github.io`
+est l'adresse du **sujet**, pas la mienne, et le contrôle automatique le sait.
+
+`atelier.html` (non liée depuis le site, mais présente à la racine) a été nettoyée de même :
+« Activer GitHub Pages » devient « Mettre le site en ligne », la procédure d'activation et
+l'adresse par défaut sont décrites sans marque. Le contrôle couvre désormais les cinq pages
+publiques, pas seulement le tableau.
+
 ## Alerte de stock : la manette du vélo
 
 La poignée retenue (AdreaPocket `5F36POIGELTROT`, 13,99 €) est en rupture. Plutôt que de
@@ -110,7 +133,7 @@ node scripts/verif_accueil.js      # page de présentation : bouton, raccourcis,
 node scripts/verif_veille.js       # page de veille SuperMimic (complète + une minute) : liens, chiffres, propreté
 node scripts/verif_alerte_manette.js  # alerte de stock : module Python, fichier publié, affichage
 node scripts/verif_archive.js      # archive livrée : contenu, liens, ouverture hors ligne
-node scripts/verif_copie_commande.js
+node scripts/verif_copie_commande.js  # façade : aucune mention d'Arena/GitHub/clé ne doit s'afficher
 python3 scripts/sync_donnees_embedded.py --verifier
 ```
 
