@@ -22,6 +22,7 @@
 
 1. **Jamais de modification directe sur `main`.** (Seule exception, bornée : le robot d'alerte commite le seul fichier `alerte-manette.json` et ouvre/ferme des tickets — jamais du code ni le site.) Toujours : branche → PR → validation de l'humain → fusion. Le site se déploie depuis `main` via GitHub Pages (~1 min).
 2. **Le site public reste propre** : `noindex, nofollow`, `robots.txt` restrictif, **aucun lien privé** (Drive, Notion, jetons), aucun script de suivi, aucune image externe.
+   **Et il ne raconte pas sa fabrication** (décidé le 19/11) : aucune mention d'Arena, de GitHub, de publication, de clé ni de branche dans ce qui s'affiche. L'outillage de publication reste dans le code, **muet** ; `scripts/verif_copie_commande.js` interdit son retour en façade. Les exceptions légitimes : une source publique citée (`supermimic.github.io`), et les documents techniques internes (`README.md`, `ETAT.md`, ce fichier) qui, eux, doivent tout dire.
 3. **Aucun secret dans le dépôt** (ni dans ce fichier, ni dans le code). Les clés API/PAT vivent uniquement dans le navigateur de l'humain. Si un secret paraît, refuse de le commiter.
 4. **Pose les questions en pavés** (options cliquables) pour les choix importants ; demande validation avant de publier.
 5. **Calculs et chiffres** : déduis-les de `projets.json` (étapes faites / total). Si `ETAT.md`, `README.md` ou `etat.json` divergent, resynchronise-les.

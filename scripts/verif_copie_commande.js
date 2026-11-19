@@ -1,5 +1,10 @@
-/* Vérifie le bouton « Copier » du premier message destiné à Arena.
- * Le bloc d’installation du chat local n’existe plus sur cette page.
+/* Vérifie que le site ne raconte pas sa fabrication.
+ *
+ * Le tableau de bord est public : il ne doit exposer ni Arena, ni GitHub,
+ * ni la procédure de publication, ni la moindre clé. Ce contrôle remplace
+ * l'ancien « le bouton Copier pour Arena fonctionne » : le bloc a été retiré
+ * volontairement, et rien ne doit le faire revenir sans qu'on le sache.
+ *
  * Usage : node scripts/verif_copie_commande.js
  */
 
@@ -8,7 +13,7 @@ const path = require('path');
 const { JSDOM, VirtualConsole } = require('jsdom');
 
 const RACINE = path.join(__dirname, '..');
-const html = fs.readFileSync(path.join(RACINE, 'index.html'), 'utf-8');
+const PAGE = fs.readFileSync(path.join(RACINE, 'index.html'), 'utf-8');
 
 const vc = new VirtualConsole();
 vc.on('jsdomError', () => {});
@@ -16,43 +21,67 @@ vc.on('error', () => {});
 
 let ko = 0;
 let ok = 0;
-function verifie(cond, libelle) {
+function verifie(cond, libelle, detail) {
   if (cond) { console.log('  OK   ' + libelle); ok++; }
-  else { console.log('  ECHEC ' + libelle); ko++; }
+  else { console.log('  ECHEC ' + libelle + (detail ? ' -> ' + detail : '')); ko++; }
 }
 
-const dom = new JSDOM(html, {
+const dom = new JSDOM(PAGE, {
   runScripts: 'dangerously',
   pretendToBeVisual: true,
-  url: 'https://franceinfo771-prog.github.io/tableau_de_bord/',
+  url: 'https://exemple.test/tableau/',
   virtualConsole: vc,
-});
-
-const { window } = dom;
-const doc = window.document;
-
-// On simule le presse-papiers : le navigateur moderne expose
-// navigator.clipboard.writeText, que le jsdom ne fournit pas.
-let presse = '';
-Object.defineProperty(window.navigator, 'clipboard', {
-  configurable: true,
-  value: {
-    writeText: (t) => { presse = t; return Promise.resolve(); },
-  },
+  beforeParse(window) { window.fetch = async () => ({ ok: false, json: async () => ({}) }); },
 });
 
 setTimeout(() => {
-  const btn = doc.getElementById('arena-copy');
-  const message = doc.getElementById('arena-prompt');
-  verifie(!doc.getElementById('ia-cmd-copy'), 'aucun bouton de copie pour le chat retiré');
-  verifie(!!(btn && message), 'le bouton et le premier message pour Arena existent');
-  if(btn) btn.click();
+  const doc = dom.window.document;
+  const corps = doc.body.innerHTML;
 
-  setTimeout(() => {
-    verifie(!!presse && !!message && presse === message.textContent.trim(), 'le premier message est copié sans modification');
-    verifie(!!btn && btn.textContent.includes('Copié'), 'le bouton confirme la copie');
-    dom.window.close();
-    console.log(ko === 0 ? ('  ' + ok + ' vérifications réussies') : ('  ' + ko + ' échec(s)'));
-    process.exit(ko === 0 ? 0 : 1);
-  }, 120);
-}, 300);
+  console.log('== 1. aucun élément de fabrication dans la page ==');
+  const interdits = [
+    ['#arena-box, .arena-box', 'l’encadré « Mon assistant Arena »'],
+    ['#arena-prompt, #arena-copy', 'le premier message à copier'],
+    ['#btn-github-top, #btn-github-big', 'les boutons d’enregistrement'],
+    ['#modal-github', 'la modale de réglage de la clé'],
+    ['#btn-gh-setup', 'le lien vers le réglage de la clé'],
+    ['#gh-pending-text, #gh-hint-text', 'les textes de statut de publication'],
+  ];
+  for (const [sel, quoi] of interdits) {
+    verifie(!doc.querySelector(sel), 'absent : ' + quoi, sel);
+  }
+
+  console.log('== 2. aucun mot qui trahit l’outillage en façade ==');
+  // On ne regarde QUE ce qui s'affiche à l'écran : on retire le contenu des
+  // balises <script>/<style>, qui ne s'affichent jamais. L'outillage reste
+  // dans le code (choix assumé : rien ne casse), mais il est muet.
+  const visible = doc.body.cloneNode(true);
+  visible.querySelectorAll('script, style, template').forEach(n => n.remove());
+  const texte = visible.textContent;
+  verifie(!/arena/i.test(texte), 'aucune mention d’Arena dans le texte affiché');
+  verifie(!/github/i.test(texte), 'aucune mention de GitHub dans le texte affiché');
+  verifie(!/fine-grained|github_pat|ghp_/i.test(texte), 'aucune allusion à une clé de publication');
+  // \b ne marche pas sur « prête » en français : on cible des tournures entières.
+  verifie(!/branche\s+main|pull request|\bPR\s*#|demande de fusion/i.test(texte),
+    'aucune allusion à la procédure interne');
+
+  console.log('== 3. aucune fuite de secret dans la page ==');
+  verifie(!/ghp_[A-Za-z0-9]{20,}/.test(corps), 'aucun jeton GitHub dans la page');
+  verifie(!/github_pat_[A-Za-z0-9_]{20,}/.test(corps), 'aucun jeton fine-grained dans la page');
+  verifie(!/lm-[A-Za-z0-9]{20,}/.test(corps), 'aucun jeton LM Studio dans la page');
+
+  console.log('== 4. le site reste utilisable et honnête ==');
+  verifie(!!doc.getElementById('btn-corriger'), 'le bouton Corriger est toujours là');
+  verifie(!!doc.getElementById('btn-data'), 'le bouton Sauvegarder est toujours là');
+  verifie(!!doc.getElementById('btn-print'), 'le bouton Imprimer est toujours là');
+  verifie(doc.querySelectorAll('.p').length === 6, 'les six cartes de projets sont là',
+    String(doc.querySelectorAll('.p').length));
+  const noteCorriger = doc.getElementById('corriger-overlay');
+  verifie(!noteCorriger || !/github/i.test(noteCorriger.textContent),
+    'la fenêtre Corriger ne renvoie plus vers une publication');
+
+  dom.window.close();
+  console.log(ko === 0 ? ('\n' + ok + ' vérifications réussies')
+                      : ('\n' + ok + ' ok, ' + ko + ' ECHEC(S)'));
+  process.exit(ko === 0 ? 0 : 1);
+}, 500);
