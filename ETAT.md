@@ -3,6 +3,38 @@
 > Version texte du tableau de bord visuel `index.html`.
 > Dernière mise à jour : 19 novembre 2026.
 
+## Reprendre la conversation (lire ceci d'abord)
+
+Cette section existe pour qu'une nouvelle conversation sur ce dépôt reparte **sans faire
+répéter l'humain**. La lire en entier prend dix secondes.
+
+**Où est quoi.** `projets.json` est la source de vérité (les chiffres ne se recopient pas à la
+main : ils s'en déduisent). `index.html` en contient une copie de secours qui doit rester
+identique. `ASSISTANT.md` porte les règles, dont la règle 0 — *le tableau suit, il ne commande
+pas*. Ce fichier-ci (`ETAT.md`) est le journal des décisions déjà prises : avant de proposer
+quelque chose, vérifier qu'on ne le propose pas une deuxième fois.
+
+**Le ton, en une phrase.** Le site est un service, pas un devoir : jamais « à faire maintenant »,
+jamais « il faut », jamais de case à cocher réclamée. Une étape faite est une trace, pas une dette.
+
+**La seule chose que l'humain fait.** Il raconte, en une phrase et avec ses mots (« vélo :
+manette commandée »). C'est **la session** qui met `projets.json` à jour, ouvre une branche,
+public et fusionne. Ne jamais lui demander de cocher quelque chose sur le site, ni de tenir un
+carnet : ce serait ajouter une manipulation.
+
+**Ce qui est vivant, et qui ne dépend pas de cette conversation.**
+- Le site est une page statique sans dépendance : il fonctionne sans session ouverte.
+- Le robot de la manette lit la boutique chaque matin à 7 h 20 (Paris) et ne réécrit que
+  `alerte-manette.json`. Limite connue : sur un dépôt public, GitHub désactive une tâche
+  planifiée après 60 jours sans activité — si la rupture dure deux mois, relancer via
+  « Enable workflow ». Après l'achat il ne sert plus à rien.
+- Une copie complète du dossier est sur le Drive de l'humain (`tableau-de-bord-2026-11-19.zip`).
+
+**Ce qui attend, et ce qui n'attend pas.** Rien n'attend une coche. Une commande est en cours :
+la poignée AdreaPocket `5F36POIGELTROT` à 13,99 €, en rupture chez le fabricant, surveillée
+chaque matin. Le vélo est inutilisé l'hiver : la décision tenue est d'attendre le
+réapprovisionnement, pas de payer plus cher ailleurs.
+
 ## Vue d'ensemble
 
 - **Projets suivis** : 6
@@ -10,7 +42,7 @@
 - **Étapes faites** : 25 / 41 (**61 %**)
 - **Veille** : 14 recherches consignées (7 retenues · 7 sans résultat)
 
-## À faire maintenant (prochaine étape par projet ouvert)
+## Où ça en est (l'étape qui débloque la suite, par projet ouvert)
 
 1. **Une application de poche** (4/6 · 67 %) — Installer l'application sur un téléphone réel.
 2. **Maquette — une porte qui fait joli** (2/4 · 50 %) — Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ?
@@ -84,6 +116,18 @@ Critère de fin : une configuration IA locale précise en place et maîtrisée �
 Point ouvert : lequel des assistants en ligne tester en premier — Claude, ChatGPT ou Gemini ?
 
 ## Journal récent
+
+- **19 novembre 2026 — de quoi reprendre sans faire répéter** : l'humain a posé la bonne
+  question (« si j'utilise l'Arena du site, la conversation reprend le projet ? »). Le constat
+  était honnête : les fichiers survivaient, mais une session neuve devait fouiller trois
+  documents pour retrouver le fil, avec un vrai risque de redemander ce qui est déjà décidé.
+  Ajout d'une section **« Reprendre la conversation »** en tête de ce fichier (où est quoi, le
+  ton en une phrase, ce que fait l'humain, ce qui est vivant, ce qui attend) et d'une consigne
+  d'entrée de session dans `ASSISTANT.md`. Corrigé au passage deux erreurs du `README.md` :
+  il annonçait encore une publication par le bouton « Enregistrer sur GitHub » (retiré le 19/11,
+  le bouton Sauvegarder n'exporte que localement) et un compte de contrôles périmé. Et la
+  rubrique interne du même fichier `ETAT.md` ne dit plus « À faire maintenant », mais « Où ça
+  en est » — la règle 0 vaut aussi pour les documents de travail.
 
 - **19 novembre 2026 — le tableau ne donne plus d'ordres** : remarque de l'humain, « le site montre mes projets, mais c'est moi qui fais ; je ne veux pas qu'il soit une contrainte, ni devoir l'alimenter en cochant des étapes ». Le site disait bien l'inverse : section « À faire maintenant », chapô « la seule chose à faire ensuite », « cochez les étapes ». Corrigé en sept endroits — « Où ça en est », « le tableau suit, il ne commande pas », une entrée d'aide « Et si je ne coche jamais rien ? » qui répond franchement (il ne se passe rien de grave). Aucune mécanique changée : c'est un changement de voix. Règle ajoutée en tête d'`ASSISTANT.md` : **quand l'humain raconte un fait, c'est l'assistant qui met le tableau à jour** — il ne doit jamais attendre une coche.
 
