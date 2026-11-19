@@ -1,0 +1,96 @@
+name: Alerte manette du vélo
+
+
+on:
+  schedule:
+    # 7 h 20 à Paris (6 h 20 UTC en hiver, 5 h 20 UTC en été) : une fois par jour.
+    - cron: '20 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write   # publier alerte-manette.json
+  issues: write     # ouvrir / fermer le ticket d'alerte
+
+concurrency:
+  group: alerte-manette
+  cancel-in-progress: false
+
+jobs:
+  verifier:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Lire la boutique
+        id: lecture
+        continue-on-error: true
+        run: python3 scripts/verifier_manette.py
+
+      - name: Publier le résultat
+        run: |
+          set -e
+          if git diff --quiet -- alerte-manette.json; then
+            echo "Aucun changement d'état — rien à publier."
+            exit 0
+          fi
+          git config user.name "Alerte manette"
+          git config user.email "actions@users.noreply.github.com"
+          etat=$(python3 -c "import json;print(json.load(open('alerte-manette.json'))['etat'])")
+          git add alerte-manette.json
+          git commit -m "Alerte manette : ${etat} le $(date +%F)"
+          # Le dépôt a pu bouger dans la journée : on se replace avant de pousser.
+          git pull --rebase --autostash origin main || true
+          git push origin HEAD:main
+
+      - name: Ticket de rappel (ouvert en stock, refermé en rupture)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OWNER: ${{ github.repository_owner }}
+        run: |
+          # Le module répond 0 quand il y a quelque chose à commander, 1 sinon.
+          if python3 scripts/verifier_manette.py --a-acheter; then acheter=0; else acheter=1; fi
+
+          gh label create "alerte-manette" --color FBCA04 \
+            --description "Alerte de stock de la manette du vélo" 2>/dev/null || true
+          ouverts=$(gh issue list --label "alerte-manette" --state open --json number --jq '.[].number')
+
+          if [ "$acheter" = "0" ] && [ -z "$ouverts" ]; then
+            {
+              echo "La poignée **AdreaPocket 5F36POIGELTROT** (13,99 €) est **de nouveau en stock**."
+              echo
+              echo "- Fiche : $(python3 -c "import json;print(json.load(open('alerte-manette.json'))['url'])")"
+              echo "- Relevé du $(date +%d/%m/%Y) à 7 h 20 · poignée effet Hall 5 fils · guidon 22 mm (trou 22,2 mm)"
+              echo
+              echo "Au moment de câbler : les 2 fils « Indicator » sont une **jauge de batterie**,"
+              echo "pas un coupe-circuit. Le STOP reste sur D2, avec un interrupteur séparé."
+              echo
+              echo "_Ce ticket se refermera tout seul si la poignée repasse en rupture._"
+            } > /tmp/ticket.md
+            # Créé sans assigné pour ne jamais risquer un doublon ; l'assignation
+            # vient ensuite, et son échec n'a aucune conséquence.
+            lien=$(gh issue create --title "En stock : la poignée du vélo (5F36POIGELTROT)" \
+              --body-file /tmp/ticket.md --label "alerte-manette")
+            numero=${lien##*/}
+            gh issue edit "$numero" --add-assignee "$OWNER" || true
+          elif [ "$acheter" != "0" ] && [ -n "$ouverts" ]; then
+            for n in $ouverts; do
+              gh issue close "$n" --comment "La poignée est repassée en rupture : je referme et je continue la surveillance chaque matin."
+            done
+          else
+            echo "Rien à faire côté ticket (à acheter : $acheter ; tickets ouverts : ${ouverts:-aucun})."
+          fi
+
+      - name: Résumé dans l'onglet Actions
+        if: always()
+        run: |
+          {
+            echo "## Alerte manette"
+            echo
+            python3 scripts/verifier_manette.py --lire || true
+          } >> "$GITHUB_STEP_SUMMARY"
