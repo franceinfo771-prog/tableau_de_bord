@@ -12,6 +12,9 @@
 - `ETAT.md` — l'état des lieux en texte (projets, étapes, points ouverts, journal).
 - `scripts/etat.sh` — régénère `etat.json` (résumé technique, chiffres dérivés de `projets.json`).
 - `accueil.html` — page de présentation (démonstration) : elle mène au tableau, le tableau y renvoie.
+- `conversation.html` — **page privée** (non liée, `noindex`) : la porte vers la conversation qui
+  connaît le dépôt. Un seul lien sortant, réglable et gardé sur l'appareil. Elle n'est pas un
+  chat : ne jamais y promettre une réponse de l'assistant. Contrôles : `scripts/verif_porte.js`.
 - `archive/` — les deux modèles de l'archive (page de démarrage + mode d'emploi). `python3 scripts/construire_archive.py` fabrique `tableau-de-bord-AAAA-MM-JJ.zip`, qui n'est pas versionné.
 - `alerte-manette.json` + `outils/alerte-manette/` + `scripts/verifier_manette.py` — alerte de stock de la manette du vélo : relevé quotidien publié dans le JSON, affiché sur la carte du vélo, et ticket GitHub ouvert le jour du retour en stock (`scripts/verif_alerte_manette.js`).
   **En service depuis le 19/11 à 10 h 47** : copie active dans `.github/workflows/alerte-manette.yml`, premier passage réussi, commit signé « Alerte manette » (`07458b2`), un relevé par jour.
