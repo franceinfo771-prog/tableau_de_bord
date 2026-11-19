@@ -7,8 +7,8 @@
 
 - **Projets suivis** : 6
 - **Terminés** : 2 (`Notes de recherche`, `Les sites`)
-- **Étapes faites** : 25 / 42 (**60 %**)
-- **Veille** : 15 recherches consignées (8 retenues · 7 sans résultat)
+- **Étapes faites** : 25 / 41 (**61 %**)
+- **Veille** : 14 recherches consignées (7 retenues · 7 sans résultat)
 
 ## À faire maintenant (prochaine étape par projet ouvert)
 
@@ -78,7 +78,6 @@
 - [ ] Le tester sur 2-3 tâches réelles du quotidien
 - [ ] Noter ce qui marche / ce qui ne marche pas (taille des modèles, vitesse, qualité)
 - [ ] Adopter l'outil retenu (local ou en ligne) dans l'usage courant
-- [ ] Voir SuperMimic de mes yeux — la vidéo, la page du projet et la démo dans le navigateur *(page faite le 19/11 : `veille-supermimic.html`)*
 
 Idée : découvrir les logiciels IA — ceux qui tournent en local sur le PC (hors ligne, hors compte, données privées), et les assistants en ligne (Claude, ChatGPT, Gemini) — comprendre lequel sert à quoi.
 Critère de fin : une configuration IA locale précise en place et maîtrisée — un assistant/LLM local installé, lancé, et utilisé pour au moins une tâche réelle, avec ses limites notées.
@@ -86,15 +85,13 @@ Point ouvert : lequel des assistants en ligne tester en premier — Claude, Chat
 
 ## Journal récent
 
+- **19 novembre 2026 — SuperMimic retiré du site** : demande de l'humain, « je voulais juste voir à quoi ressemble le logiciel SuperMimic, après avoir vu tu peux supprimer tout ce qui se rapporte ». Supprimés : les deux pages de veille (`veille-supermimic.html` et sa version d'une minute), la photo du robot (`img/humanoides.jpg`, `img/unitree-g1.jpg`), la bannière du tableau, les deux liens de la barre (« Robot qui apprend », « en 1 min »), le renvoi du pied de page et celui de l'accueil, l'étape « Voir SuperMimic de mes yeux » du projet IA (10 → 9 étapes) et la fiche de veille correspondante. `scripts/verif_veille.js` est supprimé. Chiffres resynchronisés : **25 / 41 étapes (61 %)**, **14 recherches de veille** (7 retenues).
+
 - **19 novembre 2026 — le site ne raconte plus sa fabrication** : demande de l'humain, « ça ne concerne que moi ». Retirés de la façade : l'encadré « Mon assistant Arena » et le premier message à copier, les deux boutons « Enregistrer sur GitHub », la modale de réglage de la clé et ses statuts, la mention « GitHub Pages » dans la note de confidentialité. L'outillage de publication **reste dans le code, muet** (choix de l'humain : rien ne casse, on peut revenir en arrière) — conséquence assumée : corriger une coche dans le navigateur ne publie plus rien. Sur la page veille SuperMimic, les liens vers le dépôt de code sont remplacés par « code source publié sous licence Apache 2.0 » ; page du projet et article arXiv restent cités. `atelier.html` nettoyée de même (« Mettre le site en ligne », procédure et adresse sans marque). Nouveau garde-fou : `scripts/verif_copie_commande.js`, réécrit, **22 contrôles** qui interdisent le retour de ces éléments à l'écran, sur les cinq pages publiques — avec une exception explicite : `supermimic.github.io`, adresse publique du sujet.
 
 - **19 novembre 2026 — la manette : choix tranché et alerte automatique** : la fiche du 13/11 (Drive) dit **5 fils** (rouge +5 V, noir masse, blanc signal sur A0, + 2 fils) alors que le tableau demandait « 3 fils » — corrigé. Modèle retenu : **AdreaPocket 5F36POIGELTROT, 13,99 €** (guidon 22 mm, trou 22,2 mm), **en rupture** ; décision de l'humain : attendre plutôt que payer 20 à 26 € ailleurs, le vélo ne roulant pas en hiver. Nouveau module `scripts/verifier_manette.py` (standard seul, décision prudente : rupture / disponible / **inconnu** si la page ne répond pas) et workflow `outils/alerte-manette/alerte-manette.yml` qui le lance **chaque matin à 7 h 20** et publie `alerte-manette.json` ; le tableau de bord l'affiche sur la carte du vélo (et **rien** si le fichier manque). Le jour du retour en stock, il **ouvre un ticket GitHub** — c'est la notification par e-mail — et le referme si la rupture revient. `scripts/verif_alerte_manette.js` : 37 contrôles.
 
   **En service depuis 10 h 47.** Le workflow est actif sur `main` (`.github/workflows/alerte-manette.yml`, posé à la main dans l'onglet Actions) et son premier passage a réussi de bout en bout : la fiche a été lue depuis les serveurs GitHub, verdict `rupture`, et le robot a publié lui-même `alerte-manette.json` dans un commit signé « Alerte manette » (`07458b2`). Il tourne désormais chaque matin à 7 h 20 et commite un relevé par jour — l'heure changeant à chaque passage, le fichier diffère toujours : c'est aussi ce qui empêche GitHub d'endormir la tâche planifiée après 60 jours d'inactivité. GitHub refuse à l'application de l'assistant l'écriture dans `.github/workflows/` (droit `workflows` absent) : c'est pourquoi la source versionnée vit dans `outils/alerte-manette/` et que la copie active a été posée à la main. Si l'on doit un jour modifier le robot, modifier la source **puis** la copie active, jamais l'une sans l'autre.
-
-- **19 novembre 2026 — photo du vrai robot et version d'une minute** : la photo est désormais celle du **Unitree G1** lui-même (Sayanesy, domaine public CC0, via Wikimedia Commons), créditée et liée ; l'illustration générée est retirée du site. Ajout d'une **version courte** `veille-supermimic-court.html` — l'essentiel en un écran de téléphone, fond sombre, trois gros chiffres, ce qu'il faut voir et ce qu'il ne faut pas croire — reliée aux deux pages, à l'accueil et au tableau (« en 1 min »). `verif_veille.js` couvre maintenant les deux pages : 84 contrôles.
-
-- **19 novembre 2026 — une page pour SuperMimic** : l'infolettre parlait d'un humanoïde qui apprend tous les gestes ; vérification faite à la source (page du projet, dépôt GitHub, article arXiv:2610.28480, accepté à CoRL 2026). Nouvelle page `veille-supermimic.html` : ce que c'est, comment ça marche en trois temps, ce que montre le film, les chiffres avec leurs limites, ce que ça ne veut pas dire, et trois liens pour voir soi-même. Page statique, `noindex`, sans script ni image distante. Reliée au tableau (« Robot qui apprend ») et à l'accueil. Nouvelle étape au projet IA (2/10), nouvelle fiche de veille (14), vérification `scripts/verif_veille.js` : 55 contrôles.
 
 - **18 novembre 2026 — archive avec mode d'emploi** : `scripts/construire_archive.py` fabrique `tableau-de-bord-2026-11-18.zip` (3 Mo), qui se rouvre sans réseau dans des années : page de démarrage, mode d'emploi imprimable (HTML + texte), site complet, code source, sauvegarde `.json`. Vérifié par `scripts/verif_archive.js` : 29 contrôles, dont l'ouverture réelle du site en `file://` (6 projets, 25/41, 13 veilles, aucune erreur).
 - **18 novembre 2026 — préparation de la démonstration** : la barre du haut ne mange plus la moitié d'un écran de téléphone (liens et actions en deux rangées qui glissent du doigt, sous 560 px). Un clic sur un projet ne casse plus si le navigateur refuse de changer l'adresse (page ouverte par double-clic, page affichée dans un cadre). Deux cas ajoutés aux vérifications : vider puis refaire une coche ramène exactement l'état de départ.
