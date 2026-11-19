@@ -1239,8 +1239,6 @@ footer b{color:var(--ink-2)}
       <a href="#section-veille">Veille</a>
       <a href="#condense">Condensé</a>
       <a href="#section-cherche">Chercher</a>
-      <a class="accueil-lien" href="veille-supermimic.html" title="Le robot humanoïde SuperMimic, expliqué simplement">Robot qui apprend</a>
-      <a class="accueil-lien" href="veille-supermimic-court.html" title="La même histoire, en une minute">en 1 min</a>
       <a class="accueil-lien" href="accueil.html" title="Revenir à la page de présentation">← Accueil</a>
       <a href="#aide">Aide</a>
     </div>
@@ -1258,7 +1256,6 @@ footer b{color:var(--ink-2)}
   <h1>Tableau de bord</h1>
   <p class="date">État au <b>19 novembre 2026</b> · mis à jour à la main · fonctionne en ligne et hors ligne, sans compte ni suivi</p>
   <p class="chapo">Six projets suivis au même endroit. Pour chacun : où il en est, <b>ce qui le terminera</b>, et <b>la seule chose à faire ensuite</b>. Vous pouvez cocher une étape directement : les barres, les pourcentages et la prochaine action se mettent à jour aussitôt.</p>
-  <img class="banniere" src="img/humanoides.jpg" alt="Un robot humanoïde blanc et gris en équilibre dans un laboratoire de robotique, deux ingénieurs derrière lui" width="1100" height="300">
   <div class="resume" id="kpi-grid" aria-label="Chiffres clés"></div>
 
   <div class="chantier">
@@ -1367,8 +1364,6 @@ footer b{color:var(--ink-2)}
     <p><b>Confidentialité — vérifié le 16 novembre 2026.</b> Cette page n'a <b>aucun</b> script de mesure, pas de Google Analytics, pas de pixel, pas de cookie tiers, aucune police distante et aucune image externe. Aucun compte, aucun formulaire, aucune donnée envoyée. Si l'adresse du site est publique, l'hébergeur conserve de son côté des journaux techniques (adresse IP) auxquels je n'ai pas accès. En ouvrant ce fichier localement depuis votre ordinateur, aucun serveur n'est contacté.</p>
     <p>Tableau de bord mis à jour le <b>19 novembre 2026</b> · page + <code>projets.json</code> · zéro dépendance extérieure.</p>
     <p>Page d'accueil de présentation : <a href="accueil.html">accueil.html</a> · reprise le <b>19 novembre 2026</b>.<br>
-    Page de veille : <a href="veille-supermimic.html">le robot humanoïde SuperMimic, expliqué simplement</a> ·
-    <a href="veille-supermimic-court.html">la même chose en une minute</a>.</p>
   </footer>
 </div>
 
@@ -1594,8 +1589,7 @@ footer b{color:var(--ink-2)}
           { t: 'Noter ce qui marche / ce qui ne marche pas (taille des modèles, vitesse, qualité)', ok: false, custom: true },
           { t: 'Adopter l\'outil retenu (local ou en ligne) dans l\'usage courant', ok: false, custom: true },
           { t: 'Ouvrir un accès privé depuis le travail — Tailscale, aucun port ouvert sur la box', ok: false, custom: true },
-          { t: 'Piloter l\'environnement de la maison - Freebox, imprimante, autres postes du reseau', ok: false, custom: true },
-          { t: 'Voir SuperMimic de mes yeux — la vidéo, la page du projet et la démo dans le navigateur', ok: false, custom: true }
+          { t: 'Piloter l\'environnement de la maison - Freebox, imprimante, autres postes du reseau', ok: false, custom: true }
         ]
       }
     ],
@@ -1613,7 +1607,6 @@ footer b{color:var(--ink-2)}
       { t: 'Les gains d\'un vélo à friction', s: 'Rendement 60-80 % contre 85-92 % pour un moyeu. Pneu usé en 500-1 500 km contre 2 000-5 000. Perte de 20 à 40 % d\'autonomie. Convergent sur plusieurs sources techniques indépendantes.', abouti: true },
       { t: 'L\'absorption réelle des mousses pyramidales — sans importance', s: 'Recherche faite, puis mise hors du projet : la maquette est un objet d\'aspect, pas un dispositif. NRC 0,70 à 1,00 selon l\'épaisseur ; 0,18 à 0,24 à 125 Hz. Gardé pour mémoire, pas pour décider.', abouti: false },
       { t: 'Une application Android pour un fichier hors ligne', s: 'Trois outils officiels suffisent : aapt2, d8, apksigner. Aucun magasin, aucun compte développeur, aucun frais. L\'application a été construite et signée v1+v2+v3.', abouti: true },
-      { t: 'SuperMimic — un humanoïde qui imite tous les gestes, entraîné en 3 heures sur un seul GPU', s: 'Repéré dans une infolettre, puis vérifié à la source : page du projet, article arXiv:2610.28480 accepté à CoRL 2026, code source publié en Apache 2.0. Résultat annoncé : dépasse un entraînement de 7 jours sur 128 GPU — plus de 1000 fois moins de calcul — et 0 échec sur 129 514 mouvements après 9,8 h sur 2 GPU. Code en licence Apache 2.0 ; la démo web, elle, est propriétaire (visible, pas copiable).', abouti: true },
       { t: 'Manette du vélo — prix relevés et modèle retenu (19/11)', s: 'Choix : AdreaPocket 5F36POIGELTROT, 13,99 €, 5 fils (rouge +5 V, noir masse, blanc signal sur A0 ; 2 fils « Indicator »), guidon 22 mm (trou 22,2 mm). En rupture — décision d\'attendre plutôt que payer plus cher, le vélo ne roulant pas en hiver. Comparatif du jour : MotoQuadElec 20 € (effet Hall 5 fils, stock Normandie, 2ᵉ connecteur = éclairage, pas coupe-circuit) ; MonsterBike62 25,99 € (bouton coupe-circuit, le plus sûr si AdreaPocket ne revient pas) ; Cdiscount 17-22 €. Anciennes réfs de la fiche du 13/11 : Enlybee B0DB6WCQVV 16,39 € (Amazon, indisponible) et Yosoo B08KY8HDN8 16,75 €. Alerte : le robot vérifie chaque matin à 7 h 20 la page AdreaPocket et publie alerte-manette.json — en service depuis le 19/11 à 10 h 47 (premier passage réussi, commit « Alerte manette »). Le jour du retour en stock, une alerte part automatiquement par e-mail.', abouti: true }
     ],
     condense: [
@@ -1869,7 +1862,6 @@ footer b{color:var(--ink-2)}
     'maquette':'img/maquette.jpg',
     'velo':'img/velo.jpg',
     'ia-decouverte':'img/ia.jpg',
-    'ia-supermimic':'img/humanoides.jpg'
   };
 
   //  Alerte « manette du vélo » — lue dans alerte-manette.json (écrit chaque matin

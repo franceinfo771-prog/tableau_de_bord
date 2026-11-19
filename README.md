@@ -1,7 +1,6 @@
 # Tableau de bord — Mes projets
 
 Tableau de bord autonome de suivi de six projets, de la veille et du condensé.
-Une page de veille à part (`veille-supermimic.html`) raconte SuperMimic, le robot humanoïde.
 
 - **Site en ligne** : https://franceinfo771-prog.github.io/tableau_de_bord/
 - **Version texte** : `ETAT.md`
@@ -9,7 +8,7 @@ Une page de veille à part (`veille-supermimic.html`) raconte SuperMimic, le rob
 
 ## État au 19 novembre 2026
 
-**6 projets · 2 terminés · 25 / 42 étapes faites (60 %) · 15 recherches de veille.**
+**6 projets · 2 terminés · 25 / 41 étapes faites (61 %) · 14 recherches de veille.**
 
 | Projet | Avancement | Statut | Prochaine action / Point ouvert |
 |---|---:|---|---|
@@ -37,15 +36,9 @@ reste dit, la marque non).
 corriger une coche dans le navigateur ne publie plus rien — la modification reste sur
 l'appareil et sera reportée à la prochaine mise à jour faite depuis la session de travail.
 
-Sur la page de veille SuperMimic, les liens vers le dépôt de code du robot ont été remplacés
-par une phrase (« code source publié sous licence Apache 2.0 ») ; la page du projet et
-l'article arXiv restent, eux, cités en clair : ce sont les sources du sujet — `supermimic.github.io`
-est l'adresse du **sujet**, pas la mienne, et le contrôle automatique le sait.
-
 `atelier.html` (non liée depuis le site, mais présente à la racine) a été nettoyée de même :
 « Activer GitHub Pages » devient « Mettre le site en ligne », la procédure d'activation et
-l'adresse par défaut sont décrites sans marque. Le contrôle couvre désormais les cinq pages
-publiques, pas seulement le tableau.
+l'adresse par défaut sont décrites sans marque. Le contrôle couvre toutes les pages publiques.
 
 ## Alerte de stock : la manette du vélo
 
@@ -76,19 +69,6 @@ modification doit passer par les deux ; `scripts/activer_alerte.sh` recopie la s
 
 Test hors ligne : `python3 scripts/verifier_manette.py --simuler disponible`, puis
 `python3 scripts/verifier_manette.py --lire`.
-
-## Page de veille : `veille-supermimic.html`
-
-Une page à part, demandée le 19 novembre 2026 : SuperMimic, un humanoïde qui apprend
-tous les gestes humains, expliqué sans jargon — ce que c'est, comment ça marche en trois
-temps, ce que montre le film, les chiffres (avec leurs limites), ce que ça ne veut pas
-dire, et trois liens pour le voir soi-même. Page statique, `noindex`, sans script ni
-image distante. La photo est celle du **Unitree G1** (Sayanesy, domaine public CC0, via
-Wikimedia Commons), créditée et liée sur les deux pages. Une **version courte**
-(`veille-supermimic-court.html`, « une minute ») donne l'essentiel en un écran de
-téléphone. Les deux pages sont reliées au tableau (« Robot qui apprend » · « en 1 min »)
-et à la page d'accueil, et accompagnent l'étape correspondante du projet « Découverte de
-logiciels IA ».
 
 ## Page d'accueil de démonstration : `accueil.html`
 
@@ -130,7 +110,6 @@ python3 -m http.server 8000
 node scripts/verif_rendu.js        # rendu headless : 0 erreur JS, comptes, boutons intacts
 node scripts/verif_ancre.js        # liens #proj-…, sauts, brouillon local, cochage
 node scripts/verif_accueil.js      # page de présentation : bouton, raccourcis, chiffres
-node scripts/verif_veille.js       # page de veille SuperMimic (complète + une minute) : liens, chiffres, propreté
 node scripts/verif_alerte_manette.js  # alerte de stock : module Python, fichier publié, affichage
 node scripts/verif_archive.js      # archive livrée : contenu, liens, ouverture hors ligne
 node scripts/verif_copie_commande.js  # façade : aucune mention d'Arena/GitHub/clé ne doit s'afficher
