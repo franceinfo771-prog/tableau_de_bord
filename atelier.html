@@ -207,7 +207,7 @@
         <textarea id="prompt-out" readonly placeholder="Le prompt apparaîtra ici…"></textarea>
         <button class="copy" id="copy">Copier</button>
       </div>
-      <p class="note">Colle ce texte dans l'IA de ton choix (ou dans la conversation Arena), puis rapporte le texte obtenu. ⚠️ Ne publie jamais un article dont tu n'as pas vérifié les faits.</p>
+      <p class="note">Colle ce texte dans l'IA de ton choix, puis rapporte le texte obtenu. ⚠️ Ne publie jamais un article dont tu n'as pas vérifié les faits.</p>
     </section>
   </div>
 
@@ -292,7 +292,7 @@
 
   /* ---------- Checklist ---------- */
   var TODO = [
-    { id: 't1', t: 'Activer GitHub Pages', d: 'Settings → Pages → Source : Deploy from a branch → main → / (root) → Save.' },
+    { id: 't1', t: 'Mettre le site en ligne', d: 'Réglages du site → Pages → source « déployer depuis une branche » → main → racine → Enregistrer.' },
     { id: 't2', t: 'Répondre aux 3 questions de contenu', d: 'Onglet « Mes décisions » : lecteurs, fréquence, rubriques.' },
     { id: 't3', t: 'Choisir les rubriques définitives', d: '3 à 5 rubriques suffisent pour démarrer.' },
     { id: 't4', t: 'Valider la maquette de la page d\'accueil', d: 'Couleurs, ordre des rubriques, lisibilité sur téléphone.' },
@@ -425,15 +425,15 @@
   /* ---------- Assistant : base de connaissances ---------- */
   var KB = [
     {
-      k: ['publier', 'publication', 'pages', '404', 'en ligne', 'activer', 'héberger', 'heberger', 'github pages', 'site invisible', 'marche pas'],
+      k: ['publier', 'publication', 'pages', '404', 'en ligne', 'activer', 'héberger', 'heberger', 'site invisible', 'marche pas'],
       a: '<b>Publier le site</b><ol>' +
-        '<li>Ouvrir <code>Settings → Pages</code> du dépôt.</li>' +
-        '<li>Source : <code>Deploy from a branch</code> (jamais « GitHub Actions » ici).</li>' +
-        '<li>Branche <code>main</code>, dossier <code>/ (root)</code>.</li>' +
-        '<li>Cliquer <code>Save</code> — c\'est ce clic qui déclenche tout.</li>' +
+        '<li>Ouvrir les <b>réglages du dépôt</b>, section <code>Pages</code>.</li>' +
+        '<li>Source : <b>déployer depuis une branche</b> (pas depuis une action).</li>' +
+        '<li>Branche <code>main</code>, dossier <b>racine</b>.</li>' +
+        '<li>Cliquer <b>Enregistrer</b> — c\'est ce clic qui déclenche tout.</li>' +
         '<li>Attendre 1 à 2 min, puis recharger avec Ctrl+Shift+R.</li></ol>' +
-        'Le message <b>« There isn\'t a GitHub Pages site here »</b> signifie qu\'aucun site n\'est activé — pas qu\'il est cassé.' +
-        '<span class="path">URL : https://franceinfo771-prog.github.io/geoula-bulletin/</span>'
+        'La page d\'erreur de l\'hébergeur signifie qu\'aucun site n\'est activé — pas qu\'il est cassé.' +
+        '<span class="path">Adresse : voir le champ « Adresse du site » dans l\'onglet Réglages.</span>'
     },
     {
       k: ['article', 'écrire', 'ecrire', 'rédiger', 'rediger', 'rédaction', 'redaction', 'texte', 'contenu'],
@@ -458,7 +458,7 @@
       k: ['clé', 'cle', 'api', 'chatgpt', 'ia', 'intelligence', 'assistant', 'gpt', 'coût', 'cout', 'gratuit', 'payant'],
       a: '<b>L\'IA dans le site</b><ul>' +
         '<li>Cet Atelier n\'utilise <b>aucune clé API</b> : il répond hors ligne, sans coût.</li>' +
-        '<li>Une vraie IA conversationnelle <b>dans</b> le site demanderait un petit service intermédiaire (Cloudflare Worker), car un site GitHub Pages est statique et ne peut pas cacher une clé.</li>' +
+        '<li>Une vraie IA conversationnelle <b>dans</b> le site demanderait un petit service intermédiaire, car un site statique ne peut pas cacher une clé.</li>' +
         '<li>Une clé écrite dans le HTML est volée en quelques heures — ne jamais faire ça.</li></ul>' +
         'Besoin réel d\'un chat pour les visiteurs ? Il faut un mot de passe + un Worker + un peu de crédit API.'
     },
@@ -500,8 +500,8 @@
     },
     {
       k: ['domaine', 'adresse', 'url', 'nom de domaine', 'personnalisé', 'personnalise'],
-      a: '<b>Adresse du site</b><br>Par défaut : <code>https://franceinfo771-prog.github.io/geoula-bulletin/</code><br>' +
-        'Un nom de domaine personnalisé (ex. <code>geoula.fr</code>) se configure dans Settings → Pages → Custom domain, mais il faut d\'abord <b>acheter</b> ce domaine chez un registrar. À faire seulement quand le bulletin existe vraiment.'
+      a: '<b>Adresse du site</b><br>Par défaut : celle proposée par l\'hébergeur, visible dans les réglages du site.<br>' +
+        'Un nom de domaine personnalisé (ex. <code>geoula.fr</code>) se configure dans les réglages du site, mais il faut d\'abord <b>acheter</b> ce domaine chez un registrar. À faire seulement quand le bulletin existe vraiment.'
     }
   ];
 

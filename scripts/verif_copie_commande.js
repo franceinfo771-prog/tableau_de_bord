@@ -65,6 +65,20 @@ setTimeout(() => {
   verifie(!/branche\s+main|pull request|\bPR\s*#|demande de fusion/i.test(texte),
     'aucune allusion à la procédure interne');
 
+  console.log('== 2 bis. les autres pages publiques non plus ==');
+  for (const f of ['accueil.html', 'atelier.html', 'veille-supermimic.html', 'veille-supermimic-court.html']) {
+    const brut = fs.readFileSync(path.join(RACINE, f), 'utf-8');
+    const sansScript = brut.replace(/<script[\s\S]*?<\/script>/gi, ' ')
+                           .replace(/<style[\s\S]*?<\/style>/gi, ' ');
+    const textes = sansScript.replace(/<[^>]+>/g, ' ');
+    // Exception documentée : la page veille cite `supermimic.github.io`, qui est
+    // l'adresse publique du SUJET (le projet du robot), pas la mienne.
+    const texteSansSource = textes.replace(/supermimic\.github\.io/gi, ' ');
+    const mots = ['arena', 'github', 'fine-grained', 'github_pat'];
+    const trouves = mots.filter(m => new RegExp(m, 'i').test(texteSansSource));
+    verifie(trouves.length === 0, f + ' : aucun mot d’outillage', trouves.join(', '));
+  }
+
   console.log('== 3. aucune fuite de secret dans la page ==');
   verifie(!/ghp_[A-Za-z0-9]{20,}/.test(corps), 'aucun jeton GitHub dans la page');
   verifie(!/github_pat_[A-Za-z0-9_]{20,}/.test(corps), 'aucun jeton fine-grained dans la page');

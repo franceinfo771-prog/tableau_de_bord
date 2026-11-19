@@ -39,7 +39,13 @@ l'appareil et sera reportée à la prochaine mise à jour faite depuis la sessio
 
 Sur la page de veille SuperMimic, les liens vers le dépôt de code du robot ont été remplacés
 par une phrase (« code source publié sous licence Apache 2.0 ») ; la page du projet et
-l'article arXiv restent, eux, cités en clair : ce sont les sources du sujet.
+l'article arXiv restent, eux, cités en clair : ce sont les sources du sujet — `supermimic.github.io`
+est l'adresse du **sujet**, pas la mienne, et le contrôle automatique le sait.
+
+`atelier.html` (non liée depuis le site, mais présente à la racine) a été nettoyée de même :
+« Activer GitHub Pages » devient « Mettre le site en ligne », la procédure d'activation et
+l'adresse par défaut sont décrites sans marque. Le contrôle couvre désormais les cinq pages
+publiques, pas seulement le tableau.
 
 ## Alerte de stock : la manette du vélo
 
