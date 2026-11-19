@@ -22,6 +22,9 @@ const PAGE = fs.readFileSync(path.join(RACINE, 'index.html'), 'utf8');
 const WORKFLOW = fs.readFileSync(
   path.join(RACINE, 'outils', 'alerte-manette', 'alerte-manette.yml'), 'utf8');
 const ACTIVATION = path.join(RACINE, 'scripts', 'activer_alerte.sh');
+// La copie ACTIVE — celle que GitHub exécute réellement. Elle doit dire la même
+// chose que la source, sinon le robot qu'on lit n'est pas celui qui tourne.
+const ACTIVE = path.join(RACINE, '.github', 'workflows', 'alerte-manette.yml');
 
 let ok = 0;
 let ko = 0;
@@ -89,6 +92,36 @@ verifie(/issues:\s*write/.test(WORKFLOW), 'le workflow peut ouvrir un ticket de 
 verifie(/gh issue create/.test(WORKFLOW) && /gh issue close/.test(WORKFLOW),
   'le ticket est ouvert en stock et refermé en rupture');
 verifie(/--a-acheter/.test(WORKFLOW), 'le ticket se décide sur le module, pas sur un texte');
+
+console.log('\n== 3 ter. la copie active dit la même chose que la source ==');
+if (fs.existsSync(ACTIVE)) {
+  // On compare la structure, pas le texte : les commentaires d'en-tête diffèrent
+  // volontairement (la source explique qu'elle est la référence).
+  let source = null, active = null;
+  try {
+    const yaml = require('js-yaml');
+    source = yaml.load(WORKFLOW);
+    active = yaml.load(fs.readFileSync(ACTIVE, 'utf8'));
+  } catch (e) {
+    verifie(false, 'les deux fichiers se lisent en YAML', String(e.message).slice(0, 160));
+  }
+  if (source && active) {
+    verifie(JSON.stringify(source) === JSON.stringify(active),
+      'source et copie active ont le même comportement (mêmes étapes, même heure, mêmes droits)');
+    verifie(active.jobs.verifier.steps.length === source.jobs.verifier.steps.length,
+      'même nombre d\'étapes dans les deux', String(active.jobs.verifier.steps.length));
+    verifie(/20 6 \* \* \*/.test(JSON.stringify(active.on)),
+      'la copie active tourne bien à 7 h 20 (Paris)');
+  }
+  // Le robot a-t-il déjà tourné ? Un alerte-manette.json produit par lui porte
+  // une date de relevé postérieure à celle du fichier posé à la main (19/11 09:50).
+  if (alerte) {
+    verifie(!alerte.note, 'le relevé publié vient du robot, pas de la main de l\'humain',
+      alerte.note ? 'champ « note » encore présent' : '');
+  }
+} else {
+  console.log('  (copie active absente dans ce checkout — contrôle sauté)');
+}
 
 console.log('\n== 3 bis. la source peut être activée d\'un seul geste ==');
 const activation = fs.existsSync(ACTIVATION) ? fs.readFileSync(ACTIVATION, 'utf8') : '';
