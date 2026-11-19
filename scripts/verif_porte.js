@@ -11,7 +11,9 @@ const d=dom.window.document, w=dom.window;
 // état initial
 const lien=d.getElementById('porte');
 t('bouton « Ouvrir la conversation » présent', !!lien && /ouvrir la conversation/i.test(lien.textContent));
-t('cible par défaut = arena.ai', lien.href==='https://arena.ai/');
+t('la page ne contient aucune adresse vide', /https:\/\/arena\.ai\//.test(lien.href));
+t('adresse par défaut = celle de l\'humain', lien.href===brut.match(/id="porte" href="([^"]+)"/)[1]);
+t('le défaut n\'est pas l\'accueil nu', lien.href!=='https://arena.ai/');
 t('ouverture dans un nouvel onglet', lien.getAttribute('target')==='_blank' && /noopener/.test(lien.getAttribute('rel')||''));
 t('libellé de cible affiché', /arena\.ai/.test(d.getElementById('cible').textContent));
 t('état initial : aucune adresse personnalisée', /aucune adresse personnalisée/i.test(d.getElementById('etat').textContent));
@@ -38,13 +40,17 @@ t('champ pré-rempli au rechargement', d2.getElementById('adresse').value==='htt
 
 // retour au défaut
 d.getElementById('defaut').dispatchEvent(new w.MouseEvent('click',{bubbles:true}));
-t('retour au défaut', lien.href==='https://arena.ai/');
+t('retour au défaut (adresse inscrite)', lien.href===brut.match(/id="porte" href="([^"]+)"/)[1]);
 t('stockage vidé après retour au défaut', w.localStorage.getItem('porte-conversation-adresse')===null);
 
 // robustesse : stockage refusé
 const dom3=new JSDOM(brut,{url:'https://exemple.test/conversation.html',runScripts:'dangerously',
   beforeParse(win){ Object.defineProperty(win,'localStorage',{get(){ throw new Error('refusé'); }}); }});
-t('page utilisable si le stockage est refusé', dom3.window.document.getElementById('porte').href.startsWith('https://arena.ai'));
+t('page utilisable si le stockage est refusé', dom3.window.document.getElementById('porte').href.startsWith('https://arena.ai/'));
+
+// l'adresse en dur est celle de la conversation de l'humain, et elle reste modifiable
+t('adresse inscrite en dur dans le HTML', /href="https:\/\/arena\.ai\/agent\/[0-9a-f-]{36}"/.test(brut));
+t('le champ de réglage reste proposé', !!d.getElementById('adresse') && !!d.getElementById('enregistrer'));
 
 // indépendance
 t('aucun appel réseau dans la page', !/fetch\(|XMLHttpRequest|WebSocket/.test(brut));
