@@ -132,6 +132,9 @@ Point ouvert : lequel des assistants en ligne tester en premier — Claude, Chat
   très important ») et qu'il voit tout cela comme un exercice de gestion de projet. La page
   reste donc servie par Pages, `noindex` et liée depuis nulle part. Ne pas reproposer le
   retrait de la publication sans qu'il le demande.
+  **19/11, même soir** : l'humain a fourni l'adresse (`https://arena.ai/agent/01a1f2f4-…-1ac4ff7da53a`)
+  et demandé de l'inscrire en dur — c'est fait, dans le bouton, dans le défaut du script et dans
+  le libellé affiché. Le champ de réglage reste, pour changer sans passer par une session.
 
 - **19 novembre 2026 — de quoi reprendre sans faire répéter** : l'humain a posé la bonne
   question (« si j'utilise l'Arena du site, la conversation reprend le projet ? »). Le constat
