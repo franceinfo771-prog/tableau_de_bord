@@ -1271,7 +1271,7 @@ footer b{color:var(--ink-2)}
     </div>
     <div class="top-actions">
       <button class="btn-top" type="button" id="btn-top-add-proj" title="Créer un nouveau projet">+ Projet</button>
-      <button class="btn-corriger" type="button" id="btn-corriger" title="Corriger projets, étapes et veille">✎ Corriger</button>
+      <button class="btn-corriger" type="button" id="btn-corriger" title="Corriger projets, étapes et veille — ou le demander à votre assistant, qui le fera pour vous">✎ Corriger</button>
       <button class="btn-top" type="button" id="btn-print" title="Imprimer ou enregistrer en PDF">Imprimer</button>
       <button class="btn-top primary" type="button" id="btn-data">Sauvegarder</button>
     </div>
@@ -1362,6 +1362,11 @@ footer b{color:var(--ink-2)}
       <summary>Qu'est-ce que ce tableau de bord ?</summary>
       <p>C'est l'état réel de vos projets, à une date donnée, réuni dans une seule page légère. Il sert à savoir où l'on en est — et à retrouver, quand on y revient après trois semaines, ce qui restait à faire. Sans abonnement ni service externe.</p>
     </details>
+    <details id="aide-corriger">
+      <summary>À quoi sert « Corriger », alors que je peux simplement le dire ?</summary>
+      <p>Les deux marchent, et rien ne vous oblige à choisir. <b>Le bouton sert à corriger sur-le-champ</b> : renommer un projet, ajouter une étape, cocher une case, changer un critère de fin. Tout reste sur votre appareil.<br>
+      <b>Le dire à votre assistant marche aussi</b> — et c'est même le chemin le plus simple : vous racontez (« le vélo : la manette est commandée »), il met à jour et publie. Le bouton n'est pas un devoir de plus ; c'est juste ce qui reste disponible quand personne ne peut le faire pour vous.</p>
+    </details>
     <details>
       <summary>Et si je ne coche jamais rien ?</summary>
       <p><b>Il ne se passe rien de grave.</b> Le tableau reste vrai à la date de sa dernière mise à jour, et il ne vous rappellera jamais à l'ordre. Les coches servent à la personne qui veut garder le fil, pas à remplir un formulaire. Un tableau qu'on doit nourrir devient une corvée — celui-ci est fait pour être consulté, pas entretenu.</p>
@@ -1404,7 +1409,7 @@ footer b{color:var(--ink-2)}
 <!-- Barre flottante des modifications locales -->
 <div class="savebar" id="savebar" role="status" aria-live="polite">
   <span class="dot-save" aria-hidden="true"></span>
-  <span>Modifications locales enregistrées sur cet appareil</span>
+  <span>Modifié sur cet appareil — rien n'est publié</span>
   <button type="button" class="prim" id="sb-export">Exporter (.json)</button>
   <button type="button" id="sb-reset">Réinitialiser</button>
 </div>

@@ -117,6 +117,15 @@ Point ouvert : lequel des assistants en ligne tester en premier — Claude, Chat
 
 ## Journal récent
 
+- **19 novembre 2026 — « Corriger », c'est qui ? »** : en préparant son test, l'humain s'arrête sur
+  le bouton « ✎ Corriger » du tableau : « en fait c'est toi qui corriges ». Vrai, et le site ne le
+  disait pas. Trois retouches, aucune mécanique changée : la barre qui apparaît après une modif ne
+  dit plus « modifications locales enregistrées » (ce qui laissait croire à une publication) mais
+  **« Modifié sur cet appareil — rien n'est publié »** ; l'infobulle du bouton précise qu'on peut
+  aussi le demander à son assistant ; et une entrée d'aide répond franchement — le bouton sert à
+  corriger sur-le-champ, le dire à l'assistant est le chemin le plus simple, et le bouton n'est pas
+  un devoir de plus. Contrôles inchangés : 15 + 44 + 25 + 26 + 19.
+
 - **19 novembre 2026 — « L'IA locale » entre dans le tableau** : demande de l'humain, « l'IA locale
   dans le tableau, au courant du site ». Réponse : **une fiche d'état, pas un chat** — une page
   statique en HTTPS ne peut pas appeler une machine de la maison (contenu mixte), et le site
