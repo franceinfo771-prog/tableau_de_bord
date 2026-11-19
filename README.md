@@ -21,7 +21,9 @@ Tableau de bord autonome de suivi de six projets, de la veille et du condensé.
 
 ## Données : `projets.json`
 
-Les données affichées (projets, veille, condensé) vivent dans **`projets.json`**, à la racine du dépôt. `index.html` le charge au démarrage ; si le fichier est inaccessible (ouverture hors ligne), une copie de secours intégrée à la page prend le relais. Les modifications faites dans le navigateur sont d'abord gardées sur l'appareil (`localStorage`), puis publiées sur `main` via le bouton **Enregistrer sur GitHub**.
+Les données affichées (projets, veille, condensé) vivent dans **`projets.json`**, à la racine du dépôt. `index.html` le charge au démarrage ; si le fichier est inaccessible (ouverture hors ligne), une copie de secours intégrée à la page prend le relais. Les modifications faites dans le navigateur sont gardées sur l'appareil (`localStorage`) et
+peuvent être exportées en fichier JSON depuis le bouton **Sauvegarder**. Ce bouton **ne publie
+rien** : la publication se fait depuis la session de travail (branche → PR → fusion).
 
 ## Ce que le site ne montre pas (19 novembre 2026)
 
@@ -32,7 +34,7 @@ publication. Le nom de l'hébergeur a aussi disparu de la note de confidentialit
 reste dit, la marque non).
 
 **L'outillage reste dans le code, muet.** Rien ne l'appelle : `scripts/verif_copie_commande.js`
-(18 contrôles) vérifie qu'aucun de ces éléments ne réapparaît à l'écran. Conséquence assumée :
+(25 contrôles) vérifie qu'aucun de ces éléments ne réapparaît à l'écran. Conséquence assumée :
 corriger une coche dans le navigateur ne publie plus rien — la modification reste sur
 l'appareil et sera reportée à la prochaine mise à jour faite depuis la session de travail.
 
@@ -77,13 +79,16 @@ Une page de présentation, pensée pour montrer le tableau de bord à quelqu'un 
 ## Fonctionnalités de `index.html`
 
 - **Corriger** (bouton en haut) : écran à gros pavés pour corriger un projet (titre, idée, critère de fin, point ouvert, suppression), les étapes d'un projet (renommer, cocher, monter/descendre, ajouter, supprimer), ajouter un nouveau projet, corriger ou ajouter une fiche de veille.
-- **Enregistrer sur GitHub** : gros bouton avec indicateur des modifications en attente ; met à jour `projets.json` directement sur `main` via l'API GitHub. La clé GitHub *fine-grained* est stockée uniquement dans le navigateur (Brave) de l'utilisateur — jamais dans le dépôt. Réglage guidé : bouton « Réglage de la clé GitHub » en haut du tableau (permission `Contents: Read and write` limitée au dépôt `tableau_de_bord`).
-- **À faire maintenant** : affiche la prochaine étape prioritaire de chaque projet ouvert.
-- **Cases interactives** : cocher/décocher une étape recalcule immédiatement les barres, les pourcentages et la prochaine action, avec mémorisation locale (`localStorage`).
+- **Sauvegarder** (bouton en haut) : exporte l'état de l'appareil en fichier JSON, l'importe,
+  copie un résumé texte ou réinitialise. **Ne publie rien** — la publication passe par la
+  session de travail (branche → PR → fusion). Vérifié par `scripts/verif_sauvegarde.js`.
+- **Où ça en est** : affiche, pour chaque projet ouvert, l'étape qui débloque la suite. C'est
+  un repère, pas une consigne (voir la règle 0 d'`ASSISTANT.md`).
+- **Cases interactives** : cocher/décocher une étape recalcule immédiatement les barres, les pourcentages et l'étape suivante, avec mémorisation locale (`localStorage`). Cocher est un confort, jamais une obligation : le tableau suit.
 - **Ajout rapide** : ajout d'étapes, de projets ou d'entrées de veille localement.
 - **Sauvegarde portable** : export/import en JSON, copie du résumé en texte brut, impression PDF propre.
 - **Recherche locale** : recherche instantanée sans réseau dans toute la page.
-- **Lien direct vers un projet** : une adresse terminée par `#proj-<id>` (ex. `…#proj-velo`) ouvre le projet au démarrage, déplie ses étapes et fait défiler jusqu'à lui. Le changement d'ancre après coup (`hashchange`) et les liens de l'aperçu, du « À faire maintenant » ou de la recherche font la même chose ; si un filtre masquait le projet, il revient à « Tous ».
+- **Lien direct vers un projet** : une adresse terminée par `#proj-<id>` (ex. `…#proj-velo`) ouvre le projet au démarrage, déplie ses étapes et fait défiler jusqu'à lui. Le changement d'ancre après coup (`hashchange`) et les liens de l'aperçu, de « Où ça en est » ou de la recherche font la même chose ; si un filtre masquait le projet, il revient à « Tous ».
 
 ## Archive « coffret » (mode d'emploi inclus)
 
