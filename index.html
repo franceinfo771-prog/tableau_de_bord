@@ -1233,7 +1233,7 @@ footer b{color:var(--ink-2)}
   <div class="topbar-in">
     <a class="brand" href="#haut" title="Tableau de bord — retour en haut"><span class="brand-dot" aria-hidden="true"></span><span class="brand-txt">Tableau de bord</span></a>
     <div class="navlinks">
-      <a href="#focus">À faire</a>
+      <a href="#focus">Où ça en est</a>
       <a href="#apercu">Vue d'ensemble</a>
       <a href="#projets">Projets</a>
       <a href="#section-veille">Veille</a>
@@ -1255,22 +1255,22 @@ footer b{color:var(--ink-2)}
 
   <h1>Tableau de bord</h1>
   <p class="date">État au <b>19 novembre 2026</b> · mis à jour à la main · fonctionne en ligne et hors ligne, sans compte ni suivi</p>
-  <p class="chapo">Six projets suivis au même endroit. Pour chacun : où il en est, <b>ce qui le terminera</b>, et <b>la seule chose à faire ensuite</b>. Vous pouvez cocher une étape directement : les barres, les pourcentages et la prochaine action se mettent à jour aussitôt.</p>
+  <p class="chapo">Six projets suivis au même endroit. Pour chacun : où il en est, <b>ce qui le terminera</b>, et l'étape qui débloque la suite. <b>Le tableau suit, il ne commande pas</b> — une étape cochée, c'est une trace, pas une dette. Rien ne se périme ici.</p>
   <div class="resume" id="kpi-grid" aria-label="Chiffres clés"></div>
 
   <div class="chantier">
-    <b class="eyebrow">En construction</b>
-    <p>Ce tableau de bord n'est jamais figé. Il montre l'état réel des projets, garde la trace des recherches — <b>y compris celles qui n'ont rien donné</b> — et reste un seul fichier autonome que vous gardez chez vous.</p>
+    <b class="eyebrow">À quoi ça sert</b>
+    <p>Ce tableau ne remplit rien à votre place et ne réclame rien. Il garde la trace : où en était chaque projet, ce qui a été essayé, <b>y compris ce qui n'a rien donné</b>. Vous y revenez quand vous voulez — il n'aura pas bougé, et il n'aura rien oublié.</p>
     <p class="v">Version du 19 novembre 2026.</p>
   </div>
 
-  <h2 class="sect" id="focus">À faire maintenant <small>une seule prochaine action par projet ouvert</small></h2>
+  <h2 class="sect" id="focus">Où ça en est <small>l'étape qui débloque la suite, projet par projet</small></h2>
   <div id="focus-zone"></div>
 
   <h2 class="sect" id="apercu">D'un coup d'œil <small>cliquez un projet pour y aller</small></h2>
   <div class="overview" id="overview-bars"></div>
 
-  <h2 class="sect" id="projets">Projet par projet <small>cochez les étapes pour suivre l'avancement</small></h2>
+  <h2 class="sect" id="projets">Projet par projet <small>les étapes sont une trace, pas une obligation</small></h2>
   <div class="toolbar">
     <div class="pills" role="tablist" aria-label="Filtrer les projets">
       <button class="pill active" type="button" data-filter="all">Tous <span id="cnt-all"></span></button>
@@ -1330,11 +1330,15 @@ footer b{color:var(--ink-2)}
   <div class="aide">
     <details>
       <summary>Qu'est-ce que ce tableau de bord ?</summary>
-      <p>C'est l'état réel de vos projets, à une date donnée, réuni dans une seule page légère. Il sert à savoir immédiatement où l'on en est et quelle est la prochaine action concrète, sans dépendre d'un abonnement ni d'un service externe.</p>
+      <p>C'est l'état réel de vos projets, à une date donnée, réuni dans une seule page légère. Il sert à savoir où l'on en est — et à retrouver, quand on y revient après trois semaines, ce qui restait à faire. Sans abonnement ni service externe.</p>
+    </details>
+    <details>
+      <summary>Et si je ne coche jamais rien ?</summary>
+      <p><b>Il ne se passe rien de grave.</b> Le tableau reste vrai à la date de sa dernière mise à jour, et il ne vous rappellera jamais à l'ordre. Les coches servent à la personne qui veut garder le fil, pas à remplir un formulaire. Un tableau qu'on doit nourrir devient une corvée — celui-ci est fait pour être consulté, pas entretenu.</p>
     </details>
     <details>
       <summary>Mes cases cochées sont-elles enregistrées ?</summary>
-      <p>Oui : dès que vous cochez une étape ou ajoutez un élément, l'état est mémorisé <b>dans votre navigateur sur cet appareil</b> (aucun serveur ne reçoit vos données). Pour le transférer vers un autre appareil ou garder une archive, cliquez sur <b>Sauvegarder → Exporter mon état (.json)</b>.</p>
+      <p>Oui, et <b>seulement si vous le faites</b> : l'état est mémorisé <b>dans votre navigateur sur cet appareil</b> (aucun serveur ne reçoit vos données). <b>Ne rien cocher ne casse rien</b> : le tableau reste vrai à sa date. Et si vous préférez ne jamais cocher, dites-le simplement à votre assistant — il tiendra le tableau à jour à votre place.</p>
     </details>
     <details>
       <summary>Que veut dire « il sera fini quand » ?</summary>
@@ -1342,7 +1346,7 @@ footer b{color:var(--ink-2)}
     </details>
     <details>
       <summary>Que veut dire « la prochaine étape » ?</summary>
-      <p>Une seule chose : la première étape qui n'est pas encore cochée. Pas une liste de souhaits, mais l'action qui débloque la suite. Dès que vous la cochez, la suivante prend automatiquement sa place.</p>
+      <p>C'est la première étape qui n'est pas encore cochée — celle qui débloque la suite. <b>Ce n'est pas une injonction</b> : si vous préférez faire autrement, ou ne rien faire pendant un mois, le tableau ne vous en tiendra pas rigueur. Il indique le chemin, il ne fixe pas d'allure.</p>
     </details>
     <details>
       <summary>Comment les pourcentages sont-ils calculés ?</summary>
