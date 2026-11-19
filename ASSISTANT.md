@@ -11,8 +11,9 @@
 - `scripts/etat.sh` — régénère `etat.json` (résumé technique, chiffres dérivés de `projets.json`).
 - `accueil.html` — page de présentation (démonstration) : elle mène au tableau, le tableau y renvoie.
 - `veille-supermimic.html` — page de veille à part (19/11) : le robot humanoïde SuperMimic expliqué sans jargon, sources vérifiées, reliée au tableau (« Robot qui apprend ») et à l'accueil. Page statique, `noindex`, sans script ni image distante.
+- `veille-supermimic-court.html` — la même histoire en un écran de téléphone (« en 1 min » dans la barre) : fond sombre, trois chiffres, à voir / à ne pas croire. Même propreté : statique, `noindex`, sans script.
 - `archive/` — les deux modèles de l'archive (page de démarrage + mode d'emploi). `python3 scripts/construire_archive.py` fabrique `tableau-de-bord-AAAA-MM-JJ.zip`, qui n'est pas versionné.
-- `scripts/verif_rendu.js`, `scripts/verif_ancre.js`, `scripts/verif_accueil.js`, `scripts/verif_copie_commande.js`, `scripts/verif_veille.js` — vérifications headless (rendu, liens `#proj-…`, page d'accueil, bouton de copie, page de veille).
+- `scripts/verif_rendu.js`, `scripts/verif_ancre.js`, `scripts/verif_accueil.js`, `scripts/verif_copie_commande.js`, `scripts/verif_veille.js` — vérifications headless (rendu, liens `#proj-…`, page d'accueil, bouton de copie, pages de veille complète et courte).
 
 ## Règles
 

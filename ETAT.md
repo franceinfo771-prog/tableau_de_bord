@@ -86,6 +86,8 @@ Point ouvert : lequel des assistants en ligne tester en premier — Claude, Chat
 
 ## Journal récent
 
+- **19 novembre 2026 — photo du vrai robot et version d'une minute** : la photo est désormais celle du **Unitree G1** lui-même (Sayanesy, domaine public CC0, via Wikimedia Commons), créditée et liée ; l'illustration générée est retirée du site. Ajout d'une **version courte** `veille-supermimic-court.html` — l'essentiel en un écran de téléphone, fond sombre, trois gros chiffres, ce qu'il faut voir et ce qu'il ne faut pas croire — reliée aux deux pages, à l'accueil et au tableau (« en 1 min »). `verif_veille.js` couvre maintenant les deux pages : 84 contrôles.
+
 - **19 novembre 2026 — une page pour SuperMimic** : l'infolettre parlait d'un humanoïde qui apprend tous les gestes ; vérification faite à la source (page du projet, dépôt GitHub, article arXiv:2610.28480, accepté à CoRL 2026). Nouvelle page `veille-supermimic.html` : ce que c'est, comment ça marche en trois temps, ce que montre le film, les chiffres avec leurs limites, ce que ça ne veut pas dire, et trois liens pour voir soi-même. Page statique, `noindex`, sans script ni image distante. Reliée au tableau (« Robot qui apprend ») et à l'accueil. Nouvelle étape au projet IA (2/10), nouvelle fiche de veille (14), vérification `scripts/verif_veille.js` : 55 contrôles.
 
 - **18 novembre 2026 — archive avec mode d'emploi** : `scripts/construire_archive.py` fabrique `tableau-de-bord-2026-11-18.zip` (3 Mo), qui se rouvre sans réseau dans des années : page de démarrage, mode d'emploi imprimable (HTML + texte), site complet, code source, sauvegarde `.json`. Vérifié par `scripts/verif_archive.js` : 29 contrôles, dont l'ouverture réelle du site en `file://` (6 projets, 25/41, 13 veilles, aucune erreur).

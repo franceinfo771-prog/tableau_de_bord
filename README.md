@@ -30,9 +30,12 @@ Une page à part, demandée le 19 novembre 2026 : SuperMimic, un humanoïde qui 
 tous les gestes humains, expliqué sans jargon — ce que c'est, comment ça marche en trois
 temps, ce que montre le film, les chiffres (avec leurs limites), ce que ça ne veut pas
 dire, et trois liens pour le voir soi-même. Page statique, `noindex`, sans script ni
-image distante ; la photo est une illustration générée, et la page le dit. Elle est
-reliée au tableau (« Robot qui apprend » dans la barre) et à la page d'accueil, et elle
-accompagne l'étape correspondante du projet « Découverte de logiciels IA ».
+image distante. La photo est celle du **Unitree G1** (Sayanesy, domaine public CC0, via
+Wikimedia Commons), créditée et liée sur les deux pages. Une **version courte**
+(`veille-supermimic-court.html`, « une minute ») donne l'essentiel en un écran de
+téléphone. Les deux pages sont reliées au tableau (« Robot qui apprend » · « en 1 min »)
+et à la page d'accueil, et accompagnent l'étape correspondante du projet « Découverte de
+logiciels IA ».
 
 ## Page d'accueil de démonstration : `accueil.html`
 
@@ -74,7 +77,7 @@ python3 -m http.server 8000
 node scripts/verif_rendu.js        # rendu headless : 0 erreur JS, comptes, boutons intacts
 node scripts/verif_ancre.js        # liens #proj-…, sauts, brouillon local, cochage
 node scripts/verif_accueil.js      # page de présentation : bouton, raccourcis, chiffres
-node scripts/verif_veille.js       # page de veille SuperMimic : liens, chiffres, propreté
+node scripts/verif_veille.js       # page de veille SuperMimic (complète + une minute) : liens, chiffres, propreté
 node scripts/verif_archive.js      # archive livrée : contenu, liens, ouverture hors ligne
 node scripts/verif_copie_commande.js
 python3 scripts/sync_donnees_embedded.py --verifier
