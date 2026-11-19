@@ -1,21 +1,21 @@
 # État des projets — Tableau de bord
 
 > Version texte du tableau de bord visuel `index.html`.
-> Dernière mise à jour : 18 novembre 2026.
+> Dernière mise à jour : 19 novembre 2026.
 
 ## Vue d'ensemble
 
 - **Projets suivis** : 6
 - **Terminés** : 2 (`Notes de recherche`, `Les sites`)
-- **Étapes faites** : 25 / 41 (**61 %**)
-- **Veille** : 13 recherches consignées (6 retenues · 7 sans résultat)
+- **Étapes faites** : 25 / 42 (**60 %**)
+- **Veille** : 14 recherches consignées (7 retenues · 7 sans résultat)
 
 ## À faire maintenant (prochaine étape par projet ouvert)
 
 1. **Une application de poche** (4/6 · 67 %) — Installer l'application sur un téléphone réel.
 2. **Maquette — une porte qui fait joli** (2/4 · 50 %) — Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ?
 3. **Vélo électrique DIY** (4/9 · 44 %) — Acheter la manette — poignée à effet Hall, 3 fils, sortie 5 V.
-4. **Découverte de logiciels IA** (2/9 · 22 %) — Installer l'outil à distance sur le PC de la maison.
+4. **Découverte de logiciels IA** (2/10 · 20 %) — Installer l'outil à distance sur le PC de la maison.
 
 ## Points ouverts (projets terminés)
 
@@ -66,7 +66,7 @@
 - [ ] Galet profilé et support mécanique
 - [ ] Essai sur route sèche, 10 km
 
-### 6. Découverte de logiciels IA — 2 / 9 (22 %) · Commencé
+### 6. Découverte de logiciels IA — 2 / 10 (20 %) · Commencé
 - [x] Inventaire de la machine (CPU/GPU, RAM, disque) — ce qu'elle peut faire tourner
   - **PC du travail** (diagnostic du 16 nov.) : Intel Atom x5-Z8350 @ 1,44 GHz (4 cœurs) · 3,9 Go RAM · Intel HD Graphics (intégré, pas de GPU dédié) · 6,7 Go libres sur C: · Windows 10 Professionnel : modèles ≤ 1,5 milliard de paramètres en 4 bits, sur CPU — local réaliste en curiosité ; l'assistant en ligne (Arena, Claude, ChatGPT) rester le vrai outil quotidien.
   - **PC de la maison** (cible) : un **ASUS**, de configuration bien supérieure — l'inventaire exact sera relevé automatiquement par le pont, sans demande de caractéristiques à la main.
@@ -78,12 +78,15 @@
 - [ ] Le tester sur 2-3 tâches réelles du quotidien
 - [ ] Noter ce qui marche / ce qui ne marche pas (taille des modèles, vitesse, qualité)
 - [ ] Adopter l'outil retenu (local ou en ligne) dans l'usage courant
+- [ ] Voir SuperMimic de mes yeux — la vidéo, la page du projet et la démo dans le navigateur *(page faite le 19/11 : `veille-supermimic.html`)*
 
 Idée : découvrir les logiciels IA — ceux qui tournent en local sur le PC (hors ligne, hors compte, données privées), et les assistants en ligne (Claude, ChatGPT, Gemini) — comprendre lequel sert à quoi.
 Critère de fin : une configuration IA locale précise en place et maîtrisée — un assistant/LLM local installé, lancé, et utilisé pour au moins une tâche réelle, avec ses limites notées.
 Point ouvert : lequel des assistants en ligne tester en premier — Claude, ChatGPT ou Gemini ?
 
 ## Journal récent
+
+- **19 novembre 2026 — une page pour SuperMimic** : l'infolettre parlait d'un humanoïde qui apprend tous les gestes ; vérification faite à la source (page du projet, dépôt GitHub, article arXiv:2610.28480, accepté à CoRL 2026). Nouvelle page `veille-supermimic.html` : ce que c'est, comment ça marche en trois temps, ce que montre le film, les chiffres avec leurs limites, ce que ça ne veut pas dire, et trois liens pour voir soi-même. Page statique, `noindex`, sans script ni image distante. Reliée au tableau (« Robot qui apprend ») et à l'accueil. Nouvelle étape au projet IA (2/10), nouvelle fiche de veille (14), vérification `scripts/verif_veille.js` : 55 contrôles.
 
 - **18 novembre 2026 — archive avec mode d'emploi** : `scripts/construire_archive.py` fabrique `tableau-de-bord-2026-11-18.zip` (3 Mo), qui se rouvre sans réseau dans des années : page de démarrage, mode d'emploi imprimable (HTML + texte), site complet, code source, sauvegarde `.json`. Vérifié par `scripts/verif_archive.js` : 29 contrôles, dont l'ouverture réelle du site en `file://` (6 projets, 25/41, 13 veilles, aucune erreur).
 - **18 novembre 2026 — préparation de la démonstration** : la barre du haut ne mange plus la moitié d'un écran de téléphone (liens et actions en deux rangées qui glissent du doigt, sous 560 px). Un clic sur un projet ne casse plus si le navigateur refuse de changer l'adresse (page ouverte par double-clic, page affichée dans un cadre). Deux cas ajoutés aux vérifications : vider puis refaire une coche ramène exactement l'état de départ.

@@ -1,8 +1,8 @@
 TABLEAU DE BORD — MES PROJETS
-Archive du 18 novembre 2026
+Archive du 19 novembre 2026
 ============================
 
-6 projets · 25 / 41 étapes faites (61 %) · 13 recherches de veille.
+6 projets · 25 / 42 étapes faites (60 %) · 14 recherches de veille.
 
 Ce dossier contient tout : le site, ses données, ses images, et ce mode
 d'emploi. Il fonctionne SANS INTERNET, sans compte, sans installation.
@@ -105,4 +105,4 @@ Contenu de l'archive
   technique/ ............ code source, données, consignes, vérifications
   archives/ ............. sauvegardes .json exportées depuis le site
 
-Mode d'emploi rédigé le 18 novembre 2026. Il tient sur deux feuilles.
+Mode d'emploi rédigé le 19 novembre 2026. Il tient sur deux feuilles.

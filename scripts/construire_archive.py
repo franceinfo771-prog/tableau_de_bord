@@ -30,10 +30,10 @@ import sys
 import tempfile
 
 RACINE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-NOM = "tableau-de-bord-2026-11-18"
+NOM = "tableau-de-bord-2026-11-19"
 
 # Fichiers du site, tels qu'ils sont publiés.
-SITE = ["index.html", "accueil.html", "atelier.html", "projets.json", "robots.txt", ".nojekyll"]
+SITE = ["index.html", "accueil.html", "veille-supermimic.html", "atelier.html", "projets.json", "robots.txt", ".nojekyll"]
 
 # Pages secondaires publiées en plus (le « site complet »).
 EXTRA = ["img", "geoula-a-televerser"]
@@ -54,7 +54,7 @@ TRAVAIL = [
 
 # Ce qui part dans technique/.
 TECHNIQUE = [
-    "index.html", "accueil.html", "projets.json", "robots.txt", ".nojekyll",
+    "index.html", "accueil.html", "veille-supermimic.html", "projets.json", "robots.txt", ".nojekyll",
     "scripts", "ASSISTANT.md", "ETAT.md", "README.md", "etat.json", "APERCU.md",
     "atelier.html", "geoula-a-televerser", "img",
 ]
@@ -122,7 +122,7 @@ def page_sommaire(lignes):
 rangés dans ton Drive. Ce sont des copies : les originaux sont restés en place.
 Rien ici n'a besoin d'Internet.</p>
 %s
-<footer>Archive du 18 novembre 2026. Ce sommaire s'ouvre sans réseau, sans
+<footer>Archive du 19 novembre 2026. Ce sommaire s'ouvre sans réseau, sans
 installation, et restera lisible dans dix ans : c'est du HTML, rien d'autre.</footer>
 </html>
 """ % "\n".join(corps)
@@ -198,12 +198,12 @@ def main():
     dest_archives = os.path.join(paquet, "archives")
     os.makedirs(dest_archives)
     shutil.copy2(os.path.join(RACINE, "projets.json"),
-                 os.path.join(dest_archives, "projets-du-jour-2026-11-18.json"))
+                 os.path.join(dest_archives, "projets-du-jour-2026-11-19.json"))
     with open(os.path.join(dest_archives, "LISEZ-MOI.txt"), "w", encoding="utf-8") as f:
         f.write(
             "Sauvegardes\n"
             "===========\n\n"
-            "projets-du-jour-2026-11-18.json : l'état du tableau au moment de l'archive.\n\n"
+            "projets-du-jour-2026-11-19.json : l'état du tableau au moment de l'archive.\n\n"
             "C'est exactement le format du bouton « Sauvegarder → Exporter » du site.\n"
             "Pour le recharger plus tard : ouvrir le tableau, bouton « Sauvegarder »,\n"
             "puis « Importer », et choisir ce fichier.\n"

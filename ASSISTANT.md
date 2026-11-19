@@ -10,8 +10,9 @@
 - `ETAT.md` — l'état des lieux en texte (projets, étapes, points ouverts, journal).
 - `scripts/etat.sh` — régénère `etat.json` (résumé technique, chiffres dérivés de `projets.json`).
 - `accueil.html` — page de présentation (démonstration) : elle mène au tableau, le tableau y renvoie.
+- `veille-supermimic.html` — page de veille à part (19/11) : le robot humanoïde SuperMimic expliqué sans jargon, sources vérifiées, reliée au tableau (« Robot qui apprend ») et à l'accueil. Page statique, `noindex`, sans script ni image distante.
 - `archive/` — les deux modèles de l'archive (page de démarrage + mode d'emploi). `python3 scripts/construire_archive.py` fabrique `tableau-de-bord-AAAA-MM-JJ.zip`, qui n'est pas versionné.
-- `scripts/verif_rendu.js`, `scripts/verif_ancre.js`, `scripts/verif_accueil.js`, `scripts/verif_copie_commande.js` — vérifications headless (rendu, liens `#proj-…`, page d'accueil, bouton de copie).
+- `scripts/verif_rendu.js`, `scripts/verif_ancre.js`, `scripts/verif_accueil.js`, `scripts/verif_copie_commande.js`, `scripts/verif_veille.js` — vérifications headless (rendu, liens `#proj-…`, page d'accueil, bouton de copie, page de veille).
 
 ## Règles
 
@@ -21,7 +22,7 @@
 4. **Pose les questions en pavés** (options cliquables) pour les choix importants ; demande validation avant de publier.
 5. **Calculs et chiffres** : déduis-les de `projets.json` (étapes faites / total). Si `ETAT.md`, `README.md` ou `etat.json` divergent, resynchronise-les.
 6. **Terminologie** : tutoiement, français, concret — la personne n'est pas technique. Commits et PR en français, clairs, avec la raison du changement.
-7. **Vérifier avant de fusionner** : rendu headless (jsdom ou équivalent) — 0 erreur JS, nombre de cartes/veilles attendu, boutons intacts, `projets.json` valide. `node scripts/verif_rendu.js`, `node scripts/verif_ancre.js` (liens directs `#proj-<id>`) et `node scripts/verif_accueil.js` (chiffres de la page d'accueil à jour).
+7. **Vérifier avant de fusionner** : rendu headless (jsdom ou équivalent) — 0 erreur JS, nombre de cartes/veilles attendu, boutons intacts, `projets.json` valide. `node scripts/verif_rendu.js`, `node scripts/verif_ancre.js` (liens directs `#proj-<id>`), `node scripts/verif_accueil.js` (chiffres de la page d'accueil à jour) et `node scripts/verif_veille.js` (page de veille : liens, chiffres, propreté).
 8. **Une évolution = une branche = une PR.** Si la session précédente a été fusionnée, repartir d'une branche neuve (ou du bouton Continue).
 9. Si l'humain dit « publie » : branche, commit, push, PR, fusion, puis vérifier que Pages a redéployé (`/pages/builds/latest`).
 10. Respecter le style du fichier existant (pas de refactor gratuit, pas de nouvelles dépendances).

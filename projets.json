@@ -1,5 +1,5 @@
 {
-  "version": "2026-11-18",
+  "version": "2026-11-19",
   "projets": [
     {
       "id": "notes",
@@ -226,6 +226,11 @@
           "t": "Piloter l'environnement de la maison - Freebox, imprimante, autres postes du reseau",
           "ok": false,
           "custom": true
+        },
+        {
+          "t": "Voir SuperMimic de mes yeux — la vidéo, la page du projet et la démo dans le navigateur",
+          "ok": false,
+          "custom": true
         }
       ]
     }
@@ -294,6 +299,11 @@
     {
       "t": "Une application Android pour un fichier hors ligne",
       "s": "Trois outils officiels suffisent : aapt2, d8, apksigner. Aucun magasin, aucun compte développeur, aucun frais. L'application a été construite et signée v1+v2+v3.",
+      "abouti": true
+    },
+    {
+      "t": "SuperMimic — un humanoïde qui imite tous les gestes, entraîné en 3 heures sur un seul GPU",
+      "s": "Repéré dans une infolettre, puis vérifié à la source : page du projet (supermimic.github.io), dépôt GitHub HybridRobotics/supermimic, article arXiv:2610.28480 accepté à CoRL 2026. Résultat annoncé : dépasse un entraînement de 7 jours sur 128 GPU — plus de 1000 fois moins de calcul — et 0 échec sur 129 514 mouvements après 9,8 h sur 2 GPU. Code en licence Apache 2.0 ; la démo web, elle, est propriétaire (visible, pas copiable).",
       "abouti": true
     }
   ],

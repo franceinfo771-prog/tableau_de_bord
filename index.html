@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tableau de bord — Mes projets (18 novembre 2026)</title>
-<meta name="description" content="Tableau de bord de six projets, à la date du 18 novembre 2026 : ce qui est fait, ce qui reste, la prochaine étape de chacun, la veille et le condensé.">
+<title>Tableau de bord — Mes projets (19 novembre 2026)</title>
+<meta name="description" content="Tableau de bord de six projets, à la date du 19 novembre 2026 : ce qui est fait, ce qui reste, la prochaine étape de chacun, la veille et le condensé.">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
 <style>
@@ -1225,6 +1225,7 @@ footer b{color:var(--ink-2)}
       <a href="#section-veille">Veille</a>
       <a href="#condense">Condensé</a>
       <a href="#section-cherche">Chercher</a>
+      <a class="accueil-lien" href="veille-supermimic.html" title="Le robot humanoïde SuperMimic, expliqué simplement">Robot qui apprend</a>
       <a class="accueil-lien" href="accueil.html" title="Revenir à la page de présentation">← Accueil</a>
       <a href="#aide">Aide</a>
     </div>
@@ -1242,9 +1243,9 @@ footer b{color:var(--ink-2)}
 <div class="envel" id="haut">
 
   <h1>Tableau de bord</h1>
-  <p class="date">État au <b>18 novembre 2026</b> · mis à jour à la main · fonctionne en ligne et hors ligne, sans compte ni suivi</p>
+  <p class="date">État au <b>19 novembre 2026</b> · mis à jour à la main · fonctionne en ligne et hors ligne, sans compte ni suivi</p>
   <p class="chapo">Six projets suivis au même endroit. Pour chacun : où il en est, <b>ce qui le terminera</b>, et <b>la seule chose à faire ensuite</b>. Vous pouvez cocher une étape directement : les barres, les pourcentages et la prochaine action se mettent à jour aussitôt.</p>
-  <img class="banniere" src="img/banniere.jpg" alt="Bureau de travail : carnet de notes, ordinateur et café, lumière du matin" width="1100" height="300">
+  <img class="banniere" src="img/humanoides.jpg" alt="Un robot humanoïde blanc et gris en équilibre dans un laboratoire de robotique, deux ingénieurs derrière lui" width="1100" height="300">
   <div class="arena-box" aria-label="Comment faire évoluer ce site">
     <span><b>✦ Vous voulez modifier ce site ?</b> Ouvrez <a class="arena-link" href="https://arena.ai/agent" target="_blank" rel="noopener noreferrer">✦ Mon assistant Arena</a> et collez-y votre <b>premier message</b> :</span>
     <code class="arena-prompt" id="arena-prompt">Lis le dépôt franceinfo771-prog/tableau_de_bord (branche main) : ASSISTANT.md, puis ETAT.md et projets.json. C'est mon tableau de bord de projets. Ensuite, attends mes demandes — et pour chaque changement, branche + PR, jamais direct sur main.</code>
@@ -1266,7 +1267,7 @@ footer b{color:var(--ink-2)}
   <div class="chantier">
     <b class="eyebrow">En construction</b>
     <p>Ce tableau de bord n'est jamais figé. Il montre l'état réel des projets, garde la trace des recherches — <b>y compris celles qui n'ont rien donné</b> — et reste un seul fichier autonome que vous gardez chez vous.</p>
-    <p class="v">Version du 18 novembre 2026.</p>
+    <p class="v">Version du 19 novembre 2026.</p>
   </div>
 
   <h2 class="sect" id="focus">À faire maintenant <small>une seule prochaine action par projet ouvert</small></h2>
@@ -1367,8 +1368,9 @@ footer b{color:var(--ink-2)}
   <footer>
     <p><b>Ce que cette page dit, et ce qu'elle ne dit pas.</b> Elle compte des étapes cochées, elle ne mesure pas leur difficulté. Une étape faite est une étape faite — mais toutes ne se valent pas.</p>
     <p><b>Confidentialité — vérifié le 16 novembre 2026.</b> Cette page n'a <b>aucun</b> script de mesure, pas de Google Analytics, pas de pixel, pas de cookie tiers, aucune police distante et aucune image externe. <b>Mais l'hébergeur, lui, garde une trace technique :</b> GitHub Pages enregistre l'adresse IP des visites dans ses journaux serveur (« à des fins de sécurité »), auxquels le propriétaire du site n'a pas accès. En ouvrant ce fichier localement depuis votre ordinateur, aucun serveur n'est contacté.</p>
-    <p>Tableau de bord mis à jour le <b>18 novembre 2026</b> · page + <code>projets.json</code> · zéro dépendance extérieure.</p>
-    <p>Page d'accueil de présentation : <a href="accueil.html">accueil.html</a> · reprise le <b>18 novembre 2026</b>.</p>
+    <p>Tableau de bord mis à jour le <b>19 novembre 2026</b> · page + <code>projets.json</code> · zéro dépendance extérieure.</p>
+    <p>Page d'accueil de présentation : <a href="accueil.html">accueil.html</a> · reprise le <b>19 novembre 2026</b>.<br>
+    Page de veille : <a href="veille-supermimic.html">le robot humanoïde SuperMimic, expliqué simplement</a>.</p>
   </footer>
 </div>
 
@@ -1513,7 +1515,7 @@ footer b{color:var(--ink-2)}
   // ne peut pas être chargé, ex. fichier ouvert en local sans serveur).
   // La source normale est projets.json, chargé au démarrage.
   const DEFAULT_DATA = {
-    version: '2026-11-18',
+    version: '2026-11-19',
     projets: [
       {
         id: 'notes',
@@ -1608,7 +1610,8 @@ footer b{color:var(--ink-2)}
           { t: 'Noter ce qui marche / ce qui ne marche pas (taille des modèles, vitesse, qualité)', ok: false, custom: true },
           { t: 'Adopter l\'outil retenu (local ou en ligne) dans l\'usage courant', ok: false, custom: true },
           { t: 'Ouvrir un accès privé depuis le travail — Tailscale, aucun port ouvert sur la box', ok: false, custom: true },
-          { t: 'Piloter l\'environnement de la maison - Freebox, imprimante, autres postes du reseau', ok: false, custom: true }
+          { t: 'Piloter l\'environnement de la maison - Freebox, imprimante, autres postes du reseau', ok: false, custom: true },
+          { t: 'Voir SuperMimic de mes yeux — la vidéo, la page du projet et la démo dans le navigateur', ok: false, custom: true }
         ]
       }
     ],
@@ -1625,7 +1628,8 @@ footer b{color:var(--ink-2)}
       { t: 'La veille automatique — bulletins du 7 et du 8 novembre', s: '331 articles analysés, 12 retenus, fenêtre de 7 jours. Rien qui concerne les projets en cours : c\'est un flux généraliste, pas une veille ciblée.', abouti: true },
       { t: 'Les gains d\'un vélo à friction', s: 'Rendement 60-80 % contre 85-92 % pour un moyeu. Pneu usé en 500-1 500 km contre 2 000-5 000. Perte de 20 à 40 % d\'autonomie. Convergent sur plusieurs sources techniques indépendantes.', abouti: true },
       { t: 'L\'absorption réelle des mousses pyramidales — sans importance', s: 'Recherche faite, puis mise hors du projet : la maquette est un objet d\'aspect, pas un dispositif. NRC 0,70 à 1,00 selon l\'épaisseur ; 0,18 à 0,24 à 125 Hz. Gardé pour mémoire, pas pour décider.', abouti: false },
-      { t: 'Une application Android pour un fichier hors ligne', s: 'Trois outils officiels suffisent : aapt2, d8, apksigner. Aucun magasin, aucun compte développeur, aucun frais. L\'application a été construite et signée v1+v2+v3.', abouti: true }
+      { t: 'Une application Android pour un fichier hors ligne', s: 'Trois outils officiels suffisent : aapt2, d8, apksigner. Aucun magasin, aucun compte développeur, aucun frais. L\'application a été construite et signée v1+v2+v3.', abouti: true },
+      { t: 'SuperMimic — un humanoïde qui imite tous les gestes, entraîné en 3 heures sur un seul GPU', s: 'Repéré dans une infolettre, puis vérifié à la source : page du projet (supermimic.github.io), dépôt GitHub HybridRobotics/supermimic, article arXiv:2610.28480 accepté à CoRL 2026. Résultat annoncé : dépasse un entraînement de 7 jours sur 128 GPU — plus de 1000 fois moins de calcul — et 0 échec sur 129 514 mouvements après 9,8 h sur 2 GPU. Code en licence Apache 2.0 ; la démo web, elle, est propriétaire (visible, pas copiable).', abouti: true }
     ],
     condense: [
       ['Trois notes sont devenues une.', '24 854 caractères au lieu de 59 195 — la fusion n\'a rien perdu, sauf ce qui était faux.'],
@@ -1906,7 +1910,8 @@ footer b{color:var(--ink-2)}
     'poche':'img/poche.jpg',
     'maquette':'img/maquette.jpg',
     'velo':'img/velo.jpg',
-    'ia-decouverte':'img/ia.jpg'
+    'ia-decouverte':'img/ia.jpg',
+    'ia-supermimic':'img/humanoides.jpg'
   };
 
   function renderProjects(){

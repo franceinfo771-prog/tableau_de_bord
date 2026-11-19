@@ -64,11 +64,11 @@ function lister(dossier) {
 
   const attendus = [
     'COMMENCER-ICI.html', 'MODE-D-EMPLOI.html', 'LISEZ-MOI.txt',
-    'site/index.html', 'site/accueil.html', 'site/projets.json',
+    'site/index.html', 'site/accueil.html', 'site/veille-supermimic.html', 'site/projets.json',
     'site/img/banniere.jpg', 'site/img/velo.jpg',
     'technique/index.html', 'technique/projets.json', 'technique/ASSISTANT.md',
     'technique/ETAT.md', 'technique/scripts/verif_rendu.js',
-    'archives/projets-du-jour-2026-11-18.json',
+    'archives/projets-du-jour-2026-11-19.json',
   ];
   for (const f of attendus) {
     verifie(fs.existsSync(path.join(racine, f)), 'présent : ' + f);
@@ -95,7 +95,7 @@ function lister(dossier) {
       'site/' + f + ' identique au dépôt');
   }
 
-  console.log('\n== 3. liens internes ==');  const pages = ['COMMENCER-ICI.html', 'MODE-D-EMPLOI.html', 'site/accueil.html', 'site/index.html'];
+  console.log('\n== 3. liens internes ==');  const pages = ['COMMENCER-ICI.html', 'MODE-D-EMPLOI.html', 'site/accueil.html', 'site/index.html', 'site/veille-supermimic.html'];
   const casse = [];
   for (const page of pages) {
     const dossier = path.dirname(path.join(racine, page));
