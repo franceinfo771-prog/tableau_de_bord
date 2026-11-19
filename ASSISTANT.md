@@ -12,9 +12,9 @@
 - `ETAT.md` — l'état des lieux en texte (projets, étapes, points ouverts, journal).
 - `scripts/etat.sh` — régénère `etat.json` (résumé technique, chiffres dérivés de `projets.json`).
 - `accueil.html` — page de présentation (démonstration) : elle mène au tableau, le tableau y renvoie.
-- `IA-LOCALE.md` — la décision et l'architecture de la rubrique « L'IA locale » (fiche d'état,
-  pas un chat) : ce qui est en place, les trois niveaux, pourquoi le site ne peut pas parler au
-  PC de la maison, ce qu'il ne faut pas refaire.
+- `IA-LOCALE.md` — **dossier de l'impasse** : l'IA locale a été arrêtée le 19/11 (le PC de la maison
+  est un vieux PC). Le projet ne garde que les assistants en ligne. **Ne pas reproposer de faire
+  tourner un modèle sur cette machine**, ni de rubrique « IA locale » dans le site.
 - `conversation.html` — **page privée** (non liée, `noindex`) : la porte vers la conversation qui
   connaît le dépôt. Un seul lien sortant, réglable et gardé sur l'appareil. Elle n'est pas un
   chat : ne jamais y promettre une réponse de l'assistant. Contrôles : `scripts/verif_porte.js`.

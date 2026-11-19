@@ -1,19 +1,19 @@
 {
   "project": "tableau_de_bord",
-  "branch": "arena/daf538b9-tableau-de-bord",
-  "short_sha": "9ca656d",
-  "full_sha": "9ca656d0f24efaaaca3a96e6691fc6b8750dda86",
-  "last_commit_message": "Merge pull request #31 from franceinfo771-prog/arena/9cf2450d-tableau-de-bord",
-  "last_commit_date": "2026-11-19T16:39:11+01:00",
+  "branch": "arena/21f1a8d9-tableau-de-bord",
+  "short_sha": "24cd97e",
+  "full_sha": "24cd97eafc8c5db2ac816cfc8724c61b5e929a61",
+  "last_commit_message": "Merge pull request #32 from franceinfo771-prog/arena/daf538b9-tableau-de-bord",
+  "last_commit_date": "2026-11-19T16:45:27+01:00",
   "tracked_files": 69,
-  "uncommitted_changes": 2,
-  "generated_at": "2026-11-19T15:44:05+00:00",
+  "uncommitted_changes": 9,
+  "generated_at": "2026-11-19T15:55:28+00:00",
   "summary": {
     "projects_total": 6,
     "projects_done": 2,
     "steps_done": 25,
-    "steps_total": 41,
-    "progress_percent": 61,
+    "steps_total": 37,
+    "progress_percent": 68,
     "veille_count": 14,
     "veille_sans_resultat": 7
   }
