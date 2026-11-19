@@ -113,6 +113,7 @@ node scripts/verif_accueil.js      # page de présentation : bouton, raccourcis,
 node scripts/verif_alerte_manette.js  # alerte de stock : module Python, fichier publié, affichage
 node scripts/verif_archive.js      # archive livrée : contenu, liens, ouverture hors ligne
 node scripts/verif_copie_commande.js  # façade : aucune mention d'Arena/GitHub/clé ne doit s'afficher
+node scripts/verif_sauvegarde.js    # bouton Sauvegarder : fenêtre, export, import, copie, réinitialisation
 python3 scripts/sync_donnees_embedded.py --verifier
 ```
 
