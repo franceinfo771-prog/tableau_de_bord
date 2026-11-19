@@ -12,6 +12,9 @@
 - `ETAT.md` — l'état des lieux en texte (projets, étapes, points ouverts, journal).
 - `scripts/etat.sh` — régénère `etat.json` (résumé technique, chiffres dérivés de `projets.json`).
 - `accueil.html` — page de présentation (démonstration) : elle mène au tableau, le tableau y renvoie.
+- `IA-LOCALE.md` — la décision et l'architecture de la rubrique « L'IA locale » (fiche d'état,
+  pas un chat) : ce qui est en place, les trois niveaux, pourquoi le site ne peut pas parler au
+  PC de la maison, ce qu'il ne faut pas refaire.
 - `conversation.html` — **page privée** (non liée, `noindex`) : la porte vers la conversation qui
   connaît le dépôt. Un seul lien sortant, réglable et gardé sur l'appareil. Elle n'est pas un
   chat : ne jamais y promettre une réponse de l'assistant. Contrôles : `scripts/verif_porte.js`.
@@ -19,7 +22,7 @@
 - `alerte-manette.json` + `outils/alerte-manette/` + `scripts/verifier_manette.py` — alerte de stock de la manette du vélo : relevé quotidien publié dans le JSON, affiché sur la carte du vélo, et ticket GitHub ouvert le jour du retour en stock (`scripts/verif_alerte_manette.js`).
   **En service depuis le 19/11 à 10 h 47** : copie active dans `.github/workflows/alerte-manette.yml`, premier passage réussi, commit signé « Alerte manette » (`07458b2`), un relevé par jour.
   **Limite connue** : l'application GitHub de l'assistant n'a pas le droit `workflows` — impossible d'écrire dans `.github/workflows/` (push refusé, API 403). Le fichier y a donc été posé à la main. La source versionnée vit dans `outils/alerte-manette/` ; **les deux ont divergé une fois** (96 lignes actives contre 110 dans la source, sans effet sur le comportement) : toute modification du robot doit toucher les deux, et `scripts/activer_alerte.sh` recopie la source. Ne pas réessayer de pousser `.github/workflows/` sans ce droit.
-- `scripts/verif_rendu.js`, `scripts/verif_ancre.js`, `scripts/verif_accueil.js`, `scripts/verif_copie_commande.js`, `scripts/verif_sauvegarde.js`, `scripts/verif_alerte_manette.js` — vérifications headless (rendu, liens `#proj-…`, page d'accueil, façade sans mention d'outillage, bouton Sauvegarder, alerte de stock).
+- `scripts/verif_rendu.js`, `scripts/verif_ancre.js`, `scripts/verif_accueil.js`, `scripts/verif_copie_commande.js`, `scripts/verif_sauvegarde.js`, `scripts/verif_alerte_manette.js`, `scripts/verif_ia_locale.js` — vérifications headless (rendu, liens `#proj-…`, page d'accueil, façade sans mention d'outillage, bouton Sauvegarder, alerte de stock).
 
 ## Règles
 

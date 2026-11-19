@@ -117,6 +117,20 @@ Point ouvert : lequel des assistants en ligne tester en premier — Claude, Chat
 
 ## Journal récent
 
+- **19 novembre 2026 — « L'IA locale » entre dans le tableau** : demande de l'humain, « l'IA locale
+  dans le tableau, au courant du site ». Réponse : **une fiche d'état, pas un chat** — une page
+  statique en HTTPS ne peut pas appeler une machine de la maison (contenu mixte), et le site
+  n'a ni clé ni service derrière lui. La rubrique `#ia-locale`, dans la barre de navigation entre
+  « Projets » et « Veille », dit où en est le projet `ia-decouverte` (2/9), ce que bloque l'étape
+  suivante, la machine (ASUS), l'outil (LM Studio), le modèle (pas encore choisi), par où on la
+  joint (le pont ; le tunnel plus tard) et les trois niveaux. **Dérivée de `projets.json`** :
+  cocher une étape met la fiche à jour, rien n'est saisi deux fois. Nouveau fichier
+  `IA-LOCALE.md` (la décision, l'architecture, ce qu'il ne faut pas refaire) et nouveau garde-fou
+  `scripts/verif_ia_locale.js` — **26 contrôles**, dont « aucun champ de saisie »,
+  « aucune adresse http:// », « aucune adresse de réseau local écrite en dur » et « aucune
+  tournure d'injonction ». Deux corrections au passage : l'adresse `127.0.0.1:1234` ne s'écrit
+  plus sur une page publique, et la colonne « Ce qu'il faut » devient **« Ce qui manque »**.
+
 - **19 novembre 2026 — la porte privée vers la conversation** : l'humain cherchait « un endroit
   dans le site où parler avec Arena ». Réponse tenue : pas de chat dans le site (il faudrait une
   clé dans la page et un service extérieur — contraire aux règles, et n'importe qui pourrait
