@@ -18,6 +18,8 @@
 
 ## Règles
 
+0. **Le tableau suit, il ne commande pas** (dit par l'humain le 19/11 : « je ne veux pas que le site soit une contrainte, je veux que ça m'aide sans me contraindre »). Rien dans le site ne doit sonner comme une obligation : pas de « à faire maintenant », pas de « la seule chose à faire », pas de « cochez ». Le suivi est un service, pas un devoir. **Conséquence pour l'assistant** : ne jamais attendre que l'humain coche. Quand il raconte un fait (« j'ai acheté la manette »), c'est **l'assistant** qui met `projets.json` à jour, ouvre la branche et publie. Le site se contente d'afficher. `scripts/verif_copie_commande.js` interdit le retour des tournures d'injonction.
+
 1. **Jamais de modification directe sur `main`.** (Seule exception, bornée : le robot d'alerte commite le seul fichier `alerte-manette.json` et ouvre/ferme des tickets — jamais du code ni le site.) Toujours : branche → PR → validation de l'humain → fusion. Le site se déploie depuis `main` via GitHub Pages (~1 min).
 2. **Le site public reste propre** : `noindex, nofollow`, `robots.txt` restrictif, **aucun lien privé** (Drive, Notion, jetons), aucun script de suivi, aucune image externe.
    **Et il ne raconte pas sa fabrication** (décidé le 19/11) : aucune mention d'Arena, de GitHub, de publication, de clé ni de branche dans ce qui s'affiche. L'outillage de publication reste dans le code, **muet** ; `scripts/verif_copie_commande.js` interdit son retour en façade. Les exceptions légitimes : une source publique citée dans la veille, et les documents techniques internes (`README.md`, `ETAT.md`, ce fichier) qui, eux, doivent tout dire.

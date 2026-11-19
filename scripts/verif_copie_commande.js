@@ -76,6 +76,26 @@ setTimeout(() => {
     verifie(trouves.length === 0, f + ' : aucun mot d’outillage', trouves.join(', '));
   }
 
+  console.log('== 2 ter. le site ne donne pas d’ordres ==');
+  // Décision du 19/11 : le tableau suit le travail, il ne le réclame pas.
+  // Ces tournures transformaient le suivi en contrainte.
+  const ordres = [
+    [/à faire maintenant/i, '« À faire maintenant »'],
+    [/la seule chose à faire/i, '« la seule chose à faire »'],
+    [/cochez les étapes/i, '« cochez les étapes »'],
+    [/vous pouvez cocher/i, '« vous pouvez cocher »'],
+  ];
+  const visibles = (() => {
+    const v = doc.body.cloneNode(true);
+    v.querySelectorAll('script, style, template').forEach(n => n.remove());
+    return v.textContent;
+  })();
+  for (const [re, quoi] of ordres) {
+    verifie(!re.test(visibles), 'plus d’injonction : ' + quoi);
+  }
+  verifie(/suit, il ne commande pas/i.test(visibles),
+    'la règle est dite en clair : le tableau suit, il ne commande pas');
+
   console.log('== 3. aucune fuite de secret dans la page ==');
   verifie(!/ghp_[A-Za-z0-9]{20,}/.test(corps), 'aucun jeton GitHub dans la page');
   verifie(!/github_pat_[A-Za-z0-9_]{20,}/.test(corps), 'aucun jeton fine-grained dans la page');
