@@ -69,6 +69,10 @@ setTimeout(() => {
   verifie(!/github_pat_[A-Za-z0-9_]{20,}/.test(corps), 'aucun jeton fin-grained dans la page');
   verifie(!/lm-[A-Za-z0-9]{20,}/.test(corps), 'aucun jeton LM Studio dans la page');
 
+  console.log('== 5 bis. alerte de la manette (fichier absent = pas de voyant) ==');
+  verifie(!doc.querySelector('.alerte-manette'),
+          'aucune alerte affichee quand alerte-manette.json est injoignable');
+
   console.log('== 6. donnees ==');
   const total = donnees.projets.reduce((n, p) => n + p.etapes.length, 0);
   const fait = donnees.projets.reduce((n, p) => n + p.etapes.filter(e => e.ok).length, 0);

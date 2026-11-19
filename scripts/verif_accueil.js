@@ -109,6 +109,9 @@ function charger(options) {
     'chiffres écrits en dur à jour avec projets.json', c3[2] ? c3[2].textContent : '');
   const projetsEcrits = c3.length ? c3[0].textContent : '';
   verifie(projetsEcrits === String(DONNEES.projets.length), 'nombre de projets écrit en dur à jour', projetsEcrits);
+  const veilleEcrite = c3.length === 4 ? c3[3].textContent : '';
+  verifie(veilleEcrite === String((DONNEES.veille || []).length),
+    'nombre de veille écrit en dur à jour', veilleEcrite);
   horsLigne.dom.window.close();
 
   console.log('\n' + (ko === 0 ? ok + ' vérifications réussies' : ok + ' ok, ' + ko + ' ECHEC(S)'));

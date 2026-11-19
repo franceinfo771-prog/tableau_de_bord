@@ -33,7 +33,7 @@ RACINE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NOM = "tableau-de-bord-2026-11-19"
 
 # Fichiers du site, tels qu'ils sont publiés.
-SITE = ["index.html", "accueil.html", "veille-supermimic.html", "veille-supermimic-court.html", "atelier.html", "projets.json", "robots.txt", ".nojekyll"]
+SITE = ["index.html", "accueil.html", "veille-supermimic.html", "veille-supermimic-court.html", "alerte-manette.json", "atelier.html", "projets.json", "robots.txt", ".nojekyll"]
 
 # Pages secondaires publiées en plus (le « site complet »).
 EXTRA = ["img", "geoula-a-televerser"]
@@ -54,9 +54,9 @@ TRAVAIL = [
 
 # Ce qui part dans technique/.
 TECHNIQUE = [
-    "index.html", "accueil.html", "veille-supermimic.html", "veille-supermimic-court.html", "projets.json", "robots.txt", ".nojekyll",
+    "index.html", "accueil.html", "veille-supermimic.html", "veille-supermimic-court.html", "alerte-manette.json", "projets.json", "robots.txt", ".nojekyll",
     "scripts", "ASSISTANT.md", "ETAT.md", "README.md", "etat.json", "APERCU.md",
-    "atelier.html", "geoula-a-televerser", "img",
+    "atelier.html", "geoula-a-televerser", "img", "outils",
 ]
 
 

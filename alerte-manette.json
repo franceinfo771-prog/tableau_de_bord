@@ -1,0 +1,14 @@
+{
+  "produit": "Poignée Accélérateur 5 Fils Trottinette Electrique 36 volts",
+  "reference": "5F36POIGELTROT",
+  "boutique": "AdreaPocket",
+  "prix": "13,99 €",
+  "url": "https://www.adreapocket.com/fr/1485-poignee-accelerateur-5-fils-trottinette-electrique-36-volts.html",
+  "etat": "rupture",
+  "detail": "relevé à la main le 19/11 : la page affiche « Rupture de stock ». La vérification automatique prendra le relais chaque matin.",
+  "verifie_le": "2026-11-19T09:50:00+00:00",
+  "simule": false,
+  "depuis": "2026-11-19",
+  "a_acheter": false,
+  "note": "valeur posée à la main en attendant le premier passage du robot (GitHub Actions ne voit que les dépôts publics une fois le workflow sur main)."
+}
