@@ -40,11 +40,16 @@ regarder la page à la main :
 Le robot n'écrit **que** ce fichier (et des tickets, jamais du code) : c'est la seule exception,
 bornée, à la règle « pas de modification directe sur `main` ».
 
-**Activation, une seule fois :** GitHub interdit à l'application de l'assistant de créer un
-fichier dans `.github/workflows/`. La source vit donc dans `outils/alerte-manette/` ; l'onglet
-Actions → *New workflow* → *set up a workflow yourself*, on colle le fichier, on valide sur
-`main`. En local : `./scripts/activer_alerte.sh`. Tant que ce n'est pas fait, le bandeau du
-tableau de bord reste juste (relevé manuel du 19/11) mais rien ne se met à jour tout seul.
+**En service depuis le 19/11 à 10 h 47.** Le premier passage a réussi : la fiche a été lue depuis
+les serveurs GitHub, le verdict `rupture` publié dans un commit signé « Alerte manette » (`07458b2`).
+Un relevé par jour, donc un commit par jour — c'est voulu, cela garde aussi la tâche planifiée
+éveillée (GitHub l'endort après ~60 jours sans activité sur le dépôt).
+
+**Deux fichiers, un seul robot.** GitHub n'autorise pas l'application de l'assistant à écrire dans
+`.github/workflows/` (droit `workflows` absent) : la copie **active** a donc été posée à la main
+dans l'onglet Actions, et la **source** versionnée vit dans `outils/alerte-manette/`. Toute
+modification doit passer par les deux ; `scripts/activer_alerte.sh` recopie la source et
+`--etat` dit si la copie active existe.
 
 Test hors ligne : `python3 scripts/verifier_manette.py --simuler disponible`, puis
 `python3 scripts/verifier_manette.py --lire`.

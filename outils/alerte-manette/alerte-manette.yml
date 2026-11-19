@@ -1,10 +1,13 @@
 name: Alerte manette du vélo
 
-# Source du workflow — à copier dans .github/workflows/alerte-manette.yml.
-# GitHub interdit à l'application utilisée par l'assistant de créer un fichier
-# de workflow : soit on rebranche GitHub dans Arena (droit « workflows »),
-# soit on colle ce fichier à la main (voir LISEZ-MOI.md, trois clics).
-# scripts/activer_alerte.sh fait la copie pour ceux qui travaillent en local.
+# Source du workflow — EN SERVICE dans .github/workflows/alerte-manette.yml
+# depuis le 19/11/2026 (premier passage réussi, commit « Alerte manette »).
+#
+# GitHub n'autorise pas l'application de l'assistant à écrire dans
+# .github/workflows/ : la copie active a été posée à la main, et c'est ce
+# fichier-ci qui reste la version de référence, lisible et relue.
+# Toute modification du robot doit toucher LES DEUX ; scripts/activer_alerte.sh
+# recopie celle-ci vers la copie active (et --etat dit si elle existe).
 #
 # Vérifie chaque matin si la poignée AdreaPocket est de nouveau en stock.
 # Deux sorties :
