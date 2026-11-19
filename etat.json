@@ -1,19 +1,20 @@
 {
   "project": "tableau_de_bord",
-  "branch": "arena/ce3d1443-tableau-de-bord",
-  "short_sha": "d012400",
-  "full_sha": "d01240060f115266d5ae11aa55827f81cc157092",
-  "last_commit_message": "Merge pull request #19 from franceinfo771-prog/arena/ff7da53a-tableau-de-bord",
-  "last_commit_date": "2026-11-19T09:59:39+01:00",
-  "tracked_files": 60,
-  "uncommitted_changes": 13,
-  "generated_at": "2026-11-19T09:06:27+00:00",
+  "branch": "arena/3d017750-tableau-de-bord",
+  "short_sha": "d67ad3b",
+  "full_sha": "d67ad3b574ad74f87ce7540e79cdfd9512e0a4bd",
+  "last_commit_message": "Vélo : la manette se choisit et s'attend — alerte de stock prête à activer",
+  "last_commit_date": "2026-11-19T09:58:40+00:00",
+  "tracked_files": 68,
+  "uncommitted_changes": 0,
+  "generated_at": "2026-11-19T09:58:40+00:00",
   "summary": {
     "projects_total": 6,
     "projects_done": 2,
     "steps_done": 25,
     "steps_total": 42,
     "progress_percent": 60,
-    "veille_count": 14
+    "veille_count": 15,
+    "veille_sans_resultat": 7
   }
 }

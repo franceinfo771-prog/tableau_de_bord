@@ -8,13 +8,13 @@
 - **Projets suivis** : 6
 - **Terminés** : 2 (`Notes de recherche`, `Les sites`)
 - **Étapes faites** : 25 / 42 (**60 %**)
-- **Veille** : 14 recherches consignées (7 retenues · 7 sans résultat)
+- **Veille** : 15 recherches consignées (8 retenues · 7 sans résultat)
 
 ## À faire maintenant (prochaine étape par projet ouvert)
 
 1. **Une application de poche** (4/6 · 67 %) — Installer l'application sur un téléphone réel.
 2. **Maquette — une porte qui fait joli** (2/4 · 50 %) — Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ?
-3. **Vélo électrique DIY** (4/9 · 44 %) — Acheter la manette — poignée à effet Hall, 3 fils, sortie 5 V.
+3. **Vélo électrique DIY** (4/9 · 44 %) — Attendre la manette : AdreaPocket 5F36POIGELTROT, 13,99 €, **en rupture** — alerte automatique chaque matin.
 4. **Découverte de logiciels IA** (2/10 · 20 %) — Installer l'outil à distance sur le PC de la maison.
 
 ## Points ouverts (projets terminés)
@@ -60,7 +60,7 @@
 - [x] Liste d'achats chiffrée — deux options
 - [x] Règles de câblage ZS-X11H — dont les trois pièges
 - [x] Programme Arduino écrit et relu
-- [ ] Acheter la manette — poignée à effet Hall, 3 fils, sortie 5 V
+- [ ] Acheter la manette — poignée effet Hall **5 fils** : AdreaPocket 5F36POIGELTROT, 13,99 € (en rupture au 19/11 — attendre le retour, alerte quotidienne en place)
 - [ ] Batterie et chargeur : offerts — à récupérer et vérifier
 - [ ] Manette testée sur l'alimentation du labo, essai à vide
 - [ ] Galet profilé et support mécanique
@@ -85,6 +85,8 @@ Critère de fin : une configuration IA locale précise en place et maîtrisée �
 Point ouvert : lequel des assistants en ligne tester en premier — Claude, ChatGPT ou Gemini ?
 
 ## Journal récent
+
+- **19 novembre 2026 — la manette : choix tranché et alerte automatique** : la fiche du 13/11 (Drive) dit **5 fils** (rouge +5 V, noir masse, blanc signal sur A0, + 2 fils) alors que le tableau demandait « 3 fils » — corrigé. Modèle retenu : **AdreaPocket 5F36POIGELTROT, 13,99 €** (guidon 22 mm, trou 22,2 mm), **en rupture** ; décision de l'humain : attendre plutôt que payer 20 à 26 € ailleurs, le vélo ne roulant pas en hiver. Nouveau module `scripts/verifier_manette.py` (standard seul, décision prudente : rupture / disponible / **inconnu** si la page ne répond pas) et workflow `outils/alerte-manette/alerte-manette.yml` qui le lance **chaque matin à 7 h 20** et publie `alerte-manette.json` ; le tableau de bord l'affiche sur la carte du vélo (et **rien** si le fichier manque). Le jour du retour en stock, il **ouvre un ticket GitHub** — c'est la notification par e-mail — et le referme si la rupture revient. `scripts/verif_alerte_manette.js` : 37 contrôles. Le workflow n'est pas encore **actif** : GitHub refuse à l'application de l'assistant l'écriture dans `.github/workflows/` — il s'active en trois clics (coller `outils/alerte-manette/alerte-manette.yml` dans un nouveau workflow) ou par `./scripts/activer_alerte.sh`.
 
 - **19 novembre 2026 — photo du vrai robot et version d'une minute** : la photo est désormais celle du **Unitree G1** lui-même (Sayanesy, domaine public CC0, via Wikimedia Commons), créditée et liée ; l'illustration générée est retirée du site. Ajout d'une **version courte** `veille-supermimic-court.html` — l'essentiel en un écran de téléphone, fond sombre, trois gros chiffres, ce qu'il faut voir et ce qu'il ne faut pas croire — reliée aux deux pages, à l'accueil et au tableau (« en 1 min »). `verif_veille.js` couvre maintenant les deux pages : 84 contrôles.
 

@@ -9,7 +9,7 @@ Une page de veille à part (`veille-supermimic.html`) raconte SuperMimic, le rob
 
 ## État au 19 novembre 2026
 
-**6 projets · 2 terminés · 25 / 42 étapes faites (60 %) · 14 recherches de veille.**
+**6 projets · 2 terminés · 25 / 42 étapes faites (60 %) · 15 recherches de veille.**
 
 | Projet | Avancement | Statut | Prochaine action / Point ouvert |
 |---|---:|---|---|
@@ -17,12 +17,37 @@ Une page de veille à part (`veille-supermimic.html`) raconte SuperMimic, le rob
 | Les sites | 10 / 10 (100 %) | ✅ Terminé (abouti le 18/11) | Veille datée d'octobre, rafraîchie quand il y aura du nouveau |
 | Une application de poche | 4 / 6 (67 %) | 🟡 En cours | Installer l'application sur un téléphone réel |
 | Maquette — une porte qui fait joli | 2 / 4 (50 %) | 🟡 En cours | Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ? |
-| Vélo électrique DIY | 4 / 9 (44 %) | 🟣 Commencé | Acheter la manette — poignée à effet Hall, 3 fils, sortie 5 V |
+| Vélo électrique DIY | 4 / 9 (44 %) | 🟣 Commencé | Attendre la manette : AdreaPocket `5F36POIGELTROT`, 13,99 €, **en rupture** — alerte automatique |
 | Découverte de logiciels IA | 2 / 10 (20 %) | 🟣 Commencé | Installer l'outil à distance sur le PC de la maison |
 
 ## Données : `projets.json`
 
 Les données affichées (projets, veille, condensé) vivent dans **`projets.json`**, à la racine du dépôt. `index.html` le charge au démarrage ; si le fichier est inaccessible (ouverture hors ligne), une copie de secours intégrée à la page prend le relais. Les modifications faites dans le navigateur sont d'abord gardées sur l'appareil (`localStorage`), puis publiées sur `main` via le bouton **Enregistrer sur GitHub**.
+
+## Alerte de stock : la manette du vélo
+
+La poignée retenue (AdreaPocket `5F36POIGELTROT`, 13,99 €) est en rupture. Plutôt que de
+regarder la page à la main :
+
+- `scripts/verifier_manette.py` lit la fiche produit (bibliothèque standard seule) et décide
+  **rupture / disponible / inconnu** — jamais « disponible » sur une page illisible ;
+- le robot (`outils/alerte-manette/alerte-manette.yml`) le lance **chaque matin à 7 h 20**
+  (et à la demande, onglet Actions) puis publie `alerte-manette.json` ;
+- le jour où la poignée revient, le même workflow **ouvre un ticket GitHub** (« En stock : la poignée
+  du vélo ») — c'est lui qui envoie la notification par e-mail ; il se referme seul si la rupture revient ;
+- `index.html` affiche ce relevé sur la carte du vélo — et **rien** si le fichier manque.
+
+Le robot n'écrit **que** ce fichier (et des tickets, jamais du code) : c'est la seule exception,
+bornée, à la règle « pas de modification directe sur `main` ».
+
+**Activation, une seule fois :** GitHub interdit à l'application de l'assistant de créer un
+fichier dans `.github/workflows/`. La source vit donc dans `outils/alerte-manette/` ; l'onglet
+Actions → *New workflow* → *set up a workflow yourself*, on colle le fichier, on valide sur
+`main`. En local : `./scripts/activer_alerte.sh`. Tant que ce n'est pas fait, le bandeau du
+tableau de bord reste juste (relevé manuel du 19/11) mais rien ne se met à jour tout seul.
+
+Test hors ligne : `python3 scripts/verifier_manette.py --simuler disponible`, puis
+`python3 scripts/verifier_manette.py --lire`.
 
 ## Page de veille : `veille-supermimic.html`
 
@@ -78,6 +103,7 @@ node scripts/verif_rendu.js        # rendu headless : 0 erreur JS, comptes, bout
 node scripts/verif_ancre.js        # liens #proj-…, sauts, brouillon local, cochage
 node scripts/verif_accueil.js      # page de présentation : bouton, raccourcis, chiffres
 node scripts/verif_veille.js       # page de veille SuperMimic (complète + une minute) : liens, chiffres, propreté
+node scripts/verif_alerte_manette.js  # alerte de stock : module Python, fichier publié, affichage
 node scripts/verif_archive.js      # archive livrée : contenu, liens, ouverture hors ligne
 node scripts/verif_copie_commande.js
 python3 scripts/sync_donnees_embedded.py --verifier

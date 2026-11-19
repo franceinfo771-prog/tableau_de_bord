@@ -482,6 +482,20 @@ i.cadre{background:var(--cad-bar)}
 }
 .p:hover .p-photo img{transform:scale(1.03)}
 .idee{margin:0 0 14px;font-size:14.8px;color:var(--ink-2)}
+/* Alerte « manette du vélo » — lue dans alerte-manette.json */
+.alerte-manette{
+  border-radius:10px;padding:10px 13px;margin:0 0 13px;font-size:13.8px;line-height:1.5;
+  border:1px solid var(--line);background:var(--surface-alt);color:var(--ink-2);
+}
+.alerte-manette b{color:var(--ink)}
+.alerte-manette .am-detail{display:block;font-size:12.6px;color:var(--dim);margin-top:2px}
+.alerte-manette.rupture{background:var(--enc-bg);border-color:var(--enc-bd);color:#6b5514}
+.alerte-manette.rupture b{color:var(--enc)}
+.alerte-manette.ok{background:var(--ok-bg);border-color:var(--ok-bd);color:#14532d}
+.alerte-manette.ok b{color:var(--ok)}
+.alerte-manette.ok{font-weight:650}
+.alerte-manette.inconnu{border-style:dashed}
+.alerte-manette a{color:inherit}
 
 .jauge{
   height:9px;
@@ -1291,7 +1305,7 @@ footer b{color:var(--ink-2)}
   </div>
   <div id="projects-list"></div>
 
-  <h2 class="sect" id="section-veille">La veille — <span id="veille-count">13</span> recherches, dont celles qui n'ont rien donné</h2>
+  <h2 class="sect" id="section-veille">La veille — <span id="veille-count">15</span> recherches, dont celles qui n'ont rien donné</h2>
   <div class="toolbar">
     <div class="pills" role="tablist" aria-label="Filtrer la veille">
       <button class="pill active" type="button" data-vfilter="all">Toutes <span id="vcnt-all"></span></button>
@@ -1589,7 +1603,7 @@ footer b{color:var(--ink-2)}
           { t: 'Liste d\'achats chiffrée — deux options', ok: true },
           { t: 'Règles de câblage ZS-X11H — dont les trois pièges', ok: true },
           { t: 'Programme Arduino écrit et relu', ok: true },
-          { t: 'Acheter la manette — poignée à effet Hall, 3 fils, sortie 5 V', ok: false },
+          { t: 'Acheter la manette — poignée effet Hall 5 fils : AdreaPocket 5F36POIGELTROT à 13,99 € (en rupture au 19/11 — attendre le retour, alerte quotidienne en place)', ok: false },
           { t: 'Batterie et chargeur : offerts — à récupérer et vérifier', ok: false },
           { t: 'Manette testée sur l\'alimentation du labo, essai à vide', ok: false },
           { t: 'Galet profilé et support mécanique', ok: false },
@@ -1631,7 +1645,8 @@ footer b{color:var(--ink-2)}
       { t: 'Les gains d\'un vélo à friction', s: 'Rendement 60-80 % contre 85-92 % pour un moyeu. Pneu usé en 500-1 500 km contre 2 000-5 000. Perte de 20 à 40 % d\'autonomie. Convergent sur plusieurs sources techniques indépendantes.', abouti: true },
       { t: 'L\'absorption réelle des mousses pyramidales — sans importance', s: 'Recherche faite, puis mise hors du projet : la maquette est un objet d\'aspect, pas un dispositif. NRC 0,70 à 1,00 selon l\'épaisseur ; 0,18 à 0,24 à 125 Hz. Gardé pour mémoire, pas pour décider.', abouti: false },
       { t: 'Une application Android pour un fichier hors ligne', s: 'Trois outils officiels suffisent : aapt2, d8, apksigner. Aucun magasin, aucun compte développeur, aucun frais. L\'application a été construite et signée v1+v2+v3.', abouti: true },
-      { t: 'SuperMimic — un humanoïde qui imite tous les gestes, entraîné en 3 heures sur un seul GPU', s: 'Repéré dans une infolettre, puis vérifié à la source : page du projet (supermimic.github.io), dépôt GitHub HybridRobotics/supermimic, article arXiv:2610.28480 accepté à CoRL 2026. Résultat annoncé : dépasse un entraînement de 7 jours sur 128 GPU — plus de 1000 fois moins de calcul — et 0 échec sur 129 514 mouvements après 9,8 h sur 2 GPU. Code en licence Apache 2.0 ; la démo web, elle, est propriétaire (visible, pas copiable).', abouti: true }
+      { t: 'SuperMimic — un humanoïde qui imite tous les gestes, entraîné en 3 heures sur un seul GPU', s: 'Repéré dans une infolettre, puis vérifié à la source : page du projet (supermimic.github.io), dépôt GitHub HybridRobotics/supermimic, article arXiv:2610.28480 accepté à CoRL 2026. Résultat annoncé : dépasse un entraînement de 7 jours sur 128 GPU — plus de 1000 fois moins de calcul — et 0 échec sur 129 514 mouvements après 9,8 h sur 2 GPU. Code en licence Apache 2.0 ; la démo web, elle, est propriétaire (visible, pas copiable).', abouti: true },
+      { t: 'Manette du vélo — prix relevés et modèle retenu (19/11)', s: 'Choix : AdreaPocket 5F36POIGELTROT, 13,99 €, 5 fils (rouge +5 V, noir masse, blanc signal sur A0 ; 2 fils « Indicator »), guidon 22 mm (trou 22,2 mm). En rupture — décision d\'attendre plutôt que payer plus cher, le vélo ne roulant pas en hiver. Comparatif du jour : MotoQuadElec 20 € (effet Hall 5 fils, stock Normandie, 2ᵉ connecteur = éclairage, pas coupe-circuit) ; MonsterBike62 25,99 € (bouton coupe-circuit, le plus sûr si AdreaPocket ne revient pas) ; Cdiscount 17-22 €. Anciennes réfs de la fiche du 13/11 : Enlybee B0DB6WCQVV 16,39 € (Amazon, indisponible) et Yosoo B08KY8HDN8 16,75 €. Alerte : le robot (outils/alerte-manette/) vérifie chaque matin la page AdreaPocket et publie alerte-manette.json ; activation en 3 clics, GitHub interdisant à l\'application de l\'assistant de créer un fichier de workflow.', abouti: true }
     ],
     condense: [
       ['Trois notes sont devenues une.', '24 854 caractères au lieu de 59 195 — la fusion n\'a rien perdu, sauf ce qui était faux.'],
@@ -1813,6 +1828,9 @@ footer b{color:var(--ink-2)}
     }
   }
 
+  //  Relevé de la manette : facultatif. Sans fichier, aucune alerte ne s'affiche.
+  chargerAlerteManette();
+
   let toastTimer = null;
   function showToast(msg){
     const el = document.getElementById('toast');
@@ -1916,6 +1934,41 @@ footer b{color:var(--ink-2)}
     'ia-supermimic':'img/humanoides.jpg'
   };
 
+  //  Alerte « manette du vélo » — lue dans alerte-manette.json (écrit chaque matin
+  //  par le robot d'alerte, outils/alerte-manette/). Si le fichier manque ou est
+  //  illisible, on n'affiche RIEN : pas de faux voyant.
+  let ALERTE_MANETTE = null;
+  async function chargerAlerteManette(){
+    try{
+      const r = await fetch('alerte-manette.json?v=' + Date.now(), { cache: 'no-store' });
+      if(!r.ok) return;
+      const a = await r.json();
+      if(!a || !a.etat) return;
+      ALERTE_MANETTE = a;
+    }catch(e){ return; }
+    renderProjects();
+  }
+  function alerteManetteHTML(pid){
+    if(pid !== 'velo' || !ALERTE_MANETTE) return '';
+    const a = ALERTE_MANETTE;
+    const dispo = a.etat === 'disponible';
+    const inconnu = a.etat === 'inconnu';
+    const cls = dispo ? 'ok' : (inconnu ? 'inconnu' : 'rupture');
+    const titre = dispo ? 'De nouveau en stock — à commander'
+                : inconnu ? 'Disponibilité inconnue'
+                : 'En rupture — l’alerte surveille';
+    const quand = String(a.verifie_le || '').slice(0, 10).split('-').reverse().join('/');
+    const lien = a.url
+      ? ' <a href="' + esc(a.url) + '" target="_blank" rel="noopener noreferrer">Ouvrir la fiche de la boutique ↗</a>'
+      : '';
+    return '<div class="alerte-manette ' + cls + '">' +
+      '<b>' + titre + '</b> — ' + esc(a.produit || '') +
+      (a.prix ? ' · <b>' + esc(a.prix) + '</b>' : '') +
+      (a.reference ? ' · réf. ' + esc(a.reference) : '') +
+      '<span class="am-detail">' + esc(a.detail || '') + (quand ? ' · relevé du ' + quand : '') + lien + '</span>' +
+    '</div>';
+  }
+
   function renderProjects(){
     const list = state.projets.filter(p => {
       const st = projectStats(p);
@@ -1966,6 +2019,7 @@ footer b{color:var(--ink-2)}
           '</div>' +
         '</header>' +
         photoHtml +
+        alerteManetteHTML(p.id) +
         '<p class="idee">' + esc(p.idee) + '</p>' +
         '<div class="jauge" role="img" aria-label="' + st.done + ' étapes sur ' + st.total + '"><i class="' + st.cls + '" style="width:' + st.pct + '%"></i></div>' +
         '<p class="compte"><b>' + st.done + '</b> / ' + st.total + ' étapes · <b>' + st.pct + ' %</b></p>' +

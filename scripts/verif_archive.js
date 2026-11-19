@@ -64,7 +64,7 @@ function lister(dossier) {
 
   const attendus = [
     'COMMENCER-ICI.html', 'MODE-D-EMPLOI.html', 'LISEZ-MOI.txt',
-    'site/index.html', 'site/accueil.html', 'site/veille-supermimic.html', 'site/veille-supermimic-court.html', 'site/projets.json',
+    'site/index.html', 'site/accueil.html', 'site/veille-supermimic.html', 'site/veille-supermimic-court.html', 'site/alerte-manette.json', 'technique/outils/alerte-manette/alerte-manette.yml', 'site/projets.json',
     'site/img/banniere.jpg', 'site/img/velo.jpg',
     'technique/index.html', 'technique/projets.json', 'technique/ASSISTANT.md',
     'technique/ETAT.md', 'technique/scripts/verif_rendu.js',

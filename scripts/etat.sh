@@ -32,6 +32,7 @@ summary = {
     "steps_total": _total,
     "progress_percent": round(_done / _total * 100) if _total else 0,
     "veille_count": len(_PROJ['veille']),
+    "veille_sans_resultat": sum(1 for v in _PROJ['veille'] if not v.get('abouti')),
 }
 SUMMARY = summary
 

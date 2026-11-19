@@ -153,7 +153,7 @@
           "ok": true
         },
         {
-          "t": "Acheter la manette — poignée à effet Hall, 3 fils, sortie 5 V",
+          "t": "Acheter la manette — poignée effet Hall 5 fils : AdreaPocket 5F36POIGELTROT à 13,99 € (en rupture au 19/11 — attendre le retour, alerte quotidienne en place)",
           "ok": false
         },
         {
@@ -304,6 +304,11 @@
     {
       "t": "SuperMimic — un humanoïde qui imite tous les gestes, entraîné en 3 heures sur un seul GPU",
       "s": "Repéré dans une infolettre, puis vérifié à la source : page du projet (supermimic.github.io), dépôt GitHub HybridRobotics/supermimic, article arXiv:2610.28480 accepté à CoRL 2026. Résultat annoncé : dépasse un entraînement de 7 jours sur 128 GPU — plus de 1000 fois moins de calcul — et 0 échec sur 129 514 mouvements après 9,8 h sur 2 GPU. Code en licence Apache 2.0 ; la démo web, elle, est propriétaire (visible, pas copiable).",
+      "abouti": true
+    },
+    {
+      "t": "Manette du vélo — prix relevés et modèle retenu (19/11)",
+      "s": "Choix : AdreaPocket 5F36POIGELTROT, 13,99 €, 5 fils (rouge +5 V, noir masse, blanc signal sur A0 ; 2 fils « Indicator »), guidon 22 mm (trou 22,2 mm). En rupture — décision d'attendre plutôt que payer plus cher, le vélo ne roulant pas en hiver. Comparatif du jour : MotoQuadElec 20 € (effet Hall 5 fils, stock Normandie, 2ᵉ connecteur = éclairage, pas coupe-circuit) ; MonsterBike62 25,99 € (bouton coupe-circuit, le plus sûr si AdreaPocket ne revient pas) ; Cdiscount 17-22 €. Anciennes réfs de la fiche du 13/11 : Enlybee B0DB6WCQVV 16,39 € (Amazon, indisponible) et Yosoo B08KY8HDN8 16,75 €. Alerte : le robot (outils/alerte-manette/) vérifie chaque matin la page AdreaPocket et publie alerte-manette.json ; activation en 3 clics, GitHub interdisant à l'application de l'assistant de créer un fichier de workflow.",
       "abouti": true
     }
   ],
