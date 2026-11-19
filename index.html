@@ -2294,12 +2294,12 @@ footer b{color:var(--ink-2)}
   }
 
   function resetState(){
-    if(!confirm('Revenir à la version publiée dans projets.json ? Les modifications locales non publiées seront effacées.')) return;
+    if(!confirm('Revenir à la version de référence (projets.json) ? Les modifications faites sur cet appareil seront effacées.')) return;
     state = clone(BASE_DATA);
     openCards.clear();
     closeModal('modal-data');
     renderAll();
-    showToast('État réinitialisé (projets.json)');
+    showToast('État réinitialisé');
   }
 
   document.getElementById('m-export').addEventListener('click', exportJSON);
