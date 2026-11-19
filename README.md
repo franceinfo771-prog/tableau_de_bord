@@ -10,7 +10,7 @@ Tableau de bord autonome de suivi de six projets, de la veille et du condensé.
 
 ## État au 19 novembre 2026
 
-**6 projets · 2 terminés · 25 / 41 étapes faites (61 %) · 14 recherches de veille.**
+**6 projets · 2 terminés · 25 / 37 étapes faites (68 %) · 14 recherches de veille.**
 
 | Projet | Avancement | Statut | Prochaine action / Point ouvert |
 |---|---:|---|---|
@@ -19,7 +19,7 @@ Tableau de bord autonome de suivi de six projets, de la veille et du condensé.
 | Une application de poche | 4 / 6 (67 %) | 🟡 En cours | Installer l'application sur un téléphone réel |
 | Maquette — une porte qui fait joli | 2 / 4 (50 %) | 🟡 En cours | Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ? |
 | Vélo électrique DIY | 4 / 9 (44 %) | 🟣 Commencé | Attendre la manette : AdreaPocket `5F36POIGELTROT`, 13,99 €, **en rupture** — alerte automatique |
-| Découverte de logiciels IA | 2 / 10 (20 %) | 🟣 Commencé | Installer l'outil à distance sur le PC de la maison |
+| Assistants en ligne | 2 / 5 (40 %) | 🟣 Commencé | Les tester sur 2-3 tâches réelles du quotidien |
 
 ## Données : `projets.json`
 
@@ -86,9 +86,10 @@ Une page de présentation, pensée pour montrer le tableau de bord à quelqu'un 
   session de travail (branche → PR → fusion). Vérifié par `scripts/verif_sauvegarde.js`.
 - **Où ça en est** : affiche, pour chaque projet ouvert, l'étape qui débloque la suite. C'est
   un repère, pas une consigne (voir la règle 0 d'`ASSISTANT.md`).
-- **L'IA locale** : une fiche d'état dérivée du projet `ia-decouverte` — la machine, l'outil
-  retenu, le modèle, par où on la joint, les trois niveaux. **Ce n'est pas un chat** : aucun
-  champ, aucun appel réseau. Vérifiée par `scripts/verif_ia_locale.js` (26 contrôles).
+- **Pas d'IA locale** (décision du 19/11) : le PC de la maison est un vieux PC, il ne peut pas
+  faire tourner un modèle. Le projet ne garde que les assistants en ligne. La rubrique qui
+  existait quelques heures a été retirée ; `scripts/verif_ia_locale.js` (**18 contrôles**)
+  empêche son retour et vérifie que la décision reste écrite.
 - **Cases interactives** : cocher/décocher une étape recalcule immédiatement les barres, les pourcentages et l'étape suivante, avec mémorisation locale (`localStorage`). Cocher est un confort, jamais une obligation : le tableau suit.
 - **Ajout rapide** : ajout d'étapes, de projets ou d'entrées de veille localement.
 - **Sauvegarde portable** : export/import en JSON, copie du résumé en texte brut, impression PDF propre.
@@ -123,7 +124,7 @@ node scripts/verif_accueil.js      # page de présentation : bouton, raccourcis,
 node scripts/verif_alerte_manette.js  # alerte de stock : module Python, fichier publié, affichage
 node scripts/verif_sauvegarde.js   # bouton Sauvegarder : export, import, reset, aucune publication
 node scripts/verif_porte.js        # porte privée : un seul lien sortant, réglage gardé
-node scripts/verif_ia_locale.js    # rubrique IA locale : fiche, chiffres, et surtout pas un chat
+node scripts/verif_ia_locale.js    # l'IA locale reste arrêtée : ni rubrique, ni chat, ni modèle
 node scripts/verif_archive.js      # archive livrée : contenu, liens, ouverture hors ligne
 node scripts/verif_copie_commande.js  # façade : aucune mention d'Arena/GitHub/clé ne doit s'afficher
 python3 scripts/sync_donnees_embedded.py --verifier

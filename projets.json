@@ -176,54 +176,34 @@
     },
     {
       "id": "ia-decouverte",
-      "nom": "Découverte de logiciels IA",
-      "idee": "Découvrir les logiciels IA — ceux qui tournent en local sur le PC de la maison (hors ligne, hors compte, données privées), et les assistants en ligne (Claude, ChatGPT, Gemini) — comprendre lequel sert à quoi.",
-      "fin": "Une configuration IA locale précise en place et maîtrisée : un assistant/LLM local installé, lancé, et utilisé pour au moins une tâche réelle, avec ses limites notées.",
-      "ouvert": "Ouvert : l'IA locale doit-elle etre un service toujours disponible (vPS) ou un outil qu'on active quand on en a besoin (l'ASUS) ?",
+      "nom": "Assistants en ligne",
+      "idee": "Découvrir les assistants IA en ligne — Claude, ChatGPT, Gemini — comprendre lequel sert à quoi, et garder celui qui rend vraiment service. L'IA locale sur un modèle tournant à la maison a été abandonnée le 19 novembre : le PC de la maison est un vieux PC, il ne pourrait pas la faire tourner.",
+      "fin": "Un assistant en ligne retenu, utilisé régulièrement sur une tâche réelle du quotidien, et les autres laissés de côté — avec la raison de chaque choix notée.",
+      "ouvert": "",
       "custom": true,
       "etapes": [
         {
-          "t": "Inventaire de la machine (CPU/GPU, RAM, disque) — ce qu'elle peut faire tourner",
+          "t": "Inventaire des machines — et verdict pour l'IA locale : le PC de la maison est un vieux PC, il ne peut pas faire tourner un modèle",
           "ok": true,
           "custom": true
         },
         {
-          "t": "Choisir un outil à tester — LM Studio, retenu pour son démon headless pilotable à distance",
+          "t": "Choisir les outils à tester — les assistants en ligne : Claude, ChatGPT, Gemini",
           "ok": true,
           "custom": true
         },
         {
-          "t": "Installer l'outil à distance sur le PC de la maison",
+          "t": "Les tester sur 2-3 tâches réelles du quotidien",
           "ok": false,
           "custom": true
         },
         {
-          "t": "Installer et lancer un premier modèle — choisi selon la RAM relevée",
+          "t": "Noter ce qui marche pour chacun — pas seulement le classement, aussi les ratés",
           "ok": false,
           "custom": true
         },
         {
-          "t": "Le tester sur 2-3 tâches réelles du quotidien",
-          "ok": false,
-          "custom": true
-        },
-        {
-          "t": "Noter ce qui marche / ce qui ne marche pas (taille des modèles, vitesse, qualité)",
-          "ok": false,
-          "custom": true
-        },
-        {
-          "t": "Adopter l'outil retenu (local ou en ligne) dans l'usage courant",
-          "ok": false,
-          "custom": true
-        },
-        {
-          "t": "Ouvrir un accès privé depuis le travail — Tailscale, aucun port ouvert sur la box",
-          "ok": false,
-          "custom": true
-        },
-        {
-          "t": "Piloter l'environnement de la maison - Freebox, imprimante, autres postes du reseau",
+          "t": "Adopter celui qui sert vraiment, et laisser tomber les autres",
           "ok": false,
           "custom": true
         }

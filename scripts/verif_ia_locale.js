@@ -1,4 +1,11 @@
-/* La rubrique « L'IA locale » du tableau de bord.
+/* L'IA locale est ARRÊTÉE (19 novembre 2026).
+ *
+ * La rubrique « L'IA locale » a existé quelques heures, puis a été retirée
+ * avec le projet : le PC de la maison s'est révélé être un vieux PC, il ne
+ * peut pas faire tourner un modèle. Ce contrôle empêche le retour de la
+ * rubrique — et de l'ancien chat local — sans qu'on le sache.
+ *
+ * La décision est écrite dans IA-LOCALE.md, ETAT.md et NOTE_IA_LOCALE_ABANDONNEE.
  *
  *   node scripts/verif_ia_locale.js
  *
@@ -42,63 +49,42 @@ const dom = new JSDOM(page, {
 
 setTimeout(() => {
   const doc = dom.window.document;
-  const zone = doc.getElementById('ia-locale-zone');
-  const projet = donnees.projets.find(p => p.id === 'ia-decouverte');
+  const page = fs.readFileSync(path.join(RACINE, 'index.html'), 'utf8');
 
-  console.log('== 1. la rubrique existe et se rend ==');
+  console.log('== 1. la rubrique ne revient pas ==');
   verifie(erreurs.length === 0, 'aucune erreur JS', erreurs.slice(0, 3).join(' | '));
-  verifie(!!doc.getElementById('ia-locale'), 'titre de section #ia-locale');
-  verifie(!!doc.querySelector('a[href="#ia-locale"]'), 'lien « IA locale » dans la barre de navigation');
-  verifie(!!zone && zone.children.length === 1, 'une carte rendue dans #ia-locale-zone');
-  verifie(/L'IA privée, sur la machine de la maison/.test(zone.textContent), 'titre de la fiche');
+  verifie(!doc.getElementById('ia-locale'), 'aucune section #ia-locale');
+  verifie(!doc.getElementById('ia-locale-zone'), 'aucun conteneur #ia-locale-zone');
+  verifie(!doc.querySelector('a[href="#ia-locale"]'), 'aucun lien « IA locale » dans la barre');
+  verifie(!/renderIALocale|ia-locale/.test(page), 'aucun reste de code de la rubrique');
+  verifie(!/ia-chat|ia-send|ia-token|ia-url|#ia-privee/.test(page), "aucun vestige de l'ancien chat local");
 
-  console.log('== 2. les chiffres viennent de projets.json ==');
-  const etapes = projet.etapes;
-  const faites = etapes.filter(e => e.ok).length;
-  const badge = zone.querySelector('.ia-etat');
-  verifie(!!badge && badge.textContent === faites + ' / ' + etapes.length + ' étapes',
-    'compteur fidèle au projet (' + faites + ' / ' + etapes.length + ')',
-    badge && badge.textContent);
-  const prochaine = etapes.find(e => !e.ok);
-  verifie(!prochaine || zone.textContent.includes(prochaine.t),
-    "l'étape qui bloque est nommée");
+  console.log('== 2. la décision est écrite pour la suite ==');
+  verifie(/NOTE_IA_LOCALE_ABANDONNEE/.test(page), 'note d\'abandon dans index.html');
+  const dossier = fs.readFileSync(path.join(RACINE, 'IA-LOCALE.md'), 'utf8');
+  verifie(/ARRÊTÉ LE 19 NOVEMBRE 2026/.test(dossier), 'IA-LOCALE.md dit l\'arrêt');
+  verifie(/vieux PC/.test(dossier), 'IA-LOCALE.md dit pourquoi (vieux PC)');
+  const journal = fs.readFileSync(path.join(RACINE, 'ETAT.md'), 'utf8');
+  verifie(/l'IA locale s'arrête/.test(journal), 'journal : la décision est consignée');
+  verifie(/vieux PC/.test(journal), 'journal : le motif est consigné');
 
-  console.log('== 3. ce qu\'elle dit de concret ==');
-  for (const [quoi, motif] of [
-    ['la machine (ASUS)', /ASUS/],
-    ['l\'outil retenu (LM Studio)', /LM Studio/],
-    ['le modèle pas encore choisi', /Pas encore choisi/],
-    ['par où on la joint', /pont/i],
-    ['les trois niveaux', /Trois niveaux|trois niveaux/],
-    ['le point ouvert du projet', /point ouvert/i],
-  ]) {
-    verifie(motif.test(zone.textContent), 'mentionne ' + quoi);
-  }
+  console.log('== 3. le projet ne parle plus de modèle local ==');
+  const donnees = JSON.parse(fs.readFileSync(path.join(RACINE, 'projets.json'), 'utf8'));
+  const projet = donnees.projets.find(p => p.id === 'ia-decouverte');
+  verifie(!!projet, 'le projet existe toujours');
+  verifie(projet.nom === 'Assistants en ligne', 'nommé « Assistants en ligne »', projet.nom);
+  verifie(projet.etapes.length === 5, '5 étapes', String(projet.etapes.length));
+  const textes = projet.etapes.map(e => e.t).join(' | ');
+  verifie(!/LM Studio|modèle local|Tailscale|Freebox|imprimante/i.test(textes),
+    'aucune étape de modèle local, de tunnel ni de maison');
+  verifie(/vieux PC/.test(textes), "l'inventaire dit le verdict sur le vieux PC");
 
-  console.log('== 4. ce n\'est pas un chat (et ça ne peut pas le devenir) ==');
-  verifie(zone.querySelectorAll('input, textarea, select, button').length === 0,
-    'aucun champ de saisie ni bouton dans la fiche',
-    zone.querySelectorAll('input, textarea, select, button').length + ' trouvé(s)');
-  verifie(!/http:\/\//i.test(zone.innerHTML), 'aucune adresse http:// dans la fiche');
-  verifie(!/127\.0\.0\.1|192\.168\./.test(zone.innerHTML),
-    'aucune adresse de réseau local écrite en dur');
-  verifie(!/fetch\(|XMLHttpRequest|WebSocket|EventSource/.test(page.slice(page.indexOf("function renderIALocale"), page.indexOf("function renderAll"))),
-    'le code de la fiche n\'ouvre aucune connexion');
-  verifie(!/#ia-privee|ia-chat|ia-send|ia-token|ia-url/.test(page), 'aucun vestige de l\'ancien chat local');
-
-  console.log('== 5. la façade reste propre ==');
+  console.log('== 4. la façade reste propre ==');
   const visible = doc.body.cloneNode(true);
   visible.querySelectorAll('script, style, template').forEach(n => n.remove());
   const texte = visible.textContent;
-  verifie(!/arena/i.test(texte), 'aucune mention d\'Arena à l\'écran');
+  verifie(!/arena/i.test(texte), "aucune mention d'Arena à l'écran");
   verifie(!/github/i.test(texte), 'aucune mention de GitHub à l\'écran');
-
-  console.log('== 6. elle ne donne pas d\'ordre ==');
-  const fiche = zone.textContent;
-  for (const tournure of [/à faire maintenant/i, /il faut/i, /vous devez/i, /cochez/i, /la seule chose à faire/i]) {
-    verifie(!tournure.test(fiche), 'pas de tournure d\'injonction : ' + tournure);
-  }
-  verifie(/ne se connecte à rien/.test(fiche), 'dit franchement ce qu\'elle ne fait pas');
 
   dom.window.close();
   console.log('');

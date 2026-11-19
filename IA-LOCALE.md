@@ -1,4 +1,18 @@
-# L'IA locale — la fiche du tableau
+# L'IA locale — décision d'arrêt (19 novembre 2026)
+
+> **ARRÊTÉ LE 19 NOVEMBRE 2026.** L'humain a tranché : le PC de la maison est **un vieux PC**,
+> il ne peut pas faire tourner un modèle. L'IA locale est abandonnée, le projet ne garde que
+> les **assistants en ligne**. La rubrique « L'IA locale » a été **retirée du site** — une
+> fiche qui reste en vitrine pour dire « abandonné » devient un reproche.
+>
+> Ce fichier reste comme **dossier de l'impasse** : il explique pourquoi on s'est arrêté, pour
+> qu'aucune session ne repropose de refaire tourner un modèle sur cette machine. Ne pas le
+> prendre pour une spécification à rejouer.
+>
+> ---
+>
+> *(Ce qui suit décrit l'état du 19 novembre avant la décision — gardé pour la traçabilité.)*
+
 
 > **Ce que c'est.** Une rubrique du tableau de bord, `#ia-locale`, qui dit où en est
 > l'IA privée : quelle machine, quel outil, quel modèle, ce qui reste, et surtout

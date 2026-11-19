@@ -39,7 +39,7 @@ réapprovisionnement, pas de payer plus cher ailleurs.
 
 - **Projets suivis** : 6
 - **Terminés** : 2 (`Notes de recherche`, `Les sites`)
-- **Étapes faites** : 25 / 41 (**61 %**)
+- **Étapes faites** : 25 / 37 (**68 %**)
 - **Veille** : 14 recherches consignées (7 retenues · 7 sans résultat)
 
 ## Où ça en est (l'étape qui débloque la suite, par projet ouvert)
@@ -47,7 +47,7 @@ réapprovisionnement, pas de payer plus cher ailleurs.
 1. **Une application de poche** (4/6 · 67 %) — Installer l'application sur un téléphone réel.
 2. **Maquette — une porte qui fait joli** (2/4 · 50 %) — Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ?
 3. **Vélo électrique DIY** (4/9 · 44 %) — Attendre la manette : AdreaPocket 5F36POIGELTROT, 13,99 €, **en rupture** — alerte automatique chaque matin.
-4. **Découverte de logiciels IA** (2/10 · 20 %) — Installer l'outil à distance sur le PC de la maison.
+4. **Assistants en ligne** (2/5 · 40 %) — Les tester sur 2-3 tâches réelles du quotidien.
 
 ## Points ouverts (projets terminés)
 
@@ -98,24 +98,36 @@ réapprovisionnement, pas de payer plus cher ailleurs.
 - [ ] Galet profilé et support mécanique
 - [ ] Essai sur route sèche, 10 km
 
-### 6. Découverte de logiciels IA — 2 / 10 (20 %) · Commencé
-- [x] Inventaire de la machine (CPU/GPU, RAM, disque) — ce qu'elle peut faire tourner
-  - **PC du travail** (diagnostic du 16 nov.) : Intel Atom x5-Z8350 @ 1,44 GHz (4 cœurs) · 3,9 Go RAM · Intel HD Graphics (intégré, pas de GPU dédié) · 6,7 Go libres sur C: · Windows 10 Professionnel : modèles ≤ 1,5 milliard de paramètres en 4 bits, sur CPU — local réaliste en curiosité ; l'assistant en ligne (Arena, Claude, ChatGPT) rester le vrai outil quotidien.
-  - **PC de la maison** (cible) : un **ASUS**, de configuration bien supérieure — l'inventaire exact sera relevé automatiquement par le pont, sans demande de caractéristiques à la main.
-- [x] Choisir un outil à tester — **LM Studio**, choisi pour son démon *headless* (`llmster`) et sa CLI `lms` : installable et pilotable à distance, sans interface ni clic.
-- [ ] Installer l'outil à distance sur le PC de la maison — agent `PONT-poste.ps1 -Installer` prêt (script officiel → `winget` → installateur direct) ; reste à lancer le pont sur l'ASUS.
-- [ ] Installer et lancer un premier modèle — le modèle est choisi automatiquement selon la RAM relevée (1,5B / 3B / 7B / gpt-oss-20b)
-- [ ] Ouvrir un accès privé depuis le travail — **Tailscale** : réseau privé entre les deux postes (WireGuard), aucun port ouvert sur la box ; `tailscale serve` publie l'API locale sur une adresse HTTPS privée. Détail dans `pont-outils/ESPACE-PRIVE.md`.
-- [ ] Piloter l'environnement de la maison — la Freebox, l'imprimante, les autres postes du réseau : joignables uniquement depuis le réseau domestic, donc par le pont. Le relevé publie désormais l'adressage réseau de l'ASUS.
-- [ ] Le tester sur 2-3 tâches réelles du quotidien
-- [ ] Noter ce qui marche / ce qui ne marche pas (taille des modèles, vitesse, qualité)
-- [ ] Adopter l'outil retenu (local ou en ligne) dans l'usage courant
+### 6. Assistants en ligne — 2 / 5 (40 %) · Commencé
+- [x] Inventaire des machines — et verdict pour l'IA locale : **le PC de la maison est un vieux PC**, il ne peut pas faire tourner un modèle
+  - **PC du travail** (diagnostic du 16 nov.) : Intel Atom x5-Z8350 @ 1,44 GHz (4 cœurs) · 3,9 Go RAM · Intel HD Graphics (intégré, pas de GPU dédié) · 6,7 Go libres sur C: · Windows 10 Professionnel.
+  - **PC de la maison** : un vieux PC — **hors jeu pour un modèle local**. L'hypothèse « un ASUS bien supérieur » n'a jamais été vérifiée et est abandonnée.
+- [x] Choisir les outils à tester — les assistants en ligne : Claude, ChatGPT, Gemini
+- [ ] Les tester sur 2-3 tâches réelles du quotidien
+- [ ] Noter ce qui marche pour chacun — pas seulement le classement, aussi les ratés
+- [ ] Adopter celui qui sert vraiment, et laisser tomber les autres
 
-Idée : découvrir les logiciels IA — ceux qui tournent en local sur le PC (hors ligne, hors compte, données privées), et les assistants en ligne (Claude, ChatGPT, Gemini) — comprendre lequel sert à quoi.
-Critère de fin : une configuration IA locale précise en place et maîtrisée — un assistant/LLM local installé, lancé, et utilisé pour au moins une tâche réelle, avec ses limites notées.
-Point ouvert : lequel des assistants en ligne tester en premier — Claude, ChatGPT ou Gemini ?
+> **Décision du 19 novembre 2026 — l'IA locale est abandonnée** (choix de l'humain) : le PC de la
+> maison est un vieux PC. Retirées du projet : l'installation à distance, le modèle local, le tunnel
+> Tailscale, la Freebox et l'imprimante. La raison est aussi dans `IA-LOCALE.md`. **Ne pas reproposer
+> de faire tourner un modèle sur cette machine** sans qu'il le demande.
 
 ## Journal récent
+
+- **19 novembre 2026 — l'IA locale s'arrête, les assistants en ligne restent** : l'humain annonce
+  que **le PC de la maison est un vieux PC** et demande de supprimer l'étape « Installer l'outil à
+  distance ». Question posée (abandonner l'IA locale / viser un VPS / tenter en très petit) :
+  **abandon de l'IA locale**, puis « Tailscale et la Freebox, on laisse tomber, je verrai plus
+  tard ». Le projet `ia-decouverte` devient **« Assistants en ligne »** — 5 étapes, 2/5 (40 %) :
+  inventaire (réécrit, avec le verdict sur le vieux PC), choix des outils en ligne (Claude,
+  ChatGPT, Gemini), tests réels, notes, adoption. Retirées : installation à distance, modèle
+  local, tunnel, Freebox et imprimante. **La rubrique « L'IA locale » est retirée du site** et de
+  la barre de navigation (`renderIALocale`, styles, section) — décision assumée : une fiche qui
+  reste pour dire « abandonné » est un reproche. Tableau : **25 / 37 (68 %)**. Deux erreurs
+  corrigées au passage : `ETAT.md` et `README.md` annonçaient « 2 / 10 » pour un projet qui n'a
+  que 9 étapes depuis le 18/11, et `verif_sauvegarde.js` comptait 41 étapes en dur — désormais
+  dérivé de `projets.json`. La raison de l'arrêt est aussi dans `IA-LOCALE.md` et dans
+  `index.html` (`NOTE_IA_LOCALE_ABANDONNEE`), là où une session future la lira.
 
 - **19 novembre 2026 — « Corriger », c'est qui ? »** : en préparant son test, l'humain s'arrête sur
   le bouton « ✎ Corriger » du tableau : « en fait c'est toi qui corriges ». Vrai, et le site ne le

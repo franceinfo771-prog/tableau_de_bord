@@ -77,7 +77,9 @@ setTimeout(async () => {
     verifie(donnees && Array.isArray(donnees.condense) && donnees.condense.length > 0,
       'il contient le condensé');
     const etapes = donnees ? donnees.projets.flatMap(p => p.etapes || []) : [];
-    verifie(etapes.length === 41, 'les 41 étapes sont là', String(etapes.length));
+    const attendues = JSON.parse(fs.readFileSync(path.join(RACINE,'projets.json'),'utf8'))
+            .projets.reduce((n,p) => n + p.etapes.length, 0);
+    verifie(etapes.length === attendues, 'les ' + attendues + ' étapes sont là', String(etapes.length));
     verifie(fichier.type === 'application/json' || /json/.test(fichier.type || ''),
       'le type du fichier est du JSON', fichier.type);
   }
