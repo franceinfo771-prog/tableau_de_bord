@@ -18,7 +18,7 @@ Tableau de bord autonome de suivi de six projets, de la veille et du condensé.
 | Les sites | 10 / 10 (100 %) | ✅ Terminé (abouti le 18/11) | Veille datée d'octobre, rafraîchie quand il y aura du nouveau |
 | Une application de poche | 4 / 6 (67 %) | 🟡 En cours | Installer l'application sur un téléphone réel |
 | Maquette — une porte qui fait joli | 2 / 4 (50 %) | 🟡 En cours | Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ? |
-| Vélo électrique DIY | 4 / 9 (44 %) | 🟣 Commencé | Attendre la manette : AdreaPocket `5F36POIGELTROT`, 13,99 €, **en rupture** — alerte automatique |
+| Vélo électrique DIY | 4 / 9 (44 %) | 🟣 Commencé | Attendre la manette : AdreaPocket `5F36POIGELTROT`, 13,99 €, **en rupture** (relevé du 19/11, à la main) |
 | Assistants en ligne | 2 / 5 (40 %) | 🟣 Commencé | Les tester sur 2-3 tâches réelles du quotidien |
 
 ## Données : `projets.json`
@@ -51,8 +51,10 @@ regarder la page à la main :
 
 - `scripts/verifier_manette.py` lit la fiche produit (bibliothèque standard seule) et décide
   **rupture / disponible / inconnu** — jamais « disponible » sur une page illisible ;
-- le robot (`outils/alerte-manette/alerte-manette.yml`) le lance **chaque matin à 7 h 20**
-  (et à la demande, onglet Actions) puis publie `alerte-manette.json` ;
+- le robot (`outils/alerte-manette/alerte-manette.yml`) est prévu pour le lancer chaque matin à
+  7 h 20 et publier `alerte-manette.json` — **mais il ne se réveille pas** : aucune exécution
+  planifiée n'a jamais eu lieu (constat du 20/11, décision : laisser tel quel). Le relevé se fait
+  donc à la main, et le tableau affiche le dernier relevé connu avec sa date ;
 - le jour où la poignée revient, le même workflow **ouvre un ticket GitHub** (« En stock : la poignée
   du vélo ») — c'est lui qui envoie la notification par e-mail ; il se referme seul si la rupture revient ;
 - `index.html` affiche ce relevé sur la carte du vélo — et **rien** si le fichier manque.

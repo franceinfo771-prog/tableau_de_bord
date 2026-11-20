@@ -20,7 +20,19 @@
   chat : ne jamais y promettre une réponse de l'assistant. Contrôles : `scripts/verif_porte.js`.
 - `archive/` — les deux modèles de l'archive (page de démarrage + mode d'emploi). `python3 scripts/construire_archive.py` fabrique `tableau-de-bord-AAAA-MM-JJ.zip`, qui n'est pas versionné.
 - `alerte-manette.json` + `outils/alerte-manette/` + `scripts/verifier_manette.py` — alerte de stock de la manette du vélo : relevé quotidien publié dans le JSON, affiché sur la carte du vélo, et ticket GitHub ouvert le jour du retour en stock (`scripts/verif_alerte_manette.js`).
-  **En service depuis le 19/11 à 10 h 47** : copie active dans `.github/workflows/alerte-manette.yml`, premier passage réussi, commit signé « Alerte manette » (`07458b2`), un relevé par jour.
+  **⚠ NE TOURNE PAS TOUT SEUL (constat du 20/11).** Le fichier est en place et valide
+  (`.github/workflows/alerte-manette.yml`, 96 lignes, cron `20 6 * * *`, état `active`), mais
+  **aucune exécution planifiée n'a jamais eu lieu** : un seul passage dans toute son histoire,
+  le 19/11 à 10 h 47, déclenché à la main. Le 20/11 à 14 h 07 UTC — huit heures après le
+  créneau — toujours rien. Les réglages Actions du dépôt sont normaux (vérifié sur capture),
+  les permissions `contents: write` / `issues: write` sont déclarées dans le workflow, et un
+  clic « Run workflow » de l'humain n'a rien produit non plus. **Conclusion : le planificateur
+  de GitHub ne réveille pas ce dépôt.** L'application de l'assistant n'a pas les droits
+  (`workflow run` et `workflow enable` répondent 403) : ne pas réessayer, ce n'est pas un
+  réglage à trouver. **Décision de l'humain (20/11) : laisser tel quel.** Donc : ne pas annoncer
+  « alerte automatique chaque matin », ne pas promettre un relevé quotidien. Le relevé se fait
+  à la main quand l'humain regarde la boutique — il le dit en une phrase, la session met
+  `alerte-manette.json` et `projets.json` à jour.
   **Limite connue** : l'application GitHub de l'assistant n'a pas le droit `workflows` — impossible d'écrire dans `.github/workflows/` (push refusé, API 403). Le fichier y a donc été posé à la main. La source versionnée vit dans `outils/alerte-manette/` ; **les deux ont divergé une fois** (96 lignes actives contre 110 dans la source, sans effet sur le comportement) : toute modification du robot doit toucher les deux, et `scripts/activer_alerte.sh` recopie la source. Ne pas réessayer de pousser `.github/workflows/` sans ce droit.
 - `scripts/verif_rendu.js`, `scripts/verif_ancre.js`, `scripts/verif_accueil.js`, `scripts/verif_copie_commande.js`, `scripts/verif_sauvegarde.js`, `scripts/verif_alerte_manette.js`, `scripts/verif_ia_locale.js` — vérifications headless (rendu, liens `#proj-…`, page d'accueil, façade sans mention d'outillage, bouton Sauvegarder, alerte de stock).
 

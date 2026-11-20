@@ -24,16 +24,20 @@ carnet : ce serait ajouter une manipulation.
 
 **Ce qui est vivant, et qui ne dépend pas de cette conversation.**
 - Le site est une page statique sans dépendance : il fonctionne sans session ouverte.
-- Le robot de la manette lit la boutique chaque matin à 7 h 20 (Paris) et ne réécrit que
-  `alerte-manette.json`. Limite connue : sur un dépôt public, GitHub désactive une tâche
-  planifiée après 60 jours sans activité — si la rupture dure deux mois, relancer via
-  « Enable workflow ». Après l'achat il ne sert plus à rien.
+- **Le robot de la manette ne tourne PAS tout seul** (constat du 20/11, décision : laisser tel
+  quel). Aucune exécution planifiée n'a jamais eu lieu — un seul passage, déclenché à la main le
+  19/11. Le fichier est correct, les réglages du dépôt sont normaux : c'est le planificateur de
+  GitHub qui ne réveille pas ce dépôt, et l'assistant n'a pas les droits pour le forcer. **Donc :
+  ne jamais annoncer « alerte automatique chaque matin ».** Le tableau affiche le dernier relevé
+  avec sa date, ce qui reste vrai. Quand l'humain regarde la boutique, il le dit en une phrase et
+  la session met `alerte-manette.json` + `projets.json` à jour.
 - Une copie complète du dossier est sur le Drive de l'humain (`tableau-de-bord-2026-11-19.zip`).
 
 **Ce qui attend, et ce qui n'attend pas.** Rien n'attend une coche. Une commande est en cours :
-la poignée AdreaPocket `5F36POIGELTROT` à 13,99 €, en rupture chez le fabricant, surveillée
-chaque matin. Le vélo est inutilisé l'hiver : la décision tenue est d'attendre le
-réapprovisionnement, pas de payer plus cher ailleurs.
+la poignée AdreaPocket `5F36POIGELTROT` à 13,99 €, **en rupture au relevé du 19/11**. Le robot
+ne se réveille pas : le relevé se fait à la main, quand l'humain regarde la boutique. Le vélo
+est inutilisé l'hiver : la décision tenue est d'attendre le réapprovisionnement, pas de payer
+plus cher ailleurs.
 
 ## Vue d'ensemble
 
@@ -46,7 +50,7 @@ réapprovisionnement, pas de payer plus cher ailleurs.
 
 1. **Une application de poche** (4/6 · 67 %) — Installer l'application sur un téléphone réel.
 2. **Maquette — une porte qui fait joli** (2/4 · 50 %) — Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ?
-3. **Vélo électrique DIY** (4/9 · 44 %) — Attendre la manette : AdreaPocket 5F36POIGELTROT, 13,99 €, **en rupture** — alerte automatique chaque matin.
+3. **Vélo électrique DIY** (4/9 · 44 %) — Attendre la manette : AdreaPocket 5F36POIGELTROT, 13,99 €, **en rupture** au dernier relevé (19/11) — relevé à la main, le robot ne se réveille pas.
 4. **Assistants en ligne** (2/5 · 40 %) — Les tester sur 2-3 tâches réelles du quotidien.
 
 ## Points ouverts (projets terminés)
@@ -113,6 +117,18 @@ réapprovisionnement, pas de payer plus cher ailleurs.
 > de faire tourner un modèle sur cette machine** sans qu'il le demande.
 
 ## Journal récent
+
+- **20 novembre 2026 — le robot de la manette ne se réveille pas** : test mené jusqu'au bout sur
+  demande de l'humain (« on teste ça »). Le workflow est `active`, le fichier complet et valide, le
+  cron correct, la page Settings → Actions sans bandeau d'alerte (vérifié sur capture) — et pourtant
+  **zéro exécution planifiée depuis sa création** : un seul passage, le 19/11 à 10 h 47, déclenché à
+  la main. Le 20/11 à 14 h 07 UTC (8 h après le créneau), toujours rien ; un clic « Run workflow »
+  de l'humain n'a rien produit. L'application de l'assistant reçoit 403 sur `workflow run` et
+  `workflow enable` : on n'y a pas accès. **Décision de l'humain : laisser tel quel.** Conséquence
+  documentée partout (`ASSISTANT.md`, section « Reprendre la conversation » ci-dessus, ce journal) :
+  **ne plus annoncer d'alerte automatique** ; le relevé se fait à la main, le tableau affichant le
+  dernier relevé connu avec sa date. Aucun fichier du site n'est modifié : il n'y a rien à corriger
+  dans le tableau, seulement une promesse à ne pas répéter.
 
 - **19 novembre 2026 — l'IA locale s'arrête, les assistants en ligne restent** : l'humain annonce
   que **le PC de la maison est un vieux PC** et demande de supprimer l'étape « Installer l'outil à
@@ -195,6 +211,9 @@ réapprovisionnement, pas de payer plus cher ailleurs.
 
 - **19 novembre 2026 — la manette : choix tranché et alerte automatique** : la fiche du 13/11 (Drive) dit **5 fils** (rouge +5 V, noir masse, blanc signal sur A0, + 2 fils) alors que le tableau demandait « 3 fils » — corrigé. Modèle retenu : **AdreaPocket 5F36POIGELTROT, 13,99 €** (guidon 22 mm, trou 22,2 mm), **en rupture** ; décision de l'humain : attendre plutôt que payer 20 à 26 € ailleurs, le vélo ne roulant pas en hiver. Nouveau module `scripts/verifier_manette.py` (standard seul, décision prudente : rupture / disponible / **inconnu** si la page ne répond pas) et workflow `outils/alerte-manette/alerte-manette.yml` qui le lance **chaque matin à 7 h 20** et publie `alerte-manette.json` ; le tableau de bord l'affiche sur la carte du vélo (et **rien** si le fichier manque). Le jour du retour en stock, il **ouvre un ticket GitHub** — c'est la notification par e-mail — et le referme si la rupture revient. `scripts/verif_alerte_manette.js` : 37 contrôles.
 
+  **⚠ DÉMENTI LE 20/11 : il ne tourne PAS chaque matin** — aucune exécution planifiée n'a jamais eu
+  lieu (voir le journal du 20/11). Le paragraphe qui suit décrit ce qui a fonctionné le 19/11, pas
+  un service en marche.
   **En service depuis 10 h 47.** Le workflow est actif sur `main` (`.github/workflows/alerte-manette.yml`, posé à la main dans l'onglet Actions) et son premier passage a réussi de bout en bout : la fiche a été lue depuis les serveurs GitHub, verdict `rupture`, et le robot a publié lui-même `alerte-manette.json` dans un commit signé « Alerte manette » (`07458b2`). Il tourne désormais chaque matin à 7 h 20 et commite un relevé par jour — l'heure changeant à chaque passage, le fichier diffère toujours : c'est aussi ce qui empêche GitHub d'endormir la tâche planifiée après 60 jours d'inactivité. GitHub refuse à l'application de l'assistant l'écriture dans `.github/workflows/` (droit `workflows` absent) : c'est pourquoi la source versionnée vit dans `outils/alerte-manette/` et que la copie active a été posée à la main. Si l'on doit un jour modifier le robot, modifier la source **puis** la copie active, jamais l'une sans l'autre.
 
 - **18 novembre 2026 — archive avec mode d'emploi** : `scripts/construire_archive.py` fabrique `tableau-de-bord-2026-11-18.zip` (3 Mo), qui se rouvre sans réseau dans des années : page de démarrage, mode d'emploi imprimable (HTML + texte), site complet, code source, sauvegarde `.json`. Vérifié par `scripts/verif_archive.js` : 29 contrôles, dont l'ouverture réelle du site en `file://` (6 projets, 25/41, 13 veilles, aucune erreur).
