@@ -81,16 +81,17 @@ modification doit passer par les deux ; `scripts/activer_alerte.sh` recopie la s
 Test hors ligne : `python3 scripts/verifier_manette.py --simuler disponible`, puis
 `python3 scripts/verifier_manette.py --lire`.
 
-## Page d'accueil de démonstration : `accueil.html`
+## Une seule page : `index.html`
 
-Une page de présentation, pensée pour montrer le tableau de bord à quelqu'un qui ne le connaît pas : trois phrases sur ce que c'est, les trois choses à essayer (ouvrir un projet, cocher une étape, chercher), les chiffres du jour, puis un bouton **Entrer dans le tableau de bord**. Elle relit `projets.json` pour afficher des chiffres justes, et garde des nombres écrits en dur si le fichier n'est pas joignable (ouverture par double-clic). Le tableau renvoie vers elle par un lien **← Accueil** dans la barre de navigation.
+L'adresse du site affiche **le tableau**, et rien d'autre. Une page de présentation (`accueil.html`) a existé du 18 au 21 novembre 2026 : elle a été supprimée parce que deux pages aux noms proches faisaient hésiter sur celle qui portait les données. `index.html` lit `projets.json` à chaque ouverture — c'est ce qui l'empêche d'afficher un chiffre périmé.
 
 ## Fonctionnalités de `index.html`
 
 - **Corriger** (bouton en haut) : écran à gros pavés pour corriger un projet (titre, idée, critère de fin, point ouvert, suppression), les étapes d'un projet (renommer, cocher, monter/descendre, ajouter, supprimer), ajouter un nouveau projet, corriger ou ajouter une fiche de veille.
-- **Sauvegarder** (bouton en haut) : exporte l'état de l'appareil en fichier JSON, l'importe,
-  copie un résumé texte ou réinitialise. **Ne publie rien** — la publication passe par la
-  session de travail (branche → PR → fusion). Vérifié par `scripts/verif_sauvegarde.js`.
+- ~~**Sauvegarder**~~ : **retiré le 21 novembre 2026.** Ce bouton exportait un fichier `.json`
+  que plus personne ne lisait, permettait de le réimporter et de réinitialiser. Il servait quand
+  le site publiait lui-même depuis le navigateur — ce temps est fini, c'est la conversation qui
+  publie. `scripts/verif_sauvegarde.js` vérifie désormais qu'il **ne revient pas**.
 - **Où ça en est** : affiche, pour chaque projet ouvert, l'étape qui débloque la suite. C'est
   un repère, pas une consigne (voir la règle 0 d'`ASSISTANT.md`).
 - **Pas d'IA locale** (décision du 19/11) : le PC de la maison est un vieux PC, il ne peut pas
@@ -127,7 +128,6 @@ python3 -m http.server 8000
 ```bash
 node scripts/verif_rendu.js        # rendu headless : 0 erreur JS, comptes, boutons intacts
 node scripts/verif_ancre.js        # liens #proj-…, sauts, brouillon local, cochage
-node scripts/verif_accueil.js      # page de présentation : bouton, raccourcis, chiffres
 node scripts/verif_alerte_manette.js  # alerte de stock : module Python, fichier publié, affichage
 node scripts/verif_sauvegarde.js   # bouton Sauvegarder : export, import, reset, aucune publication
 node scripts/verif_porte.js        # porte privée : un seul lien sortant, réglage gardé

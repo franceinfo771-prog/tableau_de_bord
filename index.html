@@ -55,8 +55,6 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 a{color:var(--accent)}
-.topbar .accueil-lien{color:var(--dim);text-decoration:none;font-size:14px;padding:6px 10px;border-radius:999px;border:1px solid transparent}
-.topbar .accueil-lien:hover{color:var(--accent);border-color:var(--accent-bd);background:var(--accent-bg)}
 
 /* Navigation collante */
 .topbar{
@@ -825,39 +823,6 @@ footer{
 footer b{color:var(--ink-2)}
 
 /* Barre flottante si modifications locales */
-.savebar{
-  position:fixed;
-  left:50%;
-  bottom:16px;
-  transform:translateX(-50%);
-  z-index:50;
-  background:#1e1b4b;
-  color:#f3f4f6;
-  border-radius:12px;
-  padding:10px 14px;
-  display:none;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
-  box-shadow:0 12px 30px rgba(0,0,0,.22);
-  max-width:calc(100vw - 24px);
-  font-size:13px;
-}
-.savebar.on{display:flex}
-.savebar .dot-save{width:8px;height:8px;border-radius:50%;background:#a5b4fc;flex:0 0 auto}
-.savebar button{
-  font:inherit;
-  font-size:12.5px;
-  font-weight:600;
-  padding:6px 11px;
-  border-radius:7px;
-  border:1px solid rgba(255,255,255,.2);
-  background:transparent;
-  color:#fff;
-  cursor:pointer;
-}
-.savebar button.prim{background:#6366f1;border-color:#6366f1;color:#eef2ff}
-.savebar button:hover{filter:brightness(1.1)}
 
 /* Modales */
 .modal-bg{
@@ -1239,14 +1204,12 @@ footer b{color:var(--ink-2)}
       <a href="#section-veille">Veille</a>
       <a href="#condense">Condensé</a>
       <a href="#section-cherche">Chercher</a>
-      <a class="accueil-lien" href="accueil.html" title="Revenir à la page de présentation">← Accueil</a>
       <a href="#aide">Aide</a>
     </div>
     <div class="top-actions">
       <button class="btn-top" type="button" id="btn-top-add-proj" title="Créer un nouveau projet">+ Projet</button>
       <button class="btn-corriger" type="button" id="btn-corriger" title="Corriger projets, étapes et veille — ou le demander à votre assistant, qui le fera pour vous">✎ Corriger</button>
       <button class="btn-top" type="button" id="btn-print" title="Imprimer ou enregistrer en PDF">Imprimer</button>
-      <button class="btn-top primary" type="button" id="btn-data">Sauvegarder</button>
     </div>
   </div>
 </nav>
@@ -1254,14 +1217,14 @@ footer b{color:var(--ink-2)}
 <div class="envel" id="haut">
 
   <h1>Tableau de bord</h1>
-  <p class="date">État au <b>19 novembre 2026</b> · mis à jour à la main · fonctionne en ligne et hors ligne, sans compte ni suivi</p>
-  <p class="chapo">Six projets suivis au même endroit. Pour chacun : où il en est, <b>ce qui le terminera</b>, et l'étape qui débloque la suite. <b>Le tableau suit, il ne commande pas</b> — une étape cochée, c'est une trace, pas une dette. Rien ne se périme ici.</p>
+  <p class="date">État au <b id="date-etat">—</b> · mis à jour à la main · sans compte ni suivi</p>
+  <p class="chapo"><span id="nb-projets">Les</span> projets suivis au même endroit. Pour chacun : où il en est, <b>ce qui le terminera</b>, et l'étape qui débloque la suite. <b>Le tableau suit, il ne commande pas</b> — une étape cochée, c'est une trace, pas une dette. Rien ne se périme ici.</p>
   <div class="resume" id="kpi-grid" aria-label="Chiffres clés"></div>
 
   <div class="chantier">
     <b class="eyebrow">À quoi ça sert</b>
     <p>Ce tableau ne remplit rien à votre place et ne réclame rien. Il garde la trace : où en était chaque projet, ce qui a été essayé, <b>y compris ce qui n'a rien donné</b>. Vous y revenez quand vous voulez — il n'aura pas bougé, et il n'aura rien oublié.</p>
-    <p class="v">Version du 19 novembre 2026.</p>
+    <p class="v">Données lues dans <code>projets.json</code> à chaque ouverture.</p>
   </div>
 
   <h2 class="sect" id="focus">Où ça en est <small>l'étape qui débloque la suite, projet par projet</small></h2>
@@ -1372,61 +1335,16 @@ footer b{color:var(--ink-2)}
   <footer>
     <p><b>Ce que cette page dit, et ce qu'elle ne dit pas.</b> Elle compte des étapes cochées, elle ne mesure pas leur difficulté. Une étape faite est une étape faite — mais toutes ne se valent pas.</p>
     <p><b>Confidentialité — vérifié le 16 novembre 2026.</b> Cette page n'a <b>aucun</b> script de mesure, pas de Google Analytics, pas de pixel, pas de cookie tiers, aucune police distante et aucune image externe. Aucun compte, aucun formulaire, aucune donnée envoyée. Si l'adresse du site est publique, l'hébergeur conserve de son côté des journaux techniques (adresse IP) auxquels je n'ai pas accès. En ouvrant ce fichier localement depuis votre ordinateur, aucun serveur n'est contacté.</p>
-    <p>Tableau de bord mis à jour le <b>19 novembre 2026</b> · page + <code>projets.json</code> · zéro dépendance extérieure.</p>
-    <p>Page d'accueil de présentation : <a href="accueil.html">accueil.html</a> · reprise le <b>19 novembre 2026</b>.<br>
+    <p>Tableau de bord · page + <code>projets.json</code> · aucune dépendance extérieure. La date de dernière mise à jour est celle du journal, en haut de cette page.</p>
   </footer>
 </div>
 
-<!-- Barre flottante des modifications locales -->
-<div class="savebar" id="savebar" role="status" aria-live="polite">
-  <span class="dot-save" aria-hidden="true"></span>
-  <span>Modifié sur cet appareil — rien n'est publié</span>
-  <button type="button" class="prim" id="sb-export">Exporter (.json)</button>
-  <button type="button" id="sb-reset">Réinitialiser</button>
-</div>
+<!-- La barre flottante « modifié sur cet appareil » et la fenêtre Sauvegarde ont été
+     retirées le 21/11 : elles servaient à exporter un fichier que plus personne ne lit,
+     et le site ne publie plus rien depuis le navigateur. Pour corriger, c'est la
+     conversation — elle seule publie. -->
 
 <!-- Modale Sauvegarde & Outils -->
-<div class="modal-bg" id="modal-data" role="dialog" aria-modal="true" aria-labelledby="md-title">
-  <div class="modal">
-    <h3 id="md-title">Sauvegarde et outils</h3>
-    <p class="m-sub">Tout reste sur votre appareil. Exportez un fichier JSON pour garder une copie ou transférer votre avancement vers un autre navigateur.</p>
-    <div class="m-grid">
-      <div class="m-row">
-        <div>
-          <strong>Exporter l'état actuel (.json)</strong>
-          <span>Télécharge une sauvegarde complète des projets, cases cochées et veille.</span>
-        </div>
-        <button class="btn-top primary" type="button" id="m-export">Exporter</button>
-      </div>
-      <div class="m-row">
-        <div>
-          <strong>Importer une sauvegarde (.json)</strong>
-          <span>Restaure un fichier précédemment exporté depuis ce tableau de bord.</span>
-        </div>
-        <button class="btn-top" type="button" id="m-import-btn">Importer</button>
-        <input type="file" id="m-import-file" accept=".json,application/json" style="display:none">
-      </div>
-      <div class="m-row">
-        <div>
-          <strong>Copier le résumé en texte</strong>
-          <span>Copie l'avancement et les prochaines étapes pour un mail ou une note.</span>
-        </div>
-        <button class="btn-top" type="button" id="m-copy">Copier</button>
-      </div>
-      <div class="m-row">
-        <div>
-          <strong>Revenir à la version de référence</strong>
-          <span>Annule les coches ou ajouts locaux sur cet appareil.</span>
-        </div>
-        <button class="btn-top" type="button" id="m-reset">Réinitialiser</button>
-      </div>
-    </div>
-    <div class="m-actions">
-      <button class="btn-top" type="button" data-close="modal-data">Fermer</button>
-    </div>
-  </div>
-</div>
-
 <!-- Modale Nouveau Projet -->
 <div class="modal-bg" id="modal-proj" role="dialog" aria-modal="true" aria-labelledby="mp-title">
   <div class="modal">
@@ -1586,7 +1504,6 @@ footer b{color:var(--ink-2)}
       if(isDirty()) localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       else localStorage.removeItem(STORAGE_KEY);
     }catch(e){}
-    document.getElementById('savebar').classList.toggle('on', isDirty());
     updatePendingUI();
   }
 
@@ -1684,6 +1601,22 @@ footer b{color:var(--ink-2)}
     else if(pct >= 50){ cls = 'encours'; label = 'En cours'; }
     const nextStep = p.etapes.find(e => !e.ok);
     return { total, done, pct, cls, label, nextStep };
+  }
+
+  // La date et le nombre de projets ne s'écrivent plus à la main dans la page :
+  // c'était « six projets » et « 19 novembre 2026 » alors qu'il y en avait huit,
+  // deux jours plus tard. Un chiffre écrit dans le HTML ne se met jamais à jour.
+  function renderEntete(){
+    const d = document.getElementById('date-etat');
+    if(d && state.version){
+      const [an, mois, jour] = String(state.version).split('-');
+      const noms = ['janvier','février','mars','avril','mai','juin','juillet',
+                    'août','septembre','octobre','novembre','décembre'];
+      d.textContent = Number(jour) + ' ' + (noms[Number(mois) - 1] || '') + ' ' + an;
+    }
+    const n = document.getElementById('nb-projets');
+    if(n) n.textContent = state.projets.length === 1 ? 'Un projet suivi'
+                        : state.projets.length + ' projets suivis';
   }
 
   function renderKPIs(){
@@ -1967,6 +1900,7 @@ footer b{color:var(--ink-2)}
     + 'Reste les assistants en ligne. Ne pas reproposer LM Studio sur cette machine.';
 
   function renderAll(){
+    renderEntete();
     renderKPIs();
     renderFocus();
     renderOverview();
@@ -2144,7 +2078,6 @@ footer b{color:var(--ink-2)}
   // Modales
   function openModal(id){ document.getElementById(id).classList.add('on'); }
   function closeModal(id){ document.getElementById(id).classList.remove('on'); }
-  document.getElementById('btn-data').addEventListener('click', () => openModal('modal-data'));
   document.getElementById('btn-top-add-proj').addEventListener('click', () => openModal('modal-proj'));
   document.getElementById('btn-add-proj').addEventListener('click', () => openModal('modal-proj'));
   document.getElementById('btn-add-veille').addEventListener('click', () => openModal('modal-veille'));
@@ -2191,88 +2124,10 @@ footer b{color:var(--ink-2)}
     showToast('Recherche ajoutée à la veille');
   });
 
-  // Export / Import / Copier / Réinitialiser
-  function exportJSON(){
-    const payload = JSON.stringify(state, null, 2);
-    const blob = new Blob([payload], { type: 'application/json;charset=utf-8' });
-    const a = document.createElement('a');
-    const d = new Date().toISOString().slice(0, 10);
-    a.href = URL.createObjectURL(blob);
-    a.download = 'tableau-de-bord-' + d + '.json';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 200);
-    showToast('Sauvegarde exportée');
-  }
+  // Export / Import / Copier / Réinitialiser : retirés le 21/11 avec le bouton
+  // Sauvegarder. Ils produisaient un fichier que plus personne ne lisait, et le
+  // site ne publie plus rien depuis le navigateur — la conversation publie.
 
-  function resetState(){
-    if(!confirm('Revenir à la version de référence (projets.json) ? Les modifications faites sur cet appareil seront effacées.')) return;
-    state = clone(BASE_DATA);
-    openCards.clear();
-    closeModal('modal-data');
-    renderAll();
-    showToast('État réinitialisé');
-  }
-
-  document.getElementById('m-export').addEventListener('click', exportJSON);
-  document.getElementById('sb-export').addEventListener('click', exportJSON);
-  document.getElementById('m-reset').addEventListener('click', resetState);
-  document.getElementById('sb-reset').addEventListener('click', resetState);
-
-  document.getElementById('m-import-btn').addEventListener('click', () => {
-    document.getElementById('m-import-file').click();
-  });
-  document.getElementById('m-import-file').addEventListener('change', e => {
-    const file = e.target.files[0];
-    if(!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      try{
-        const imported = JSON.parse(String(reader.result));
-        if(!imported || !Array.isArray(imported.projets) || !Array.isArray(imported.veille)){
-          throw new Error('Format non reconnu');
-        }
-        if(!Array.isArray(imported.condense)) imported.condense = clone(BASE_DATA.condense);
-        state = normalizeData(imported);
-        closeModal('modal-data');
-        renderAll();
-        showToast('Sauvegarde importée');
-      }catch(err){
-        alert('Impossible de lire ce fichier JSON : ' + err.message);
-      }
-      e.target.value = '';
-    };
-    reader.readAsText(file, 'utf-8');
-  });
-
-  document.getElementById('m-copy').addEventListener('click', () => {
-    const lines = ['TABLEAU DE BORD — ' + new Date().toLocaleDateString('fr-FR'), ''];
-    state.projets.forEach(p => {
-      const st = projectStats(p);
-      lines.push('• ' + p.nom + ' — ' + st.done + '/' + st.total + ' (' + st.pct + ' %) [' + st.label + ']');
-      if(st.nextStep) lines.push('  Prochaine étape : ' + st.nextStep.t);
-      else if(p.ouvert) lines.push('  Point ouvert : ' + p.ouvert);
-    });
-    const txt = lines.join('\n');
-    const fallbackCopy = () => {
-      const ta = document.createElement('textarea');
-      ta.value = txt;
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand('copy');
-      ta.remove();
-      showToast('Résumé copié');
-    };
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(txt)
-        .then(() => showToast('Résumé copié dans le presse-papiers'))
-        .catch(fallbackCopy);
-    } else {
-      fallbackCopy();
-    }
-  });
 
   // ============================================================
   //  Publication des données — outillage interne, HORS INTERFACE.

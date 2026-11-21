@@ -16,10 +16,10 @@
 ## Le dépôt en 4 points
 
 - `index.html` — le tableau de bord (page unique, styles et logique inclus).
-- `projets.json` — **les données** : projets (id, nom, idée, critère de fin, point ouvert, étapes), veille, condensé. C'est la source de vérité ; `index.html` en contient une copie de secours intégrée — **les deux doivent rester synchronisés**.
+- `projets.json` — **les données** : projets (id, nom, idée, critère de fin, point ouvert, étapes), veille, condensé. C'est la **seule** source de vérité. `index.html` n'en contient plus aucune copie (décidé le 21/11) : s'il manque, la page affiche un avertissement au lieu de chiffres périmés.
 - `ETAT.md` — l'état des lieux en texte (projets, étapes, points ouverts, journal).
 - `scripts/etat.sh` — régénère `etat.json` (résumé technique, chiffres dérivés de `projets.json`).
-- `accueil.html` — page de présentation (démonstration) : elle mène au tableau, le tableau y renvoie.
+- **Une seule page publique** : `index.html`. La page de présentation `accueil.html` a été supprimée le 21/11 — deux pages proches de nom, c'était un piège à confusions. L'adresse du site affiche le tableau, et rien d'autre.
 - `IA-LOCALE.md` — **dossier de l'impasse** : l'IA locale a été arrêtée le 19/11 (le PC de la maison
   est un vieux PC). Le projet ne garde que les assistants en ligne. **Ne pas reproposer de faire
   tourner un modèle sur cette machine**, ni de rubrique « IA locale » dans le site.
@@ -42,7 +42,7 @@
   à la main quand l'humain regarde la boutique — il le dit en une phrase, la session met
   `alerte-manette.json` et `projets.json` à jour.
   **Limite connue** : l'application GitHub de l'assistant n'a pas le droit `workflows` — impossible d'écrire dans `.github/workflows/` (push refusé, API 403). Le fichier y a donc été posé à la main. La source versionnée vit dans `outils/alerte-manette/` ; **les deux ont divergé une fois** (96 lignes actives contre 110 dans la source, sans effet sur le comportement) : toute modification du robot doit toucher les deux, et `scripts/activer_alerte.sh` recopie la source. Ne pas réessayer de pousser `.github/workflows/` sans ce droit.
-- `scripts/verif_rendu.js`, `scripts/verif_ancre.js`, `scripts/verif_accueil.js`, `scripts/verif_copie_commande.js`, `scripts/verif_sauvegarde.js`, `scripts/verif_alerte_manette.js`, `scripts/verif_ia_locale.js` — vérifications headless (rendu, liens `#proj-…`, page d'accueil, façade sans mention d'outillage, bouton Sauvegarder, alerte de stock).
+- `scripts/verif_rendu.js`, `scripts/verif_ancre.js`, `scripts/verif_copie_commande.js`, `scripts/verif_sauvegarde.js`, `scripts/verif_alerte_manette.js`, `scripts/verif_ia_locale.js` — vérifications headless (rendu, liens `#proj-…`, page d'accueil, façade sans mention d'outillage, bouton Sauvegarder, alerte de stock).
 
 ## Règles
 

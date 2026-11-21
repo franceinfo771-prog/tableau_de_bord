@@ -66,7 +66,10 @@ setTimeout(() => {
     'aucune allusion à la procédure interne');
 
   console.log('== 2 bis. les autres pages publiques non plus ==');
-  for (const f of ['accueil.html', 'atelier.html']) {
+  // conversation.html n'est PAS dans cette liste, et c'est volontaire : cette page
+  // privée existe pour mener à la conversation — Arena est son sujet, pas une fuite
+  // d'outillage. verif_porte.js la contrôle, elle, sur ce point précis.
+  for (const f of ['atelier.html']) {
     const brut = fs.readFileSync(path.join(RACINE, f), 'utf-8');
     const sansScript = brut.replace(/<script[\s\S]*?<\/script>/gi, ' ')
                            .replace(/<style[\s\S]*?<\/style>/gi, ' ');
@@ -103,7 +106,7 @@ setTimeout(() => {
 
   console.log('== 4. le site reste utilisable et honnête ==');
   verifie(!!doc.getElementById('btn-corriger'), 'le bouton Corriger est toujours là');
-  verifie(!!doc.getElementById('btn-data'), 'le bouton Sauvegarder est toujours là');
+  verifie(!doc.getElementById('btn-data'), 'le bouton Sauvegarder ne revient pas');
   verifie(!!doc.getElementById('btn-print'), 'le bouton Imprimer est toujours là');
   const NB = JSON.parse(fs.readFileSync(path.join(RACINE,'projets.json'),'utf8')).projets.length;
   verifie(doc.querySelectorAll('.p').length === NB, 'les ' + NB + ' cartes de projets sont là',

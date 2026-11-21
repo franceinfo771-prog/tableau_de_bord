@@ -72,9 +72,14 @@ const etapes = donnees.projets.flatMap((p) => p.etapes || []);
 const faites = etapes.filter((e) => e.ok).length;
 const total = etapes.length;
 const pct = Math.round((100 * faites) / total);
-const accueil = lire("accueil.html");
-verifie(accueil.includes(`${faites} / ${total}`), "accueil.html affiche le compte réel", `${faites} / ${total}`);
-verifie(accueil.includes(`${pct} %`), "accueil.html affiche le bon pourcentage", `${pct} %`);
+// La page de présentation a été supprimée le 21/11 (une seule page, une seule
+// adresse). Les chiffres ne sont plus écrits dans le HTML : ils sont calculés au
+// chargement depuis projets.json — c'est justement ce qui les empêche de vieillir.
+// On vérifie donc que le calcul existe et que la source est bien projets.json.
+const index = lire("index.html");
+verifie(/projets\.json/.test(index), "index.html lit projets.json");
+verifie(/totalSteps/.test(index) && /totalDone/.test(index), "index.html calcule les totaux");
+verifie(!/DEFAULT_DATA/.test(index), "index.html ne porte aucune copie des données");
 const readme = lire("README.md");
 verifie(readme.includes(`${faites} / ${total}`), "README.md affiche le compte réel");
 

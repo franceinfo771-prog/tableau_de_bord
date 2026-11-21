@@ -51,7 +51,11 @@ setTimeout(() => {
     'fiches de veille : ' + fichesVeille.length + ' (attendu ' + donnees.veille.length + ')');
 
   console.log('== 3. boutons intacts ==');
-  const attendus = ['btn-corriger', 'btn-top-add-proj', 'btn-print', 'btn-data'];
+  // « Sauvegarder » a été retiré le 21/11 : il exportait un fichier que plus
+  // personne ne lit. Un contrôle doit vérifier ce qui DOIT être là, pas regretter
+  // ce qui a été retiré exprès.
+  const attendus = ['btn-corriger', 'btn-top-add-proj', 'btn-print'];
+  verifie(!doc.getElementById('btn-data'), 'le bouton Sauvegarder ne revient pas');
   for (const id of attendus) {
     verifie(!!doc.getElementById(id), 'bouton #' + id);
   }

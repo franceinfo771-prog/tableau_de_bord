@@ -57,6 +57,38 @@ ne se réveille pas : le relevé se fait à la main, quand l'humain regarde la b
 est inutilisé l'hiver : la décision tenue est d'attendre le réapprovisionnement, pas de payer
 plus cher ailleurs.
 
+## Le tableau est une page de lecture
+
+> **Depuis le 21 novembre 2026, `index.html` ne propose plus de corriger ni de sauvegarder.**
+> Les deux boutons ont été retirés sur décision de l'humain — « j'ai vu dans le tableau
+> corriger, sauvegarder — pas utile ».
+>
+> **`Sauvegarder`** exportait un fichier `.json` que personne ne lisait, et permettait de le
+> réimporter. Il servait quand le site publiait lui-même depuis le navigateur. Ce temps est
+> fini : **c'est la conversation qui publie.** Partis avec lui : la barre flottante
+> « modifié sur cet appareil », la fenêtre de sauvegarde, et 82 lignes de code.
+>
+> **`Corriger` reste**, et c'est un choix assumé : il permet de cocher une étape et de
+> corriger un texte, mais **il ne publie rien** — les corrections vivent dans le navigateur.
+> Vérifié par `verif_ancre.js`, qui coche, décoche, et vérifie que les compteurs suivent.
+>
+> **Deux chiffres faux trouvés dans la page au passage** — la même maladie que la copie des
+> données, mais dans les phrases : « **Six** projets suivis » alors qu'il y en a **huit**, et
+> « État au **19 novembre** » alors qu'on était le **21**. La date et le nombre de projets se
+> lisent maintenant dans `projets.json`, et `scripts/marquer-date.js` met la date du jour.
+
+## Une seule page, une seule adresse
+
+> **Depuis le 21 novembre 2026, `index.html` est la seule page publique.** La page de
+> présentation `accueil.html` est supprimée. Elle s'appelait « accueil » sans être le
+> tableau : deux pages aux noms proches, et on hésitait sur celle qui portait les
+> données. L'adresse du site affiche désormais **le tableau**, et rien d'autre.
+>
+> Son contrôle (`verif_accueil.js`, 23 vérifications) a disparu avec elle ; les cinq
+> scripts qui la citaient ont été réparés, et `construire_archive.py` ne l'embarque
+> plus. Les entrées datées du journal qui la mentionnent — sa création le 18/11, ses
+> corrections — **restent telles quelles** : c'est de l'histoire, pas de l'état.
+
 ## Une seule source de données
 
 > **Depuis le 21 novembre 2026, `index.html` ne porte plus de copie des données.**
@@ -323,6 +355,45 @@ plus cher ailleurs.
   et les 7 sans résultat, impasses comprises, gardées exprès. `ASSISTANT.md` renvoie désormais à
   cet ordre au lieu de citer les fichiers en vrac. Aucun fichier de plus, aucun contenu
   dupliqué en double : `projets.json` reste la source de vérité, le tableau reste le site.
+
+- **21 novembre 2026 — « Corriger » et « Sauvegarder » : ce qu'on retire, et ce qu'on garde** :
+  remarque de l'humain en regardant le tableau — « j'ai vu dans le tableau corriger sauvegarder — pas
+  utile ». Vérification faite avant de couper : **`Sauvegarder` n'a plus aucun usage.** Il exportait un
+  fichier `.json` que personne ne lisait, permettait de le réimporter et de réinitialiser l'affichage ;
+  il servait quand le site publiait lui-même depuis le navigateur, ce qui n'est plus le cas depuis le
+  19/11. Retirés : le bouton, la barre flottante « modifié sur cet appareil », la fenêtre de sauvegarde
+  et **82 lignes de code** (export, import, copie du résumé, réinitialisation). `verif_sauvegarde.js`,
+  qui testait tout cela (19 vérifications), est réécrit : il vérifie maintenant que **rien ne revient**.
+  **`Corriger` est gardé, et c'est un choix explicite** : il permet de cocher une étape et de corriger
+  un texte sans passer par la conversation — mais **il ne publie rien**, les corrections restent dans
+  le navigateur. Le retirer aurait rendu le tableau totalement en lecture seule ; l'humain ne l'a pas
+  demandé.
+  **Deux chiffres faux trouvés en regardant la page** — la même maladie que la copie des données, mais
+  dans les phrases : « **Six** projets suivis » alors qu'il y en a **huit**, et « État au **19
+  novembre** » alors qu'on était le **21**. Les deux se lisent désormais dans `projets.json`, et
+  `scripts/marquer-date.js` y met la date du jour. Au passage, `verif_ancre.js` a dû apprendre à
+  déclencher l'événement `change` : son `click()` ne basculait pas la case, et le test accusait la page
+  d'un défaut qui venait de lui.
+
+- **21 novembre 2026 — `accueil.html` supprimée : une seule page, une seule adresse** : décision de
+  l'humain, « une seule adresse, un seul nom — bonne idée », puis le choix explicite de **supprimer**
+  plutôt que renommer. La page de présentation s'appelait « accueil » sans être le tableau : deux noms
+  proches, une hésitation à chaque fois. L'adresse du site affiche désormais **le tableau**.
+  Retirés : `accueil.html`, `scripts/verif_accueil.js` (23 vérifications), les deux renvois de
+  `index.html` (barre et pied de page) et leurs règles CSS, `accueil.html` des deux listes de
+  `construire_archive.py`, et le test `file://` de `verif_archive.js` qui la visait. Réparés :
+  `verif_coherence.js` (les chiffres ne sont plus écrits dans le HTML — ils se calculent depuis
+  `projets.json`, et c'est justement ce qui les empêche de vieillir), `verif_copie_commande.js`,
+  `verif_porte.js`, `verif_source_unique.js`. Le gabarit de l'archive et son mode d'emploi visent
+  maintenant `site/index.html`.
+  **Deux corrections de fond trouvées en chemin.** `verif_copie_commande.js` a exigé la disparition
+  du mot « arena » de `conversation.html` — or **cette page existe pour mener à la conversation** :
+  Arena est son sujet, pas une fuite d'outillage. C'était une erreur du contrôle, que personne ne
+  voyait tant qu'on ne lui donnait pas cette page à examiner. Et le test `file://` de
+  `verif_archive.js` exigeait que les 8 projets s'affichent dans une archive ouverte hors ligne :
+  depuis le 21/11 la page n'a plus de copie des données, elle affiche un bandeau. Le test est
+  réécrit — il nourrit la page avec le `projets.json` **de l'archive**, puis vérifie que le bandeau
+  apparaît quand les données manquent vraiment.
 
 - **21 novembre 2026 — une seule source de données, plus de copie** : demande de l'humain, « une vie
   [une vue] sur le tableau de bord à jour sur une page suffit ». Décision prise à deux questions

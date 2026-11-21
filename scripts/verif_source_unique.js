@@ -26,7 +26,7 @@ function verifie(cond, libelle, detail) {
 }
 
 console.log('== 1. aucune copie des données dans les pages ==');
-const pages = ['index.html', 'accueil.html', 'atelier.html', 'conversation.html'];
+const pages = ['index.html', 'atelier.html', 'conversation.html'];
 const marqueurs = [/const DEFAULT_DATA\s*=\s*\{/, /const BASE_DATA\s*=\s*\{\s*\n\s*version:/, /DEFAULT_DATA/];
 for (const page of pages) {
   const texte = lire(page);
@@ -51,7 +51,10 @@ verifie(!/sync_donnees_embedded/.test(readme), 'le README ne propose plus de le 
 console.log('== 4. un seul endroit sert les données aux contrôles ==');
 verifie(fs.existsSync(path.join(RACINE, 'scripts', 'aide-donnees.js')),
         'scripts/aide-donnees.js existe');
-for (const f of ['verif_rendu.js', 'verif_ancre.js', 'verif_sauvegarde.js', 'verif_copie_commande.js']) {
+// verif_sauvegarde.js n'est plus dans cette liste : depuis le 21/11 il lit le
+// HTML comme du texte (il vérifie qu'un bouton ne revient pas) et ne rend plus
+// la page — il n'a donc rien à nourrir.
+for (const f of ['verif_rendu.js', 'verif_ancre.js', 'verif_copie_commande.js', 'verif_alerte_manette.js']) {
   verifie(/aide-donnees/.test(lire(path.join('scripts', f))), f + ' passe par aide-donnees.js');
 }
 
