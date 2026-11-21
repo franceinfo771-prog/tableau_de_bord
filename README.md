@@ -135,8 +135,14 @@ node scripts/verif_ia_locale.js    # l'IA locale reste arrêtée : ni rubrique, 
 node scripts/verif_archive.js      # archive livrée : contenu, liens, ouverture hors ligne
 node scripts/verif_copie_commande.js  # façade : aucune mention d'Arena/GitHub/clé ne doit s'afficher
 node scripts/verif_coherence.js     # documents : un seul état de référence, les traces sont étiquetées
-python3 scripts/sync_donnees_embedded.py --verifier
+node scripts/verif_archive.js       # archive livrée : contenu, liens, ouverture hors ligne
 ```
+
+> **`scripts/aide-donnees.js`** n'est pas un contrôle : c'est ce qui sert le vrai
+> `projets.json` aux pages rendues hors navigateur. Depuis que la page ne porte
+> plus de copie des données, un contrôle qui rend la page sans nourrir `fetch`
+> obtient un tableau vide — et croirait à une régression.
+
 
 ## Mettre à jour `etat.json`
 

@@ -30,7 +30,7 @@ const dom = new JSDOM(PAGE, {
   url: 'https://exemple.test/tableau/',
   virtualConsole: vc,
   beforeParse(w) {
-    w.fetch = async () => ({ ok: false, json: async () => ({}) });
+    w.fetch = require('./aide-donnees').fetchDeTest();
     w.HTMLElement.prototype.scrollIntoView = function () {};
     // URL.createObjectURL : on récupère le Blob au lieu de télécharger.
     w.URL.createObjectURL = (blob) => { fichier = blob; return 'blob:test'; };

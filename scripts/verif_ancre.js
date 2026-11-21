@@ -33,6 +33,8 @@ async function scenario(titre, url, options) {
     url,
     virtualConsole: vc,
     beforeParse(window) {
+      const { fetchDeTest } = require('./aide-donnees');
+      window.fetch = fetchDeTest();
       window.HTMLElement.prototype.scrollIntoView = function () {
         window.__scrolls = window.__scrolls || [];
         window.__scrolls.push(this.id || this.tagName);

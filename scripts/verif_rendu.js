@@ -30,6 +30,7 @@ const dom = new JSDOM(page, {
   pretendToBeVisual: true,
   url: 'https://franceinfo771-prog.github.io/tableau_de_bord/',
   virtualConsole: vc,
+  beforeParse(fenetre){ fenetre.fetch = require('./aide-donnees').fetchDeTest(); },
 });
 
 const doc = dom.window.document;

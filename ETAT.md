@@ -57,6 +57,25 @@ ne se réveille pas : le relevé se fait à la main, quand l'humain regarde la b
 est inutilisé l'hiver : la décision tenue est d'attendre le réapprovisionnement, pas de payer
 plus cher ailleurs.
 
+## Une seule source de données
+
+> **Depuis le 21 novembre 2026, `index.html` ne porte plus de copie des données.**
+> Elle lisait `projets.json`, mais gardait aussi 156 lignes de copie intégrée comme
+> secours hors ligne. **C'est cette copie qui avait conservé une heure de relevé
+> fausse pendant deux jours**, alors que le robot ne tournait pas du tout.
+>
+> Elle est retirée. Le script qui la maintenait (`sync_donnees_embedded.py`) est
+> supprimé : sans copie, il n'a plus rien à synchroniser.
+>
+> **Conséquence assumée** : ouvert par double-clic, le navigateur refuse de lire
+> `projets.json` voisin (règle de sécurité, pas une panne). La page affiche alors un
+> bandeau rouge qui l'explique, et **aucun chiffre** — plutôt que des chiffres qui
+> ont vieilli. En ligne, rien ne change : `projets.json` est à côté de la page.
+>
+> Une page, une vérité, et un contrôle : `scripts/verif_source_unique.js` (23
+> vérifications) refuse le retour d'une copie, exige le bandeau d'avertissement, et
+> vérifie qu'aucun contrôle ne rend la page sans nourrir `projets.json`.
+
 ## Vue d'ensemble
 
 - **Projets suivis** : 8
@@ -304,6 +323,21 @@ plus cher ailleurs.
   et les 7 sans résultat, impasses comprises, gardées exprès. `ASSISTANT.md` renvoie désormais à
   cet ordre au lieu de citer les fichiers en vrac. Aucun fichier de plus, aucun contenu
   dupliqué en double : `projets.json` reste la source de vérité, le tableau reste le site.
+
+- **21 novembre 2026 — une seule source de données, plus de copie** : demande de l'humain, « une vie
+  [une vue] sur le tableau de bord à jour sur une page suffit ». Décision prise à deux questions
+  explicites : **on garde les deux pages** (`accueil.html` reste la carte de visite, `index.html` le
+  tableau), **et on retire la copie de secours**. `index.html` passe de 128 149 à 112 468 octets :
+  **156 lignes de données recopiées** disparaissent, remplacées par une constante vide et un
+  avertissement. `scripts/sync_donnees_embedded.py` est supprimé — sans copie, il n'a plus rien à
+  synchroniser. **Le prix, dit franchement** : par double-clic, le navigateur refuse de lire
+  `projets.json` voisin, donc la page hors ligne n'affiche plus le tableau — elle affiche un bandeau
+  rouge qui explique pourquoi. En ligne, rien ne change. C'est l'assouplissement d'un garde-fou
+  (le double-clic autonome) au profit d'un autre (un chiffre ne peut plus vieillir en silence).
+  Quatre contrôles ont dû être réparés au passage, et **c'était le bon signe** : ils rendaient la page
+  sans nourrir `projets.json`, donc ils voyaient un tableau vide et criaient à la régression. D'où un
+  module commun, `scripts/aide-donnees.js`, et un contrôle neuf, `scripts/verif_source_unique.js`
+  (23 vérifications) qui refuse le retour d'une copie.
 
 - **21 novembre 2026 — la même question, deux fois : une réussite sur deux** : deux questions de forme
   identique, posées l'une après l'autre, chaque fois après *Nouvelle conversation*. *« Quelle est la
