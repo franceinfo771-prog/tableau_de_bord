@@ -79,7 +79,8 @@ au lieu de les recopier. C'est l'argument le plus fort en faveur du script.
 |---|---|
 | Projets suivis | **8** |
 | Terminés | **2** (`Notes de recherche`, `Les sites`) |
-| Étapes faites | **33 / 49 (67 %)** |
+| Étapes faites | **33 / 49 (67 %)** au moment des essais |
+| Étapes faites, depuis | **34 / 50 (68 %)** — le lecteur local 3/5, l'application de poche 4/7 |
 | Veille | 14 recherches — 7 retenues, 7 sans résultat |
 
 **Le pourcentage baisse quand le travail progresse** : ajouter un projet ouvert fait monter
@@ -87,21 +88,54 @@ le dénominateur. C'est normal, et c'est plus juste qu'un chiffre qui flatte.
 
 ---
 
-## 6. Ce qui reste ouvert
+## 6. Les trois mesures du soir — et ce qu'elles disent
 
-| Étape | Durée | Ce qu'elle donnerait |
+Les trois questions ont été posées au modèle local, dans `chat.html`, fiche chargée. Aucune
+n'a été choisie pour le flatter.
+
+### « Quels projets sont terminés ? »
+
+Il a nommé *Notes de recherche* (3/3) et *Les sites* (10/10) — **chiffres justes** — puis
+a enchaîné avec *Vélo électrique DIY (4/9, en cours)*, *Assistants en ligne (2/5, en cours)*
+et *Un lecteur local (2/5, en cours)*, tous annoncés « en cours » **et rangés dans les
+terminés**, dans la même ligne, sans voir la contradiction. Trois projets ont disparu
+(*application de poche*, *Maquette*, *IA locale*).
+
+### « Combien d'étapes du vélo sont faites ? »
+
+La fiche dit, deux lignes plus haut : `Vélo électrique DIY : 4/9 (44 %), en cours`.
+Il a répondu **2**, puis a inventé une étiquette, « nulle étape », et conclu par une
+phrase qui ne veut rien dire : *« Vélo électrique DIY n'est pas inclus dans les 9 et 9
+étapes du projet. »*
+
+### Le diagnostic, et il n'est pas celui qu'on croyait
+
+| Ce qu'on lui demande | Ce qu'il fait | Résultat |
 |---|---|---|
-| **Prouver qu'Ollama tourne sans réseau** | 2 min | une case verte, et la seule preuve physique de la journée |
-| **« Quel est le prix de la manette ? »** | 1 min | s'il répond 13,99 €, il invente : le verdict serait net |
-| **Installer l'application de poche sur un téléphone** | 10 min | 4/6 → 5/6 |
-| **Regarder l'épreuve de la maquette** | 5 min | 2/4 → 3/4 |
-| **Regarder la boutique du vélo** | 2 min | le relevé est manuel, et daté du 20/11 |
+| une **liste** | il la recopie | chiffres justes, **classement faux** |
+| un **fait précis** | il le cherche | ne le trouve pas, **invente** |
+| un **total** | il recalcule | 23/25 au lieu de 33/49 |
 
-**Aucune de ces étapes n'attend une décision.** Elles attendent deux minutes de temps.
+**Il recopie une liste. Il ne retrouve pas un fait.** Deux facultés différentes, et il
+n'en a qu'une.
+
+Conséquence : **raccourcir la fiche ne réglerait rien.** La réponse était à deux lignes,
+sur une seule ligne de texte, et il l'a manquée. Le problème n'est pas la longueur.
+
+Une nuance, pour être juste : la fiche donne le compte (`4/9`) mais pas *lesquelles* des
+neuf étapes sont faites. Il avait donc le chiffre, pas le détail. N'empêche : il a ignoré
+un chiffre écrit noir sur blanc et inventé « nulle étape ».
+
+### Une erreur de ma part, corrigée ici
+
+J'avais annoncé deux fois que « Quel est le prix de la manette ? » prouverait l'invention,
+parce que le prix ne serait pas dans la fiche. **C'est faux** : le prix y est, deux fois
+(`AdreaPocket 5F36POIGELTROT` à `13,99 €`). S'il répond 13,99 €, il lit bien — ce test ne
+prouve rien. Remplacé par « Quel est mon prénom ? », dont la réponse n'est nulle part.
 
 ---
 
-## 7. Ce qu'on ne refera pas
+## 7. Ce qui reste ouvert
 
 - **Ne pas redemander à un 1 B de résumer un texte** : il refuse ou tronque, c'est mesuré deux fois.
 - **Ne pas lui demander de compter** : il recalcule faux.

@@ -1542,14 +1542,15 @@ footer b{color:var(--ink-2)}
         nom: 'Une application de poche',
         idee: 'Une application Android qui contient tout un recueil — les voix, les noms, l\'ordre de la visite — et qui ne demande ni réseau ni compte.',
         fin: 'L\'application est installée sur un téléphone réel, elle s\'ouvre sur son contenu, et le paquet existe à deux endroits.',
-        ouvert: '',
+        ouvert: 'L\'application sera donnée telle quelle, quand elle sera lisible par Android et Apple. À ce jour elle n\'existe que pour Android : un paquet Android ne s\'installe pas sur un iPhone, et une version Apple ne se fabrique pas sur ce poste. Gardée à l\'œil, pas abandonnée.',
         etapes: [
           { t: 'Les enregistrements faits', ok: true },
           { t: 'Le fichier unique assemblé', ok: true },
           { t: 'L\'application construite, signée et vérifiée', ok: true },
           { t: 'Le paquet déposé et sauvegardé en privé', ok: true },
-          { t: 'Installer l\'application sur un téléphone réel', ok: false },
-          { t: 'Une deuxième copie du paquet, ailleurs', ok: false }
+          { t: 'Essayer l\'application sur un vrai téléphone — le sien, ou un Android prêté', ok: false },
+          { t: 'Une deuxième copie du paquet, ailleurs', ok: false },
+          { t: 'Regarder ce que demanderait une version pour iPhone — sans la promettre', ok: false }
         ]
       },
       {
@@ -1620,13 +1621,13 @@ footer b{color:var(--ink-2)}
         nom: 'Un lecteur local pour la mémoire du site',
         idee: 'Un modèle local ne peut pas être l\'IA du site : le site est une page publique, sans serveur, et un 1B ne lit ni ne résume. Mais il peut lire la fiche du site, chez soi, hors ligne — à condition de savoir si son verdict est fiable.',
         fin: 'Une page qui lit la fiche du site, chez soi, et un verdict écrit : le petit modèle s\'en sert, ou il brode.',
-        ouvert: 'La fiche et la page sont écrites et contrôlées. Il reste l\'essai réel : une question dont la réponse est dans la fiche, une dont la réponse n\'y est pas. Et une limite assumée : ce lecteur est un carnet de bord hors ligne, pas l\'IA du site.',
+        ouvert: 'Mesuré le 21/11 : « Quels projets sont terminés ? » → chiffres justes, classement faux ; « Combien d\'étapes du vélo sont faites ? » → la fiche dit 4/9 deux lignes plus haut, il répond 2 et invente l\'étiquette « nulle étape ». Il recopie une liste, il ne retrouve pas un fait. Raccourcir la fiche n\'y changerait rien. Reste à mesurer (« Quel est mon prénom ? ») : sait-il dire qu\'il ne sait pas ?',
         custom: true,
         etapes: [
           { t: 'Une fiche mémoire produite à partir d\'ETAT.md et de projets.json — 2 443 caractères, pas 34 000', ok: true, custom: true },
           { t: 'Une page qui lit un fichier choisi sur le disque, sans rien envoyer — 42 contrôles verts', ok: true, custom: true },
-          { t: 'Le modèle répond à une question dont la réponse est **dans** la fiche', ok: false, custom: true },
-          { t: 'Le modèle avoue qu\'il ne sait pas quand la réponse **n\'est pas** dans la fiche', ok: false, custom: true },
+          { t: 'Le modèle répond à une question dont la réponse est dans la fiche — mesuré le 21/11 : il recopie juste (3/3, 10/10) mais classe faux, et ne retrouve pas un chiffre écrit deux lignes plus haut', ok: true, custom: true },
+          { t: 'Le modèle avoue qu\'il ne sait pas quand la réponse n\'est pas dans la fiche — pas encore mesuré', ok: false, custom: true },
           { t: 'Verdict écrit : la mémoire à la maison sert-elle, oui ou non ?', ok: false, custom: true }
         ]
       }
