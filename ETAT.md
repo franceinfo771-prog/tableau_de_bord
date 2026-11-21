@@ -9,7 +9,7 @@
 > 1. **cette section** (où en sont les choses, ce qui est vivant, ce qui attend) ;
 > 2. **`projets.json`** (les données ; les chiffres s'en déduisent, ils ne se recopient pas) ;
 > 3. **le journal, plus bas**, du plus récent au plus ancien ;
-> 4. **« Détail des 6 projets »** (les cases cochées) et **« La veille, rangée »**
+> 4. **le détail des projets** (les cases cochées) et **« La veille, rangée »**
 >    (les 14 recherches et leur verdict).
 >
 > Les règles du projet, les garde-fous et ce qu'il ne faut pas refaire : `ASSISTANT.md`.
@@ -51,9 +51,9 @@ plus cher ailleurs.
 
 ## Vue d'ensemble
 
-- **Projets suivis** : 7
+- **Projets suivis** : 8
 - **Terminés** : 2 (`Notes de recherche`, `Les sites`)
-- **Étapes faites** : 31 / 44 (**70 %**)
+- **Étapes faites** : 33 / 49 (**67 %**)
 - **Veille** : 14 recherches consignées (7 retenues · 7 sans résultat)
 
 ## Où ça en est (l'étape qui débloque la suite, par projet ouvert)
@@ -62,13 +62,14 @@ plus cher ailleurs.
 2. **Maquette — une porte qui fait joli** (2/4 · 50 %) — Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ?
 3. **Vélo électrique DIY** (4/9 · 44 %) — Attendre la manette : AdreaPocket 5F36POIGELTROT, 13,99 €, **en rupture** au dernier relevé (19/11) — relevé à la main, le robot ne se réveille pas.
 4. **Assistants en ligne** (2/5 · 40 %) — Les tester sur 2-3 tâches réelles du quotidien.
+5. **La mémoire du site à la maison** (2/5 · 40 %) — Poser au modèle une question dont la réponse est dans la fiche, puis une qui n'y est pas.
 
 ## Points ouverts (projets terminés)
 
 - **Notes de recherche** (3/3 · 100 %) — Gardée privée pour l'instant (décidé le 15 novembre 2026).
 - **Les sites** (10/10 · 100 %) — Abouti le 18 novembre 2026. La veille reste datée d'octobre : rafraîchie quand il y aura du nouveau, pas pour tenir un calendrier.
 
-## Détail des 6 projets
+## Détail des projets
 
 ### 1. Notes de recherche — 3 / 3 (100 %) · Terminé
 - [x] La note unique écrite — les trois notes fondues en une
@@ -126,7 +127,7 @@ plus cher ailleurs.
 > Tailscale, la Freebox et l'imprimante. La raison est aussi dans `IA-LOCALE.md`. **Ne pas reproposer
 > de faire tourner un modèle sur cette machine** sans qu'il le demande.
 
-### 7. IA locale sur vieux PC — ce qu'elle sait faire — 6 / 8 (75 %) · En cours
+### 7. IA locale sur vieux PC — ce qu'elle sait faire — 6 / 7 (86 %) · En cours
 - [x] Ollama installé sur la vieille machine (chemin ajouté au PATH, version vérifiée)
 - [x] Un modèle de 1 milliard de paramètres téléchargé et chargé — 1,3 Go
 - [x] Conversation en français : phrases correctes, mais réponses vides de contenu
@@ -141,6 +142,20 @@ plus cher ailleurs.
 > résume pas »**. Une seule chose reste à prouver : qu'il répond **sans réseau** — c'est l'étape
 > ouverte, et il suffit de couper le Wi-Fi deux minutes. Le verdict du 20/11 (« abandonnée ») reste
 > corrigé : elle a été essayée, et on sait maintenant exactement ce qu'elle sait faire.
+
+### 8. La mémoire du site à la maison — 2 / 5 (40 %) · En cours
+- [x] Une fiche mémoire produite à partir d'`ETAT.md` et de `projets.json` — 2 584 caractères, pas 34 000
+- [x] Une page qui lit un fichier choisi sur le disque, sans rien envoyer — 42 contrôles verts
+- [ ] Le modèle répond à une question dont la réponse est **dans** la fiche
+- [ ] Le modèle avoue qu'il ne sait pas quand la réponse **n'est pas** dans la fiche
+- [ ] Verdict écrit : la mémoire à la maison sert-elle, oui ou non ?
+
+> **L'idée, dite simplement.** Le site a déjà sa mémoire — `projets.json`, `ETAT.md`,
+> `ASSISTANT.md`. Ce qui manque, ce n'est pas la mémoire, c'est **un lecteur qui vit à la maison**.
+> `pont-outils/chat.html` lit la fiche et la donne au modèle comme consigne. Rien ne sort de la
+> machine. Mais un modèle de 1 milliard de paramètres est un lecteur distrait : la fiche fait
+> 2 584 caractères, et c'est déjà beaucoup pour lui. Les trois dernières étapes sont là pour le
+> mesurer, pas pour l'espérer.
 
 ## La veille, rangée (14 recherches)
 
@@ -166,11 +181,24 @@ plus cher ailleurs.
 
 ## Journal récent
 
+- **21 novembre 2026 — la mémoire du site, à la maison** : l'humain propose que l'IA interne
+  « soit la mémoire du site à la maison ». Le mot est corrigé — **un modèle n'est pas une
+  mémoire, c'est un lecteur** — et l'idée devient un projet : une page qui lit la fiche du site
+  et la donne au modèle, sans rien envoyer. Trois pièces écrites : `pont-outils/fabriquer-fiche.py`
+  (la fiche, **2 584 caractères** extraits de `ETAT.md` et `projets.json`, jamais recopiés à la
+  main), `pont-outils/chat.html` (**la fiche est dedans**, donc la page marche en double-clic,
+  plus un bouton « Ouvrir un fichier »), et `scripts/verif_memoire.js` (**42 contrôles** : la fiche
+  reste courte et sans secret, la page ne parle qu'à `127.0.0.1`, aucun `chat.html` à la racine).
+  Au passage, la fiche a révélé trois erreurs dans `ETAT.md` : le projet IA locale écrit « 6/8 »
+  au lieu de **6/7**, et « Détail des **6** projets » alors qu'il y en avait sept. Corrigées.
+  **8 projets · 33 / 49 (67 %)**, et il reste l'essai réel — c'est lui qui donnera le verdict.
+
+
 - **21 novembre 2026 (suite) — ce qu'elle sait faire, et ce qui reste à prouver** : l'humain pousse
   plus loin. Ollama **réussit une tâche réelle** — cinq lignes cohérentes sur un chat qui apprend à
   nager — alors que le résumé échoue. Le verdict se nuance : **« il raconte, il ne résume pas »**.
   Mais la preuve du fonctionnement hors ligne n'est pas faite : il reste à couper le Wi-Fi et poser
-  une question neuve. Le projet repasse donc **en cours** (6/8) et le tableau redescend à
+  une question neuve. Le projet repasse donc **en cours** (6/7) et le tableau redescend à
   **31 / 44 (70 %)** — un chiffre juste vaut mieux qu'un chiffre flatteur. Au passage, un piège
   relevé : interrogé sur sa connexion, le modèle affirme « je n'ai pas besoin d'Internet » — il ne
   sait pas vérifier sa propre connexion, sa parole ne prouve rien.

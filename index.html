@@ -1614,6 +1614,21 @@ footer b{color:var(--ink-2)}
           { t: 'Une tâche réelle réussie — cinq lignes cohérentes sur un chat qui apprend à nager, alors que le résumé échoue', ok: true, custom: true },
           { t: 'Tourner sans réseau, prouvé — couper le Wi-Fi, poser une question neuve, obtenir une réponse', ok: false, custom: true }
         ]
+      },
+      {
+        id: 'memoire-maison',
+        nom: 'La mémoire du site à la maison',
+        idee: 'Le site a déjà sa mémoire : projets.json, ETAT.md, ASSISTANT.md. Ce qui manque, ce n\'est pas la mémoire, c\'est un lecteur qui vit à la maison et qui la consulte sans internet.',
+        fin: 'Une page qui lit la mémoire du site, chez soi, et un verdict écrit : le petit modèle s\'en sert, ou il brode.',
+        ouvert: 'La fiche et la page sont écrites et contrôlées. Il reste l\'essai réel : poser au modèle une question dont la réponse est dans la fiche, puis une dont la réponse n\'y est pas.',
+        custom: true,
+        etapes: [
+          { t: 'Une fiche mémoire produite à partir d\'ETAT.md et de projets.json — 2 443 caractères, pas 34 000', ok: true, custom: true },
+          { t: 'Une page qui lit un fichier choisi sur le disque, sans rien envoyer — 42 contrôles verts', ok: true, custom: true },
+          { t: 'Le modèle répond à une question dont la réponse est **dans** la fiche', ok: false, custom: true },
+          { t: 'Le modèle avoue qu\'il ne sait pas quand la réponse **n\'est pas** dans la fiche', ok: false, custom: true },
+          { t: 'Verdict écrit : la mémoire à la maison sert-elle, oui ou non ?', ok: false, custom: true }
+        ]
       }
     ],
     veille: [
