@@ -57,6 +57,24 @@ ne se réveille pas : le relevé se fait à la main, quand l'humain regarde la b
 est inutilisé l'hiver : la décision tenue est d'attendre le réapprovisionnement, pas de payer
 plus cher ailleurs.
 
+## Deux raccourcis sur le Bureau
+
+> **Installation en un seul geste** : `pont-outils/raccourcis/INSTALLER.bat` pose deux
+> fichiers sur le Bureau.
+>
+> | Raccourci | Ce qu'il fait |
+> |---|---|
+> | **`1 - Tableau de bord`** | ouvre le site en ligne — **rien à télécharger**, la page lit `projets.json` à chaque ouverture |
+> | **`2 - IA locale`** | télécharge **`chat.html` et `fiche.txt`** dans `%LOCALAPPDATA%\TableauDeBord`, puis l'ouvre |
+>
+> **L'ancien `RECUPERER-PAGE.bat` est supprimé.** Ses deux échecs sont expliqués : il avait
+> des fins de ligne cassées (`\r\r\n`), et il ne téléchargeait **que la page, jamais la
+> fiche** — donc le modèle restait muet. Les nouveaux scripts sont vérifiés sur ces deux
+> points précis par `scripts/verif_raccourcis.js` (22 vérifications).
+>
+> Les fichiers vont dans `%LOCALAPPDATA%` et **plus sur le Bureau** : c'est là qu'on ne
+> savait plus si l'ancienne ou la nouvelle version était ouverte.
+
 ## Le tableau est une page de lecture
 
 > **Depuis le 21 novembre 2026, `index.html` ne propose plus de corriger ni de sauvegarder.**
@@ -355,6 +373,23 @@ plus cher ailleurs.
   et les 7 sans résultat, impasses comprises, gardées exprès. `ASSISTANT.md` renvoie désormais à
   cet ordre au lieu de citer les fichiers en vrac. Aucun fichier de plus, aucun contenu
   dupliqué en double : `projets.json` reste la source de vérité, le tableau reste le site.
+
+- **21 novembre 2026 — deux raccourcis sur le Bureau, et l'ancien script démonté** : demande de
+  l'humain, « un raccourci sur le tableau de bord à jour, un autre sur une IA locale — mes idées en
+  place ». Livrés dans `pont-outils/raccourcis/` : **`INSTALLER.bat`** (un seul lancement) pose
+  `1 - Tableau de bord` et `2 - IA locale` sur le Bureau. Le premier n'a **rien** à télécharger — la
+  page lit `projets.json` à chaque ouverture — il vérifie seulement que le site répond. Le second
+  télécharge **deux** fichiers, `chat.html` **et** `fiche.txt`, dans `%LOCALAPPDATA%\TableauDeBord`.
+  **L'ancien `RECUPERER-PAGE.bat` est supprimé, et sa panne est enfin expliquée** : il contenait des
+  fins de ligne cassées (`\r\r\n`, quatre sur quatre) — et surtout **il ne téléchargeait que la page,
+  jamais la fiche**, donc le modèle n'avait rien à lire et se taisait. Deux échecs, deux causes
+  distinctes, aucune n'avait été vue. Les nouveaux scripts sont écrits en CRLF franc, **100 % ASCII**
+  (un `.bat` accentué s'affiche mal dans une console cp850), et contrôlés sur ces points précis par
+  `scripts/verif_raccourcis.js` — 22 vérifications.
+  `chat.html` gagne au passage une chose utile : si la fiche intégrée est vide, il **essaie
+  `fiche.txt` posé à côté** avant de dire qu'il n'a rien. Testé dans les deux cas : fiche trouvée →
+  `mémoire chargée · 2.6k caractères` ; fiche absente → *« mémoire : aucune fiche — relance « 2 - IA
+  locale » »*.
 
 - **21 novembre 2026 — « Corriger » et « Sauvegarder » : ce qu'on retire, et ce qu'on garde** :
   remarque de l'humain en regardant le tableau — « j'ai vu dans le tableau corriger sauvegarder — pas

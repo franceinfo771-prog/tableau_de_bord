@@ -14,9 +14,16 @@ qui tourne sur cette machine. **Rien ne sort d'ici** : la page parle seulement
 
 ## La mettre en place une fois
 
-1. clic droit sur `RECUPERER-PAGE.bat` → **Exécuter** (ou double-clic) : il copie
-   `chat.html` sur le Bureau ;
-2. double-clic sur `chat.html` sur le Bureau ;
+**Un seul fichier à lancer : `raccourcis/INSTALLER.bat`.** Il pose deux raccourcis sur le
+Bureau — `1 - Tableau de bord` et `2 - IA locale`. Ensuite, un double-clic suffit, et
+`2 - IA locale` télécharge **la page et sa fiche** dans `%LOCALAPPDATA%\TableauDeBord`,
+puis l'ouvre. Détail et dépannage : `raccourcis/LISEZ-MOI.md`.
+
+L'ancien `RECUPERER-PAGE.bat` est **supprimé** : il avait des fins de ligne cassées
+(`\r\r\n`) et ne remplaçait jamais le fichier — deux essais, deux échecs.
+
+1. clic droit sur `raccourcis/INSTALLER.bat` → **Exécuter** (ou double-clic) ;
+2. double-clic sur `2 - IA locale` sur le Bureau ;
 3. en haut à droite doit s'afficher `connecté · 1 modèle(s)`. Si c'est
    `hors service`, Ollama ne tourne pas : lance-le, puis recharge la page.
 
