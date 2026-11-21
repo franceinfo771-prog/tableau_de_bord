@@ -75,8 +75,8 @@ plus cher ailleurs.
 
 - **Notes de recherche** (3/3 · 100 %) — Gardée privée pour l'instant (décidé le 15 novembre 2026).
 - **Les sites** (10/10 · 100 %) — Abouti le 18 novembre 2026. La veille reste datée d'octobre : rafraîchie quand il y aura du nouveau, pas pour tenir un calendrier.
-- **IA locale sur vieux PC — ce qu'elle sait faire** (7/7 · 100 %) — Terminé le 21 novembre 2026. **Il tourne vraiment sans réseau** : Mode Avion allumé, réponse obtenue. Il lit sa fiche, il recopie juste — et il invente dès qu'il faut raisonner. Ne rend pas de service, gardé par curiosité.
-- **Un lecteur local pour la mémoire du site** (5/5 · 100 %) — Terminé le 21 novembre 2026 sur un verdict. **Il recopie, il ne cherche pas — mais il ne ment pas.** Privé de réponse, il dit « je ne sais pas » et demande, au lieu d'inventer. Utile comme carnet de bord hors ligne qui dit ce qu'il sait et s'arrête là ; inutilisable pour retrouver un fait précis dans un texte. Et il **n'est pas** l'IA du site : le site est une page publique sans serveur.
+- **IA locale sur vieux PC — ce qu'elle sait faire** (7/7 · 100 %) — Terminé le 21 novembre 2026. **Il tourne vraiment sans réseau** : Mode Avion allumé, réponse obtenue. Il lit sa fiche et il recopie juste ; il se tait quand la fiche est coupée, et il répond faux dès qu'il faut raisonner. Ne rend pas de service, gardé par curiosité.
+- **Un lecteur local pour la mémoire du site** (5/5 · 100 %) — Terminé le 21 novembre 2026 sur un verdict. **Il recopie ce qu'il lit ; il ne cherche pas dans un texte, et il tire des conclusions fausses de ce qu'il a pourtant lu juste.** Privé de réponse, il dit « je ne sais pas » et demande, au lieu d'inventer. Utile comme carnet de bord hors ligne qui dit ce qu'il sait et s'arrête là ; inutilisable pour retrouver un fait précis dans un texte. Et il **n'est pas** l'IA du site : le site est une page publique sans serveur.
 
 ## Détail des projets
 
@@ -175,23 +175,34 @@ plus cher ailleurs.
 > mesurer, pas pour l'espérer.
 >
 > **Verdict du 21 novembre 2026, en trois temps.** **Il recopie sans se tromper** — « Combien de
-> projets sont terminés ? » → *les trois, nommés, sans une erreur* (le projet venait d'être ajouté).
-> **Il ne ment pas quand il n'a rien** — « Quel est mon prénom ? », mot absent de la fiche →
-> *« Je ne sais pas… tu as oublié de me dire ton prénom ! »*. **Il invente dès qu'il doit raisonner**
-> — « Quel est le point commun entre le vélo et la maquette ? » → il répond *« l'objectif de former
-> une maquette pour le vélo »*, alors que la maquette est une **porte couverte d'absorbants
-> pyramidaux**, faite pour faire joli, sans aucun rapport avec le vélo. Deux projets voisins dans une
-> liste, et il a fabriqué un lien. Avec aplomb, en puces, comme une réponse juste.
+> projets sont terminés ? » → *les trois, nommés, sans une erreur*. **Il ne ment pas quand il n'a
+> rien** — « Quel est mon prénom ? », mot absent de la fiche → *« Je ne sais pas… tu as oublié de me
+> dire ton prénom ! »*. **Et il tire une conclusion fausse de ce qu'il a pourtant lu juste** —
+> « Quel est le point commun entre le vélo et la maquette ? » → *« l'objectif de former une maquette
+> pour le vélo »*, alors que la maquette est une **porte couverte d'absorbants pyramidaux**, sans
+> aucun rapport.
 >
-> La formule qui tient les trois : **il recopie, il ne cherche pas, et il ne raisonne pas.**
+> Le mot « invente » était faux, et il a été corrigé le 21/11 sur remarque de l'humain : ce n'est pas
+> de l'invention, c'est **le fonctionnement d'un modèle de langage** — il relie ce qui se ressemble
+> dans une liste. Ce qui reste vrai : il n'a aucune notion de ce que « le point commun » veut dire, et
+> il répond quand même.
 >
-> Les questions plus anciennes, pour mémoire. *« Quels projets sont terminés ? »* → les chiffres sont justes, le classement
-> est faux, et trois projets manquent. *« Combien d'étapes du vélo ? »* → la fiche dit `4/9` deux
-> lignes plus haut ; il répond **2** et invente l'étiquette « nulle étape ». *« Quel est mon
-> prénom ? »* — mot **absent** de la fiche → **« Je ne sais pas. Tu as oublié de me dire ton
-> prénom ! »**. Aucune invention, et une question à la place. C'est la distinction qui compte :
-> il ne sait pas chercher dans un texte, mais **il ne remplit pas le vide**. Un carnet de bord qui
-> dit ce qu'il sait et s'arrête là vaut mieux qu'un bavard plausible.
+> **Constation gênante, et elle compte pour la suite** : ce sont les deux **meilleures** réponses de la
+> journée qui ont déclenché la fausse. La question du point commun, et le « 3 projets terminés » ajouté
+> au contexte juste avant. Un modèle qui répond juste surcharge le suivant.
+>
+> La formule juste : **il recopie, il ne cherche pas, et il ne raisonne pas.**
+>
+> **Deux questions plus anciennes, pour mémoire** — elles disent la même chose par un autre bout.
+> *« Quels projets sont terminés ? »*, posé avant l'ajout du troisième projet → les chiffres étaient
+> justes, le classement faux, et trois projets manquaient. *« Combien d'étapes du vélo ? »* → la fiche
+> affichait `4/9` deux lignes plus haut ; il a répondu **2** et a qualifié la manette de « nulle
+> étape ». Une étiquette qu'il a fabriquée, mais tirée de ce qu'il lisait : là encore il relie, il
+> n'invente pas.
+>
+> Ce qui reste vrai, et qui compte : **il ne sait pas chercher un fait dans un texte, et il ne
+> remplit pas le vide.** Il s'arrête et demande. Un carnet de bord qui dit ce qu'il sait et s'arrête
+> là vaut mieux qu'un bavard plausible — mais il ne faut rien lui demander de plus.
 >
 > **Ce que ce n'est pas** — et l'humain l'a tranché le 21/11 : *« il ne faut pas l'utiliser pour
 > l'IA interne du site »*. Il a raison, pour trois raisons qui ne dépendent d'aucune opinion. Le
@@ -293,7 +304,11 @@ plus cher ailleurs.
   vrai quand il n'avait rien à dire, faux dès qu'on lui demande de **rapprocher** deux choses. La formule
   juste : **il recopie, il ne cherche pas, et il ne raisonne pas.** Trois réponses le montrent : *« 3
   projets terminés »* — les trois, nommés, juste ; *« Quel est mon prénom ? »* — « je ne sais pas » ;
-  *« le point commun »* — une invention. Chiffres : **37 / 50 (74 %)**, **4 projets terminés**.
+  *« le point commun »* — une conclusion fausse, pas une invention (mot corrigé sur remarque de
+  l'humain : un modèle de langage relie, il n'invente pas). Chiffres : **37 / 50 (74 %)**, **4 projets
+  terminés**. Et une cause trouvée à la fiche tronquée : la ligne du vélo s'arrêtait sur « (… » à cause
+  d'une coupe à 90 caractères ; interrogé sur le vélo, il s'est tu. La troncature est retirée — elle
+  coûtait 80 caractères et faisait perdre un fait.
 
 - **21 novembre 2026 — « je ne sais pas » : le lecteur local se termine sur un verdict** : dernière
   mesure du projet, et la plus importante. Question posée : *« Quel est mon prénom ? »* — le mot

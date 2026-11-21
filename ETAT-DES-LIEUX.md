@@ -160,6 +160,11 @@ Puis il ajoute : *« L'objectif de former une maquette **pour le vélo** »*. **
 est une **porte couverte d'absorbants pyramidaux**, faite pour faire joli — elle n'a aucun rapport avec
 le vélo. Deux projets voisins dans une liste, et il a fabriqué le lien. En puces, avec aplomb.
 
+**« Il invente » était le mauvais mot**, et l'humain l'a relevé : *« pas menti, pas inventé — de
+l'humour même »*. Il a raison. Ce n'est pas de l'invention, c'est **le fonctionnement d'un modèle de
+langage** : il relie ce qui se ressemble, dans une liste. Il n'a aucune notion de ce que « le point
+commun » veut dire, et il répond quand même. Le mot juste est **relier**, pas inventer.
+
 ### Le verdict se resserre — et je dois corriger le mien
 
 J'avais écrit, il y a une heure : **« il ne ment pas »**. C'était vrai quand il n'avait rien à dire.
@@ -169,12 +174,22 @@ J'avais écrit, il y a une heure : **« il ne ment pas »**. C'était vrai quand
 |---|---|---|
 | Combien de projets sont terminés ? | les trois, nommés | **il recopie juste** |
 | Quel est mon prénom ? | « je ne sais pas » | **il ne ment pas quand il n'a rien** |
-| Le point commun vélo / maquette | « une maquette pour le vélo » | **il invente dès qu'il raisonne** |
+| Le point commun vélo / maquette | « une maquette pour le vélo » | **il relie, et conclut faux** |
 
 > **Il recopie, il ne cherche pas, et il ne raisonne pas.**
 
 C'est plus étroit que ce que j'avais écrit, et c'est plus juste. Un verdict trop flatteur serait une
 erreur de plus — exactement ce que ce document est censé empêcher.
+
+**Et la cause, trouvée après coup :** la ligne du vélo dans la fiche s'arrêtait sur `(…` — une coupe à
+90 caractères dans le générateur. Interrogé sur le vélo, il n'a donc pas fini de lire : il s'est tu.
+**Un modèle de 1 B se tait quand la ligne est coupée, et relie faux quand elle est entière.** La
+troncature est retirée (elle coûtait 80 caractères et faisait perdre un fait) ; la fiche passe de
+2 526 à 2 605 caractères.
+
+**Et la constatation gênante qui compte pour la suite :** ce sont les deux **meilleures** réponses de la
+journée qui ont déclenché la fausse. La question du point commun, et le « 3 projets terminés » ajouté
+au contexte juste avant. **Un modèle qui répond juste surcharge le suivant.**
 
 ### Une erreur de ma part, corrigée ici
 

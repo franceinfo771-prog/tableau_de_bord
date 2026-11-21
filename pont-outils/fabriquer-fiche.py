@@ -72,9 +72,10 @@ def resume_projets(donnees):
 
         restantes = [e["t"] for e in etapes if not e.get("ok")]
         if restantes:
+            # Une phrase coupée à 90 caractères avait rendu le modèle muet : interrogé sur
+            # le vélo, sa réponse s'arrêtait exactement sur le « (… » de la fiche. Couper
+            # une étape en pleine information coûte 80 caractères et fait perdre un fait.
             suite = re.sub(r"[`*]", "", restantes[0])
-            if len(suite) > 90:
-                suite = suite[:87] + "…"
             lignes.append(f"  Étape suivante : {suite}")
     return lignes
 
