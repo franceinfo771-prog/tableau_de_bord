@@ -31,7 +31,7 @@ const dom = new JSDOM(PAGE, {
   pretendToBeVisual: true,
   url: 'https://exemple.test/tableau/',
   virtualConsole: vc,
-  beforeParse(window) { window.fetch = async () => ({ ok: false, json: async () => ({}) }); },
+  beforeParse(window) { window.fetch = require('./aide-donnees').fetchDeTest(); },
 });
 
 setTimeout(() => {

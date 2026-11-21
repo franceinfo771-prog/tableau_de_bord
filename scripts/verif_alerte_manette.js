@@ -168,7 +168,12 @@ function chargerAvec(alerteFournie, options) {
     virtualConsole: vc,
     beforeParse(w) {
       w.HTMLElement.prototype.scrollIntoView = function () {};
+      // Depuis le 21/11 la page ne porte plus de copie des données : sans
+      // projets.json, il n'y a pas de carte du vélo où poser l'alerte.
+      const { fetchDeTest } = require('./aide-donnees');
+      const donnees = fetchDeTest();
       w.fetch = async (url) => {
+        if (String(url).includes('projets.json')) return donnees(url);
         if ((options && options.panne) || !String(url).startsWith('alerte-manette.json')) {
           return { ok: false, json: async () => ({}) };
         }
