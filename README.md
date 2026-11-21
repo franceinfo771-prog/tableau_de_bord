@@ -10,21 +10,21 @@ Tableau de bord autonome de suivi de six projets, de la veille et du condensé.
 
 ## État au 19 novembre 2026
 
-**8 projets · 2 terminés · 33 / 49 étapes faites (67 %) · 14 recherches de veille.**
+**8 projets · 2 terminés · 34 / 50 étapes faites (68 %) · 14 recherches de veille.**
 
 > **Ce qui a été fait, réussi ou raté le 21 novembre** (avec le coût des erreurs)
 > est dans [`ETAT-DES-LIEUX.md`](ETAT-DES-LIEUX.md). L'état vivant est dans `ETAT.md`.
 
 | Projet | Avancement | Statut | Prochaine action / Point ouvert |
 |---|---:|---|---|
-| Notes de recherche | 3 / 3 (100 %) | ✅ Terminé | Gardée privée pour l'instant (décidé le 15/11) |
-| Les sites | 10 / 10 (100 %) | ✅ Terminé (abouti le 18/11) | Veille datée d'octobre, rafraîchie quand il y aura du nouveau |
-| Une application de poche | 4 / 6 (67 %) | 🟡 En cours | Installer l'application sur un téléphone réel |
-| Maquette — une porte qui fait joli | 2 / 4 (50 %) | 🟡 En cours | Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ? |
-| Vélo électrique DIY | 4 / 9 (44 %) | 🟣 Commencé | Attendre la manette : AdreaPocket `5F36POIGELTROT`, 13,99 €, **en rupture** (relevé du 19/11, à la main) |
-| Assistants en ligne | 2 / 5 (40 %) | 🟣 Commencé | Les tester sur 2-3 tâches réelles du quotidien |
-| IA locale sur vieux PC — ce qu'elle sait faire | 6 / 8 (75 %) | 🟣 En cours | Il raconte, il ne résume pas — reste à prouver sans réseau |
-| Un lecteur local pour la mémoire du site | 2 / 5 (40 %) | 🟣 En cours | Carnet de bord hors ligne — pas l'IA du site |
+| Notes de recherche | 3 / 3 (100 %) | ✅ Terminé | Décidé le 15 novembre : garder la note privée pour l'instant (publiable plus tard si souhaité). |
+| Les sites | 10 / 10 (100 %) | ✅ Terminé | Abouti le 18 novembre 2026. Le site fait ce qu'il devait faire : il montre où en sont les projets, il garde la trace des recherches |
+| Une application de poche | 4 / 7 (57 %) | 🟣 En cours | Essayer l'application sur un vrai téléphone — le sien, ou un Android prêté |
+| Maquette — une porte qui fait joli | 2 / 4 (50 %) | 🟣 En cours | Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ? |
+| Vélo électrique DIY | 4 / 9 (44 %) | 🟣 En cours | Acheter la manette |
+| Assistants en ligne | 2 / 5 (40 %) | 🟣 En cours | Les tester sur 2-3 tâches réelles du quotidien |
+| IA locale sur vieux PC — ce qu'elle sait faire | 6 / 7 (86 %) | 🟣 En cours | Tourner sans réseau, prouvé |
+| Un lecteur local pour la mémoire du site | 3 / 5 (60 %) | 🟣 En cours | Le modèle avoue qu'il ne sait pas quand la réponse n'est pas dans la fiche |
 
 ## Données : `projets.json`
 

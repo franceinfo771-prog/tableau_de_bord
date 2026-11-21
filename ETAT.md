@@ -61,16 +61,16 @@ plus cher ailleurs.
 
 - **Projets suivis** : 8
 - **Terminés** : 2 (`Notes de recherche`, `Les sites`)
-- **Étapes faites** : 33 / 49 (**67 %**)
+- **Étapes faites** : 34 / 50 (**68 %**)
 - **Veille** : 14 recherches consignées (7 retenues · 7 sans résultat)
 
 ## Où ça en est (l'étape qui débloque la suite, par projet ouvert)
 
-1. **Une application de poche** (4/6 · 67 %) — Installer l'application sur un téléphone réel.
+1. **Une application de poche** (4/7 · 57 %) — Installer l'application sur un téléphone réel.
 2. **Maquette — une porte qui fait joli** (2/4 · 50 %) — Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ?
 3. **Vélo électrique DIY** (4/9 · 44 %) — Attendre la manette : AdreaPocket 5F36POIGELTROT, 13,99 €, **en rupture** au dernier relevé (19/11) — relevé à la main, le robot ne se réveille pas.
 4. **Assistants en ligne** (2/5 · 40 %) — Les tester sur 2-3 tâches réelles du quotidien.
-5. **Un lecteur local pour la mémoire du site** (2/5 · 40 %) — Poser au modèle une question dont la réponse est dans la fiche, puis une qui n'y est pas.
+5. **Un lecteur local pour la mémoire du site** (3/5 · 60 %) — Poser au modèle une question dont la réponse est dans la fiche, puis une qui n'y est pas.
 
 ## Points ouverts (projets terminés)
 
@@ -96,12 +96,13 @@ plus cher ailleurs.
 - [x] Le poste de travail — une page, un double-clic
 - [x] Projet abouti — bilan du 18 novembre 2026 : rien à ajouter, le site tient
 
-### 3. Une application de poche — 4 / 6 (67 %) · En cours
+### 3. Une application de poche — 4 / 7 (57 %) · En cours
 - [x] Les enregistrements faits
 - [x] Le fichier unique assemblé
 - [x] L'application construite, signée et vérifiée
 - [x] Le paquet déposé et sauvegardé en privé
-- [ ] Installer l'application sur un téléphone réel
+- [ ] Essayer l'application sur un vrai téléphone — le sien, ou un Android prêté
+- [ ] Regarder ce que demanderait une version pour iPhone — sans la promettre
 - [ ] Une deuxième copie du paquet, ailleurs
 
 ### 4. Maquette — une porte qui fait joli — 2 / 4 (50 %) · En cours
@@ -154,7 +155,7 @@ plus cher ailleurs.
 ### 8. Un lecteur local pour la mémoire du site — 2 / 5 (40 %) · En cours
 - [x] Une fiche mémoire produite à partir d'`ETAT.md` et de `projets.json` — 2 723 caractères, pas 34 000
 - [x] Une page qui lit un fichier choisi sur le disque, sans rien envoyer — 42 contrôles verts
-- [ ] Le modèle répond à une question dont la réponse est **dans** la fiche
+- [x] Le modèle répond à une question dont la réponse est dans la fiche — mesuré le 21/11 : chiffres justes, classement faux
 - [ ] Le modèle avoue qu'il ne sait pas quand la réponse **n'est pas** dans la fiche
 - [ ] Verdict écrit : la mémoire à la maison sert-elle, oui ou non ?
 
@@ -211,7 +212,7 @@ plus cher ailleurs.
   reste courte et sans secret, la page ne parle qu'à `127.0.0.1`, aucun `chat.html` à la racine).
   Au passage, la fiche a révélé trois erreurs dans `ETAT.md` : le projet IA locale écrit « 6/8 »
   au lieu de **6/7**, et « Détail des **6** projets » alors qu'il y en avait sept. Corrigées.
-  **8 projets · 33 / 49 (67 %)**, et il reste l'essai réel — c'est lui qui donnera le verdict.
+  **8 projets · 33 / 49 (67 %)** à cette date, et il reste l'essai réel — c'est lui qui donnera le verdict.
 
 - **21 novembre 2026 — non, ce ne sera pas l'IA du site** : l'humain conclut de lui-même
   *« donc il ne faut pas l'utiliser pour IA interne du site en fait »*. C'est juste, et c'est
@@ -251,6 +252,31 @@ plus cher ailleurs.
   et les 7 sans résultat, impasses comprises, gardées exprès. `ASSISTANT.md` renvoie désormais à
   cet ordre au lieu de citer les fichiers en vrac. Aucun fichier de plus, aucun contenu
   dupliqué en double : `projets.json` reste la source de vérité, le tableau reste le site.
+
+- **21 novembre 2026 — ce que le petit modèle sait vraiment faire, mesuré** : trois questions posées
+  dans `chat.html`, fiche chargée, aucune choisie pour le flatter. **1.** « Quels projets sont
+  terminés ? » → il cite *Notes de recherche* (3/3) et *Les sites* (10/10), **chiffres justes**, puis
+  range trois projets annoncés « en cours » dans les terminés, dans la même ligne, sans voir la
+  contradiction ; trois projets disparaissent. **2.** « Combien d'étapes du vélo sont faites ? » → la
+  fiche dit `4/9` deux lignes plus haut ; il répond **2**, invente l'étiquette « nulle étape » et
+  conclut par une phrase sans sens. **3.** *(hier)* « Combien d'étapes au total ? » → 23/25 au lieu de
+  33/49. **Diagnostic : il recopie une liste, il ne retrouve pas un fait.** Ce sont deux facultés
+  différentes et il n'en a qu'une — donc **raccourcir la fiche ne réglerait rien**, la réponse était à
+  deux lignes. Étape cochée : *le modèle répond à une question dont la réponse est dans la fiche* ;
+  projet **3/5**. Reste une mesure : **sait-il dire qu'il ne sait pas ?** (« Quel est mon prénom ? »,
+  absent de la fiche). Au passage, une affirmation de l'assistant était fausse et est corrigée ici :
+  « le prix de la manette n'est pas dans la fiche » — **il y est, deux fois** (`13,99 €`), donc ce
+  test ne prouvait rien.
+
+- **21 novembre 2026 — l'application de poche : un essai, pas un achat** : précision de l'humain —
+  « je pensais donner l'application telle quel quand elle sera lisible par android et apple, mon fils
+  possède l'iPhone ». L'étape `Installer l'application sur un téléphone réel` devient **`Essayer
+  l'application sur un vrai téléphone — le sien, ou un Android prêté`** : il n'y a **aucun téléphone
+  à acheter**. Une étape ajoutée : *regarder ce que demanderait une version pour iPhone, sans la
+  promettre* (un paquet Android ne s'installe pas sur un iPhone, une version Apple ne se fabrique pas
+  sur ce poste). L'intention est écrite **comme intention**, dans le point ouvert du projet — gardé à
+  l'œil, pas abandonné. Projet **4/7**. Tableau : **34 / 50 (68 %)** — quatre endroits recopiaient
+  encore `33 / 49`, dont le `README.md` qui annonçait `IA locale 6 / 8` au lieu de `6 / 7`.
 
 - **21 novembre 2026 — quatre documents se contredisaient : un seul état désormais** : peur exprimée
   par l'humain, « j'ai peur des confusions dans les conversations ». Le constat était juste : à la

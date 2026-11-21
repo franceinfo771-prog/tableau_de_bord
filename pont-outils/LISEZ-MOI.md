@@ -34,7 +34,7 @@ le petit modèle ne la lit pas, il la survole.
 ## Les deux questions de l'essai
 
 1. **dans la fiche** — « Combien d'étapes sont faites sur combien ? »
-   → la réponse est `33 / 49 (67 %)` ;
+   → la réponse est le compte affiché par `ETAT.md` (au 21/11 : `34 / 50`) ;
 2. **pas dans la fiche** — « Quel est le prix de la manette ? »
    → la fiche ne le dit pas. S'il répond `13,99 €`, **il a inventé**.
 
