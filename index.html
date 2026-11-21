@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tableau de bord — Mes projets (19 novembre 2026)</title>
-<meta name="description" content="Tableau de bord de huit projets personnels : ce qui est fait, ce qui reste, la prochaine étape de chacun, la veille et le condensé.">
+<title>Tableau de bord — Mes projets</title>
+<meta name="description" content="Tableau de bord de projets personnels : ce qui est fait, ce qui reste, la prochaine étape de chacun, la veille et le condensé.">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet">
 <style>
@@ -1606,14 +1606,32 @@ footer b{color:var(--ink-2)}
   // La date et le nombre de projets ne s'écrivent plus à la main dans la page :
   // c'était « six projets » et « 19 novembre 2026 » alors qu'il y en avait huit,
   // deux jours plus tard. Un chiffre écrit dans le HTML ne se met jamais à jour.
+  // Le titre de l'onglet ne peut pas lire projets.json avant l'exécution du
+  // script : on le recale donc dès que l'état est là, avec la même source que
+  // #date-etat. Un chiffre écrit à la main dans <head> finit toujours périmé.
+  const MOIS = ['janvier','février','mars','avril','mai','juin','juillet',
+                'août','septembre','octobre','novembre','décembre'];
+
+  // une seule mise en forme de date pour #date-etat et pour l'onglet
+  function dateLongue(){
+    if(!state.version) return '';
+    const [an, mois, jour] = String(state.version).split('-');
+    return Number(jour) + ' ' + (MOIS[Number(mois) - 1] || '') + ' ' + an;
+  }
+
+  // Le titre de l'onglet ne peut pas lire projets.json avant l'exécution du
+  // script : on le recale donc dès que l'état est là, avec la même source que
+  // #date-etat. Un chiffre écrit à la main dans <head> finit toujours périmé.
+  function renderTitre(){
+    const base = 'Tableau de bord — Mes projets';
+    const date = dateLongue();
+    document.title = date ? base + ' (' + date + ')' : base;
+  }
+
   function renderEntete(){
+    renderTitre();
     const d = document.getElementById('date-etat');
-    if(d && state.version){
-      const [an, mois, jour] = String(state.version).split('-');
-      const noms = ['janvier','février','mars','avril','mai','juin','juillet',
-                    'août','septembre','octobre','novembre','décembre'];
-      d.textContent = Number(jour) + ' ' + (noms[Number(mois) - 1] || '') + ' ' + an;
-    }
+    if(d && dateLongue()) d.textContent = dateLongue();
     const n = document.getElementById('nb-projets');
     if(n) n.textContent = state.projets.length === 1 ? 'Un projet suivi'
                         : state.projets.length + ' projets suivis';

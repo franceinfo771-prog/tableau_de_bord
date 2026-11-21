@@ -61,9 +61,30 @@ verifie(!fs.existsSync(path.join(RACINE, 'pont-outils', 'RECUPERER-PAGE.bat')),
 const lisezMoiPont = fs.readFileSync(path.join(RACINE, 'pont-outils', 'LISEZ-MOI.md'), 'utf8');
 verifie(/INSTALLER\.bat/.test(lisezMoiPont), 'le LISEZ-MOI du pont-outils renvoie vers INSTALLER.bat');
 
-console.log("== 7. la page sait lire une fiche posée à côté ==");
+console.log("== 7. l'installeur télécharge, il ne copie pas ==");
+// C'est l'échec du 21/11 : INSTALLER.bat copiait des fichiers censés être à
+// côté de lui. Sur le Bureau, il n'y avait personne. Il doit tout apporter.
+const installeur = fs.readFileSync(path.join(DOSSIER, 'INSTALLER.bat'), 'utf8');
+verifie(/Invoke-WebRequest/.test(installeur), 'INSTALLER.bat télécharge les fichiers');
+verifie(!/^\s*copy /m.test(installeur), "INSTALLER.bat ne copie plus de fichiers voisins");
+verifie(/raw\.githubusercontent\.com\/franceinfo771-prog\/tableau_de_bord\/main/.test(installeur),
+        'il télécharge depuis le site, branche main');
+verifie(/1-TABLEAU-DE-BORD\.bat/.test(installeur) && /2-IA-LOCALE\.bat/.test(installeur),
+        'il demande bien les deux fichiers');
+
+console.log("== 8. la page sait lire une fiche posée à côté ==");
 const chat = fs.readFileSync(path.join(RACINE, 'pont-outils', 'chat.html'), 'utf8');
 verifie(/fetch\("fiche\.txt"/.test(chat), 'chat.html tente fiche.txt quand la fiche intégrée est vide');
+
+console.log('== 9. le LISEZ-MOI dit la vérité sur INSTALLER ==');
+// L'ancien texte promettait « un seul fichier à lancer ». C'était faux : il
+// copiait des fichiers qu'il n'apportait pas. Le texte doit dire qu'il télécharge.
+const lisez = fs.readFileSync(path.join(DOSSIER, 'LISEZ-MOI.md'), 'utf8');
+// on ne bannit pas les mots « à côté » : ils servent justement à raconter la leçon.
+// On vérifie que la promesse n'est plus fausse, c'est-à-dire que le téléchargement
+// est annoncé AVANT le double-clic.
+verifie(/télécharge lui-même/.test(lisez), 'le LISEZ-MOI dit que INSTALLER télécharge lui-même');
+verifie(/télécharge/i.test(lisez), 'le LISEZ-MOI dit que INSTALLER télécharge');
 
 console.log('\n' + (echecs.length === 0 ? ok + ' vérifications réussies'
   : ok + ' ok, ' + echecs.length + ' ECHEC(S)'));
