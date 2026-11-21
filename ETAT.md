@@ -60,8 +60,8 @@ plus cher ailleurs.
 ## Vue d'ensemble
 
 - **Projets suivis** : 8
-- **Terminés** : 3 (`Notes de recherche`, `Les sites`, `Un lecteur local pour la mémoire du site`)
-- **Étapes faites** : 36 / 50 (**72 %**)
+- **Terminés** : 4 (`Notes de recherche`, `Les sites`, `IA locale sur vieux PC`, `Un lecteur local pour la mémoire du site`)
+- **Étapes faites** : 37 / 50 (**74 %**)
 - **Veille** : 14 recherches consignées (7 retenues · 7 sans résultat)
 
 ## Où ça en est (l'étape qui débloque la suite, par projet ouvert)
@@ -75,6 +75,7 @@ plus cher ailleurs.
 
 - **Notes de recherche** (3/3 · 100 %) — Gardée privée pour l'instant (décidé le 15 novembre 2026).
 - **Les sites** (10/10 · 100 %) — Abouti le 18 novembre 2026. La veille reste datée d'octobre : rafraîchie quand il y aura du nouveau, pas pour tenir un calendrier.
+- **IA locale sur vieux PC — ce qu'elle sait faire** (7/7 · 100 %) — Terminé le 21 novembre 2026. **Il tourne vraiment sans réseau** : Mode Avion allumé, réponse obtenue. Il lit sa fiche, il recopie juste — et il invente dès qu'il faut raisonner. Ne rend pas de service, gardé par curiosité.
 - **Un lecteur local pour la mémoire du site** (5/5 · 100 %) — Terminé le 21 novembre 2026 sur un verdict. **Il recopie, il ne cherche pas — mais il ne ment pas.** Privé de réponse, il dit « je ne sais pas » et demande, au lieu d'inventer. Utile comme carnet de bord hors ligne qui dit ce qu'il sait et s'arrête là ; inutilisable pour retrouver un fait précis dans un texte. Et il **n'est pas** l'IA du site : le site est une page publique sans serveur.
 
 ## Détail des projets
@@ -136,28 +137,35 @@ plus cher ailleurs.
 > Tailscale, la Freebox et l'imprimante. La raison est aussi dans `IA-LOCALE.md`. **Ne pas reproposer
 > de faire tourner un modèle sur cette machine** sans qu'il le demande.
 
-### 7. IA locale sur vieux PC — ce qu'elle sait faire — 6 / 7 (86 %) · En cours
+### 7. IA locale sur vieux PC — ce qu'elle sait faire — 7 / 7 (100 %) · Terminé
 - [x] Ollama installé sur la vieille machine (chemin ajouté au PATH, version vérifiée)
 - [x] Un modèle de 1 milliard de paramètres téléchargé et chargé — 1,3 Go
 - [x] Conversation en français : phrases correctes, mais réponses vides de contenu
 - [x] Résumé testé sur deux textes (un personnel, un neutre) : refusé dans les deux cas
 - [x] Verdict écrit : fonctionne hors ligne, ne rend pas de service — gardé par curiosité
 - [x] Une tâche réelle réussie — cinq lignes cohérentes sur un chat qui apprend à nager
-- [ ] **Tourner sans réseau, prouvé** — couper le Wi-Fi, poser une question neuve, obtenir une réponse
+- [x] **Tourner sans réseau, prouvé** — Mode Avion **allumé**, question neuve posée, réponse obtenue
 
 > **Ce que la mesure a donné, sans arrondi** : Ollama tourne, parle français, **raconte une histoire
 > de cinq lignes** avec un début et une fin — mais il **refuse ou tronque les résumés**, y compris
 > sur une leçon de photosynthèse. Ce n'est donc pas « inutilisable » : c'est **« il raconte, il ne
-> résume pas »**. Une seule chose reste à prouver : qu'il répond **sans réseau** — c'est l'étape
-> ouverte, et il suffit de couper le Wi-Fi deux minutes. Le verdict du 20/11 (« abandonnée ») reste
-> corrigé : elle a été essayée, et on sait maintenant exactement ce qu'elle sait faire.
+> résume pas »**.
+>
+> **La preuve hors réseau, faite le 21/11 à 16 h 54** : Mode Avion allumé, question neuve —
+> « Quel est le point commun entre le vélo et la maquette ? » — et il a répondu, en recopiant
+> **mot pour mot** une ligne de la fiche (`une porte qui fait joli (2/4 · 50 %) — Regarder l'épreuve…`).
+> Une phrase qu'il ne pouvait pas inventer : **le modèle tourne réellement sans réseau, et il lit
+> sa fiche.** Mais sa réponse au fond était fausse : il a fabriqué un lien (« former une maquette
+> **pour le vélo** ») alors que la maquette est une porte couverte d'absorbants pyramidaux, sans
+> rapport avec le vélo. Le verdict du 20/11 (« abandonnée ») reste corrigé : elle a été essayée,
+> elle tourne, et on sait maintenant exactement ce qu'elle sait faire.
 
 ### 8. Un lecteur local pour la mémoire du site — 5 / 5 (100 %) · Terminé
 - [x] Une fiche mémoire produite à partir d'`ETAT.md` et de `projets.json` — 2 723 caractères, pas 34 000
 - [x] Une page qui lit un fichier choisi sur le disque, sans rien envoyer — 42 contrôles verts
 - [x] Le modèle répond à une question dont la réponse est dans la fiche — mesuré le 21/11 : chiffres justes, classement faux
 - [x] Le modèle avoue qu'il ne sait pas quand la réponse n'est **pas** dans la fiche — « Quel est mon prénom ? » (mot absent de la fiche) → *« Je ne sais pas. Tu as oublié de me dire ton prénom ! »*
-- [x] Verdict écrit : la mémoire à la maison sert-elle, oui ou non ? — **oui pour recopier et s'arrêter, non pour chercher**
+- [x] Verdict écrit : la mémoire à la maison sert-elle, oui ou non ? — **oui pour recopier et s'arrêter ; non pour chercher, et non pour raisonner**
 
 > **L'idée, dite simplement.** Le site a déjà sa mémoire — `projets.json`, `ETAT.md`,
 > `ASSISTANT.md`. Ce qui manque, ce n'est pas la mémoire, c'est **un lecteur qui vit à la maison**.
@@ -166,8 +174,18 @@ plus cher ailleurs.
 > 2 723 caractères, et c'est déjà beaucoup pour lui. Les trois dernières étapes sont là pour le
 > mesurer, pas pour l'espérer.
 >
-> **Verdict du 21 novembre 2026 — il recopie, il ne cherche pas, mais il ne ment pas.** Trois
-> questions ont suffi. *« Quels projets sont terminés ? »* → les chiffres sont justes, le classement
+> **Verdict du 21 novembre 2026, en trois temps.** **Il recopie sans se tromper** — « Combien de
+> projets sont terminés ? » → *les trois, nommés, sans une erreur* (le projet venait d'être ajouté).
+> **Il ne ment pas quand il n'a rien** — « Quel est mon prénom ? », mot absent de la fiche →
+> *« Je ne sais pas… tu as oublié de me dire ton prénom ! »*. **Il invente dès qu'il doit raisonner**
+> — « Quel est le point commun entre le vélo et la maquette ? » → il répond *« l'objectif de former
+> une maquette pour le vélo »*, alors que la maquette est une **porte couverte d'absorbants
+> pyramidaux**, faite pour faire joli, sans aucun rapport avec le vélo. Deux projets voisins dans une
+> liste, et il a fabriqué un lien. Avec aplomb, en puces, comme une réponse juste.
+>
+> La formule qui tient les trois : **il recopie, il ne cherche pas, et il ne raisonne pas.**
+>
+> Les questions plus anciennes, pour mémoire. *« Quels projets sont terminés ? »* → les chiffres sont justes, le classement
 > est faux, et trois projets manquent. *« Combien d'étapes du vélo ? »* → la fiche dit `4/9` deux
 > lignes plus haut ; il répond **2** et invente l'étiquette « nulle étape ». *« Quel est mon
 > prénom ? »* — mot **absent** de la fiche → **« Je ne sais pas. Tu as oublié de me dire ton
@@ -261,6 +279,21 @@ plus cher ailleurs.
   et les 7 sans résultat, impasses comprises, gardées exprès. `ASSISTANT.md` renvoie désormais à
   cet ordre au lieu de citer les fichiers en vrac. Aucun fichier de plus, aucun contenu
   dupliqué en double : `projets.json` reste la source de vérité, le tableau reste le site.
+
+- **21 novembre 2026 — hors réseau, prouvé — et le verdict se resserre** : Mode Avion **allumé**, question
+  jamais posée : *« Quel est le point commun entre le vélo et la maquette ? »*. Il répond en recopiant
+  **mot pour mot** une ligne de la fiche (2/4 · 50 %, « regarder l'épreuve : ça tient ? ça se voit à un
+  mètre ? ça se photographie ? ») — une phrase qu'il ne peut pas inventer. **Le modèle tourne vraiment
+  sans réseau, et il lit sa fiche** : le projet « IA locale sur vieux PC » passe à **7/7 et se termine**.
+  Mais le fond de sa réponse est faux : *« l'objectif de former une maquette **pour le vélo** »* — or la
+  maquette est une **porte couverte d'absorbants pyramidaux**, faite pour faire joli, sans rapport avec
+  le vélo ; et *« le fait de travailler sur un projet en cours »* ne dit rien. Deux projets voisins dans
+  une liste, et il a fabriqué le lien.
+  **Le verdict du lecteur local doit donc être resserré.** Il avait été écrit « il ne ment pas » : c'était
+  vrai quand il n'avait rien à dire, faux dès qu'on lui demande de **rapprocher** deux choses. La formule
+  juste : **il recopie, il ne cherche pas, et il ne raisonne pas.** Trois réponses le montrent : *« 3
+  projets terminés »* — les trois, nommés, juste ; *« Quel est mon prénom ? »* — « je ne sais pas » ;
+  *« le point commun »* — une invention. Chiffres : **37 / 50 (74 %)**, **4 projets terminés**.
 
 - **21 novembre 2026 — « je ne sais pas » : le lecteur local se termine sur un verdict** : dernière
   mesure du projet, et la plus importante. Question posée : *« Quel est mon prénom ? »* — le mot
