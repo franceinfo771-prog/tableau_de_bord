@@ -174,7 +174,7 @@ plus cher ailleurs.
 > 2 723 caractères, et c'est déjà beaucoup pour lui. Les trois dernières étapes sont là pour le
 > mesurer, pas pour l'espérer.
 >
-> **Verdict du 21 novembre 2026, en trois temps.** **Il recopie sans se tromper** — « Combien de
+> **Verdict du 21 novembre 2026, en quatre temps.** **Il recopie sans se tromper** — « Combien de
 > projets sont terminés ? » → *les trois, nommés, sans une erreur*. **Il ne ment pas quand il n'a
 > rien** — « Quel est mon prénom ? », mot absent de la fiche → *« Je ne sais pas… tu as oublié de me
 > dire ton prénom ! »*. **Et il tire une conclusion fausse de ce qu'il a pourtant lu juste** —
@@ -191,7 +191,21 @@ plus cher ailleurs.
 > journée qui ont déclenché la fausse. La question du point commun, et le « 3 projets terminés » ajouté
 > au contexte juste avant. Un modèle qui répond juste surcharge le suivant.
 >
-> La formule juste : **il recopie, il ne cherche pas, et il ne raisonne pas.**
+> **Et il se trompe une fois sur deux sur la même question de forme.** Deux questions identiques,
+> deux projets différents : *« Quelle est la prochaine étape de la **maquette** ? »* → juste, mot pour
+> mot. *« Quelle est la prochaine étape de l'**application de poche** ? »* → faux, et la réponse vient
+> d'un **autre projet** : *« tester ses fonctionnalités sur des tâches réelles du quotidien »* est la
+> ligne des *Assistants en ligne*. **Une réussite sur deux n'est pas une compétence, c'est une
+> loterie.** Il ne voit pas à quel projet appartient une ligne — il attrape les mots qui ressemblent à
+> la question.
+>
+> La formule juste : **il recopie, il ne cherche pas, il ne raisonne pas, et il ne voit pas la
+> structure du document.**
+>
+> **L'usage que l'humain en fait, et il l'a dit simplement** : *« chaque réponse est une hypothèse —
+> il faut juste qu'il s'en sorte »*. Autrement dit : on ne lui demande pas d'avoir raison, on lui
+> demande de proposer, et on vérifie après. C'est le seul usage honnête possible avec ce qu'il sait
+> faire — et c'est un usage qui tient.
 >
 > **Deux questions plus anciennes, pour mémoire** — elles disent la même chose par un autre bout.
 > *« Quels projets sont terminés ? »*, posé avant l'ajout du troisième projet → les chiffres étaient
@@ -290,6 +304,22 @@ plus cher ailleurs.
   et les 7 sans résultat, impasses comprises, gardées exprès. `ASSISTANT.md` renvoie désormais à
   cet ordre au lieu de citer les fichiers en vrac. Aucun fichier de plus, aucun contenu
   dupliqué en double : `projets.json` reste la source de vérité, le tableau reste le site.
+
+- **21 novembre 2026 — la même question, deux fois : une réussite sur deux** : deux questions de forme
+  identique, posées l'une après l'autre, chaque fois après *Nouvelle conversation*. *« Quelle est la
+  prochaine étape de la **maquette** ? »* → **juste, mot pour mot** (`Regarder l'épreuve : ça tient ? ça
+  se voit à un mètre ? ça se photographie ?`). *« Quelle est la prochaine étape de l'**application de
+  poche** ? »* → **faux sur trois points** : il annonce le projet « a déjà terminé » alors que la fiche
+  dit `4/7, en cours` ; il invente l'étape *« tester ses fonctionnalités sur des tâches réelles du
+  quotidien »* ; et cette phrase est en réalité **la ligne d'un autre projet**, *Assistants en ligne*.
+  **Une réussite sur deux n'est pas une compétence, c'est une loterie** : il ne voit pas à quel projet
+  appartient une ligne, il attrape les mots qui ressemblent à la question. Le verdict du lecteur local
+  gagne donc un quatrième temps, et sa formule s'allonge : **il recopie, il ne cherche pas, il ne
+  raisonne pas, et il ne voit pas la structure du document.**
+  **L'humain en tire un usage, et il l'a dit simplement** : *« chaque réponse est une hypothèse — il
+  faut juste qu'il s'en sorte »*. On ne lui demande pas d'avoir raison : on lui demande de proposer, et
+  on vérifie après. C'est le seul usage honnête possible, et il tient — à condition de ne jamais
+  recopier une de ses réponses comme un fait.
 
 - **21 novembre 2026 — hors réseau, prouvé — et le verdict se resserre** : Mode Avion **allumé**, question
   jamais posée : *« Quel est le point commun entre le vélo et la maquette ? »*. Il répond en recopiant
