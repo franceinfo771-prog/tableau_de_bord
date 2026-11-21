@@ -80,7 +80,7 @@ au lieu de les recopier. C'est l'argument le plus fort en faveur du script.
 | Projets suivis | **8** |
 | Terminés | **2** (`Notes de recherche`, `Les sites`) |
 | Étapes faites | **33 / 49 (67 %)** au moment des essais |
-| Étapes faites, depuis | **36 / 50 (72 %)** — 3 projets terminés, le lecteur local à 5/5 |
+| Étapes faites, depuis | **37 / 50 (74 %)** — 4 projets terminés |
 | Veille | 14 recherches — 7 retenues, 7 sans résultat |
 
 **Le pourcentage baisse quand le travail progresse** : ajouter un projet ouvert fait monter
@@ -147,6 +147,49 @@ Le mot *prénom* n'apparaît **nulle part** dans la fiche (vérifié : zéro occ
 qui invente. Pour un carnet de bord, c'est la qualité qui compte le plus.
 
 Le projet **« Un lecteur local pour la mémoire du site » se termine à 5/5** sur ce verdict.
+
+### « Quel est le point commun entre le vélo et la maquette ? » — hors réseau
+
+Mode Avion **allumé** (le panneau le montre, `Activé`), question jamais posée. Sa réponse commence
+par recopier **mot pour mot** une ligne de la fiche : `une porte qui fait joli (2/4 · 50 %) —
+Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ?`
+
+**Cette phrase, il ne peut pas l'inventer. La preuve est faite : il tourne sans réseau, et il lit sa fiche.**
+
+Puis il ajoute : *« L'objectif de former une maquette **pour le vélo** »*. **C'est faux.** La maquette
+est une **porte couverte d'absorbants pyramidaux**, faite pour faire joli — elle n'a aucun rapport avec
+le vélo. Deux projets voisins dans une liste, et il a fabriqué le lien. En puces, avec aplomb.
+
+**« Il invente » était le mauvais mot**, et l'humain l'a relevé : *« pas menti, pas inventé — de
+l'humour même »*. Il a raison. Ce n'est pas de l'invention, c'est **le fonctionnement d'un modèle de
+langage** : il relie ce qui se ressemble, dans une liste. Il n'a aucune notion de ce que « le point
+commun » veut dire, et il répond quand même. Le mot juste est **relier**, pas inventer.
+
+### Le verdict se resserre — et je dois corriger le mien
+
+J'avais écrit, il y a une heure : **« il ne ment pas »**. C'était vrai quand il n'avait rien à dire.
+**C'est faux dès qu'on lui demande de rapprocher deux choses.** Le verdict juste, en trois temps :
+
+| Question | Sa réponse | Verdict |
+|---|---|---|
+| Combien de projets sont terminés ? | les trois, nommés | **il recopie juste** |
+| Quel est mon prénom ? | « je ne sais pas » | **il ne ment pas quand il n'a rien** |
+| Le point commun vélo / maquette | « une maquette pour le vélo » | **il relie, et conclut faux** |
+
+> **Il recopie, il ne cherche pas, et il ne raisonne pas.**
+
+C'est plus étroit que ce que j'avais écrit, et c'est plus juste. Un verdict trop flatteur serait une
+erreur de plus — exactement ce que ce document est censé empêcher.
+
+**Et la cause, trouvée après coup :** la ligne du vélo dans la fiche s'arrêtait sur `(…` — une coupe à
+90 caractères dans le générateur. Interrogé sur le vélo, il n'a donc pas fini de lire : il s'est tu.
+**Un modèle de 1 B se tait quand la ligne est coupée, et relie faux quand elle est entière.** La
+troncature est retirée (elle coûtait 80 caractères et faisait perdre un fait) ; la fiche passe de
+2 526 à 2 605 caractères.
+
+**Et la constatation gênante qui compte pour la suite :** ce sont les deux **meilleures** réponses de la
+journée qui ont déclenché la fausse. La question du point commun, et le « 3 projets terminés » ajouté
+au contexte juste avant. **Un modèle qui répond juste surcharge le suivant.**
 
 ### Une erreur de ma part, corrigée ici
 

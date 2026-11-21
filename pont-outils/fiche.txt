@@ -7,8 +7,8 @@ téléversement de fichier.
 
 CHIFFRES
 - Projets suivis : 8
-- Terminés : 3 (Notes de recherche, Les sites, Un lecteur local pour la mémoire du site)
-- Étapes faites : 36 / 50 (72 %)
+- Terminés : 4 (Notes de recherche, Les sites, IA locale sur vieux PC, Un lecteur local pour la mémoire du site)
+- Étapes faites : 37 / 50 (74 %)
 - Veille : 14 recherches consignées (7 retenues · 7 sans résultat)
 
 PROJETS
@@ -19,11 +19,10 @@ PROJETS
 - Maquette — une porte qui fait joli : 2/4 (50 %), en cours
   Étape suivante : Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ?
 - Vélo électrique DIY : 4/9 (44 %), en cours
-  Étape suivante : Acheter la manette — poignée effet Hall 5 fils : AdreaPocket 5F36POIGELTROT à 13,99 € (…
+  Étape suivante : Acheter la manette — poignée effet Hall 5 fils : AdreaPocket 5F36POIGELTROT à 13,99 € (en rupture au relevé du 20/11 — attendre le retour ; le relevé se fait à la main)
 - Assistants en ligne : 2/5 (40 %), en cours
   Étape suivante : Les tester sur 2-3 tâches réelles du quotidien
-- IA locale sur vieux PC — ce qu'elle sait faire : 6/7 (86 %), en cours
-  Étape suivante : Tourner sans réseau, prouvé — couper le Wi-Fi, poser une question neuve, obtenir une ré…
+- IA locale sur vieux PC — ce qu'elle sait faire : 7/7 (100 %), terminé
 - Un lecteur local pour la mémoire du site : 5/5 (100 %), terminé
 
 CE QUI EST VIVANT
