@@ -211,10 +211,10 @@
     },
     {
       "id": "ia-locale-mesuree",
-      "nom": "IA locale sur vieux PC — mesurée",
+      "nom": "IA locale sur vieux PC — ce qu'elle sait faire",
       "idee": "Installer Ollama sur la vieille machine et mesurer ce qu'elle peut vraiment faire : pas d'illusion, juste un verdict appuyé sur des tests.",
       "fin": "Un verdict écrit, appuyé sur au moins deux tests réels : cette machine sert-elle, ou non ?",
-      "ouvert": "Verdict posé le 21/11 : Ollama fonctionne (français correct), mais il refuse ou tronque les résumés — il ne rend pas de service au quotidien. Gardé comme outil hors ligne de curiosité.",
+      "ouvert": "Le 21/11 : Ollama fonctionne, parle français, raconte une histoire courte — mais il refuse ou tronque les résumés. Reste à prouver qu'il tourne sans réseau (étape 8).",
       "custom": true,
       "etapes": [
         {
@@ -240,6 +240,16 @@
         {
           "t": "Verdict écrit : fonctionne hors ligne, ne rend pas de service — gardé par curiosité",
           "ok": true,
+          "custom": true
+        },
+        {
+          "t": "Une tâche réelle réussie — cinq lignes cohérentes sur un chat qui apprend à nager, alors que le résumé échoue",
+          "ok": true,
+          "custom": true
+        },
+        {
+          "t": "Tourner sans réseau, prouvé — couper le Wi-Fi, poser une question neuve, obtenir une réponse",
+          "ok": false,
           "custom": true
         }
       ]
