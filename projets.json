@@ -153,7 +153,7 @@
           "ok": true
         },
         {
-          "t": "Acheter la manette — poignée effet Hall 5 fils : AdreaPocket 5F36POIGELTROT à 13,99 € (en rupture au 19/11 — attendre le retour, alerte quotidienne en place)",
+          "t": "Acheter la manette — poignée effet Hall 5 fils : AdreaPocket 5F36POIGELTROT à 13,99 € (en rupture au relevé du 20/11 — attendre le retour ; le relevé se fait à la main)",
           "ok": false
         },
         {
@@ -358,7 +358,7 @@
     },
     {
       "t": "Manette du vélo — prix relevés et modèle retenu (19/11)",
-      "s": "Choix : AdreaPocket 5F36POIGELTROT, 13,99 €, 5 fils (rouge +5 V, noir masse, blanc signal sur A0 ; 2 fils « Indicator »), guidon 22 mm (trou 22,2 mm). En rupture — décision d'attendre plutôt que payer plus cher, le vélo ne roulant pas en hiver. Comparatif du jour : MotoQuadElec 20 € (effet Hall 5 fils, stock Normandie, 2ᵉ connecteur = éclairage, pas coupe-circuit) ; MonsterBike62 25,99 € (bouton coupe-circuit, le plus sûr si AdreaPocket ne revient pas) ; Cdiscount 17-22 €. Anciennes réfs de la fiche du 13/11 : Enlybee B0DB6WCQVV 16,39 € (Amazon, indisponible) et Yosoo B08KY8HDN8 16,75 €. Alerte : le robot vérifie chaque matin à 7 h 20 la page AdreaPocket et publie alerte-manette.json — en service depuis le 19/11 à 10 h 47 (premier passage réussi, commit « Alerte manette »). Le jour du retour en stock, une alerte part automatiquement par e-mail.",
+      "s": "Choix : AdreaPocket 5F36POIGELTROT, 13,99 €, 5 fils (rouge +5 V, noir masse, blanc signal sur A0 ; 2 fils « Indicator »), guidon 22 mm (trou 22,2 mm). En rupture — décision d'attendre plutôt que payer plus cher, le vélo ne roulant pas en hiver. Comparatif du jour : MotoQuadElec 20 € (effet Hall 5 fils, stock Normandie, 2ᵉ connecteur = éclairage, pas coupe-circuit) ; MonsterBike62 25,99 € (bouton coupe-circuit, le plus sûr si AdreaPocket ne revient pas) ; Cdiscount 17-22 €. Anciennes réfs de la fiche du 13/11 : Enlybee B0DB6WCQVV 16,39 € (Amazon, indisponible) et Yosoo B08KY8HDN8 16,75 €. Alerte : le robot est écrit et actif sur le dépôt, mais **il ne se réveille pas tout seul** — un seul passage a eu lieu, le 20/11 à 15:29 UTC. Le relevé se fait à la main. Ne jamais annoncer d'alerte automatique.",
       "abouti": true
     }
   ],
