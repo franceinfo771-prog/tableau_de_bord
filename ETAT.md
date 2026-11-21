@@ -374,6 +374,30 @@ plus cher ailleurs.
   cet ordre au lieu de citer les fichiers en vrac. Aucun fichier de plus, aucun contenu
   dupliqué en double : `projets.json` reste la source de vérité, le tableau reste le site.
 
+- **21 novembre 2026 — « 8 projets suivis projets suivis » : le mot en double** : vu par
+  l'humain **sur le site en ligne**, pas dans un contrôle — aucun script ne regardait la
+  phrase du chapô. Le mot était **deux fois** : dans le texte statique (`<span>Les</span>
+  projets suivis`) et dans ce que le script écrivait dans ce span (`8 projets suivis`). Le
+  span porte maintenant la phrase entière, et le texte autour ne fait que la suivre :
+  *« 8 projets suivis, au même endroit. »* · *« Un projet suivi, au même endroit. »*
+  `verif_rendu.js` passe à **18** et gagne la leçon : il vérifie la phrase **au pluriel et au
+  singulier**, et refuse tout mot doublé dans la première phrase.
+- **21 novembre 2026 — `INSTALLER.bat` corrigé, et le titre de l'onglet recollé aux données** :
+  deux corrections nées de ce que l'humain a vu à l'écran.
+  **1.** `INSTALLER.bat` **copiait** `1 - Tableau de bord.bat` et `2 - IA locale.bat` en les
+  croyant posés à côté de lui. Seul sur le Bureau, il n'y avait rien à copier :
+  `Echec pour "1 - Tableau de bord"`. Il les **télécharge maintenant lui-même** depuis
+  `main`, et affiche `pose : <nom>` pour chacun, ou `ECHEC : <nom> — <raison>`. Même leçon
+  que `RECUPERER-PAGE.bat` : **un script ne doit jamais dépendre de fichiers qu'il n'a pas
+  apportés**.
+  **2.** L'onglet du navigateur affichait encore « Mes projets (19 novembre 2026) » : une
+  date écrite à la main dans `<head>`, que personne ne mettait à jour. Le titre est devenu
+  `Tableau de bord — Mes projets`, sans chiffre, et `renderTitre()` y met la date longue
+  **depuis `state.version`** — la même fonction que `#date-etat` (`dateLongue()`). Un seul
+  chiffre, une seule source. `verif_source_unique.js` gagne trois contrôles là-dessus
+  (23 au total).
+  `verif_raccourcis.js` monte à **28** : il vérifie que l'installeur télécharge, qu'il ne
+  copie plus de voisins, et que le LISEZ-MOI ne promet plus le contraire.
 - **21 novembre 2026 — deux raccourcis sur le Bureau, et l'ancien script démonté** : demande de
   l'humain, « un raccourci sur le tableau de bord à jour, un autre sur une IA locale — mes idées en
   place ». Livrés dans `pont-outils/raccourcis/` : **`INSTALLER.bat`** (un seul lancement) pose

@@ -58,6 +58,20 @@ for (const f of ['verif_rendu.js', 'verif_ancre.js', 'verif_copie_commande.js', 
   verifie(/aide-donnees/.test(lire(path.join('scripts', f))), f + ' passe par aide-donnees.js');
 }
 
+console.log("== 5. l'en-tête ne porte plus de chiffre écrit à la main ==");
+{
+  const page = fs.readFileSync(path.join(RACINE, 'index.html'), 'utf8');
+  const tete = page.slice(0, page.indexOf('<style>'));
+  const titre = (tete.match(/<title>([^<]*)<\/title>/) || [])[1] || '';
+  const dateEnDur = /\d{1,2}\s+(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)\s+\d{4}/.test(titre);
+  const nbEnDur = /\b(un|deux|trois|quatre|cinq|six|sept|huit|neuf|dix|\d+)\s+projets?\b/i.test(tete);
+  verifie(!dateEnDur, 'le <title> ne contient pas de date en dur', titre);
+  verifie(!nbEnDur, "l'en-tête ne dit pas « huit projets » en dur");
+  // et le titre doit se recaler depuis l'état, comme #date-etat
+  const js = page.slice(page.indexOf('function renderTitre'));
+  verifie(/document\.title\s*=/.test(js), 'le titre de l\'onglet est recalculé depuis state.version');
+}
+
 console.log('\n' + (echecs.length === 0 ? ok + ' vérifications réussies'
   : ok + ' ok, ' + echecs.length + ' ECHEC(S)'));
 process.exit(echecs.length === 0 ? 0 : 1);

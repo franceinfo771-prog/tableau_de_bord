@@ -1,14 +1,21 @@
 # Deux raccourcis sur le Bureau
 
-Trois fichiers, un seul geste à faire. Après, tu n'as plus jamais à ouvrir PowerShell.
+Un seul fichier à télécharger, un seul à lancer. Après, tu n'as plus jamais à ouvrir PowerShell.
 
 ## Ce qu'il faut faire, une fois
 
-1. Ouvre ce dossier sur le site :
-   `https://github.com/franceinfo771-prog/tableau_de_bord/tree/main/pont-outils/raccourcis`
-2. Clique sur **`INSTALLER.bat`**, puis sur le bouton **`Download raw file`** (la flèche en haut à droite).
-3. Double-clique le fichier téléchargé. Windows demandera peut-être une confirmation : accepte.
-4. C'est fini.
+1. Une ligne dans PowerShell, qui récupère l'installeur :
+   ```powershell
+   Invoke-WebRequest -Uri "https://raw.githubusercontent.com/franceinfo771-prog/tableau_de_bord/main/pont-outils/raccourcis/INSTALLER.bat" -OutFile "$env:USERPROFILE\Desktop\INSTALLER.bat"
+   ```
+2. Double-clique `INSTALLER.bat` sur le Bureau. Il **télécharge lui-même** les deux
+   fichiers et les pose à côté de lui. Windows demandera peut-être une confirmation : accepte.
+3. C'est fini. Tu peux supprimer `INSTALLER.bat` : il a terminé son travail.
+
+> **Leçon du 21 novembre 2026.** La première version de `INSTALLER.bat` ne téléchargeait
+> rien : elle **copiait** des fichiers qu'elle croyait posés à côté d'elle. Seul sur le
+> Bureau, il n'y avait personne à copier — d'où `Echec pour "1 - Tableau de bord"`.
+> Un script ne doit jamais dépendre de fichiers qu'il n'a pas apportés.
 
 ## Ce que tu as sur le Bureau après
 
