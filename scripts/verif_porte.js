@@ -59,7 +59,7 @@ t('un seul lien sortant, et c\'est la porte', (brut.match(/href="http[^"]*"/g)||
 t('index.html reste accessible depuis la page', !!d.querySelector('a[href="index.html"]'));
 
 // le site public ne la référence pas
-for(const f of ['index.html','accueil.html','atelier.html']){
+for(const f of ['index.html','atelier.html','conversation.html']){
   t(`${f} ne renvoie pas vers la porte`, !fs.readFileSync(path.join(RACINE,f),'utf8').includes('conversation.html'));
 }
 

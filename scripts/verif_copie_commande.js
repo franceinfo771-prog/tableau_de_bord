@@ -66,7 +66,10 @@ setTimeout(() => {
     'aucune allusion à la procédure interne');
 
   console.log('== 2 bis. les autres pages publiques non plus ==');
-  for (const f of ['accueil.html', 'atelier.html']) {
+  // conversation.html n'est PAS dans cette liste, et c'est volontaire : cette page
+  // privée existe pour mener à la conversation — Arena est son sujet, pas une fuite
+  // d'outillage. verif_porte.js la contrôle, elle, sur ce point précis.
+  for (const f of ['atelier.html']) {
     const brut = fs.readFileSync(path.join(RACINE, f), 'utf-8');
     const sansScript = brut.replace(/<script[\s\S]*?<\/script>/gi, ' ')
                            .replace(/<style[\s\S]*?<\/style>/gi, ' ');

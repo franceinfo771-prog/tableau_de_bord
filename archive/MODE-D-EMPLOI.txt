@@ -100,7 +100,7 @@ Contenu de l'archive
   MODE-D-EMPLOI.html .... le mode d'emploi complet, imprimable
   LISEZ-MOI.txt ......... le présent texte
   site/ ................. le site tel qu'il est en ligne
-                          (accueil.html, index.html, projets.json, img/)
+                          (index.html, projets.json, img/)
   version-internet/ ..... le site complet (atelier, bulletins)
   technique/ ............ code source, données, consignes, vérifications
   archives/ ............. sauvegardes .json exportées depuis le site

@@ -26,7 +26,7 @@ function verifie(cond, libelle, detail) {
 }
 
 console.log('== 1. aucune copie des données dans les pages ==');
-const pages = ['index.html', 'accueil.html', 'atelier.html', 'conversation.html'];
+const pages = ['index.html', 'atelier.html', 'conversation.html'];
 const marqueurs = [/const DEFAULT_DATA\s*=\s*\{/, /const BASE_DATA\s*=\s*\{\s*\n\s*version:/, /DEFAULT_DATA/];
 for (const page of pages) {
   const texte = lire(page);

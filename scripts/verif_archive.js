@@ -64,7 +64,7 @@ function lister(dossier) {
 
   const attendus = [
     'COMMENCER-ICI.html', 'MODE-D-EMPLOI.html', 'LISEZ-MOI.txt',
-    'site/index.html', 'site/accueil.html', 'site/alerte-manette.json', 'technique/outils/alerte-manette/alerte-manette.yml', 'site/projets.json',
+    'site/index.html', 'site/alerte-manette.json', 'technique/outils/alerte-manette/alerte-manette.yml', 'site/projets.json',
     'site/img/banniere.jpg', 'site/img/velo.jpg',
     'technique/index.html', 'technique/projets.json', 'technique/ASSISTANT.md',
     'technique/ETAT.md', 'technique/scripts/verif_rendu.js',
@@ -88,14 +88,14 @@ function lister(dossier) {
   verifie(liens.length === 0, 'aucun lien symbolique (ouverture Windows)', liens.join(', '));
 
   console.log('\n== 2. copies exactes du dépôt ==');
-  for (const f of ['index.html', 'accueil.html', 'projets.json', 'img/banniere.jpg']) {
+  for (const f of ['index.html', 'projets.json', 'img/banniere.jpg']) {
     const src = path.join(RACINE, f);
     const copie = path.join(racine, 'site', f);
     verifie(fs.existsSync(copie) && fs.readFileSync(src).equals(fs.readFileSync(copie)),
       'site/' + f + ' identique au dépôt');
   }
 
-  console.log('\n== 3. liens internes ==');  const pages = ['COMMENCER-ICI.html', 'MODE-D-EMPLOI.html', 'site/accueil.html', 'site/index.html'];
+  console.log('\n== 3. liens internes ==');  const pages = ['COMMENCER-ICI.html', 'MODE-D-EMPLOI.html', 'site/index.html'];
   const casse = [];
   for (const page of pages) {
     const dossier = path.dirname(path.join(racine, page));
@@ -114,10 +114,10 @@ function lister(dossier) {
   }
   verifie(casse.length === 0, 'tous les liens internes mènent à un fichier existant', casse.slice(0, 4).join(' | '));
 
-  // Le bouton de la page de démarrage doit viser la page d'accueil du site.
+  // Le bouton de la page de démarrage doit viser le tableau.
   const demarrage = fs.readFileSync(path.join(racine, 'COMMENCER-ICI.html'), 'utf8');
-  verifie(/class="gros-bouton"\s+href="site\/accueil\.html"/.test(demarrage),
-    'COMMENCER-ICI.html mène à site/accueil.html');
+  verifie(/class="gros-bouton"\s+href="site\/index\.html"/.test(demarrage),
+    'COMMENCER-ICI.html mène à site/index.html');
 
   console.log('\n== 3 bis. le travail des projets ==');
   const sommaire = path.join(racine, 'travail', 'INDEX.html');
@@ -152,9 +152,20 @@ function lister(dossier) {
   const vc = new VirtualConsole();
   vc.on('jsdomError', e => erreurs.push(String(e.message || e).split('\n')[0]));
   vc.on('error', (...a) => erreurs.push(a.map(String).join(' ').split('\n')[0]));
+  // Le site publié lit projets.json. En file://, jsdom ne sait pas le servir — on
+  // imite donc ce que ferait un serveur, avec le projets.json EMBARQUÉ dans l'archive.
+  const projetsArchive = fs.readFileSync(path.join(racine, 'site', 'projets.json'), 'utf8');
   const dom = new JSDOM(fs.readFileSync(path.join(racine, 'site', 'index.html'), 'utf8'), {
     runScripts: 'dangerously', pretendToBeVisual: true, url, virtualConsole: vc,
-    beforeParse(w) { w.HTMLElement.prototype.scrollIntoView = function () {}; },
+    beforeParse(w) {
+      w.HTMLElement.prototype.scrollIntoView = function () {};
+      w.fetch = (u) => String(u).includes('projets.json')
+        ? Promise.resolve({ ok: true, status: 200,
+            json: () => Promise.resolve(JSON.parse(projetsArchive)),
+            text: () => Promise.resolve(projetsArchive) })
+        : Promise.resolve({ ok: false, status: 404,
+            json: () => Promise.reject(new Error('404')), text: () => Promise.resolve('') });
+    },
   });
   await new Promise(r => setTimeout(r, 900));
   const doc = dom.window.document;
@@ -173,21 +184,24 @@ function lister(dossier) {
   verifie([...doc.querySelectorAll('article.p details')].every(d => d.open), '« Tout déplier » fonctionne');
   dom.window.close();
 
-  // La page d'accueil du site, ouverte en file://, ne doit pas lever d'erreur.
+  // Le tableau, ouvert en file://, ne doit lever aucune erreur — même sans
+  // projets.json lisible : depuis le 21/11 la page n'a plus de copie des données,
+  // elle affiche un bandeau d'avertissement au lieu de chiffres. C'est le
+  // comportement voulu, et l'archive doit le respecter.
   const erreurs2 = [];
   const vc2 = new VirtualConsole();
   vc2.on('jsdomError', e => erreurs2.push(String(e.message || e).split('\n')[0]));
   vc2.on('error', (...a) => erreurs2.push(a.join(' ')));
-  const dom2 = new JSDOM(fs.readFileSync(path.join(racine, 'site', 'accueil.html'), 'utf8'), {
+  const dom2 = new JSDOM(fs.readFileSync(path.join(racine, 'site', 'index.html'), 'utf8'), {
     runScripts: 'dangerously', pretendToBeVisual: true, virtualConsole: vc2,
-    url: 'file://' + path.join(racine, 'site', 'accueil.html'),
+    url: 'file://' + path.join(racine, 'site', 'index.html'),
     beforeParse(w) { w.fetch = () => Promise.reject(new Error('hors ligne')); },
   });
-  await new Promise(r => setTimeout(r, 300));
-  verifie(erreurs2.length === 0, 'accueil : aucune erreur hors ligne', erreurs2.slice(0, 1).join(''));
-  const chiffres = dom2.window.document.querySelectorAll('.chiffres strong');
-  verifie(chiffres.length === 4 && chiffres[2].textContent === faites + ' / ' + etapes.length,
-    'accueil : chiffres justes hors ligne', chiffres[2] ? chiffres[2].textContent : '');
+  await new Promise(r => setTimeout(r, 400));
+  verifie(erreurs2.length === 0, 'le tableau : aucune erreur hors ligne', erreurs2.slice(0, 1).join(''));
+  const bandeau = dom2.window.document.getElementById('donnees-absentes');
+  verifie(!!bandeau && !bandeau.hidden,
+    'le tableau : prévient quand les données manquent, au lieu d’afficher des chiffres périmés');
   dom2.window.close();
 
   fs.rmSync(tmp, { recursive: true, force: true });
