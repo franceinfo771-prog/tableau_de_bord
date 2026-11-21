@@ -169,16 +169,30 @@ function afficherMemoire() {
   boutonOublier.hidden = false;
 }
 
-function chargerFiche() {
+async function chargerFiche() {
   if (FICHE_MEMOIRE && FICHE_MEMOIRE.trim()) {
     memoire = { nom: "fiche du site", texte: FICHE_MEMOIRE.trim() };
     afficherMemoire();
-  } else {
-    memoire = { nom: "", texte: "" };
-    resume.textContent = "mémoire : aucune fiche — lance fabriquer-fiche.py";
-    boutonVoir.hidden = true;
-    boutonOublier.hidden = true;
+    return;
   }
+  // Fiche intégrée vide : on tente celle qui est posée à côté de la page. Le
+  // raccourci « 2 - IA locale » télécharge les deux fichiers ensemble, mais la
+  // fiche peut aussi avoir été régénérée sans refaire la page.
+  try {
+    const r = await fetch("fiche.txt", { cache: "no-store" });
+    if (r.ok) {
+      const texte = (await r.text()).trim();
+      if (texte) {
+        memoire = { nom: "fiche du site", texte };
+        afficherMemoire();
+        return;
+      }
+    }
+  } catch (e) { /* pas de fichier à côté : on le dit plus bas */ }
+  memoire = { nom: "", texte: "" };
+  resume.textContent = "mémoire : aucune fiche — relance « 2 - IA locale »";
+  boutonVoir.hidden = true;
+  boutonOublier.hidden = true;
 }
 
 async function chargerModeles() {
