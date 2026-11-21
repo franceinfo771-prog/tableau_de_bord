@@ -1218,7 +1218,7 @@ footer b{color:var(--ink-2)}
 
   <h1>Tableau de bord</h1>
   <p class="date">État au <b id="date-etat">—</b> · mis à jour à la main · sans compte ni suivi</p>
-  <p class="chapo"><span id="nb-projets">Les</span> projets suivis au même endroit. Pour chacun : où il en est, <b>ce qui le terminera</b>, et l'étape qui débloque la suite. <b>Le tableau suit, il ne commande pas</b> — une étape cochée, c'est une trace, pas une dette. Rien ne se périme ici.</p>
+  <p class="chapo"><span id="nb-projets">Les projets suivis</span>, au même endroit. Pour chacun : où il en est, <b>ce qui le terminera</b>, et l'étape qui débloque la suite. <b>Le tableau suit, il ne commande pas</b> — une étape cochée, c'est une trace, pas une dette. Rien ne se périme ici.</p>
   <div class="resume" id="kpi-grid" aria-label="Chiffres clés"></div>
 
   <div class="chantier">
@@ -1633,6 +1633,8 @@ footer b{color:var(--ink-2)}
     const d = document.getElementById('date-etat');
     if(d && dateLongue()) d.textContent = dateLongue();
     const n = document.getElementById('nb-projets');
+    // la phrase entière est dans le span : le texte autour ne la complète pas,
+    // sinon on recolle un mot en double (« 8 projets suivis projets suivis »).
     if(n) n.textContent = state.projets.length === 1 ? 'Un projet suivi'
                         : state.projets.length + ' projets suivis';
   }

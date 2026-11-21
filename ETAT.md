@@ -374,6 +374,14 @@ plus cher ailleurs.
   cet ordre au lieu de citer les fichiers en vrac. Aucun fichier de plus, aucun contenu
   dupliqué en double : `projets.json` reste la source de vérité, le tableau reste le site.
 
+- **21 novembre 2026 — « 8 projets suivis projets suivis » : le mot en double** : vu par
+  l'humain **sur le site en ligne**, pas dans un contrôle — aucun script ne regardait la
+  phrase du chapô. Le mot était **deux fois** : dans le texte statique (`<span>Les</span>
+  projets suivis`) et dans ce que le script écrivait dans ce span (`8 projets suivis`). Le
+  span porte maintenant la phrase entière, et le texte autour ne fait que la suivre :
+  *« 8 projets suivis, au même endroit. »* · *« Un projet suivi, au même endroit. »*
+  `verif_rendu.js` passe à **18** et gagne la leçon : il vérifie la phrase **au pluriel et au
+  singulier**, et refuse tout mot doublé dans la première phrase.
 - **21 novembre 2026 — `INSTALLER.bat` corrigé, et le titre de l'onglet recollé aux données** :
   deux corrections nées de ce que l'humain a vu à l'écran.
   **1.** `INSTALLER.bat` **copiait** `1 - Tableau de bord.bat` et `2 - IA locale.bat` en les

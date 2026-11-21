@@ -33,10 +33,28 @@ const dom = new JSDOM(page, {
   beforeParse(fenetre){ fenetre.fetch = require('./aide-donnees').fetchDeTest(); },
 });
 
+
+// rend la page avec un jeu de données donné, sans toucher au reste du contrôle
+function rendre(donneesTest) {
+  return new Promise(resolve => {
+    const d = new JSDOM(page, {
+      runScripts: 'dangerously', pretendToBeVisual: true,
+      url: 'https://franceinfo771-prog.github.io/tableau_de_bord/',
+      virtualConsole: new VirtualConsole(),
+      beforeParse(fenetre) {
+        fenetre.fetch = async (u) => String(u).includes('projets.json')
+          ? { ok: true, status: 200, json: async () => donneesTest }
+          : { ok: false, status: 404, json: async () => { throw new Error('404'); } };
+      },
+    });
+    setTimeout(() => resolve(d), 900);
+  });
+}
+
 const doc = dom.window.document;
 
 // on laisse le script de demarrage s'executer
-setTimeout(() => {
+setTimeout(async () => {
   console.log('== 1. erreurs JavaScript ==');
   verifie(erreurs.length === 0, 'aucune erreur JS', erreurs.slice(0, 3).join(' | '));
 
@@ -83,9 +101,31 @@ setTimeout(() => {
   const fait = donnees.projets.reduce((n, p) => n + p.etapes.filter(e => e.ok).length, 0);
   console.log('  etapes : ' + fait + '/' + total + ' (' + Math.round(100 * fait / total) + ' %)');
 
+  // ── contrôle né de ce que l'humain a vu à l'écran le 21/11 :
+  // « 8 projets suivis projets suivis au même endroit ». Le mot était à la fois
+  // dans le texte statique et dans le span que le script remplit. On vérifie que
+  // la phrase est complète avec 8 projets ET avec un seul, et qu'aucun mot ne
+  // double dans la première phrase du chapô.
+  console.log('== 7. le chapô ne bégaie pas ==');
+  const phrase = (d) => (d.window.document.querySelector('.chapo').textContent || '')
+    .replace(/\s+/g, ' ').trim();
+  const complet = phrase(dom);
+  verifie(!/\b(\w+)\s+\1\b/i.test(complet.split('.')[0]),
+          'aucun mot doublé dans la première phrase', complet.slice(0, 60));
+  verifie(/^\d+ projets? suivis?, au même endroit/.test(complet),
+          'la phrase du chapô est complète', complet.slice(0, 60));
   dom.window.close();
-  console.log('');
-  console.log(ko === 0 ? ('  ' + ok + ' verifications passees, aucune erreur')
-                        : ('  ' + ok + ' ok, ' + ko + ' ECHEC(S)'));
+
+  // et avec un seul projet, la phrase doit passer au singulier sans casser
+  const un = JSON.parse(JSON.stringify(donnees));
+  un.projets = [un.projets[0]];
+  const domUn = await rendre(un);
+  const phraseUn = phrase(domUn);
+  verifie(/^Un projet suivi, au même endroit/.test(phraseUn),
+          'un seul projet : la phrase passe au singulier', phraseUn.slice(0, 40));
+  domUn.window.close();
+
+  console.log(ko === 0 ? ('  ' + ok + ' vérifications passées, aucune erreur')
+                       : ('  ' + ok + ' ok, ' + ko + ' ECHEC(S)'));
   process.exit(ko === 0 ? 0 : 1);
 }, 900);
