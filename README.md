@@ -1,6 +1,6 @@
 # Tableau de bord — Mes projets
 
-Tableau de bord autonome de suivi de six projets, de la veille et du condensé.
+Tableau de bord autonome de suivi de huit projets, de la veille et du condensé.
 
 - **Site en ligne** : https://franceinfo771-prog.github.io/tableau_de_bord/
 - **Version texte** : `ETAT.md`
@@ -10,7 +10,7 @@ Tableau de bord autonome de suivi de six projets, de la veille et du condensé.
 
 ## État au 19 novembre 2026
 
-**8 projets · 2 terminés · 34 / 50 étapes faites (68 %) · 14 recherches de veille.**
+**8 projets · 3 terminés · 36 / 50 étapes faites (72 %) · 14 recherches de veille.**
 
 > **Ce qui a été fait, réussi ou raté le 21 novembre** (avec le coût des erreurs)
 > est dans [`ETAT-DES-LIEUX.md`](ETAT-DES-LIEUX.md). L'état vivant est dans `ETAT.md`.
@@ -24,7 +24,7 @@ Tableau de bord autonome de suivi de six projets, de la veille et du condensé.
 | Vélo électrique DIY | 4 / 9 (44 %) | 🟣 En cours | Acheter la manette |
 | Assistants en ligne | 2 / 5 (40 %) | 🟣 En cours | Les tester sur 2-3 tâches réelles du quotidien |
 | IA locale sur vieux PC — ce qu'elle sait faire | 6 / 7 (86 %) | 🟣 En cours | Tourner sans réseau, prouvé |
-| Un lecteur local pour la mémoire du site | 3 / 5 (60 %) | 🟣 En cours | Le modèle avoue qu'il ne sait pas quand la réponse n'est pas dans la fiche |
+| Un lecteur local pour la mémoire du site | 5 / 5 (100 %) | ✅ Terminé | Verdict : il recopie, il ne cherche pas — mais il ne ment pas |
 
 ## Données : `projets.json`
 
