@@ -106,7 +106,7 @@ setTimeout(() => {
 
   console.log('== 4. le site reste utilisable et honnête ==');
   verifie(!!doc.getElementById('btn-corriger'), 'le bouton Corriger est toujours là');
-  verifie(!!doc.getElementById('btn-data'), 'le bouton Sauvegarder est toujours là');
+  verifie(!doc.getElementById('btn-data'), 'le bouton Sauvegarder ne revient pas');
   verifie(!!doc.getElementById('btn-print'), 'le bouton Imprimer est toujours là');
   const NB = JSON.parse(fs.readFileSync(path.join(RACINE,'projets.json'),'utf8')).projets.length;
   verifie(doc.querySelectorAll('.p').length === NB, 'les ' + NB + ' cartes de projets sont là',

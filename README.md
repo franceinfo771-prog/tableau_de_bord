@@ -88,9 +88,10 @@ L'adresse du site affiche **le tableau**, et rien d'autre. Une page de présenta
 ## Fonctionnalités de `index.html`
 
 - **Corriger** (bouton en haut) : écran à gros pavés pour corriger un projet (titre, idée, critère de fin, point ouvert, suppression), les étapes d'un projet (renommer, cocher, monter/descendre, ajouter, supprimer), ajouter un nouveau projet, corriger ou ajouter une fiche de veille.
-- **Sauvegarder** (bouton en haut) : exporte l'état de l'appareil en fichier JSON, l'importe,
-  copie un résumé texte ou réinitialise. **Ne publie rien** — la publication passe par la
-  session de travail (branche → PR → fusion). Vérifié par `scripts/verif_sauvegarde.js`.
+- ~~**Sauvegarder**~~ : **retiré le 21 novembre 2026.** Ce bouton exportait un fichier `.json`
+  que plus personne ne lisait, permettait de le réimporter et de réinitialiser. Il servait quand
+  le site publiait lui-même depuis le navigateur — ce temps est fini, c'est la conversation qui
+  publie. `scripts/verif_sauvegarde.js` vérifie désormais qu'il **ne revient pas**.
 - **Où ça en est** : affiche, pour chaque projet ouvert, l'étape qui débloque la suite. C'est
   un repère, pas une consigne (voir la règle 0 d'`ASSISTANT.md`).
 - **Pas d'IA locale** (décision du 19/11) : le PC de la maison est un vieux PC, il ne peut pas

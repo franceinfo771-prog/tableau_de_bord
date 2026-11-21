@@ -149,7 +149,10 @@ const pause = ms => new Promise(r => setTimeout(r, ms));
       verifie(!!(cb && cb.checked), 'la coche locale est affichée');
       verifie(doc.getElementById('kpi-grid').textContent.includes(KPI(FAITES + 1)),
         'KPI = ' + KPI(FAITES + 1) + ' après la coche locale');
-      verifie(doc.getElementById('savebar').classList.contains('on'), 'barre de sauvegarde visible');
+      // La barre « modifié sur cet appareil » a été retirée le 21/11 avec le bouton
+      // Sauvegarder. Ce qui compte reste vrai : la coche locale est reprise au
+      // démarrage, et les compteurs la comptent.
+      verifie(doc.getElementById('savebar') === null, 'la barre d’export ne revient pas');
     },
   });
 
@@ -187,24 +190,33 @@ const pause = ms => new Promise(r => setTimeout(r, ms));
   });
 
   // 6. Faire puis défaire une coche : l'état de départ revient exactement.
+  //    La réinitialisation passait par le bouton « Sauvegarder », retiré le 21/11.
+  //    Ce qui doit rester vrai est plus simple, et se teste sans lui : cocher
+  //    met les compteurs à jour, décocher les ramène exactement au départ.
   console.log('\n== 6. faire puis défaire une coche ==');
-  await scenario('coche puis réinitialisation', 'https://x.test/tableau_de_bord/', {
+  await scenario('coche puis décoche', 'https://x.test/tableau_de_bord/', {
     avant: (win) => { win.confirm = () => true; },
     apres: async (doc) => {
       const cb = doc.querySelector('#proj-poche input[data-idx="4"]');
-      if (!cb) { verifie(false, 'la case de l\'étape existe'); return; }
+      if (!cb) { verifie(false, "la case de l'étape existe"); return; }
       const depart = cb.checked;
-      cb.click();
+      // La page écoute l'événement « change » et relit l'état de la case : un clic
+      // DOM ne suffit pas, il faut le déclencher après avoir posé la nouvelle valeur.
+      const basculer = () => {
+        const c = doc.querySelector('#proj-poche input[data-idx="4"]');
+        c.checked = !c.checked;
+        c.dispatchEvent(new doc.defaultView.Event('change', { bubbles: true }));
+      };
+      basculer();
       await pause(40);
-      verifie(doc.getElementById('kpi-grid').textContent.includes(KPI(depart ? FAITES - 1 : FAITES + 1)), 'le KPI suit la coche');
-      doc.getElementById('btn-data').click();
+      verifie(doc.getElementById('kpi-grid').textContent.includes(KPI(depart ? FAITES - 1 : FAITES + 1)),
+        'le KPI suit la coche');
+      basculer();
       await pause(40);
-      doc.getElementById('m-reset').click();
-      await pause(80);
-      const apres = doc.querySelector('#proj-poche input[data-idx="4"]').checked;
-      verifie(apres === depart, 'la case revient à son état de départ');
-      verifie(doc.getElementById('kpi-grid').textContent.includes(KPI(FAITES)), 'le KPI revient à ' + KPI(FAITES));
-      verifie(!doc.getElementById('savebar').classList.contains('on'), 'plus rien en attente de publication');
+      const retour = doc.querySelector('#proj-poche input[data-idx="4"]').checked;
+      verifie(retour === depart, "la case revient à son état de départ");
+      verifie(doc.getElementById('kpi-grid').textContent.includes(KPI(FAITES)),
+        'le KPI revient à ' + KPI(FAITES));
     },
   });
 
