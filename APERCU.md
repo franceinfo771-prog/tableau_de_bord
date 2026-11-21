@@ -1,3 +1,11 @@
+> # ⚠ FIGÉ — PHOTO DU 18 NOVEMBRE 2026
+>
+> Ce fichier décrit la démonstration du 18/11 : **6 projets, 25/41**. Ce n'est plus l'état.
+> Il est conservé comme trace d'une étape, pas comme référence.
+>
+> **L'état vivant est dans `ETAT.md`** (8 projets · 33/49). Ce qui a réussi ou raté depuis :
+> `ETAT-DES-LIEUX.md`.
+
 # Ce que vous verrez — et dans quel ordre
 
 Repère pour le soir : à chaque étape, ce qui change à l'écran, et ce que

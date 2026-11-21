@@ -1,3 +1,12 @@
+> # ⚠ PÉRIMÉ — NE PAS LIRE POUR CONNAÎTRE L'ÉTAT
+>
+> Ce fichier décrit la session **du 17 novembre 2026** : il annonce une branche
+> `arena/ebda441b`, un commit `65c6562` et un `main` à `2fda254`. **Tout cela est faux
+> depuis longtemps.** Il est conservé comme **trace** de ce qui a été tenté ce jour-là,
+> pas comme état.
+>
+> **L'état vivant est dans `ETAT.md`.** Ce qui a réussi ou raté depuis : `ETAT-DES-LIEUX.md`.
+
 # Mémoire de session — Passerelle IA locale (PC travail → ASUS maison)
 
 ## État actuel

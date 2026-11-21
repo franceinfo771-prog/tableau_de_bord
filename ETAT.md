@@ -13,7 +13,15 @@
 >    (les 14 recherches et leur verdict).
 >
 > Les règles du projet, les garde-fous et ce qu'il ne faut pas refaire : `ASSISTANT.md`.
-> Huit documents à la racine, mais **un seul chemin** — c'est celui-ci.
+> **Un seul chemin, et ce n'est pas négociable** — les autres documents de la racine sont des
+> traces datées.
+>
+> **Ne pas ouvrir `ARCHIVE-SESSION-17-11.md` ni `APERCU.md` pour connaître l'état** : ce sont des
+> traces, elles disent des choses qui n'étaient vraies qu'à leur date. **Si un document contredit
+> cette page, c'est cette page qui a raison.**
+>
+> Pour savoir **ce qui a déjà été fait, réussi ou raté** (le 21 novembre, avec les erreurs
+> et leur coût) : `ETAT-DES-LIEUX.md`.
 
 Cette section existe pour qu'une nouvelle conversation sur ce dépôt reparte **sans faire
 répéter l'humain**. La lire en entier prend dix secondes.
@@ -107,7 +115,7 @@ plus cher ailleurs.
 - [x] Liste d'achats chiffrée — deux options
 - [x] Règles de câblage ZS-X11H — dont les trois pièges
 - [x] Programme Arduino écrit et relu
-- [ ] Acheter la manette — poignée effet Hall **5 fils** : AdreaPocket 5F36POIGELTROT, 13,99 € (en rupture au 19/11 — attendre le retour, alerte quotidienne en place)
+- [ ] Acheter la manette — poignée effet Hall **5 fils** : AdreaPocket 5F36POIGELTROT, 13,99 € (en rupture au 19/11 — attendre le retour, **relevé à la main**, aucun robot)
 - [ ] Batterie et chargeur : offerts — à récupérer et vérifier
 - [ ] Manette testée sur l'alimentation du labo, essai à vide
 - [ ] Galet profilé et support mécanique
@@ -244,6 +252,34 @@ plus cher ailleurs.
   cet ordre au lieu de citer les fichiers en vrac. Aucun fichier de plus, aucun contenu
   dupliqué en double : `projets.json` reste la source de vérité, le tableau reste le site.
 
+- **21 novembre 2026 — quatre documents se contredisaient : un seul état désormais** : peur exprimée
+  par l'humain, « j'ai peur des confusions dans les conversations ». Le constat était juste : à la
+  racine, `SESSION-ETAT.md` annonçait encore une branche `arena/ebda441b`, un commit `65c6562` et un
+  `main` à `2fda254` — périmé de plusieurs jours ; `IA-LOCALE.md` affirmait l'IA locale abandonnée,
+  démenti le 21 ; `APERCU.md` décrivait la démo du 18/11 (6 projets, 25/41). **Une session neuve
+  pouvait donc travailler sur un état faux, en toute bonne foi.** Quatre corrections : (1) l'encadré
+  d'ordre de lecture d'`ETAT.md` dit maintenant **« si un document contredit cette page, c'est cette
+  page qui a raison »** et interdit nommément les deux traces ; (2) `SESSION-ETAT.md` devient
+  **`ARCHIVE-SESSION-17-11.md`**, avec bandeau `⚠ PÉRIMÉ` ; (3) `IA-LOCALE.md` et `APERCU.md` portent
+  leur bandeau (démenti / figé) et renvoient tous les trois à `ETAT.md` ; (4) `ASSISTANT.md` ouvre sur
+  une **règle d'arbitrage** — `ETAT.md` fait foi, les chiffres se lisent dans `projets.json`, jamais
+  recopiés. Nouveau fichier, **`ETAT-DES-LIEUX.md`** : la photo datée du 21 novembre, qui dit ce qui a
+  marché, ce qui a raté, ce que les erreurs ont coûté et ce qu'on ne refera pas. Nouveau garde-fou,
+  **`scripts/verif_coherence.js` — 35 contrôles** : il vérifie les bandeaux, l'arbitrage, la présence
+  des chiffres réels dans la façade, et **que les erreurs corrigées ne reviennent pas**.
+
+  Au passage, une erreur vivante trouvée et corrigée : le projet « Vélo » annonçait encore qu'une
+  alerte quotidienne était en place, alors que le robot ne se réveille pas ; et le paragraphe du
+  19/11 affirmait, au présent, que le relevé partait chaque matin à 7 h 20 — trois lignes après
+  avoir été démenti. Le paragraphe est repassé au passé. **Une erreur peut donc survivre dans le
+  document même qui la démentit** : c'est la raison d'être de ce contrôle.
+
+  Deux erreurs de ma part, consignées parce qu'elles sont instructives : j'ai daté ce compte rendu
+  « 21 **et 22** novembre » alors que le 22 n'avait pas eu lieu — corrigé ; et mon premier contrôle
+  interdisait le simple mot « 7 h 20 », ce qui aurait obligé à **falsifier le journal daté du 19/11**.
+  Un contrôle doit viser l'affirmation vivante, pas effacer l'histoire. Et quand une règle stricte
+  attrape une phrase légitime, c'est la **phrase** qu'on reformule — pas le contrôle qu'on relâche.
+
 - **20 novembre 2026 — le robot de la manette ne se réveille pas** : test mené jusqu'au bout sur
   demande de l'humain (« on teste ça »). Le workflow est `active`, le fichier complet et valide, le
   cron correct, la page Settings → Actions sans bandeau d'alerte (vérifié sur capture) — et pourtant
@@ -340,7 +376,7 @@ plus cher ailleurs.
   **⚠ DÉMENTI LE 20/11 : il ne tourne PAS chaque matin** — aucune exécution planifiée n'a jamais eu
   lieu (voir le journal du 20/11). Le paragraphe qui suit décrit ce qui a fonctionné le 19/11, pas
   un service en marche.
-  **Annoncé « en service » le 19/11 à 10 h 47 — puis démenti le 20/11.** Le workflow est actif sur `main` (`.github/workflows/alerte-manette.yml`, posé à la main dans l'onglet Actions) et son premier passage a réussi de bout en bout : la fiche a été lue depuis les serveurs GitHub, verdict `rupture`, et le robot a publié lui-même `alerte-manette.json` dans un commit signé « Alerte manette » (`07458b2`). Il tourne désormais chaque matin à 7 h 20 et commite un relevé par jour — l'heure changeant à chaque passage, le fichier diffère toujours : c'est aussi ce qui empêche GitHub d'endormir la tâche planifiée après 60 jours d'inactivité. GitHub refuse à l'application de l'assistant l'écriture dans `.github/workflows/` (droit `workflows` absent) : c'est pourquoi la source versionnée vit dans `outils/alerte-manette/` et que la copie active a été posée à la main. Si l'on doit un jour modifier le robot, modifier la source **puis** la copie active, jamais l'une sans l'autre.
+  **Annoncé « en service » le 19/11 à 10 h 47 — puis démenti le 20/11.** Le workflow est actif sur `main` (`.github/workflows/alerte-manette.yml`, posé à la main dans l'onglet Actions) et son premier passage a réussi de bout en bout : la fiche a été lue depuis les serveurs GitHub, verdict `rupture`, et le robot a publié lui-même `alerte-manette.json` dans un commit signé « Alerte manette » (`07458b2`). Il **devait** tourner chaque matin à 7 h 20 et commiter un relevé par jour : c'était le projet, pas le fait. **Rien de tel n'a eu lieu** — une seule exécution planifiée, le 20/11 à 15 h 29 UTC, et le relevé se fait à la main depuis. Le principe retenu à l'époque (un fichier différent à chaque passage, pour que GitHub n'endorme pas la tâche après 60 jours) reste juste dans le mécanisme, pas dans le service. GitHub refuse à l'application de l'assistant l'écriture dans `.github/workflows/` (droit `workflows` absent) : c'est pourquoi la source versionnée vit dans `outils/alerte-manette/` et que la copie active a été posée à la main. Si l'on doit un jour modifier le robot, modifier la source **puis** la copie active, jamais l'une sans l'autre.
 
 - **18 novembre 2026 — archive avec mode d'emploi** : `scripts/construire_archive.py` fabrique `tableau-de-bord-2026-11-18.zip` (3 Mo), qui se rouvre sans réseau dans des années : page de démarrage, mode d'emploi imprimable (HTML + texte), site complet, code source, sauvegarde `.json`. Vérifié par `scripts/verif_archive.js` : 29 contrôles, dont l'ouverture réelle du site en `file://` (6 projets, 25/41, 13 veilles, aucune erreur).
 - **18 novembre 2026 — préparation de la démonstration** : la barre du haut ne mange plus la moitié d'un écran de téléphone (liens et actions en deux rangées qui glissent du doigt, sous 560 px). Un clic sur un projet ne casse plus si le navigateur refuse de changer l'adresse (page ouverte par double-clic, page affichée dans un cadre). Deux cas ajoutés aux vérifications : vider puis refaire une coche ramène exactement l'état de départ.

@@ -12,6 +12,9 @@ Tableau de bord autonome de suivi de six projets, de la veille et du condensé.
 
 **8 projets · 2 terminés · 33 / 49 étapes faites (67 %) · 14 recherches de veille.**
 
+> **Ce qui a été fait, réussi ou raté le 21 novembre** (avec le coût des erreurs)
+> est dans [`ETAT-DES-LIEUX.md`](ETAT-DES-LIEUX.md). L'état vivant est dans `ETAT.md`.
+
 | Projet | Avancement | Statut | Prochaine action / Point ouvert |
 |---|---:|---|---|
 | Notes de recherche | 3 / 3 (100 %) | ✅ Terminé | Gardée privée pour l'instant (décidé le 15/11) |
@@ -131,6 +134,7 @@ node scripts/verif_porte.js        # porte privée : un seul lien sortant, régl
 node scripts/verif_ia_locale.js    # l'IA locale reste arrêtée : ni rubrique, ni chat, ni modèle
 node scripts/verif_archive.js      # archive livrée : contenu, liens, ouverture hors ligne
 node scripts/verif_copie_commande.js  # façade : aucune mention d'Arena/GitHub/clé ne doit s'afficher
+node scripts/verif_coherence.js     # documents : un seul état de référence, les traces sont étiquetées
 python3 scripts/sync_donnees_embedded.py --verifier
 ```
 
