@@ -176,7 +176,30 @@ J'avais écrit, il y a une heure : **« il ne ment pas »**. C'était vrai quand
 | Quel est mon prénom ? | « je ne sais pas » | **il ne ment pas quand il n'a rien** |
 | Le point commun vélo / maquette | « une maquette pour le vélo » | **il relie, et conclut faux** |
 
-> **Il recopie, il ne cherche pas, et il ne raisonne pas.**
+> **Il recopie, il ne cherche pas, il ne raisonne pas, et il ne voit pas la structure du document.**
+
+### La même question, deux fois — et une réussite sur deux
+
+Test décisif, fait après la phrase ci-dessus, parce qu'une réussite unique ne prouve rien. Deux
+questions de forme identique, chacune après *Nouvelle conversation* :
+
+| Question | Réponse | Verdict |
+|---|---|---|
+| Prochaine étape de la **maquette** ? | `Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ?` | **mot pour mot** |
+| Prochaine étape de l'**application de poche** ? | « l'application de poche a déjà terminé », puis une étape inventée, prise dans la fiche des **Assistants en ligne** | **faux sur trois points** |
+
+**Une réussite sur deux n'est pas une compétence, c'est une loterie.** La différence avec le vélo et
+la maquette n'est donc pas la difficulté de la question — c'est que dans un cas il tombe sur la bonne
+ligne, et dans l'autre non. **Il ne voit pas à quel projet appartient une ligne.**
+
+### L'usage, tel que tu l'as dit
+
+> « Chaque réponse est une hypothèse — il faut juste qu'il s'en sorte. »
+
+C'est le seul usage honnête possible, et il tient. On ne lui demande pas d'avoir raison : on lui
+demande de **proposer**, et on vérifie après. Ce qui reste interdit, et c'est la même règle qu'au
+début : **ne jamais recopier une de ses réponses comme un fait**, et ne rien lui demander qui engage
+la santé, l'argent ou le droit.
 
 C'est plus étroit que ce que j'avais écrit, et c'est plus juste. Un verdict trop flatteur serait une
 erreur de plus — exactement ce que ce document est censé empêcher.
