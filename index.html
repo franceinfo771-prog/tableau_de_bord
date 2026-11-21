@@ -1576,7 +1576,7 @@ footer b{color:var(--ink-2)}
           { t: 'Liste d\'achats chiffrée — deux options', ok: true },
           { t: 'Règles de câblage ZS-X11H — dont les trois pièges', ok: true },
           { t: 'Programme Arduino écrit et relu', ok: true },
-          { t: 'Acheter la manette — poignée effet Hall 5 fils : AdreaPocket 5F36POIGELTROT à 13,99 € (en rupture au 19/11 — attendre le retour, alerte quotidienne en place)', ok: false },
+          { t: 'Acheter la manette — poignée effet Hall 5 fils : AdreaPocket 5F36POIGELTROT à 13,99 € (en rupture au relevé du 20/11 — attendre le retour ; le relevé se fait à la main)', ok: false },
           { t: 'Batterie et chargeur : offerts — à récupérer et vérifier', ok: false },
           { t: 'Manette testée sur l\'alimentation du labo, essai à vide', ok: false },
           { t: 'Galet profilé et support mécanique', ok: false },
@@ -1614,6 +1614,21 @@ footer b{color:var(--ink-2)}
           { t: 'Une tâche réelle réussie — cinq lignes cohérentes sur un chat qui apprend à nager, alors que le résumé échoue', ok: true, custom: true },
           { t: 'Tourner sans réseau, prouvé — couper le Wi-Fi, poser une question neuve, obtenir une réponse', ok: false, custom: true }
         ]
+      },
+      {
+        id: 'memoire-maison',
+        nom: 'Un lecteur local pour la mémoire du site',
+        idee: 'Un modèle local ne peut pas être l\'IA du site : le site est une page publique, sans serveur, et un 1B ne lit ni ne résume. Mais il peut lire la fiche du site, chez soi, hors ligne — à condition de savoir si son verdict est fiable.',
+        fin: 'Une page qui lit la fiche du site, chez soi, et un verdict écrit : le petit modèle s\'en sert, ou il brode.',
+        ouvert: 'La fiche et la page sont écrites et contrôlées. Il reste l\'essai réel : une question dont la réponse est dans la fiche, une dont la réponse n\'y est pas. Et une limite assumée : ce lecteur est un carnet de bord hors ligne, pas l\'IA du site.',
+        custom: true,
+        etapes: [
+          { t: 'Une fiche mémoire produite à partir d\'ETAT.md et de projets.json — 2 443 caractères, pas 34 000', ok: true, custom: true },
+          { t: 'Une page qui lit un fichier choisi sur le disque, sans rien envoyer — 42 contrôles verts', ok: true, custom: true },
+          { t: 'Le modèle répond à une question dont la réponse est **dans** la fiche', ok: false, custom: true },
+          { t: 'Le modèle avoue qu\'il ne sait pas quand la réponse **n\'est pas** dans la fiche', ok: false, custom: true },
+          { t: 'Verdict écrit : la mémoire à la maison sert-elle, oui ou non ?', ok: false, custom: true }
+        ]
       }
     ],
     veille: [
@@ -1630,7 +1645,7 @@ footer b{color:var(--ink-2)}
       { t: 'Les gains d\'un vélo à friction', s: 'Rendement 60-80 % contre 85-92 % pour un moyeu. Pneu usé en 500-1 500 km contre 2 000-5 000. Perte de 20 à 40 % d\'autonomie. Convergent sur plusieurs sources techniques indépendantes.', abouti: true },
       { t: 'L\'absorption réelle des mousses pyramidales — sans importance', s: 'Recherche faite, puis mise hors du projet : la maquette est un objet d\'aspect, pas un dispositif. NRC 0,70 à 1,00 selon l\'épaisseur ; 0,18 à 0,24 à 125 Hz. Gardé pour mémoire, pas pour décider.', abouti: false },
       { t: 'Une application Android pour un fichier hors ligne', s: 'Trois outils officiels suffisent : aapt2, d8, apksigner. Aucun magasin, aucun compte développeur, aucun frais. L\'application a été construite et signée v1+v2+v3.', abouti: true },
-      { t: 'Manette du vélo — prix relevés et modèle retenu (19/11)', s: 'Choix : AdreaPocket 5F36POIGELTROT, 13,99 €, 5 fils (rouge +5 V, noir masse, blanc signal sur A0 ; 2 fils « Indicator »), guidon 22 mm (trou 22,2 mm). En rupture — décision d\'attendre plutôt que payer plus cher, le vélo ne roulant pas en hiver. Comparatif du jour : MotoQuadElec 20 € (effet Hall 5 fils, stock Normandie, 2ᵉ connecteur = éclairage, pas coupe-circuit) ; MonsterBike62 25,99 € (bouton coupe-circuit, le plus sûr si AdreaPocket ne revient pas) ; Cdiscount 17-22 €. Anciennes réfs de la fiche du 13/11 : Enlybee B0DB6WCQVV 16,39 € (Amazon, indisponible) et Yosoo B08KY8HDN8 16,75 €. Alerte : le robot vérifie chaque matin à 7 h 20 la page AdreaPocket et publie alerte-manette.json — en service depuis le 19/11 à 10 h 47 (premier passage réussi, commit « Alerte manette »). Le jour du retour en stock, une alerte part automatiquement par e-mail.', abouti: true }
+      { t: 'Manette du vélo — prix relevés et modèle retenu (19/11)', s: 'Choix : AdreaPocket 5F36POIGELTROT, 13,99 €, 5 fils (rouge +5 V, noir masse, blanc signal sur A0 ; 2 fils « Indicator »), guidon 22 mm (trou 22,2 mm). En rupture — décision d\'attendre plutôt que payer plus cher, le vélo ne roulant pas en hiver. Comparatif du jour : MotoQuadElec 20 € (effet Hall 5 fils, stock Normandie, 2ᵉ connecteur = éclairage, pas coupe-circuit) ; MonsterBike62 25,99 € (bouton coupe-circuit, le plus sûr si AdreaPocket ne revient pas) ; Cdiscount 17-22 €. Anciennes réfs de la fiche du 13/11 : Enlybee B0DB6WCQVV 16,39 € (Amazon, indisponible) et Yosoo B08KY8HDN8 16,75 €. Alerte : le robot est écrit et actif sur le dépôt, mais **il ne se réveille pas tout seul** — un seul passage a eu lieu, le 20/11 à 15:29 UTC. Le relevé se fait à la main. Ne jamais annoncer d\'alerte automatique.', abouti: true }
     ],
     condense: [
       ['Trois notes sont devenues une.', '24 854 caractères au lieu de 59 195 — la fusion n\'a rien perdu, sauf ce qui était faux.'],
@@ -1887,9 +1902,10 @@ footer b{color:var(--ink-2)}
     'ia-decouverte':'img/ia.jpg',
   };
 
-  //  Alerte « manette du vélo » — lue dans alerte-manette.json (écrit chaque matin
-  //  par le robot d'alerte, outils/alerte-manette/). Si le fichier manque ou est
-  //  illisible, on n'affiche RIEN : pas de faux voyant.
+  //  Alerte « manette du vélo » — lue dans alerte-manette.json (écrit par le
+  //  robot d'alerte, outils/alerte-manette/, **quand il se réveille** : il ne
+  //  tourne pas tout seul, le relevé est le plus souvent manuel). Si le fichier
+  //  manque ou est illisible, on n'affiche RIEN : pas de faux voyant.
   let ALERTE_MANETTE = null;
   async function chargerAlerteManette(){
     try{

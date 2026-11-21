@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<title>Dialogue local — avec la mémoire du site</title>
+<style>
+  :root{
+    --fond:#12151b;--carte:#1b2029;--bord:#2b3240;--texte:#e6e9ef;--doux:#9aa4b6;
+    --accent:#6ea8fe;--vert:#4ec98f;--rouge:#ff8a8a;--sombre:#0f1217;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{background:var(--fond);color:var(--texte);font:17px/1.55 system-ui,"Segoe UI",Roboto,sans-serif;display:flex;flex-direction:column}
+  header{padding:10px 16px;border-bottom:1px solid var(--bord);display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--sombre)}
+  header b{font-size:16px;white-space:nowrap}
+  select,button{font:inherit;background:var(--carte);color:var(--texte);border:1px solid var(--bord);border-radius:9px;padding:7px 11px}
+  button{cursor:pointer}
+  button:hover{border-color:var(--accent)}
+  button:disabled{opacity:.45;cursor:default;border-color:var(--bord)}
+  #etat{margin-left:auto;font-size:14px;color:var(--doux);white-space:nowrap}
+  #memoire{font-size:14px;color:var(--doux);padding:9px 16px;background:#151a22;border-bottom:1px solid var(--bord);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  #memoire strong{color:var(--vert);font-weight:600}
+  #memoire .avert{color:#ffd08a}
+  #fil{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+  .msg{max-width:min(820px,86%);padding:11px 14px;border-radius:14px;white-space:pre-wrap;overflow-wrap:anywhere}
+  .moi{align-self:flex-end;background:#1f3555;border:1px solid #2c4a75}
+  .lui{align-self:flex-start;background:var(--carte);border:1px solid var(--bord)}
+  .attente{color:var(--doux);font-style:italic}
+  .note{align-self:center;font-size:14px;color:var(--doux);border:1px dashed var(--bord);border-radius:10px;padding:8px 12px;max-width:90%}
+  .erreur{align-self:flex-start;background:#3a1d1d;border:1px solid #6b2b2b;color:#ffd7d7;padding:11px 14px;border-radius:12px;max-width:86%}
+  .pied{border-top:1px solid var(--bord);padding:10px;display:flex;gap:10px;align-items:flex-end;background:var(--sombre)}
+  textarea{flex:1;resize:none;min-height:52px;max-height:220px;background:var(--carte);color:var(--texte);border:1px solid var(--bord);border-radius:11px;padding:11px;font:inherit}
+  textarea:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .aide{font-size:13px;color:var(--doux);padding:0 16px 8px;background:var(--sombre)}
+  @media (max-width:640px){#etat{margin-left:0;width:100%}}
+</style>
+</head>
+<body>
+<header>
+  <b>Dialogue local</b>
+  <select id="modele" title="modèle"></select>
+  <button id="fichier" title="Choisir un fichier .md ou .txt sur cet ordinateur">Ouvrir un fichier</button>
+  <button id="neuf" title="Effacer la conversation et la mémoire chargée">Nouvelle conversation</button>
+  <span id="etat">connexion…</span>
+</header>
+<input type="file" id="choix" accept=".md,.txt,.json,text/plain" hidden>
+
+<div id="memoire">
+  <span id="resume">mémoire : chargement…</span>
+  <button id="voir" hidden>Voir la fiche</button>
+  <button id="oublier" hidden>Oublier le fichier</button>
+</div>
+
+<div id="fil"></div>
+<div class="aide">Entrée envoie · Maj+Entrée va à la ligne · rien ne sort de cet ordinateur</div>
+<div class="pied">
+  <textarea id="saisie" placeholder="Écris ton message, puis Entrée…" autofocus></textarea>
+  <button id="envoi">Envoyer</button>
+</div>
+
+<script>
+/* FICHE-MEMOIRE:DEBUT */
+const FICHE_MEMOIRE = `FICHE MÉMOIRE DU SITE — tableau de bord personnel
+
+Ce que c'est : un tableau de bord public, mais non indexé, qui suit des
+projets personnels. Les données vivent dans projets.json ; ce fichier
+les résume. Ce site se publie par commit sur main, jamais par
+téléversement de fichier.
+
+CHIFFRES
+- Projets suivis : 8
+- Terminés : 2 (Notes de recherche, Les sites)
+- Étapes faites : 33 / 49 (67 %)
+- Veille : 14 recherches consignées (7 retenues · 7 sans résultat)
+
+PROJETS
+- Notes de recherche : 3/3 (100 %), terminé
+- Les sites : 10/10 (100 %), terminé
+- Une application de poche : 4/6 (67 %), en cours
+  Étape suivante : Installer l'application sur un téléphone réel
+- Maquette — une porte qui fait joli : 2/4 (50 %), en cours
+  Étape suivante : Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ?
+- Vélo électrique DIY : 4/9 (44 %), en cours
+  Étape suivante : Acheter la manette — poignée effet Hall 5 fils : AdreaPocket 5F36POIGELTROT à 13,99 € (…
+- Assistants en ligne : 2/5 (40 %), en cours
+  Étape suivante : Les tester sur 2-3 tâches réelles du quotidien
+- IA locale sur vieux PC — ce qu'elle sait faire : 6/7 (86 %), en cours
+  Étape suivante : Tourner sans réseau, prouvé — couper le Wi-Fi, poser une question neuve, obtenir une ré…
+- Un lecteur local pour la mémoire du site : 2/5 (40 %), en cours
+  Étape suivante : Le modèle répond à une question dont la réponse est dans la fiche
+
+CE QUI EST VIVANT
+1. Une application de poche (4/6 · 67 %) — Installer l'application sur un téléphone réel.
+2. Maquette — une porte qui fait joli (2/4 · 50 %) — Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ?
+3. Vélo électrique DIY (4/9 · 44 %) — Attendre la manette : AdreaPocket 5F36POIGELTROT, 13,99 €, en rupture au dernier relevé (19/11) — relevé à la main, le robot ne se réveille pas.
+4. Assistants en ligne (2/5 · 40 %) — Les tester sur 2-3 tâches réelles du quotidien.
+5. Un lecteur local pour la mémoire du site (2/5 · 40 %) — Poser au modèle une question dont la réponse est dans la fiche, puis une qui n'y est pas.
+
+RÈGLES DE TRAVAIL
+- Tutoiement, une seule chose à la fois, ton doux et direct.
+- Aucune clé, aucun service extérieur, aucune IA dans le site.
+- Un projet est terminé quand toutes ses étapes sont cochées.
+- Le site est un service, pas un devoir : jamais « il faut ».
+- Les chiffres ne se recopient pas à la main : ils se déduisent.
+
+CE QU'IL NE FAUT PAS CROIRE
+- L'IA locale (Ollama, modèle 1B) tourne sur la machine, mais elle
+  ne résume pas. Elle raconte. Elle ne connaît rien du site
+  au-delà de cette fiche, et elle invente si on lui demande
+  autre chose.
+- Les infos de ce site ne sont pas sensibles : ce sont des
+  activités personnelles. Ce n'est pas un secret.`;
+/* FICHE-MEMOIRE:FIN */
+
+const API = "http://127.0.0.1:11434";
+const PLAFOND_CONFORT = 6000;   // au-delà, le petit modèle perd le fil
+const fil = document.getElementById("fil");
+const saisie = document.getElementById("saisie");
+const etat = document.getElementById("etat");
+const modele = document.getElementById("modele");
+const resume = document.getElementById("resume");
+const boutonVoir = document.getElementById("voir");
+const boutonOublier = document.getElementById("oublier");
+
+let historique = [];
+let memoire = { nom: "", texte: "" };
+
+function bulle(role, texte) {
+  const d = document.createElement("div");
+  d.className = "msg " + (role === "user" ? "moi" : "lui");
+  d.textContent = texte;
+  fil.appendChild(d);
+  fil.scrollTop = fil.scrollHeight;
+  return d;
+}
+function note(texte) {
+  const d = document.createElement("div");
+  d.className = "note";
+  d.textContent = texte;
+  fil.appendChild(d);
+  fil.scrollTop = fil.scrollHeight;
+}
+function panne(texte) {
+  const d = document.createElement("div");
+  d.className = "erreur";
+  d.textContent = texte;
+  fil.appendChild(d);
+  fil.scrollTop = fil.scrollHeight;
+}
+function humain(n) {
+  return n >= 1000 ? (n / 1000).toFixed(1).replace(".0", "") + "k" : String(n);
+}
+
+function afficherMemoire() {
+  if (!memoire.texte) {
+    resume.textContent = "mémoire : aucune";
+    boutonVoir.hidden = true;
+    boutonOublier.hidden = true;
+    return;
+  }
+  const trop = memoire.texte.length > PLAFOND_CONFORT;
+  resume.innerHTML = "";
+  const fort = document.createElement("strong");
+  fort.textContent = "mémoire chargée";
+  resume.appendChild(fort);
+  resume.appendChild(document.createTextNode(
+    " · " + memoire.nom + " · " + humain(memoire.texte.length) + " caractères" +
+    (trop ? " · c'est long : le modèle risque de perdre le fil" : "")
+  ));
+  boutonVoir.hidden = false;
+  boutonOublier.hidden = false;
+}
+
+function chargerFiche() {
+  if (FICHE_MEMOIRE && FICHE_MEMOIRE.trim()) {
+    memoire = { nom: "fiche du site", texte: FICHE_MEMOIRE.trim() };
+    afficherMemoire();
+  } else {
+    memoire = { nom: "", texte: "" };
+    resume.textContent = "mémoire : aucune fiche — lance fabriquer-fiche.py";
+    boutonVoir.hidden = true;
+    boutonOublier.hidden = true;
+  }
+}
+
+async function chargerModeles() {
+  if (typeof fetch !== "function") {
+    etat.textContent = "navigateur sans réseau local";
+    return;
+  }
+  try {
+    const r = await fetch(API + "/api/tags");
+    if (!r.ok) throw new Error("statut " + r.status);
+    const j = await r.json();
+    modele.innerHTML = "";
+    for (const m of j.models) {
+      const o = document.createElement("option");
+      o.value = m.name;
+      o.textContent = m.name;
+      modele.appendChild(o);
+    }
+    if ([...modele.options].some(o => o.value === "llama3.2:1b")) modele.value = "llama3.2:1b";
+    etat.textContent = "connecté · " + j.models.length + " modèle(s)";
+  } catch (e) {
+    etat.textContent = "hors service";
+    panne("Ollama ne répond pas. Vérifie qu'il tourne (le lama dans la barre des tâches), puis recharge cette page.");
+  }
+}
+
+function messages() {
+  const m = [];
+  if (memoire.texte) {
+    m.push({
+      role: "system",
+      content:
+        "Tu disposes de la mémoire d'un site personnel. Réponds uniquement à partir d'elle. " +
+        "Si la réponse n'y est pas, dis clairement que tu ne sais pas : n'invente rien.\n\n" +
+        memoire.texte
+    });
+  } else if (historique.length === 0) {
+    m.push({
+      role: "system",
+      content: "Tu n'as aucune mémoire : réponds en le disant, et n'invente aucun fait précis."
+    });
+  }
+  return m.concat(historique);
+}
+
+async function envoyer() {
+  const texte = saisie.value.trim();
+  if (!texte) return;
+  saisie.value = "";
+  saisie.style.height = "auto";
+  bulle("user", texte);
+  historique.push({ role: "user", content: texte });
+
+  const cible = bulle("assistant", "…");
+  cible.classList.add("attente");
+  let reponse = "";
+  try {
+    const r = await fetch(API + "/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ model: modele.value, messages: messages(), stream: true })
+    });
+    if (!r.ok) throw new Error("statut " + r.status);
+    const lecteur = r.body.getReader();
+    const dec = new TextDecoder();
+    let tampon = "";
+    while (true) {
+      const { value, done } = await lecteur.read();
+      if (done) break;
+      tampon += dec.decode(value, { stream: true });
+      const lignes = tampon.split("\n");
+      tampon = lignes.pop();
+      for (const l of lignes) {
+        if (!l.trim()) continue;
+        let o;
+        try { o = JSON.parse(l); } catch (e) { continue; }
+        if (o.message && o.message.content) {
+          reponse += o.message.content;
+          cible.textContent = reponse;
+          fil.scrollTop = fil.scrollHeight;
+        }
+      }
+    }
+    cible.classList.remove("attente");
+    historique.push({ role: "assistant", content: reponse });
+  } catch (e) {
+    cible.remove();
+    panne("La réponse s'est arrêtée : " + e.message);
+  }
+  localStorage.setItem("dialogue", JSON.stringify(historique));
+}
+
+document.getElementById("envoi").onclick = envoyer;
+saisie.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); envoyer(); }
+});
+saisie.addEventListener("input", () => {
+  saisie.style.height = "auto";
+  saisie.style.height = Math.min(saisie.scrollHeight, 220) + "px";
+});
+
+document.getElementById("fichier").onclick = () => document.getElementById("choix").click();
+
+document.getElementById("choix").addEventListener("change", async (e) => {
+  const f = e.target.files && e.target.files[0];
+  if (!f) return;
+  try {
+    const t = await f.text();
+    memoire = { nom: f.name, texte: t.trim() };
+    afficherMemoire();
+    note("Fichier lu : " + f.name + " — " + humain(t.length) + " caractères. Rien n'a quitté cet ordinateur.");
+    if (memoire.texte.length > PLAFOND_CONFORT) {
+      panne("Ce fichier est long (" + humain(memoire.texte.length) + " caractères). Le petit modèle va en oublier la moitié. Il vaut mieux la fiche de 2 400 caractères.");
+    }
+  } catch (err) {
+    panne("Impossible de lire ce fichier : " + err.message);
+  }
+  e.target.value = "";
+});
+
+boutonVoir.onclick = () => {
+  note("── " + memoire.nom + " ──\n" + memoire.texte);
+};
+boutonOublier.onclick = () => {
+  chargerFiche();
+  note("Fichier oublié : retour à la fiche du site.");
+};
+
+document.getElementById("neuf").onclick = () => {
+  historique = [];
+  fil.innerHTML = "";
+  localStorage.removeItem("dialogue");
+  chargerFiche();
+  saisie.focus();
+};
+
+try {
+  const garde = JSON.parse(localStorage.getItem("dialogue") || "[]");
+  if (Array.isArray(garde) && garde.length) {
+    historique = garde;
+    for (const m of historique) bulle(m.role === "user" ? "user" : "assistant", m.content);
+  }
+} catch (e) {}
+
+chargerFiche();
+chargerModeles();
+</script>
+</body>
+</html>

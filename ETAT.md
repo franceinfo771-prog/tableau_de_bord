@@ -9,7 +9,7 @@
 > 1. **cette section** (où en sont les choses, ce qui est vivant, ce qui attend) ;
 > 2. **`projets.json`** (les données ; les chiffres s'en déduisent, ils ne se recopient pas) ;
 > 3. **le journal, plus bas**, du plus récent au plus ancien ;
-> 4. **« Détail des 6 projets »** (les cases cochées) et **« La veille, rangée »**
+> 4. **le détail des projets** (les cases cochées) et **« La veille, rangée »**
 >    (les 14 recherches et leur verdict).
 >
 > Les règles du projet, les garde-fous et ce qu'il ne faut pas refaire : `ASSISTANT.md`.
@@ -51,9 +51,9 @@ plus cher ailleurs.
 
 ## Vue d'ensemble
 
-- **Projets suivis** : 7
+- **Projets suivis** : 8
 - **Terminés** : 2 (`Notes de recherche`, `Les sites`)
-- **Étapes faites** : 31 / 44 (**70 %**)
+- **Étapes faites** : 33 / 49 (**67 %**)
 - **Veille** : 14 recherches consignées (7 retenues · 7 sans résultat)
 
 ## Où ça en est (l'étape qui débloque la suite, par projet ouvert)
@@ -62,13 +62,14 @@ plus cher ailleurs.
 2. **Maquette — une porte qui fait joli** (2/4 · 50 %) — Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ?
 3. **Vélo électrique DIY** (4/9 · 44 %) — Attendre la manette : AdreaPocket 5F36POIGELTROT, 13,99 €, **en rupture** au dernier relevé (19/11) — relevé à la main, le robot ne se réveille pas.
 4. **Assistants en ligne** (2/5 · 40 %) — Les tester sur 2-3 tâches réelles du quotidien.
+5. **Un lecteur local pour la mémoire du site** (2/5 · 40 %) — Poser au modèle une question dont la réponse est dans la fiche, puis une qui n'y est pas.
 
 ## Points ouverts (projets terminés)
 
 - **Notes de recherche** (3/3 · 100 %) — Gardée privée pour l'instant (décidé le 15 novembre 2026).
 - **Les sites** (10/10 · 100 %) — Abouti le 18 novembre 2026. La veille reste datée d'octobre : rafraîchie quand il y aura du nouveau, pas pour tenir un calendrier.
 
-## Détail des 6 projets
+## Détail des projets
 
 ### 1. Notes de recherche — 3 / 3 (100 %) · Terminé
 - [x] La note unique écrite — les trois notes fondues en une
@@ -126,7 +127,7 @@ plus cher ailleurs.
 > Tailscale, la Freebox et l'imprimante. La raison est aussi dans `IA-LOCALE.md`. **Ne pas reproposer
 > de faire tourner un modèle sur cette machine** sans qu'il le demande.
 
-### 7. IA locale sur vieux PC — ce qu'elle sait faire — 6 / 8 (75 %) · En cours
+### 7. IA locale sur vieux PC — ce qu'elle sait faire — 6 / 7 (86 %) · En cours
 - [x] Ollama installé sur la vieille machine (chemin ajouté au PATH, version vérifiée)
 - [x] Un modèle de 1 milliard de paramètres téléchargé et chargé — 1,3 Go
 - [x] Conversation en français : phrases correctes, mais réponses vides de contenu
@@ -141,6 +142,32 @@ plus cher ailleurs.
 > résume pas »**. Une seule chose reste à prouver : qu'il répond **sans réseau** — c'est l'étape
 > ouverte, et il suffit de couper le Wi-Fi deux minutes. Le verdict du 20/11 (« abandonnée ») reste
 > corrigé : elle a été essayée, et on sait maintenant exactement ce qu'elle sait faire.
+
+### 8. Un lecteur local pour la mémoire du site — 2 / 5 (40 %) · En cours
+- [x] Une fiche mémoire produite à partir d'`ETAT.md` et de `projets.json` — 2 723 caractères, pas 34 000
+- [x] Une page qui lit un fichier choisi sur le disque, sans rien envoyer — 42 contrôles verts
+- [ ] Le modèle répond à une question dont la réponse est **dans** la fiche
+- [ ] Le modèle avoue qu'il ne sait pas quand la réponse **n'est pas** dans la fiche
+- [ ] Verdict écrit : la mémoire à la maison sert-elle, oui ou non ?
+
+> **L'idée, dite simplement.** Le site a déjà sa mémoire — `projets.json`, `ETAT.md`,
+> `ASSISTANT.md`. Ce qui manque, ce n'est pas la mémoire, c'est **un lecteur qui vit à la maison**.
+> `pont-outils/chat.html` lit la fiche et la donne au modèle comme consigne. Rien ne sort de la
+> machine. Mais un modèle de 1 milliard de paramètres est un lecteur distrait : la fiche fait
+> 2 723 caractères, et c'est déjà beaucoup pour lui. Les trois dernières étapes sont là pour le
+> mesurer, pas pour l'espérer.
+>
+> **Ce que ce n'est pas** — et l'humain l'a tranché le 21/11 : *« il ne faut pas l'utiliser pour
+> l'IA interne du site »*. Il a raison, pour trois raisons qui ne dépendent d'aucune opinion. Le
+> site est **une page statique chez GitHub** : aucun serveur n'y tourne, donc aucun modèle ne peut
+> y être. Un visiteur ne peut pas joindre `127.0.0.1` — c'est l'intérieur de **ta** machine, pas
+> la sienne. Et ce modèle **ne sait pas lire le site** : il ne lit pas de fichiers, il ne résume
+> pas, il n'écrit pas de HTML. Il n'y aurait que le faire tourner dans le navigateur du visiteur
+> (300 à 800 Mo au premier chargement), ce qui casse la règle « aucune dépendance ».
+>
+> **L'IA du site existe pourtant, et elle est déjà au courant.** C'est la session qui lit le
+> dépôt ; sa mémoire, c'est `ETAT.md` et son ordre de lecture. Ce lecteur local est autre chose :
+> **un carnet de bord hors ligne**, utile quand on n'a pas de réseau — pas un substitut.
 
 ## La veille, rangée (14 recherches)
 
@@ -162,15 +189,36 @@ plus cher ailleurs.
 11. **Les gains d'un vélo à friction** — **retenue**. Rendement 60-80 % contre 85-92 % pour un moyeu. Pneu usé en 500-1 500 km contre 2 000-5 000. Perte de 20 à 40 % d'autonomie. Convergent sur plusieurs sources techniques indépendantes.
 12. **L'absorption réelle des mousses pyramidales — sans importance** — sans résultat. Recherche faite, puis mise hors du projet : la maquette est un objet d'aspect, pas un dispositif. NRC 0,70 à 1,00 selon l'épaisseur ; 0,18 à 0,24 à 125 Hz. Gardé pour mémoire, pas pour décider.
 13. **Une application Android pour un fichier hors ligne** — **retenue**. Trois outils officiels suffisent : aapt2, d8, apksigner. Aucun magasin, aucun compte développeur, aucun frais. L'application a été construite et signée v1+v2+v3.
-14. **Manette du vélo — prix relevés et modèle retenu (19/11)** — **retenue**. Choix : AdreaPocket 5F36POIGELTROT, 13,99 €, 5 fils (rouge +5 V, noir masse, blanc signal sur A0 ; 2 fils « Indicator »), guidon 22 mm (trou 22,2 mm). En rupture — décision d'attendre plutôt que payer plus cher, le vélo ne roulant pas en hiver. Comparatif du jour : MotoQuadElec 20 € (effet Hall 5 fils, stock Normandie, 2ᵉ connecteur = éclairage, pas coupe-circuit) ; MonsterBike62 25,99 € (bouton coupe-circuit, le plus sûr si AdreaPocket ne revient pas) ; Cdiscount 17-22 €. Anciennes réfs de la fiche du 13/11 : Enlybee B0DB6WCQVV 16,39 € (Amazon, indisponible) et Yosoo B08KY8HDN8 16,75 €. Alerte : le robot vérifie chaque matin à 7 h 20 la page AdreaPocket et publie alerte-manette.json — en service depuis le 19/11 à 10 h 47 (premier passage réussi, commit « Alerte manette »). Le jour du retour en stock, une alerte part automatiquement par e-mail.
+14. **Manette du vélo — prix relevés et modèle retenu (19/11)** — **retenue**. Choix : AdreaPocket 5F36POIGELTROT, 13,99 €, 5 fils (rouge +5 V, noir masse, blanc signal sur A0 ; 2 fils « Indicator »), guidon 22 mm (trou 22,2 mm). En rupture — décision d'attendre plutôt que payer plus cher, le vélo ne roulant pas en hiver. Comparatif du jour : MotoQuadElec 20 € (effet Hall 5 fils, stock Normandie, 2ᵉ connecteur = éclairage, pas coupe-circuit) ; MonsterBike62 25,99 € (bouton coupe-circuit, le plus sûr si AdreaPocket ne revient pas) ; Cdiscount 17-22 €. Anciennes réfs de la fiche du 13/11 : Enlybee B0DB6WCQVV 16,39 € (Amazon, indisponible) et Yosoo B08KY8HDN8 16,75 €. Alerte : le robot **est écrit et actif** sur le dépôt, mais **il ne se réveille pas tout seul** — un seul passage a eu lieu, le **20/11 à 15:29 UTC** (déclenchement planifié de GitHub, avec neuf heures de retard). Le relevé se fait **à la main**. **Ne jamais annoncer d'alerte automatique.**
 
 ## Journal récent
+
+- **21 novembre 2026 — la mémoire du site, à la maison** : l'humain propose que l'IA interne
+  « soit la mémoire du site à la maison ». Le mot est corrigé — **un modèle n'est pas une
+  mémoire, c'est un lecteur** — et l'idée devient un projet : une page qui lit la fiche du site
+  et la donne au modèle, sans rien envoyer. Trois pièces écrites : `pont-outils/fabriquer-fiche.py`
+  (la fiche, **2 723 caractères** extraits de `ETAT.md` et `projets.json`, jamais recopiés à la
+  main), `pont-outils/chat.html` (**la fiche est dedans**, donc la page marche en double-clic,
+  plus un bouton « Ouvrir un fichier »), et `scripts/verif_memoire.js` (**42 contrôles** : la fiche
+  reste courte et sans secret, la page ne parle qu'à `127.0.0.1`, aucun `chat.html` à la racine).
+  Au passage, la fiche a révélé trois erreurs dans `ETAT.md` : le projet IA locale écrit « 6/8 »
+  au lieu de **6/7**, et « Détail des **6** projets » alors qu'il y en avait sept. Corrigées.
+  **8 projets · 33 / 49 (67 %)**, et il reste l'essai réel — c'est lui qui donnera le verdict.
+
+- **21 novembre 2026 — non, ce ne sera pas l'IA du site** : l'humain conclut de lui-même
+  *« donc il ne faut pas l'utiliser pour IA interne du site en fait »*. C'est juste, et c'est
+  écrit tel quel : le site est **statique chez GitHub**, sans serveur ; un visiteur ne peut pas
+  joindre `127.0.0.1` ; et le modèle **ne lit pas** les fichiers. Le projet est donc renommé
+  **« Un lecteur local pour la mémoire du site »** — un carnet de bord hors ligne, pas un
+  substitut. **L'IA du site, elle, existe déjà : c'est la session qui lit ce fichier.**
+  Cette limite est écrite dans le bloc du projet, pas seulement ici.
+
 
 - **21 novembre 2026 (suite) — ce qu'elle sait faire, et ce qui reste à prouver** : l'humain pousse
   plus loin. Ollama **réussit une tâche réelle** — cinq lignes cohérentes sur un chat qui apprend à
   nager — alors que le résumé échoue. Le verdict se nuance : **« il raconte, il ne résume pas »**.
   Mais la preuve du fonctionnement hors ligne n'est pas faite : il reste à couper le Wi-Fi et poser
-  une question neuve. Le projet repasse donc **en cours** (6/8) et le tableau redescend à
+  une question neuve. Le projet repasse donc **en cours** (6/7) et le tableau redescend à
   **31 / 44 (70 %)** — un chiffre juste vaut mieux qu'un chiffre flatteur. Au passage, un piège
   relevé : interrogé sur sa connexion, le modèle affirme « je n'ai pas besoin d'Internet » — il ne
   sait pas vérifier sa propre connexion, sa parole ne prouve rien.
@@ -287,12 +335,12 @@ plus cher ailleurs.
 
 - **19 novembre 2026 — le site ne raconte plus sa fabrication** : demande de l'humain, « ça ne concerne que moi ». Retirés de la façade : l'encadré « Mon assistant Arena » et le premier message à copier, les deux boutons « Enregistrer sur GitHub », la modale de réglage de la clé et ses statuts, la mention « GitHub Pages » dans la note de confidentialité. L'outillage de publication **reste dans le code, muet** (choix de l'humain : rien ne casse, on peut revenir en arrière) — conséquence assumée : corriger une coche dans le navigateur ne publie plus rien. Sur la page veille SuperMimic, les liens vers le dépôt de code sont remplacés par « code source publié sous licence Apache 2.0 » ; page du projet et article arXiv restent cités. `atelier.html` nettoyée de même (« Mettre le site en ligne », procédure et adresse sans marque). Nouveau garde-fou : `scripts/verif_copie_commande.js`, réécrit, **22 contrôles** qui interdisent le retour de ces éléments à l'écran, sur les cinq pages publiques — avec une exception explicite : `supermimic.github.io`, adresse publique du sujet.
 
-- **19 novembre 2026 — la manette : choix tranché et alerte automatique** : la fiche du 13/11 (Drive) dit **5 fils** (rouge +5 V, noir masse, blanc signal sur A0, + 2 fils) alors que le tableau demandait « 3 fils » — corrigé. Modèle retenu : **AdreaPocket 5F36POIGELTROT, 13,99 €** (guidon 22 mm, trou 22,2 mm), **en rupture** ; décision de l'humain : attendre plutôt que payer 20 à 26 € ailleurs, le vélo ne roulant pas en hiver. Nouveau module `scripts/verifier_manette.py` (standard seul, décision prudente : rupture / disponible / **inconnu** si la page ne répond pas) et workflow `outils/alerte-manette/alerte-manette.yml` qui le lance **chaque matin à 7 h 20** et publie `alerte-manette.json` ; le tableau de bord l'affiche sur la carte du vélo (et **rien** si le fichier manque). Le jour du retour en stock, il **ouvre un ticket GitHub** — c'est la notification par e-mail — et le referme si la rupture revient. `scripts/verif_alerte_manette.js` : 37 contrôles.
+- **19 novembre 2026 — la manette : choix tranché et alerte « automatique »** : la fiche du 13/11 (Drive) dit **5 fils** (rouge +5 V, noir masse, blanc signal sur A0, + 2 fils) alors que le tableau demandait « 3 fils » — corrigé. Modèle retenu : **AdreaPocket 5F36POIGELTROT, 13,99 €** (guidon 22 mm, trou 22,2 mm), **en rupture** ; décision de l'humain : attendre plutôt que payer 20 à 26 € ailleurs, le vélo ne roulant pas en hiver. Nouveau module `scripts/verifier_manette.py` (standard seul, décision prudente : rupture / disponible / **inconnu** si la page ne répond pas) et workflow `outils/alerte-manette/alerte-manette.yml` qui le lance **chaque matin à 7 h 20** et publie `alerte-manette.json` ; le tableau de bord l'affiche sur la carte du vélo (et **rien** si le fichier manque). Le jour du retour en stock, il **ouvre un ticket GitHub** — c'est la notification par e-mail — et le referme si la rupture revient. `scripts/verif_alerte_manette.js` : 37 contrôles.
 
   **⚠ DÉMENTI LE 20/11 : il ne tourne PAS chaque matin** — aucune exécution planifiée n'a jamais eu
   lieu (voir le journal du 20/11). Le paragraphe qui suit décrit ce qui a fonctionné le 19/11, pas
   un service en marche.
-  **En service depuis 10 h 47.** Le workflow est actif sur `main` (`.github/workflows/alerte-manette.yml`, posé à la main dans l'onglet Actions) et son premier passage a réussi de bout en bout : la fiche a été lue depuis les serveurs GitHub, verdict `rupture`, et le robot a publié lui-même `alerte-manette.json` dans un commit signé « Alerte manette » (`07458b2`). Il tourne désormais chaque matin à 7 h 20 et commite un relevé par jour — l'heure changeant à chaque passage, le fichier diffère toujours : c'est aussi ce qui empêche GitHub d'endormir la tâche planifiée après 60 jours d'inactivité. GitHub refuse à l'application de l'assistant l'écriture dans `.github/workflows/` (droit `workflows` absent) : c'est pourquoi la source versionnée vit dans `outils/alerte-manette/` et que la copie active a été posée à la main. Si l'on doit un jour modifier le robot, modifier la source **puis** la copie active, jamais l'une sans l'autre.
+  **Annoncé « en service » le 19/11 à 10 h 47 — puis démenti le 20/11.** Le workflow est actif sur `main` (`.github/workflows/alerte-manette.yml`, posé à la main dans l'onglet Actions) et son premier passage a réussi de bout en bout : la fiche a été lue depuis les serveurs GitHub, verdict `rupture`, et le robot a publié lui-même `alerte-manette.json` dans un commit signé « Alerte manette » (`07458b2`). Il tourne désormais chaque matin à 7 h 20 et commite un relevé par jour — l'heure changeant à chaque passage, le fichier diffère toujours : c'est aussi ce qui empêche GitHub d'endormir la tâche planifiée après 60 jours d'inactivité. GitHub refuse à l'application de l'assistant l'écriture dans `.github/workflows/` (droit `workflows` absent) : c'est pourquoi la source versionnée vit dans `outils/alerte-manette/` et que la copie active a été posée à la main. Si l'on doit un jour modifier le robot, modifier la source **puis** la copie active, jamais l'une sans l'autre.
 
 - **18 novembre 2026 — archive avec mode d'emploi** : `scripts/construire_archive.py` fabrique `tableau-de-bord-2026-11-18.zip` (3 Mo), qui se rouvre sans réseau dans des années : page de démarrage, mode d'emploi imprimable (HTML + texte), site complet, code source, sauvegarde `.json`. Vérifié par `scripts/verif_archive.js` : 29 contrôles, dont l'ouverture réelle du site en `file://` (6 projets, 25/41, 13 veilles, aucune erreur).
 - **18 novembre 2026 — préparation de la démonstration** : la barre du haut ne mange plus la moitié d'un écran de téléphone (liens et actions en deux rangées qui glissent du doigt, sous 560 px). Un clic sur un projet ne casse plus si le navigateur refuse de changer l'adresse (page ouverte par double-clic, page affichée dans un cadre). Deux cas ajoutés aux vérifications : vider puis refaire une coche ramène exactement l'état de départ.
