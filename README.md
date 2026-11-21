@@ -10,7 +10,7 @@ Tableau de bord autonome de suivi de six projets, de la veille et du condensé.
 
 ## État au 19 novembre 2026
 
-**6 projets · 2 terminés · 25 / 37 étapes faites (68 %) · 14 recherches de veille.**
+**7 projets · 3 terminés · 30 / 42 étapes faites (71 %) · 14 recherches de veille.**
 
 | Projet | Avancement | Statut | Prochaine action / Point ouvert |
 |---|---:|---|---|
@@ -20,6 +20,7 @@ Tableau de bord autonome de suivi de six projets, de la veille et du condensé.
 | Maquette — une porte qui fait joli | 2 / 4 (50 %) | 🟡 En cours | Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ? |
 | Vélo électrique DIY | 4 / 9 (44 %) | 🟣 Commencé | Attendre la manette : AdreaPocket `5F36POIGELTROT`, 13,99 €, **en rupture** (relevé du 19/11, à la main) |
 | Assistants en ligne | 2 / 5 (40 %) | 🟣 Commencé | Les tester sur 2-3 tâches réelles du quotidien |
+| IA locale sur vieux PC — mesurée | 5 / 5 (100 %) | ✅ Terminé (21/11) | Verdict posé : Ollama tourne, ne rend pas de service |
 
 ## Données : `projets.json`
 

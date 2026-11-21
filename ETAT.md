@@ -1,9 +1,19 @@
 # État des projets — Tableau de bord
 
 > Version texte du tableau de bord visuel `index.html`.
-> Dernière mise à jour : 19 novembre 2026.
+> Dernière mise à jour : 21 novembre 2026.
 
 ## Reprendre la conversation (lire ceci d'abord)
+
+> **Tu arrives — lis dans cet ordre, et rien d'autre :**
+> 1. **cette section** (où en sont les choses, ce qui est vivant, ce qui attend) ;
+> 2. **`projets.json`** (les données ; les chiffres s'en déduisent, ils ne se recopient pas) ;
+> 3. **le journal, plus bas**, du plus récent au plus ancien ;
+> 4. **« Détail des 6 projets »** (les cases cochées) et **« La veille, rangée »**
+>    (les 14 recherches et leur verdict).
+>
+> Les règles du projet, les garde-fous et ce qu'il ne faut pas refaire : `ASSISTANT.md`.
+> Huit documents à la racine, mais **un seul chemin** — c'est celui-ci.
 
 Cette section existe pour qu'une nouvelle conversation sur ce dépôt reparte **sans faire
 répéter l'humain**. La lire en entier prend dix secondes.
@@ -41,9 +51,9 @@ plus cher ailleurs.
 
 ## Vue d'ensemble
 
-- **Projets suivis** : 6
-- **Terminés** : 2 (`Notes de recherche`, `Les sites`)
-- **Étapes faites** : 25 / 37 (**68 %**)
+- **Projets suivis** : 7
+- **Terminés** : 3 (`Notes de recherche`, `Les sites`, `IA locale sur vieux PC — mesurée`)
+- **Étapes faites** : 30 / 42 (**71 %**)
 - **Veille** : 14 recherches consignées (7 retenues · 7 sans résultat)
 
 ## Où ça en est (l'étape qui débloque la suite, par projet ouvert)
@@ -116,7 +126,63 @@ plus cher ailleurs.
 > Tailscale, la Freebox et l'imprimante. La raison est aussi dans `IA-LOCALE.md`. **Ne pas reproposer
 > de faire tourner un modèle sur cette machine** sans qu'il le demande.
 
+### 7. IA locale sur vieux PC — mesurée — 5 / 5 (100 %) · Terminé le 21/11
+- [x] Ollama installé sur la vieille machine (chemin ajouté au PATH, version vérifiée)
+- [x] Un modèle de 1 milliard de paramètres téléchargé et chargé — 1,3 Go
+- [x] Conversation en français : phrases correctes, mais réponses vides de contenu
+- [x] Résumé testé sur deux textes (un personnel, un neutre) : refusé dans les deux cas
+- [x] Verdict écrit : fonctionne hors ligne, ne rend pas de service — gardé par curiosité
+
+> **Pourquoi ce projet compte comme terminé** : il ne finit pas sur une réussite, mais sur une
+> **mesure**. Ollama tourne, parle français, et refuse ou tronque les résumés — y compris sur une
+> leçon de photosynthèse. Gardé sur la machine comme outil hors ligne de curiosité, 3 Go de disque.
+> Ce verdict **corrige celui du 20/11** (« l'IA locale est abandonnée ») : elle n'a pas été
+> abandonnée, elle a été essayée et mesurée.
+
+## La veille, rangée (14 recherches)
+
+> **Sept retenues, sept sans résultat** — et les impasses sont gardées exprès :
+> une recherche notée « sans résultat » est une recherche qu'on ne refait pas deux fois.
+> Cette liste est la version lisible de `projets.json` ; **le JSON reste la source de vérité**,
+> c'est le site qui l'affiche.
+
+1. **La manette : effet Hall ou potentiomètre ?** — **retenue**. Prix relevés : 14,99 € à 17,75 € pour une poignée 3 fils. Le piège : certaines poignées à 3 fils sont des potentiomètres — contact frottant, dérive dans le temps. La fiche doit dire « effet Hall » ou « sans contact ».
+2. **Les travaux savants sur le sujet de la note** — **retenue**. 7 requêtes OpenAlex · 57 408 travaux recensés · 93 liens de presse vus · 6 travaux retenus. Rapport de tri : un pour dix mille. Chercher « le sujet » ramène une araignée colombienne, parce que son descripteur s'appelle Perafán.
+3. **Un chiffre de « 30 % de croyants » cité en secondaire** — sans résultat. Une étude parue dans une revue est citée en source secondaire. Auteurs et date introuvables, texte non lisible. Le chiffre est mentionné dans la note, pas retenu. La question du nombre reste indécidable.
+4. **L'effectif d'une communauté discrète au XXᵉ siècle** — sans résultat. Aucun recensement fiable n'existe, et c'est cohérent : une communauté discrète ne se compte pas. Recherche arrêtée après trois sources qui se recopient.
+5. **L'occultation : 873 ou 874 ?** — sans résultat. Les sources divergent sur le comput, et le calendrier lunaire rend la conversion approximative. Aucune ne tranche de façon vérifiable. La note laisse les deux dates.
+6. **Le lien entre une attente messianique et la violence** — sans résultat. Recherche menée, puis écartée : les auteurs d'une revue (2026) nient explicitement tout lien causal direct. La thèse est donc fausse, pas seulement invérifiable.
+7. **Les quatre références de la note, une par une** — **retenue**. Trois DOI interrogés en direct (Crossref) : les trois répondent, titres et revues exacts. Deux ISBN confirmés (Open Library, éditeur) : Glinter 2024, Studemund-Halévy 2022. Une erreur trouvée : une page d'écart, corrigée.
+8. **La presse sur le sujet** — sans résultat. Times of Israel : accès refusé (403). Aucun article de presse n'apportait de fait que les six travaux ne portent déjà. Écartée.
+9. **Les pages de type encyclopédie collaborative** — sans résultat. Écartées volontairement : dates inventées, sources non traçables. Le test est simple — si la page ne dit pas d'où elle tient son fait, le fait n'existe pas.
+10. **La veille automatique — bulletins du 7 et du 8 novembre** — **retenue**. 331 articles analysés, 12 retenus, fenêtre de 7 jours. Rien qui concerne les projets en cours : c'est un flux généraliste, pas une veille ciblée.
+11. **Les gains d'un vélo à friction** — **retenue**. Rendement 60-80 % contre 85-92 % pour un moyeu. Pneu usé en 500-1 500 km contre 2 000-5 000. Perte de 20 à 40 % d'autonomie. Convergent sur plusieurs sources techniques indépendantes.
+12. **L'absorption réelle des mousses pyramidales — sans importance** — sans résultat. Recherche faite, puis mise hors du projet : la maquette est un objet d'aspect, pas un dispositif. NRC 0,70 à 1,00 selon l'épaisseur ; 0,18 à 0,24 à 125 Hz. Gardé pour mémoire, pas pour décider.
+13. **Une application Android pour un fichier hors ligne** — **retenue**. Trois outils officiels suffisent : aapt2, d8, apksigner. Aucun magasin, aucun compte développeur, aucun frais. L'application a été construite et signée v1+v2+v3.
+14. **Manette du vélo — prix relevés et modèle retenu (19/11)** — **retenue**. Choix : AdreaPocket 5F36POIGELTROT, 13,99 €, 5 fils (rouge +5 V, noir masse, blanc signal sur A0 ; 2 fils « Indicator »), guidon 22 mm (trou 22,2 mm). En rupture — décision d'attendre plutôt que payer plus cher, le vélo ne roulant pas en hiver. Comparatif du jour : MotoQuadElec 20 € (effet Hall 5 fils, stock Normandie, 2ᵉ connecteur = éclairage, pas coupe-circuit) ; MonsterBike62 25,99 € (bouton coupe-circuit, le plus sûr si AdreaPocket ne revient pas) ; Cdiscount 17-22 €. Anciennes réfs de la fiche du 13/11 : Enlybee B0DB6WCQVV 16,39 € (Amazon, indisponible) et Yosoo B08KY8HDN8 16,75 €. Alerte : le robot vérifie chaque matin à 7 h 20 la page AdreaPocket et publie alerte-manette.json — en service depuis le 19/11 à 10 h 47 (premier passage réussi, commit « Alerte manette »). Le jour du retour en stock, une alerte part automatiquement par e-mail.
+
 ## Journal récent
+
+- **21 novembre 2026 — l'IA locale, essayée pour de vrai** : l'humain rouvre l'idée abandonnée la
+  veille (« reprendre une idée qui a échoué »), installe **Ollama** sur la vieille machine, et on
+  mesure au lieu de supposer. Résultat : l'installation réussit (au prix d'un PATH à réparer), un
+  modèle `llama3.2:1b` de 1,3 Go se charge, et **il parle un français correct**. Mais les deux
+  tests de résumé échouent — y compris sur une leçon de photosynthèse : il refuse, puis résume en
+  une phrase. **Verdict : fonctionne, ne rend pas de service.** Nouveau projet
+  **« IA locale sur vieux PC — mesurée »**, 5/5, terminé le jour même : un projet qui finit sur un
+  verdict est un projet réussi. Chiffres : **7 projets · 30 / 42 (71 %)**. Les contrôles qui
+  supposaient 6 projets et 25/37 sont désormais dérivés de `projets.json` (quatre d'entre eux
+  étaient figés en dur et ont dû être corrigés).
+
+- **21 novembre 2026 — un seul chemin pour se mettre au courant** : demande de l'humain, « juste
+  avoir le chemin du dernier état du site, des recherches qui sont dedans rangées ». Constat :
+  huit documents à la racine, et une session qui arrive devait deviner lequel ouvrir. Ajout en
+  tête de ce fichier d'un **encadré d'ordre de lecture** en cinq étapes (cette section →
+  `projets.json` → journal → détail des projets → veille rangée), et d'une section
+  **« La veille, rangée »** qui recopie les **14 recherches** avec leur verdict — les 7 retenues
+  et les 7 sans résultat, impasses comprises, gardées exprès. `ASSISTANT.md` renvoie désormais à
+  cet ordre au lieu de citer les fichiers en vrac. Aucun fichier de plus, aucun contenu
+  dupliqué en double : `projets.json` reste la source de vérité, le tableau reste le site.
 
 - **20 novembre 2026 — le robot de la manette ne se réveille pas** : test mené jusqu'au bout sur
   demande de l'humain (« on teste ça »). Le workflow est `active`, le fichier complet et valide, le

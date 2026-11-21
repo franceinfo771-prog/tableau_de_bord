@@ -1,9 +1,11 @@
 # Consignes pour l'assistant (Arena ou autre)
 
 > Ce fichier est la **mémoire partagée** entre toutes les sessions de travail sur ce dépôt.
-> Au démarrage d'une session : lis ce fichier, **puis la section « Reprendre la conversation »
-> en tête d'`ETAT.md`** (elle dit où en sont les choses, ce qui est vivant et ce qui attend),
-> puis `projets.json`. Une session neuve ne doit jamais faire répéter l'humain.
+> Au démarrage d'une session : lis ce fichier, **puis suis l'ordre de lecture écrit en tête
+> d'`ETAT.md`** (section « Reprendre la conversation ») : cette section, `projets.json`, le
+> journal, le détail des projets, la veille rangée. **Un seul chemin, cinq étapes** — les huit
+> documents de la racine ne se lisent pas au hasard. Une session neuve ne doit jamais faire
+> répéter l'humain.
 
 ## Le dépôt en 4 points
 

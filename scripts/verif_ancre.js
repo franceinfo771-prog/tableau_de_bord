@@ -64,7 +64,7 @@ const pause = ms => new Promise(r => setTimeout(r, ms));
 
   await scenario('démarrage normal, sans ancre', 'https://x.test/tableau_de_bord/', {
     apres: async (doc, win) => {
-      verifie(doc.querySelectorAll('article.p').length === 6, '6 projets rendus');
+      verifie(doc.querySelectorAll('article.p').length === DONNEES.projets.length, DONNEES.projets.length + ' projets rendus');
       const ouverts = [...doc.querySelectorAll('article.p details')].filter(d => d.open);
       verifie(ouverts.length === 0, 'aucun projet déplié par défaut', ouverts.length + ' ouvert(s)');
       verifie(doc.getElementById('btn-toggle-all').textContent.includes('Tout déplier'), 'bouton = Tout déplier');
@@ -86,14 +86,14 @@ const pause = ms => new Promise(r => setTimeout(r, ms));
 
   await scenario('ancres de section et ancre inconnue', 'https://x.test/tableau_de_bord/#projets', {
     apres: async (doc) => {
-      verifie(doc.querySelectorAll('article.p').length === 6, '#projets : 6 cartes rendues');
+      verifie(doc.querySelectorAll('article.p').length === DONNEES.projets.length, '#projets : ' + DONNEES.projets.length + ' cartes rendues');
       doc.getElementById('haut').scrollIntoView();
     },
   });
 
   await scenario('ancre de projet inexistante', 'https://x.test/tableau_de_bord/#proj-inexistant', {
     apres: async (doc) => {
-      verifie(doc.querySelectorAll('article.p').length === 6, 'l\'ancre inconnue ne casse pas la page');
+      verifie(doc.querySelectorAll('article.p').length === DONNEES.projets.length, 'l\'ancre inconnue ne casse pas la page');
     },
   });
 
@@ -101,14 +101,15 @@ const pause = ms => new Promise(r => setTimeout(r, ms));
   await scenario('aperçu avec le filtre « Terminés »', 'https://x.test/tableau_de_bord/', {
     apres: async (doc, win) => {
       doc.querySelector('[data-filter="done"]').click();
-      verifie(doc.querySelectorAll('article.p').length === 2, 'filtre Terminés : 2 cartes');
+      const FINIS = DONNEES.projets.filter(p => p.etapes.length && p.etapes.every(e => e.ok)).length;
+      verifie(doc.querySelectorAll('article.p').length === FINIS, 'filtre Terminés : ' + FINIS + ' cartes');
       const lien = doc.querySelector('#overview .b[data-jump]') || doc.querySelector('[data-jump]');
       verifie(!!lien, 'un lien de saut est présent');
       if (!lien) return;
       const pid = lien.getAttribute('data-jump');
       lien.click();
       await pause(50);
-      verifie(doc.querySelectorAll('article.p').length === 6, 'le filtre revient à Tous (6 cartes)');
+      verifie(doc.querySelectorAll('article.p').length === DONNEES.projets.length, 'le filtre revient à Tous (' + DONNEES.projets.length + ' cartes)');
       verifie(doc.querySelector('[data-filter="all"]').classList.contains('active'), 'pastille Tous active');
       const det = doc.querySelector('#proj-' + pid + ' details');
       verifie(!!(det && det.open), 'le projet ' + pid + ' est déplié');
@@ -128,7 +129,7 @@ const pause = ms => new Promise(r => setTimeout(r, ms));
       if (!lien) return;
       lien.click();
       await pause(50);
-      verifie(doc.querySelectorAll('article.p').length === 6, 'le filtre revient à Tous');
+      verifie(doc.querySelectorAll('article.p').length === DONNEES.projets.length, 'le filtre revient à Tous');
       const det = doc.querySelector('#proj-velo details');
       verifie(!!(det && det.open), 'le projet vélo est déplié');
     },

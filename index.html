@@ -1597,6 +1597,21 @@ footer b{color:var(--ink-2)}
           { t: 'Noter ce qui marche pour chacun — pas seulement le classement, aussi les ratés', ok: false, custom: true },
           { t: 'Adopter celui qui sert vraiment, et laisser tomber les autres', ok: false, custom: true }
         ]
+      },
+      {
+        id: 'ia-locale-mesuree',
+        nom: 'IA locale sur vieux PC — mesurée',
+        idee: 'Installer Ollama sur la vieille machine et mesurer ce qu\'elle peut vraiment faire : pas d\'illusion, juste un verdict appuyé sur des tests.',
+        fin: 'Un verdict écrit, appuyé sur au moins deux tests réels : cette machine sert-elle, ou non ?',
+        ouvert: 'Verdict posé le 21/11 : Ollama fonctionne (français correct), mais il refuse ou tronque les résumés — il ne rend pas de service au quotidien. Gardé comme outil hors ligne de curiosité.',
+        custom: true,
+        etapes: [
+          { t: 'Ollama installé sur la vieille machine (chemin ajouté au PATH, version vérifiée)', ok: true, custom: true },
+          { t: 'Un modèle de 1 milliard de paramètres téléchargé et chargé — 1,3 Go', ok: true, custom: true },
+          { t: 'Conversation en français : phrases correctes, mais réponses vides de contenu', ok: true, custom: true },
+          { t: 'Résumé testé sur deux textes (un personnel, un neutre) : refusé dans les deux cas', ok: true, custom: true },
+          { t: 'Verdict écrit : fonctionne hors ligne, ne rend pas de service — gardé par curiosité', ok: true, custom: true }
+        ]
       }
     ],
     veille: [

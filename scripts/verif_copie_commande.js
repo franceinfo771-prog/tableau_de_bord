@@ -105,7 +105,8 @@ setTimeout(() => {
   verifie(!!doc.getElementById('btn-corriger'), 'le bouton Corriger est toujours là');
   verifie(!!doc.getElementById('btn-data'), 'le bouton Sauvegarder est toujours là');
   verifie(!!doc.getElementById('btn-print'), 'le bouton Imprimer est toujours là');
-  verifie(doc.querySelectorAll('.p').length === 6, 'les six cartes de projets sont là',
+  const NB = JSON.parse(fs.readFileSync(path.join(RACINE,'projets.json'),'utf8')).projets.length;
+  verifie(doc.querySelectorAll('.p').length === NB, 'les ' + NB + ' cartes de projets sont là',
     String(doc.querySelectorAll('.p').length));
   const noteCorriger = doc.getElementById('corriger-overlay');
   verifie(!noteCorriger || !/github/i.test(noteCorriger.textContent),

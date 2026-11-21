@@ -56,7 +56,7 @@ setTimeout(() => {
   verifie(!doc.getElementById('ia-locale'), 'aucune section #ia-locale');
   verifie(!doc.getElementById('ia-locale-zone'), 'aucun conteneur #ia-locale-zone');
   verifie(!doc.querySelector('a[href="#ia-locale"]'), 'aucun lien « IA locale » dans la barre');
-  verifie(!/renderIALocale|ia-locale/.test(page), 'aucun reste de code de la rubrique');
+  verifie(!/renderIALocale|id="ia-locale"|#ia-locale/.test(page), 'aucun reste de la rubrique (id, ancre, fonction)');
   verifie(!/ia-chat|ia-send|ia-token|ia-url|#ia-privee/.test(page), "aucun vestige de l'ancien chat local");
 
   console.log('== 2. la décision est écrite pour la suite ==');
