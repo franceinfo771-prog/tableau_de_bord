@@ -1,5 +1,11 @@
 # Consignes pour l'assistant (Arena ou autre)
 
+> **La source unique, quand deux documents se contredisent.** `ETAT.md` fait foi : c'est
+> l'état vivant. `ARCHIVE-SESSION-17-11.md` et `APERCU.md` sont des **traces datées** —
+> jamais l'état. `IA-LOCALE.md` est un **dossier d'impasse** que le 21/11 a démenti.
+> Ce qui a déjà été fait, réussi ou raté, et ce que les erreurs ont coûté : `ETAT-DES-LIEUX.md`.
+> Les chiffres ne se recopient jamais d'un document à l'autre : ils se lisent dans `projets.json`.
+
 > Ce fichier est la **mémoire partagée** entre toutes les sessions de travail sur ce dépôt.
 > Au démarrage d'une session : lis ce fichier, **puis suis l'ordre de lecture écrit en tête
 > d'`ETAT.md`** (section « Reprendre la conversation ») : cette section, `projets.json`, le

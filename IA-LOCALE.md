@@ -1,3 +1,15 @@
+> # ⚠ DÉMENTI LE 21 NOVEMBRE 2026
+>
+> Ce fichier dit « l'IA locale est abandonnée ». **C'est faux depuis le 21/11** : Ollama a été
+> installé et essayé sur le vieux PC. Résultat mesuré : il **tourne**, parle un français
+> correct, **raconte** une histoire courte — mais il **refuse ou tronque les résumés**, et il se
+> trompe dès qu'il faut compter. La conclusion du 19 novembre (« cette machine ne peut pas »)
+> était donc trop rapide : elle peut, mais pour très peu de chose.
+>
+> **L'état vivant est dans `ETAT.md`** (projet 7). Le détail des réussites et des ratés :
+> `ETAT-DES-LIEUX.md`. Ce qui reste vrai ici : le site ne peut pas être le chat (une page
+> statique n'a pas de serveur), et un visiteur ne peut pas joindre `127.0.0.1`.
+
 # L'IA locale — décision d'arrêt (19 novembre 2026)
 
 > **ARRÊTÉ LE 19 NOVEMBRE 2026.** L'humain a tranché : le PC de la maison est **un vieux PC**,
