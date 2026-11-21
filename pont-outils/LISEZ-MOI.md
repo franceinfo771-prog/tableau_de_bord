@@ -41,6 +41,20 @@ le petit modèle ne la lit pas, il la survole.
 C'est la deuxième question qui donne le verdict. Un modèle qui invente est
 plus dangereux qu'un modèle qui se tait.
 
+## Pourquoi ce n'est pas « l'IA du site »
+
+Tranché le 21/11. Trois raisons, aucune n'est une opinion :
+
+1. le site est **une page statique chez GitHub** — aucun serveur n'y tourne, donc
+   aucun modèle ne peut y être ;
+2. un visiteur ne peut pas joindre `127.0.0.1` : c'est l'intérieur de **ta** machine,
+   pas la sienne ;
+3. ce modèle **ne sait pas lire le site** — il ne lit pas de fichiers, il ne résume
+   pas, il n'écrit pas de HTML.
+
+L'IA du site existe quand même : c'est la session qui lit `ETAT.md`. Cette page-ci
+est **un carnet de bord hors ligne**, pas un substitut.
+
 ## Ce que cette page n'est pas
 
 - **pas une mémoire** : un modèle ne stocke pas des faits, il produit des tournures.

@@ -62,7 +62,7 @@ plus cher ailleurs.
 2. **Maquette — une porte qui fait joli** (2/4 · 50 %) — Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ?
 3. **Vélo électrique DIY** (4/9 · 44 %) — Attendre la manette : AdreaPocket 5F36POIGELTROT, 13,99 €, **en rupture** au dernier relevé (19/11) — relevé à la main, le robot ne se réveille pas.
 4. **Assistants en ligne** (2/5 · 40 %) — Les tester sur 2-3 tâches réelles du quotidien.
-5. **La mémoire du site à la maison** (2/5 · 40 %) — Poser au modèle une question dont la réponse est dans la fiche, puis une qui n'y est pas.
+5. **Un lecteur local pour la mémoire du site** (2/5 · 40 %) — Poser au modèle une question dont la réponse est dans la fiche, puis une qui n'y est pas.
 
 ## Points ouverts (projets terminés)
 
@@ -143,8 +143,8 @@ plus cher ailleurs.
 > ouverte, et il suffit de couper le Wi-Fi deux minutes. Le verdict du 20/11 (« abandonnée ») reste
 > corrigé : elle a été essayée, et on sait maintenant exactement ce qu'elle sait faire.
 
-### 8. La mémoire du site à la maison — 2 / 5 (40 %) · En cours
-- [x] Une fiche mémoire produite à partir d'`ETAT.md` et de `projets.json` — 2 584 caractères, pas 34 000
+### 8. Un lecteur local pour la mémoire du site — 2 / 5 (40 %) · En cours
+- [x] Une fiche mémoire produite à partir d'`ETAT.md` et de `projets.json` — 2 723 caractères, pas 34 000
 - [x] Une page qui lit un fichier choisi sur le disque, sans rien envoyer — 42 contrôles verts
 - [ ] Le modèle répond à une question dont la réponse est **dans** la fiche
 - [ ] Le modèle avoue qu'il ne sait pas quand la réponse **n'est pas** dans la fiche
@@ -154,8 +154,20 @@ plus cher ailleurs.
 > `ASSISTANT.md`. Ce qui manque, ce n'est pas la mémoire, c'est **un lecteur qui vit à la maison**.
 > `pont-outils/chat.html` lit la fiche et la donne au modèle comme consigne. Rien ne sort de la
 > machine. Mais un modèle de 1 milliard de paramètres est un lecteur distrait : la fiche fait
-> 2 584 caractères, et c'est déjà beaucoup pour lui. Les trois dernières étapes sont là pour le
+> 2 723 caractères, et c'est déjà beaucoup pour lui. Les trois dernières étapes sont là pour le
 > mesurer, pas pour l'espérer.
+>
+> **Ce que ce n'est pas** — et l'humain l'a tranché le 21/11 : *« il ne faut pas l'utiliser pour
+> l'IA interne du site »*. Il a raison, pour trois raisons qui ne dépendent d'aucune opinion. Le
+> site est **une page statique chez GitHub** : aucun serveur n'y tourne, donc aucun modèle ne peut
+> y être. Un visiteur ne peut pas joindre `127.0.0.1` — c'est l'intérieur de **ta** machine, pas
+> la sienne. Et ce modèle **ne sait pas lire le site** : il ne lit pas de fichiers, il ne résume
+> pas, il n'écrit pas de HTML. Il n'y aurait que le faire tourner dans le navigateur du visiteur
+> (300 à 800 Mo au premier chargement), ce qui casse la règle « aucune dépendance ».
+>
+> **L'IA du site existe pourtant, et elle est déjà au courant.** C'est la session qui lit le
+> dépôt ; sa mémoire, c'est `ETAT.md` et son ordre de lecture. Ce lecteur local est autre chose :
+> **un carnet de bord hors ligne**, utile quand on n'a pas de réseau — pas un substitut.
 
 ## La veille, rangée (14 recherches)
 
@@ -185,13 +197,21 @@ plus cher ailleurs.
   « soit la mémoire du site à la maison ». Le mot est corrigé — **un modèle n'est pas une
   mémoire, c'est un lecteur** — et l'idée devient un projet : une page qui lit la fiche du site
   et la donne au modèle, sans rien envoyer. Trois pièces écrites : `pont-outils/fabriquer-fiche.py`
-  (la fiche, **2 584 caractères** extraits de `ETAT.md` et `projets.json`, jamais recopiés à la
+  (la fiche, **2 723 caractères** extraits de `ETAT.md` et `projets.json`, jamais recopiés à la
   main), `pont-outils/chat.html` (**la fiche est dedans**, donc la page marche en double-clic,
   plus un bouton « Ouvrir un fichier »), et `scripts/verif_memoire.js` (**42 contrôles** : la fiche
   reste courte et sans secret, la page ne parle qu'à `127.0.0.1`, aucun `chat.html` à la racine).
   Au passage, la fiche a révélé trois erreurs dans `ETAT.md` : le projet IA locale écrit « 6/8 »
   au lieu de **6/7**, et « Détail des **6** projets » alors qu'il y en avait sept. Corrigées.
   **8 projets · 33 / 49 (67 %)**, et il reste l'essai réel — c'est lui qui donnera le verdict.
+
+- **21 novembre 2026 — non, ce ne sera pas l'IA du site** : l'humain conclut de lui-même
+  *« donc il ne faut pas l'utiliser pour IA interne du site en fait »*. C'est juste, et c'est
+  écrit tel quel : le site est **statique chez GitHub**, sans serveur ; un visiteur ne peut pas
+  joindre `127.0.0.1` ; et le modèle **ne lit pas** les fichiers. Le projet est donc renommé
+  **« Un lecteur local pour la mémoire du site »** — un carnet de bord hors ligne, pas un
+  substitut. **L'IA du site, elle, existe déjà : c'est la session qui lit ce fichier.**
+  Cette limite est écrite dans le bloc du projet, pas seulement ici.
 
 
 - **21 novembre 2026 (suite) — ce qu'elle sait faire, et ce qui reste à prouver** : l'humain pousse

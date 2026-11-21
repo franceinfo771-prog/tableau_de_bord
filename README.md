@@ -21,7 +21,7 @@ Tableau de bord autonome de suivi de six projets, de la veille et du condensé.
 | Vélo électrique DIY | 4 / 9 (44 %) | 🟣 Commencé | Attendre la manette : AdreaPocket `5F36POIGELTROT`, 13,99 €, **en rupture** (relevé du 19/11, à la main) |
 | Assistants en ligne | 2 / 5 (40 %) | 🟣 Commencé | Les tester sur 2-3 tâches réelles du quotidien |
 | IA locale sur vieux PC — ce qu'elle sait faire | 6 / 8 (75 %) | 🟣 En cours | Il raconte, il ne résume pas — reste à prouver sans réseau |
-| La mémoire du site à la maison | 2 / 5 (40 %) | 🟣 En cours | La fiche est écrite, la page lit les fichiers — reste l'essai réel |
+| Un lecteur local pour la mémoire du site | 2 / 5 (40 %) | 🟣 En cours | Carnet de bord hors ligne — pas l'IA du site |
 
 ## Données : `projets.json`
 
