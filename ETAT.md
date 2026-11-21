@@ -51,9 +51,9 @@ plus cher ailleurs.
 
 ## Vue d'ensemble
 
-- **Projets suivis** : 6
-- **Terminés** : 2 (`Notes de recherche`, `Les sites`)
-- **Étapes faites** : 25 / 37 (**68 %**)
+- **Projets suivis** : 7
+- **Terminés** : 3 (`Notes de recherche`, `Les sites`, `IA locale sur vieux PC — mesurée`)
+- **Étapes faites** : 30 / 42 (**71 %**)
 - **Veille** : 14 recherches consignées (7 retenues · 7 sans résultat)
 
 ## Où ça en est (l'étape qui débloque la suite, par projet ouvert)
@@ -126,6 +126,19 @@ plus cher ailleurs.
 > Tailscale, la Freebox et l'imprimante. La raison est aussi dans `IA-LOCALE.md`. **Ne pas reproposer
 > de faire tourner un modèle sur cette machine** sans qu'il le demande.
 
+### 7. IA locale sur vieux PC — mesurée — 5 / 5 (100 %) · Terminé le 21/11
+- [x] Ollama installé sur la vieille machine (chemin ajouté au PATH, version vérifiée)
+- [x] Un modèle de 1 milliard de paramètres téléchargé et chargé — 1,3 Go
+- [x] Conversation en français : phrases correctes, mais réponses vides de contenu
+- [x] Résumé testé sur deux textes (un personnel, un neutre) : refusé dans les deux cas
+- [x] Verdict écrit : fonctionne hors ligne, ne rend pas de service — gardé par curiosité
+
+> **Pourquoi ce projet compte comme terminé** : il ne finit pas sur une réussite, mais sur une
+> **mesure**. Ollama tourne, parle français, et refuse ou tronque les résumés — y compris sur une
+> leçon de photosynthèse. Gardé sur la machine comme outil hors ligne de curiosité, 3 Go de disque.
+> Ce verdict **corrige celui du 20/11** (« l'IA locale est abandonnée ») : elle n'a pas été
+> abandonnée, elle a été essayée et mesurée.
+
 ## La veille, rangée (14 recherches)
 
 > **Sept retenues, sept sans résultat** — et les impasses sont gardées exprès :
@@ -149,6 +162,17 @@ plus cher ailleurs.
 14. **Manette du vélo — prix relevés et modèle retenu (19/11)** — **retenue**. Choix : AdreaPocket 5F36POIGELTROT, 13,99 €, 5 fils (rouge +5 V, noir masse, blanc signal sur A0 ; 2 fils « Indicator »), guidon 22 mm (trou 22,2 mm). En rupture — décision d'attendre plutôt que payer plus cher, le vélo ne roulant pas en hiver. Comparatif du jour : MotoQuadElec 20 € (effet Hall 5 fils, stock Normandie, 2ᵉ connecteur = éclairage, pas coupe-circuit) ; MonsterBike62 25,99 € (bouton coupe-circuit, le plus sûr si AdreaPocket ne revient pas) ; Cdiscount 17-22 €. Anciennes réfs de la fiche du 13/11 : Enlybee B0DB6WCQVV 16,39 € (Amazon, indisponible) et Yosoo B08KY8HDN8 16,75 €. Alerte : le robot vérifie chaque matin à 7 h 20 la page AdreaPocket et publie alerte-manette.json — en service depuis le 19/11 à 10 h 47 (premier passage réussi, commit « Alerte manette »). Le jour du retour en stock, une alerte part automatiquement par e-mail.
 
 ## Journal récent
+
+- **21 novembre 2026 — l'IA locale, essayée pour de vrai** : l'humain rouvre l'idée abandonnée la
+  veille (« reprendre une idée qui a échoué »), installe **Ollama** sur la vieille machine, et on
+  mesure au lieu de supposer. Résultat : l'installation réussit (au prix d'un PATH à réparer), un
+  modèle `llama3.2:1b` de 1,3 Go se charge, et **il parle un français correct**. Mais les deux
+  tests de résumé échouent — y compris sur une leçon de photosynthèse : il refuse, puis résume en
+  une phrase. **Verdict : fonctionne, ne rend pas de service.** Nouveau projet
+  **« IA locale sur vieux PC — mesurée »**, 5/5, terminé le jour même : un projet qui finit sur un
+  verdict est un projet réussi. Chiffres : **7 projets · 30 / 42 (71 %)**. Les contrôles qui
+  supposaient 6 projets et 25/37 sont désormais dérivés de `projets.json` (quatre d'entre eux
+  étaient figés en dur et ont dû être corrigés).
 
 - **21 novembre 2026 — un seul chemin pour se mettre au courant** : demande de l'humain, « juste
   avoir le chemin du dernier état du site, des recherches qui sont dedans rangées ». Constat :

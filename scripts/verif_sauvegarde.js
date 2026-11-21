@@ -70,8 +70,9 @@ setTimeout(async () => {
     const texte = await fichier.text();
     try { donnees = JSON.parse(texte); } catch (e) {}
     verifie(!!donnees, 'le fichier est du JSON valide');
-    verifie(donnees && Array.isArray(donnees.projets) && donnees.projets.length === 6,
-      'il contient les six projets', donnees ? String(donnees.projets.length) : '');
+    const NB_ATTENDUS = JSON.parse(fs.readFileSync(path.join(RACINE,'projets.json'),'utf8')).projets.length;
+    verifie(donnees && Array.isArray(donnees.projets) && donnees.projets.length === NB_ATTENDUS,
+      'il contient les ' + donnees.projets.length + ' projets', donnees ? String(donnees.projets.length) : '');
     verifie(donnees && Array.isArray(donnees.veille) && donnees.veille.length === 14,
       'il contient les quatorze recherches de veille', donnees ? String(donnees.veille.length) : '');
     verifie(donnees && Array.isArray(donnees.condense) && donnees.condense.length > 0,
@@ -93,7 +94,7 @@ setTimeout(async () => {
     Object.defineProperty(input, 'files', { configurable: true, value: [fichierJson] });
     input.dispatchEvent(new dom.window.Event('change'));
     await new Promise(r => setTimeout(r, 250));
-    verifie(doc.querySelectorAll('.p').length === 6, 'après import, les six cartes sont rendues',
+    verifie(doc.querySelectorAll('.p').length === donnees.projets.length, 'après import, les ' + donnees.projets.length + ' cartes sont rendues',
       String(doc.querySelectorAll('.p').length));
     verifie(erreurs.length === 0, 'aucune erreur JS à l’import', erreurs.slice(0, 2).join(' | '));
   }
