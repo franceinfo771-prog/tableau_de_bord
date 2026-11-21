@@ -60,22 +60,22 @@ plus cher ailleurs.
 ## Vue d'ensemble
 
 - **Projets suivis** : 8
-- **Terminés** : 2 (`Notes de recherche`, `Les sites`)
-- **Étapes faites** : 34 / 50 (**68 %**)
+- **Terminés** : 3 (`Notes de recherche`, `Les sites`, `Un lecteur local pour la mémoire du site`)
+- **Étapes faites** : 36 / 50 (**72 %**)
 - **Veille** : 14 recherches consignées (7 retenues · 7 sans résultat)
 
 ## Où ça en est (l'étape qui débloque la suite, par projet ouvert)
 
-1. **Une application de poche** (4/7 · 57 %) — Installer l'application sur un téléphone réel.
+1. **Une application de poche** (4/7 · 57 %) — Essayer l'application sur un vrai téléphone — le sien, ou un Android prêté.
 2. **Maquette — une porte qui fait joli** (2/4 · 50 %) — Regarder l'épreuve : ça tient ? ça se voit à un mètre ? ça se photographie ?
 3. **Vélo électrique DIY** (4/9 · 44 %) — Attendre la manette : AdreaPocket 5F36POIGELTROT, 13,99 €, **en rupture** au dernier relevé (19/11) — relevé à la main, le robot ne se réveille pas.
 4. **Assistants en ligne** (2/5 · 40 %) — Les tester sur 2-3 tâches réelles du quotidien.
-5. **Un lecteur local pour la mémoire du site** (3/5 · 60 %) — Poser au modèle une question dont la réponse est dans la fiche, puis une qui n'y est pas.
 
 ## Points ouverts (projets terminés)
 
 - **Notes de recherche** (3/3 · 100 %) — Gardée privée pour l'instant (décidé le 15 novembre 2026).
 - **Les sites** (10/10 · 100 %) — Abouti le 18 novembre 2026. La veille reste datée d'octobre : rafraîchie quand il y aura du nouveau, pas pour tenir un calendrier.
+- **Un lecteur local pour la mémoire du site** (5/5 · 100 %) — Terminé le 21 novembre 2026 sur un verdict. **Il recopie, il ne cherche pas — mais il ne ment pas.** Privé de réponse, il dit « je ne sais pas » et demande, au lieu d'inventer. Utile comme carnet de bord hors ligne qui dit ce qu'il sait et s'arrête là ; inutilisable pour retrouver un fait précis dans un texte. Et il **n'est pas** l'IA du site : le site est une page publique sans serveur.
 
 ## Détail des projets
 
@@ -152,12 +152,12 @@ plus cher ailleurs.
 > ouverte, et il suffit de couper le Wi-Fi deux minutes. Le verdict du 20/11 (« abandonnée ») reste
 > corrigé : elle a été essayée, et on sait maintenant exactement ce qu'elle sait faire.
 
-### 8. Un lecteur local pour la mémoire du site — 2 / 5 (40 %) · En cours
+### 8. Un lecteur local pour la mémoire du site — 5 / 5 (100 %) · Terminé
 - [x] Une fiche mémoire produite à partir d'`ETAT.md` et de `projets.json` — 2 723 caractères, pas 34 000
 - [x] Une page qui lit un fichier choisi sur le disque, sans rien envoyer — 42 contrôles verts
 - [x] Le modèle répond à une question dont la réponse est dans la fiche — mesuré le 21/11 : chiffres justes, classement faux
-- [ ] Le modèle avoue qu'il ne sait pas quand la réponse **n'est pas** dans la fiche
-- [ ] Verdict écrit : la mémoire à la maison sert-elle, oui ou non ?
+- [x] Le modèle avoue qu'il ne sait pas quand la réponse n'est **pas** dans la fiche — « Quel est mon prénom ? » (mot absent de la fiche) → *« Je ne sais pas. Tu as oublié de me dire ton prénom ! »*
+- [x] Verdict écrit : la mémoire à la maison sert-elle, oui ou non ? — **oui pour recopier et s'arrêter, non pour chercher**
 
 > **L'idée, dite simplement.** Le site a déjà sa mémoire — `projets.json`, `ETAT.md`,
 > `ASSISTANT.md`. Ce qui manque, ce n'est pas la mémoire, c'est **un lecteur qui vit à la maison**.
@@ -165,6 +165,15 @@ plus cher ailleurs.
 > machine. Mais un modèle de 1 milliard de paramètres est un lecteur distrait : la fiche fait
 > 2 723 caractères, et c'est déjà beaucoup pour lui. Les trois dernières étapes sont là pour le
 > mesurer, pas pour l'espérer.
+>
+> **Verdict du 21 novembre 2026 — il recopie, il ne cherche pas, mais il ne ment pas.** Trois
+> questions ont suffi. *« Quels projets sont terminés ? »* → les chiffres sont justes, le classement
+> est faux, et trois projets manquent. *« Combien d'étapes du vélo ? »* → la fiche dit `4/9` deux
+> lignes plus haut ; il répond **2** et invente l'étiquette « nulle étape ». *« Quel est mon
+> prénom ? »* — mot **absent** de la fiche → **« Je ne sais pas. Tu as oublié de me dire ton
+> prénom ! »**. Aucune invention, et une question à la place. C'est la distinction qui compte :
+> il ne sait pas chercher dans un texte, mais **il ne remplit pas le vide**. Un carnet de bord qui
+> dit ce qu'il sait et s'arrête là vaut mieux qu'un bavard plausible.
 >
 > **Ce que ce n'est pas** — et l'humain l'a tranché le 21/11 : *« il ne faut pas l'utiliser pour
 > l'IA interne du site »*. Il a raison, pour trois raisons qui ne dépendent d'aucune opinion. Le
@@ -252,6 +261,24 @@ plus cher ailleurs.
   et les 7 sans résultat, impasses comprises, gardées exprès. `ASSISTANT.md` renvoie désormais à
   cet ordre au lieu de citer les fichiers en vrac. Aucun fichier de plus, aucun contenu
   dupliqué en double : `projets.json` reste la source de vérité, le tableau reste le site.
+
+- **21 novembre 2026 — « je ne sais pas » : le lecteur local se termine sur un verdict** : dernière
+  mesure du projet, et la plus importante. Question posée : *« Quel est mon prénom ? »* — le mot
+  **prénom n'apparaît nulle part** dans la fiche (vérifié : zéro occurrence). Réponse : *« Je ne sais
+  pas. Tu me dis que tu dissembles, mais je ne sais pas non plus. Tu as oublié de me dire ton
+  prénom ! »* **Aucune invention.** Il dit qu'il ne sait pas, puis il demande. C'est la qualité
+  qu'on ne lui connaissait pas.
+  Le projet **« Un lecteur local pour la mémoire du site » passe à 5/5 et se termine** sur un verdict :
+  **il recopie, il ne cherche pas — mais il ne ment pas.** Ses trois faiblesses et sa force, mesurées
+  le même jour : il ne retrouve pas un chiffre écrit deux lignes plus haut, il classe mal une liste,
+  il recalcule faux — mais privé de réponse, il s'arrête et demande. Utile comme carnet de bord hors
+  ligne qui dit ce qu'il sait ; inutilisable pour chercher un fait dans un texte. Et il **n'est pas**
+  l'IA du site, comme tranché plus bas.
+  Chiffres : **36 / 50 (72 %)**, **3 projets terminés** — le pourcentage monte de 4 points parce que
+  cinq étapes se cochent d'un coup en fin de projet. Corrigé au passage : `accueil.html` annonçait
+  encore **2 terminés** et « Les **six** projets », et la description de `index.html` disait « six
+  projets, à la date du 19 novembre ». L'essai hors réseau, lui, reste à faire : c'est une **autre**
+  étape, dans le projet « IA locale sur vieux PC » (6/7).
 
 - **21 novembre 2026 — ce que le petit modèle sait vraiment faire, mesuré** : trois questions posées
   dans `chat.html`, fiche chargée, aucune choisie pour le flatter. **1.** « Quels projets sont

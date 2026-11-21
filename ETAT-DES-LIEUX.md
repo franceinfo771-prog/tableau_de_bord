@@ -80,7 +80,7 @@ au lieu de les recopier. C'est l'argument le plus fort en faveur du script.
 | Projets suivis | **8** |
 | Terminés | **2** (`Notes de recherche`, `Les sites`) |
 | Étapes faites | **33 / 49 (67 %)** au moment des essais |
-| Étapes faites, depuis | **34 / 50 (68 %)** — le lecteur local 3/5, l'application de poche 4/7 |
+| Étapes faites, depuis | **36 / 50 (72 %)** — 3 projets terminés, le lecteur local à 5/5 |
 | Veille | 14 recherches — 7 retenues, 7 sans résultat |
 
 **Le pourcentage baisse quand le travail progresse** : ajouter un projet ouvert fait monter
@@ -125,6 +125,28 @@ sur une seule ligne de texte, et il l'a manquée. Le problème n'est pas la long
 Une nuance, pour être juste : la fiche donne le compte (`4/9`) mais pas *lesquelles* des
 neuf étapes sont faites. Il avait donc le chiffre, pas le détail. N'empêche : il a ignoré
 un chiffre écrit noir sur blanc et inventé « nulle étape ».
+
+### « Quel est mon prénom ? » — et il a dit la vérité
+
+Le mot *prénom* n'apparaît **nulle part** dans la fiche (vérifié : zéro occurrence). Sa réponse :
+
+> « Je ne sais pas. Tu me dis que tu dissembles, mais je ne sais pas non plus. Tu as oublié de me
+> dire ton prénom ! »
+
+**Aucune invention, et une question à la place.** C'est la qualité qu'on ne lui connaissait pas.
+
+### Le verdict, et il est meilleur que prévu
+
+| Ce qu'il ne sait pas faire | Ce qu'il fait très bien |
+|---|---|
+| retrouver un fait dans un texte | **dire « je ne sais pas »** |
+| classer une liste | **demander au lieu de deviner** |
+| calculer | ne pas broder |
+
+**Il recopie, il ne cherche pas — mais il ne ment pas.** Ce n'est pas la même chose qu'un modèle
+qui invente. Pour un carnet de bord, c'est la qualité qui compte le plus.
+
+Le projet **« Un lecteur local pour la mémoire du site » se termine à 5/5** sur ce verdict.
 
 ### Une erreur de ma part, corrigée ici
 
