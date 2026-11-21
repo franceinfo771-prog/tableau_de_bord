@@ -52,8 +52,8 @@ plus cher ailleurs.
 ## Vue d'ensemble
 
 - **Projets suivis** : 7
-- **Terminés** : 3 (`Notes de recherche`, `Les sites`, `IA locale sur vieux PC — mesurée`)
-- **Étapes faites** : 30 / 42 (**71 %**)
+- **Terminés** : 2 (`Notes de recherche`, `Les sites`)
+- **Étapes faites** : 31 / 44 (**70 %**)
 - **Veille** : 14 recherches consignées (7 retenues · 7 sans résultat)
 
 ## Où ça en est (l'étape qui débloque la suite, par projet ouvert)
@@ -126,18 +126,21 @@ plus cher ailleurs.
 > Tailscale, la Freebox et l'imprimante. La raison est aussi dans `IA-LOCALE.md`. **Ne pas reproposer
 > de faire tourner un modèle sur cette machine** sans qu'il le demande.
 
-### 7. IA locale sur vieux PC — mesurée — 5 / 5 (100 %) · Terminé le 21/11
+### 7. IA locale sur vieux PC — ce qu'elle sait faire — 6 / 8 (75 %) · En cours
 - [x] Ollama installé sur la vieille machine (chemin ajouté au PATH, version vérifiée)
 - [x] Un modèle de 1 milliard de paramètres téléchargé et chargé — 1,3 Go
 - [x] Conversation en français : phrases correctes, mais réponses vides de contenu
 - [x] Résumé testé sur deux textes (un personnel, un neutre) : refusé dans les deux cas
 - [x] Verdict écrit : fonctionne hors ligne, ne rend pas de service — gardé par curiosité
+- [x] Une tâche réelle réussie — cinq lignes cohérentes sur un chat qui apprend à nager
+- [ ] **Tourner sans réseau, prouvé** — couper le Wi-Fi, poser une question neuve, obtenir une réponse
 
-> **Pourquoi ce projet compte comme terminé** : il ne finit pas sur une réussite, mais sur une
-> **mesure**. Ollama tourne, parle français, et refuse ou tronque les résumés — y compris sur une
-> leçon de photosynthèse. Gardé sur la machine comme outil hors ligne de curiosité, 3 Go de disque.
-> Ce verdict **corrige celui du 20/11** (« l'IA locale est abandonnée ») : elle n'a pas été
-> abandonnée, elle a été essayée et mesurée.
+> **Ce que la mesure a donné, sans arrondi** : Ollama tourne, parle français, **raconte une histoire
+> de cinq lignes** avec un début et une fin — mais il **refuse ou tronque les résumés**, y compris
+> sur une leçon de photosynthèse. Ce n'est donc pas « inutilisable » : c'est **« il raconte, il ne
+> résume pas »**. Une seule chose reste à prouver : qu'il répond **sans réseau** — c'est l'étape
+> ouverte, et il suffit de couper le Wi-Fi deux minutes. Le verdict du 20/11 (« abandonnée ») reste
+> corrigé : elle a été essayée, et on sait maintenant exactement ce qu'elle sait faire.
 
 ## La veille, rangée (14 recherches)
 
@@ -162,6 +165,15 @@ plus cher ailleurs.
 14. **Manette du vélo — prix relevés et modèle retenu (19/11)** — **retenue**. Choix : AdreaPocket 5F36POIGELTROT, 13,99 €, 5 fils (rouge +5 V, noir masse, blanc signal sur A0 ; 2 fils « Indicator »), guidon 22 mm (trou 22,2 mm). En rupture — décision d'attendre plutôt que payer plus cher, le vélo ne roulant pas en hiver. Comparatif du jour : MotoQuadElec 20 € (effet Hall 5 fils, stock Normandie, 2ᵉ connecteur = éclairage, pas coupe-circuit) ; MonsterBike62 25,99 € (bouton coupe-circuit, le plus sûr si AdreaPocket ne revient pas) ; Cdiscount 17-22 €. Anciennes réfs de la fiche du 13/11 : Enlybee B0DB6WCQVV 16,39 € (Amazon, indisponible) et Yosoo B08KY8HDN8 16,75 €. Alerte : le robot vérifie chaque matin à 7 h 20 la page AdreaPocket et publie alerte-manette.json — en service depuis le 19/11 à 10 h 47 (premier passage réussi, commit « Alerte manette »). Le jour du retour en stock, une alerte part automatiquement par e-mail.
 
 ## Journal récent
+
+- **21 novembre 2026 (suite) — ce qu'elle sait faire, et ce qui reste à prouver** : l'humain pousse
+  plus loin. Ollama **réussit une tâche réelle** — cinq lignes cohérentes sur un chat qui apprend à
+  nager — alors que le résumé échoue. Le verdict se nuance : **« il raconte, il ne résume pas »**.
+  Mais la preuve du fonctionnement hors ligne n'est pas faite : il reste à couper le Wi-Fi et poser
+  une question neuve. Le projet repasse donc **en cours** (6/8) et le tableau redescend à
+  **31 / 44 (70 %)** — un chiffre juste vaut mieux qu'un chiffre flatteur. Au passage, un piège
+  relevé : interrogé sur sa connexion, le modèle affirme « je n'ai pas besoin d'Internet » — il ne
+  sait pas vérifier sa propre connexion, sa parole ne prouve rien.
 
 - **21 novembre 2026 — l'IA locale, essayée pour de vrai** : l'humain rouvre l'idée abandonnée la
   veille (« reprendre une idée qui a échoué »), installe **Ollama** sur la vieille machine, et on
